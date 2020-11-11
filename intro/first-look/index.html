@@ -1,0 +1,2075 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DFiant Hardware Description Language (HDL) Documentation">
+      
+      
+      
+        <link rel="canonical" href="https://dfianthdl.github.io/intro/first-look/">
+      
+      
+        <meta name="author" content="Oron Port">
+      
+      <link rel="shortcut icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.1.4">
+    
+    
+      
+        <title>DFiant: First Look - DFDocs</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.358818c7.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.f0267088.min.css">
+        
+          
+          
+          <meta name="theme-color" content="#4051b5">
+        
+      
+    
+    
+    
+      
+        
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&display=fallback">
+        <style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+      
+    
+    
+    
+      <link rel="stylesheet" href="../../css/vs.css">
+    
+      <link rel="stylesheet" href="../../css/extra.css">
+    
+    
+      
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="" data-md-color-primary="indigo" data-md-color-accent="indigo">
+      
+  
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#dfiant-first-look" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid" aria-label="Header">
+    <a href="https://dfianthdl.github.io/" title="DFDocs" class="md-header-nav__button md-logo" aria-label="DFDocs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+
+    </a>
+    <label class="md-header-nav__button md-icon" for="__drawer">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"/></svg>
+    </label>
+    <div class="md-header-nav__title" data-md-component="header-title">
+      
+        <div class="md-header-nav__ellipsis">
+          <span class="md-header-nav__topic md-ellipsis">
+            DFDocs
+          </span>
+          <span class="md-header-nav__topic md-ellipsis">
+            
+              DFiant: First Look
+            
+          </span>
+        </div>
+      
+    </div>
+    
+      <label class="md-header-nav__button md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+      </label>
+      
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" data-md-state="active">
+      <label class="md-search__icon md-icon" for="__search">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+      </label>
+      <button type="reset" class="md-search__icon md-icon" aria-label="Clear" data-md-component="search-reset" tabindex="-1">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/></svg>
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+    
+      <div class="md-header-nav__source">
+        
+<a href="https://github.com/DFiantHDL/DFiant/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DFiantHDL/DFiant
+  </div>
+</a>
+      </div>
+    
+  </nav>
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="https://dfianthdl.github.io/" title="DFDocs" class="md-nav__button md-logo" aria-label="DFDocs">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8h5z"/></svg>
+
+    </a>
+    DFDocs
+  </label>
+  
+    <div class="md-nav__source">
+      
+<a href="https://github.com/DFiantHDL/DFiant/" title="Go to repository" class="md-source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M439.55 236.05L244 40.45a28.87 28.87 0 00-40.81 0l-40.66 40.63 51.52 51.52c27.06-9.14 52.68 16.77 43.39 43.68l49.66 49.66c34.23-11.8 61.18 31 35.47 56.69-26.49 26.49-70.21-2.87-56-37.34L240.22 199v121.85c25.3 12.54 22.26 41.85 9.08 55a34.34 34.34 0 01-48.55 0c-17.57-17.6-11.07-46.91 11.25-56v-123c-20.8-8.51-24.6-30.74-18.64-45L142.57 101 8.45 235.14a28.86 28.86 0 000 40.81l195.61 195.6a28.86 28.86 0 0040.8 0l194.69-194.69a28.86 28.86 0 000-40.81z"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DFiantHDL/DFiant
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
+    
+    <label class="md-nav__link" for="nav-1">
+      Introduction
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Introduction" data-md-level="1">
+      <label class="md-nav__title" for="nav-1">
+        <span class="md-nav__icon md-icon"></span>
+        Introduction
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../.." class="md-nav__link">
+      DFDocs
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        DFiant: First Look
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
+      DFiant: First Look
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-feature-overview" class="md-nav__link">
+    Main Feature Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example-an-identity-function" class="md-nav__link">
+    Basic Example: An Identity Function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hierarchy-and-connection-example" class="md-nav__link">
+    Hierarchy and Connection Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finite-step-state-machine-fsm-example" class="md-nav__link">
+    Finite Step (State) Machine (FSM) Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-moving-average" class="md-nav__link">
+    Simple Moving Average
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Moving Average">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-feedback-implementation" class="md-nav__link">
+    No feedback implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feedback-implementation" class="md-nav__link">
+    Feedback implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looks-cool-i-wish-to-know-more" class="md-nav__link">
+    Looks cool! I wish to know more
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../motivation/" class="md-nav__link">
+      Motivation (Why Another HDL)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../dataflow-abstraction/" class="md-nav__link">
+      A Dataflow Hardware Description Abstraction
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-2" type="checkbox" id="nav-2">
+    
+    <label class="md-nav__link" for="nav-2">
+      Getting Started
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="Getting Started" data-md-level="1">
+      <label class="md-nav__title" for="nav-2">
+        <span class="md-nav__icon md-icon"></span>
+        Getting Started
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/initial-setup/" class="md-nav__link">
+      Initial Setup
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../getting-started/hello-world.md" class="md-nav__link">
+      Hello Hardware World
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3">
+    
+    <label class="md-nav__link" for="nav-3">
+      User Guide
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="User Guide" data-md-level="1">
+      <label class="md-nav__title" for="nav-3">
+        <span class="md-nav__icon md-icon"></span>
+        User Guide
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/type-system/" class="md-nav__link">
+      Type System
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/state/" class="md-nav__link">
+      State (Memory)
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/connectivity/" class="md-nav__link">
+      Connectivity
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/meta/" class="md-nav__link">
+      Meta Hardware Description
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/compilation/" class="md-nav__link">
+      Compilation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/simulation/" class="md-nav__link">
+      Simulation
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/synthesis/" class="md-nav__link">
+      Synthesis
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../user-guide/errors/" class="md-nav__link">
+      Errors
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+      
+      
+      
+
+
+  <li class="md-nav__item md-nav__item--nested">
+    
+      <input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" type="checkbox" id="nav-4">
+    
+    <label class="md-nav__link" for="nav-4">
+      About
+      <span class="md-nav__icon md-icon"></span>
+    </label>
+    <nav class="md-nav" aria-label="About" data-md-level="1">
+      <label class="md-nav__title" for="nav-4">
+        <span class="md-nav__icon md-icon"></span>
+        About
+      </label>
+      <ul class="md-nav__list" data-md-scrollfix>
+        
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/release-notes/" class="md-nav__link">
+      Release Notes
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/contributing/" class="md-nav__link">
+      Contributing
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/LICENSE/" class="md-nav__link">
+      License
+    </a>
+  </li>
+
+        
+          
+          
+          
+
+
+  <li class="md-nav__item">
+    <a href="../../about/acknowledgements/" class="md-nav__link">
+      Acknowledgements
+    </a>
+  </li>
+
+        
+      </ul>
+    </nav>
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#main-feature-overview" class="md-nav__link">
+    Main Feature Overview
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-example-an-identity-function" class="md-nav__link">
+    Basic Example: An Identity Function
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#hierarchy-and-connection-example" class="md-nav__link">
+    Hierarchy and Connection Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#finite-step-state-machine-fsm-example" class="md-nav__link">
+    Finite Step (State) Machine (FSM) Example
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-moving-average" class="md-nav__link">
+    Simple Moving Average
+  </a>
+  
+    <nav class="md-nav" aria-label="Simple Moving Average">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#no-feedback-implementation" class="md-nav__link">
+    No feedback implementation
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feedback-implementation" class="md-nav__link">
+    Feedback implementation
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#looks-cool-i-wish-to-know-more" class="md-nav__link">
+    Looks cool! I wish to know more
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                  <a href="https://github.com/DFiantHDL/DFiant/edit/master/docs/intro/first-look/index.md" title="Edit this page" class="md-content__button md-icon">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
+                  </a>
+                
+                
+                <h1 id="dfiant-first-look">DFiant: First Look<a class="headerlink" href="#dfiant-first-look" title="Permanent link">🔗</a></h1>
+<p>Your first encounter with the DFiant syntax, semantics and language features</p>
+<hr />
+<p>In this section we provide simple examples to demonstrate various DFiant syntax, semantics and languages features. If you wish to understand how to run these examples yourself, please refer to the <u>Getting Started</u> chapter of this documentation. </p>
+<h2 id="main-feature-overview">Main Feature Overview<a class="headerlink" href="#main-feature-overview" title="Permanent link">🔗</a></h2>
+<ul>
+<li>Target and timing agnostic dataflow hardware description</li>
+<li>Strong bit-accurate type-safety</li>
+<li>Simplified port connections</li>
+<li>Automatic latency path balancing</li>
+<li>Automatic/manual pipelining</li>
+<li>Meta hardware description via rich Scala language constructs</li>
+</ul>
+<h2 id="basic-example-an-identity-function">Basic Example: An Identity Function<a class="headerlink" href="#basic-example-an-identity-function" title="Permanent link">🔗</a></h2>
+<p>Let's begin with a basic example. The dataflow design <code>ID</code> has a signed 16-bit input port <code>x</code> and a signed 16-bit output port <code>y</code>. We implemented an identity function between the input and output, meaning that for an input series <span class="arithmatex">\(x_k\)</span> the output series shall be <span class="arithmatex">\(y_k=x_k\)</span>. Fig. 1a depicts a functional drawing of the design and Fig. 1b contains three tabs: the <code>ID.scala</code> DFiant compilation program code which implements <code>ID</code> and compiles it to VHDL (2008) and the generated VHDL files.</p>
+<p align="center">
+  <img src="../first-look/id.png"><br>
+  <b>Fig. 1a: Functional drawing of the dataflow design 'ID' with an input port 'x' and an output port 'y'</b><br>
+</p>
+
+<div class="tabbed-set" data-tabs="1:5"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><label for="__tabbed_1_1">ID.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">ID</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span> <span class="c1">//This our `ID` dataflow design</span>
+  <span class="k">val</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span>  <span class="c1">//The input port is a signed 16-bit integer</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span> <span class="c1">//The output port is a signed 16-bit integer</span>
+  <span class="n">y</span> <span class="o">:=</span> <span class="n">x</span> <span class="c1">//trivial direct input-to-output assignment</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><label for="__tabbed_1_2">ID.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.ID_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">ID</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">x</span>   <span class="o">:</span> <span class="k">in</span>  <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">y</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">ID</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">ID_arch</span> <span class="k">of</span> <span class="nc">ID</span> <span class="k">is</span>
+<span class="k">begin</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">y</span> <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">ID_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><label for="__tabbed_1_3">ID_pkg.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">package</span> <span class="n">ID_pkg</span> <span class="k">is</span>
+  <span class="k">function</span> <span class="n">bit_reverse</span><span class="p">(</span><span class="n">s</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">resize</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">;</span> <span class="n">size</span> <span class="o">:</span> <span class="kt">integer</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_sl</span><span class="p">(</span><span class="n">b</span> <span class="o">:</span> <span class="kt">boolean</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_sl</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">unsigned</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">boolean</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span><span class="p">;</span>
+<span class="k">end</span> <span class="k">package</span> <span class="nc">ID_pkg</span><span class="p">;</span>
+
+<span class="k">package</span> <span class="k">body</span> <span class="n">ID_pkg</span> <span class="k">is</span>
+  <span class="k">function</span> <span class="n">bit_reverse</span><span class="p">(</span><span class="n">s</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+     <span class="k">variable</span> <span class="n">v_s</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">s</span><span class="na">&#39;high</span> <span class="k">downto</span> <span class="n">s</span><span class="na">&#39;low</span><span class="p">);</span>
+  <span class="k">begin</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="k">in</span> <span class="n">s</span><span class="na">&#39;high</span> <span class="k">downto</span> <span class="n">s</span><span class="na">&#39;low</span> <span class="k">loop</span>
+      <span class="n">v_s</span><span class="p">(</span><span class="n">i</span><span class="p">)</span> <span class="o">:=</span> <span class="n">s</span><span class="p">(</span><span class="n">s</span><span class="na">&#39;high</span> <span class="o">-</span> <span class="n">i</span><span class="p">);</span>
+    <span class="k">end</span> <span class="k">loop</span><span class="p">;</span>
+    <span class="k">return</span> <span class="n">v_s</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">bit_reverse</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">resize</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">;</span> <span class="n">size</span> <span class="o">:</span> <span class="kt">integer</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+  <span class="k">begin</span>
+    <span class="k">return</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">resize</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">(</span><span class="n">arg</span><span class="p">),</span> <span class="n">size</span><span class="p">));</span>
+  <span class="k">end</span> <span class="nc">resize</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_sl</span><span class="p">(</span><span class="n">b</span> <span class="o">:</span> <span class="kt">boolean</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic</span> <span class="k">is</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">b</span><span class="p">)</span> <span class="k">then</span>
+      <span class="k">return</span> <span class="sc">&#39;1&#39;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">to_sl</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_sl</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic</span> <span class="k">is</span>
+  <span class="k">begin</span>
+    <span class="k">return</span> <span class="n">arg</span><span class="p">(</span><span class="n">arg</span><span class="na">&#39;low</span><span class="p">);</span>
+  <span class="k">end</span> <span class="nc">to_sl</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">std_logic</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">arg</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span><span class="p">)</span> <span class="k">then</span>
+      <span class="k">return</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="s">&quot;0&quot;</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">to_slv</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">unsigned</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+    <span class="k">variable</span> <span class="n">slv</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">arg</span><span class="na">&#39;length</span><span class="o">-</span><span class="mi">1</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">begin</span>
+    <span class="n">slv</span> <span class="o">:=</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">slv</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">to_slv</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+    <span class="k">variable</span> <span class="n">slv</span> <span class="o">:</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">arg</span><span class="na">&#39;length</span><span class="o">-</span><span class="mi">1</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">begin</span>
+    <span class="n">slv</span> <span class="o">:=</span> <span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">arg</span><span class="p">);</span>
+    <span class="k">return</span> <span class="n">slv</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">to_slv</span><span class="p">;</span>
+  <span class="k">function</span> <span class="n">to_slv</span><span class="p">(</span><span class="n">arg</span> <span class="o">:</span> <span class="kt">boolean</span><span class="p">)</span> <span class="k">return</span> <span class="kt">std_logic_vector</span> <span class="k">is</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">arg</span><span class="p">)</span> <span class="k">then</span>
+      <span class="k">return</span> <span class="s">&quot;1&quot;</span><span class="p">;</span>
+    <span class="k">else</span>
+      <span class="k">return</span> <span class="s">&quot;0&quot;</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="nc">to_slv</span><span class="p">;</span>
+<span class="k">end</span> <span class="k">package</span> <span class="k">body</span> <span class="nc">ID_pkg</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_1_4" name="__tabbed_1" type="radio" /><label for="__tabbed_1_4">ID.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>               <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;ID_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">ID</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span>
+<span class="p">);</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">y</span>                       <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_1_5" name="__tabbed_1" type="radio" /><label for="__tabbed_1_5">ID_defs.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`ifndef</span> <span class="n">ID_DEFS_H</span>
+<span class="cp">`define ID_DEFS_H</span>
+<span class="no">`endif</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<p align="center">
+  <b>Fig. 1b: A DFiant implementation of the identity function as a toplevel design and the generated VHDL/Verilog files</b><br>
+</p>
+
+<p>The Scala code in Fig. 1b describes a program that runs the DFiant compiler on an identity function dataflow design, <code>ID</code>. Since DFiant is a Scala library some if its compilation process is done statically via the Scala compiler and the rest during the Scala runtime execution. </p>
+<div class="admonition summary">
+<p class="admonition-title">Writing a DFiant compilation program – easy as 1-2-3!</p>
+<ol>
+<li><code class="highlight"><span class="k">import</span> <span class="nn">DFiant._</span></code> to import all the required namespace fields</li>
+<li><code class="highlight"><span class="k">trait</span> <span class="nc">_design_name_</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{}</span></code> to define your dataflow design. Populate your design with the required dataflow functionality.</li>
+<li><code class="highlight"><span class="k">object</span> <span class="nc">_program_name_</span> <span class="k">extends</span> <span class="nc">DFApp</span><span class="o">.</span><span class="nc">VHDLCompiler</span><span class="o">[</span><span class="k">_</span><span class="kt">design_name_</span><span class="o">]</span></code> to create your compilation program entry point.</li>
+</ol>
+</div>
+<details class="info"><summary>ID.scala line-by-line breakdown</summary><ul>
+<li>
+<p><strong>Line 1</strong>: This <code class="highlight"><span class="k">import</span></code> statement summons all the DFiant classes, types and objects into the current scope. This is a must in every DFiant codebase.</p>
+</li>
+<li>
+<p><strong>Lines 3-7</strong>: This <code>ID</code> Scala <code class="highlight"><span class="k">trait</span></code> is extended from the <code>DFDesign</code> (abstract) class and therefore declares it as a dataflow design. The reason why this is a <code class="highlight"><span class="k">trait</span></code> and not a <code class="highlight"><span class="k">class</span></code> is discussed <a href="">later</a> in this documentation. Currently, the <em>rule of thumb</em> to describe dataflow designs is to use traits that extend <code>DFDesign</code>.</p>
+<ul>
+<li>
+<p><strong>Lines 4-5</strong>: Here we construct the input port <code>x</code> and output port <code>y</code>.Both were set as a 16-bit signed integer dataflow variable via the <code>DFSInt[W]</code> constructor, where <code>W</code> is a width <strong>type</strong> argument that can accept any positive integer literal. It is also possible to use a width <strong>term</strong> argument via<code>DFSInt(width)</code>. DFiant also support various types such as <code>DFBits</code>, <code>DFUInt</code>, and <code>DFBool</code>. All these dataflow variable construction options and more are discussed <a href="/getting-started/">later</a> in this documentation. <br />The syntax <code class="highlight"><span class="k">val</span> <span class="nc">_name_</span> <span class="o">=</span> <span class="nc">_dataflow_variable_constructor_</span> <span class="o">&lt;&gt;</span> <span class="nc">_direction_</span></code> is used to construct a port and give it a named Scala reference. The Scala reference name will affect the name of this port when compiled to the required backend representation. </p>
+</li>
+<li>
+<p><strong>Line 6</strong>: The assignment operator <code>:=</code> set the dataflow output port to receive input port values as they are.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Line 9</strong>: This object is an extension of a <a href="https://www.scala-lang.org/api/current/scala/App.html">Scala <code>App</code> trait</a> that creates a <code>main</code> entry point for the DFiant compilation program. By inheriting <code>DFApp.VHDLCompiler[_top_]</code> we also generate the top design and execute the compilation and commitment to VHDL files. </p>
+</li>
+</ul>
+</details>
+<details class="info"><summary>Generated VHDL files observations</summary><ul>
+<li>The id.vhdl file is readable and maintains the names set in the DFiant design. The generated files follow various writing conventions such as capitalized port names and proper code alignment.</li>
+<li>The id_pkg.vhdl is a package file that is shared between all VHDL files generated by DFiant and  contains common conversion functions that may be required. Additionally it may contain other definitions like enumeration types.</li>
+</ul>
+</details>
+<hr />
+<h2 id="hierarchy-and-connection-example">Hierarchy and Connection Example<a class="headerlink" href="#hierarchy-and-connection-example" title="Permanent link">🔗</a></h2>
+<p><img alt="idtop" src="idtop.png" /></p>
+<div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">IDTop.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">IDTop</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span> <span class="c1">//This our `IDTop` dataflow design</span>
+  <span class="k">val</span> <span class="n">x</span> <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span>  <span class="c1">//The input port is a signed 16-bit integer</span>
+  <span class="k">val</span> <span class="n">y</span> <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span> <span class="c1">//The output port is a signed 16-bit integer</span>
+  <span class="k">val</span> <span class="n">id1</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ID</span> <span class="c1">//First instance of the `ID` design</span>
+  <span class="k">val</span> <span class="n">id2</span> <span class="o">=</span> <span class="k">new</span> <span class="nc">ID</span> <span class="c1">//Second instance of the `ID` design</span>
+  <span class="n">id1</span><span class="o">.</span><span class="n">x</span> <span class="o">&lt;&gt;</span> <span class="n">x</span>       <span class="c1">//Connecting parent input port to child input port</span>
+  <span class="n">id1</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;&gt;</span> <span class="n">id2</span><span class="o">.</span><span class="n">x</span>   <span class="c1">//Connecting sibling instance ports</span>
+  <span class="n">id2</span><span class="o">.</span><span class="n">y</span> <span class="o">&lt;&gt;</span> <span class="n">y</span>       <span class="c1">//Connecting parent output port to child output port</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><label for="__tabbed_2_2">IDTop.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.IDTop_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">IDTop</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">x</span>            <span class="o">:</span> <span class="k">in</span>  <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">y</span>            <span class="o">:</span> <span class="k">out</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">IDTop</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">IDTop_arch</span> <span class="k">of</span> <span class="nc">IDTop</span> <span class="k">is</span>  
+  <span class="k">signal</span> <span class="n">id1_x</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">id1_y</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">id2_x</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">id2_y</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">begin</span>
+  <span class="n">id1</span> <span class="o">:</span> <span class="k">entity</span> <span class="nc">work</span><span class="p">.</span><span class="n">ID</span><span class="p">(</span><span class="n">ID_arch</span><span class="p">)</span> <span class="k">port</span> <span class="k">map</span> <span class="p">(</span>
+    <span class="n">x</span>          <span class="o">=&gt;</span> <span class="n">id1_x</span><span class="p">,</span>
+    <span class="n">y</span>          <span class="o">=&gt;</span> <span class="n">id1_y</span>
+  <span class="p">);</span>
+  <span class="n">id2</span> <span class="o">:</span> <span class="k">entity</span> <span class="nc">work</span><span class="p">.</span><span class="n">ID</span><span class="p">(</span><span class="n">ID_arch</span><span class="p">)</span> <span class="k">port</span> <span class="k">map</span> <span class="p">(</span>
+    <span class="n">x</span>          <span class="o">=&gt;</span> <span class="n">id2_x</span><span class="p">,</span>
+    <span class="n">y</span>          <span class="o">=&gt;</span> <span class="n">id2_y</span>
+  <span class="p">);</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">id1_x</span>      <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">id2_x</span>      <span class="o">&lt;=</span> <span class="n">id1_y</span><span class="p">;</span>
+    <span class="n">y</span>          <span class="o">&lt;=</span> <span class="n">id2_y</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">IDTop_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_2_3" name="__tabbed_2" type="radio" /><label for="__tabbed_2_3">IDTop.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>               <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;IDTop_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">IDTop</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span>
+<span class="p">);</span>
+  <span class="kt">wire</span>        <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">id1_y</span><span class="p">;</span>
+  <span class="kt">wire</span>        <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">id2_y</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">id1_x</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">id2_x</span><span class="p">;</span>
+  <span class="n">ID</span> <span class="n">id1</span><span class="p">(</span>
+    <span class="p">.</span><span class="n">x</span>                      <span class="p">(</span><span class="n">id1_x</span><span class="p">),</span>
+    <span class="p">.</span><span class="n">y</span>                      <span class="p">(</span><span class="n">id1_y</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="n">ID</span> <span class="n">id2</span><span class="p">(</span>
+    <span class="p">.</span><span class="n">x</span>                      <span class="p">(</span><span class="n">id2_x</span><span class="p">),</span>
+    <span class="p">.</span><span class="n">y</span>                      <span class="p">(</span><span class="n">id2_y</span><span class="p">)</span>
+  <span class="p">);</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">id1_x</span>                   <span class="o">=</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">id2_x</span>                   <span class="o">=</span> <span class="n">id1_y</span><span class="p">;</span>
+    <span class="n">y</span>                       <span class="o">=</span> <span class="n">id2_y</span><span class="p">;</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<hr />
+<h2 id="finite-step-state-machine-fsm-example">Finite Step (State) Machine (FSM) Example<a class="headerlink" href="#finite-step-state-machine-fsm-example" title="Permanent link">🔗</a></h2>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">SeqDet.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">SeqDet</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">seqIn</span>  <span class="o">=</span> <span class="nc">DFBit</span><span class="o">()</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span>
+  <span class="k">val</span> <span class="n">detOut</span> <span class="o">=</span> <span class="nc">DFBit</span><span class="o">()</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span>
+  <span class="nd">@df</span> <span class="k">def</span> <span class="n">detStep</span><span class="o">(</span>
+    <span class="n">out</span> <span class="k">:</span> <span class="kt">Int</span><span class="o">,</span> <span class="n">trueNS</span> <span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">FSM</span><span class="o">,</span> <span class="n">falseNS</span> <span class="k">:</span> <span class="o">=&gt;</span> <span class="nc">FSM</span>
+  <span class="o">)</span> <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="nc">FSM</span> <span class="o">{</span>
+    <span class="n">detOut</span> <span class="o">:=</span> <span class="n">out</span>
+    <span class="n">ifdf</span><span class="o">(</span><span class="n">seqIn</span><span class="o">){</span>
+      <span class="n">trueNS</span><span class="o">.</span><span class="n">goto</span><span class="o">()</span>
+    <span class="o">}.</span><span class="n">elsedf</span> <span class="o">{</span>
+      <span class="n">falseNS</span><span class="o">.</span><span class="n">goto</span><span class="o">()</span>
+    <span class="o">}</span>
+  <span class="o">}</span>
+  <span class="k">val</span> <span class="n">S0</span>     <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="n">detStep</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">S1</span><span class="o">,</span> <span class="n">S0</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">S1</span>     <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="n">detStep</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">S1</span><span class="o">,</span> <span class="n">S10</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">S10</span>    <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="n">detStep</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">S1</span><span class="o">,</span> <span class="n">S100</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">S100</span>   <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="n">detStep</span><span class="o">(</span><span class="mi">0</span><span class="o">,</span> <span class="n">S1001</span><span class="o">,</span> <span class="n">S0</span><span class="o">)</span>
+  <span class="k">val</span> <span class="n">S1001</span>  <span class="k">:</span> <span class="kt">FSM</span> <span class="o">=</span> <span class="n">detStep</span><span class="o">(</span><span class="mi">1</span><span class="o">,</span> <span class="n">S1</span><span class="o">,</span> <span class="n">S10</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">SeqDet.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61
+62
+63
+64
+65
+66
+67
+68
+69
+70
+71
+72
+73
+74
+75
+76
+77</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.SeqDet_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">SeqDet</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">clk</span>                    <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">rst</span>                    <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">seqIn</span>                  <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">detOut</span>                 <span class="o">:</span> <span class="k">out</span> <span class="kt">std_logic</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">SeqDet</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">SeqDet_arch</span> <span class="k">of</span> <span class="nc">SeqDet</span> <span class="k">is</span>  
+  <span class="k">type</span> <span class="n">E_fsm_states</span> <span class="k">is</span> <span class="p">(</span>
+    <span class="n">E_fsm_states_S0</span><span class="p">,</span>
+    <span class="n">E_fsm_states_S1</span><span class="p">,</span>
+    <span class="n">E_fsm_states_S10</span><span class="p">,</span>
+    <span class="n">E_fsm_states_S100</span><span class="p">,</span>
+    <span class="n">E_fsm_states_S1001</span>
+  <span class="p">);</span>
+  <span class="k">signal</span> <span class="n">fsm_state_prev1</span> <span class="o">:</span> <span class="n">E_fsm_states</span> <span class="o">:=</span> <span class="n">E_fsm_states_S0</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">fsm_state_sig</span>   <span class="o">:</span> <span class="n">E_fsm_states</span><span class="p">;</span>
+<span class="k">begin</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>  
+    <span class="k">variable</span> <span class="n">fsm_state</span>   <span class="o">:</span> <span class="n">E_fsm_states</span> <span class="o">:=</span> <span class="n">E_fsm_states_S0</span><span class="p">;</span>
+  <span class="k">begin</span>
+    <span class="n">fsm_state</span>            <span class="o">:=</span> <span class="n">fsm_state_prev1</span><span class="p">;</span>
+    <span class="k">case</span> <span class="n">fsm_state</span> <span class="k">is</span>
+      <span class="k">when</span> <span class="n">E_fsm_states_S0</span> <span class="o">=&gt;</span>
+        <span class="n">detOut</span>           <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">seqIn</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">then</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S0</span><span class="p">;</span>
+        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+      <span class="k">when</span> <span class="n">E_fsm_states_S1</span> <span class="o">=&gt;</span>
+        <span class="n">detOut</span>           <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">seqIn</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">then</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S10</span><span class="p">;</span>
+        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+      <span class="k">when</span> <span class="n">E_fsm_states_S10</span> <span class="o">=&gt;</span>
+        <span class="n">detOut</span>           <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">seqIn</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">then</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S100</span><span class="p">;</span>
+        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+      <span class="k">when</span> <span class="n">E_fsm_states_S100</span> <span class="o">=&gt;</span>
+        <span class="n">detOut</span>           <span class="o">&lt;=</span> <span class="sc">&#39;0&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">seqIn</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">then</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S1001</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S0</span><span class="p">;</span>
+        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+      <span class="k">when</span> <span class="n">E_fsm_states_S1001</span> <span class="o">=&gt;</span>
+        <span class="n">detOut</span>           <span class="o">&lt;=</span> <span class="sc">&#39;1&#39;</span><span class="p">;</span>
+        <span class="k">if</span> <span class="n">seqIn</span> <span class="o">=</span> <span class="sc">&#39;1&#39;</span> <span class="k">then</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span>
+          <span class="n">fsm_state</span>      <span class="o">:=</span> <span class="n">E_fsm_states_S10</span><span class="p">;</span>
+        <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">case</span><span class="p">;</span>
+    <span class="n">fsm_state_sig</span>        <span class="o">&lt;=</span> <span class="n">fsm_state</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+  <span class="n">sync_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="n">rst</span><span class="p">,</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="n">rst</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="k">then</span>
+      <span class="n">fsm_state_prev1</span>    <span class="o">&lt;=</span> <span class="n">E_fsm_states_S0</span><span class="p">;</span>
+    <span class="k">elsif</span> <span class="n">rising_edge</span><span class="p">(</span><span class="n">clk</span><span class="p">)</span> <span class="k">then</span>
+      <span class="n">fsm_state_prev1</span>    <span class="o">&lt;=</span> <span class="n">fsm_state_sig</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">SeqDet_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">SeqDet.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53
+54
+55
+56
+57
+58
+59
+60
+61</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>                <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;SeqDet_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">SeqDet</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span>                <span class="n">clk</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span>                <span class="n">rst</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span>                <span class="n">seqIn</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>                 <span class="n">detOut</span>
+<span class="p">);</span>
+  <span class="kt">reg</span>         <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>          <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>          <span class="n">fsm_state_prev1</span> <span class="o">=</span> <span class="no">`E_fsm_states_S0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="p">[</span><span class="mh">2</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span>          <span class="n">fsm_state_sig</span><span class="p">;</span>
+<span class="cp">  `define E_fsm_states_S0    0</span>
+<span class="cp">  `define E_fsm_states_S1    1</span>
+<span class="cp">  `define E_fsm_states_S10   2</span>
+<span class="cp">  `define E_fsm_states_S100  3</span>
+<span class="cp">  `define E_fsm_states_S1001 4</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">fsm_state</span>                <span class="o">=</span> <span class="n">fsm_state_prev1</span><span class="p">;</span>
+    <span class="k">case</span> <span class="p">(</span><span class="n">fsm_state</span><span class="p">)</span>
+      <span class="no">`E_fsm_states_S0</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seqIn</span><span class="p">)</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S0</span><span class="p">;</span>
+      <span class="k">end</span>
+      <span class="no">`E_fsm_states_S1</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seqIn</span><span class="p">)</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S10</span><span class="p">;</span>
+      <span class="k">end</span>
+      <span class="no">`E_fsm_states_S10</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seqIn</span><span class="p">)</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S100</span><span class="p">;</span>
+      <span class="k">end</span>
+      <span class="no">`E_fsm_states_S100</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seqIn</span><span class="p">)</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S1001</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S0</span><span class="p">;</span>
+      <span class="k">end</span>
+      <span class="no">`E_fsm_states_S1001</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">;</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">seqIn</span><span class="p">)</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S1</span><span class="p">;</span>
+        <span class="k">else</span> <span class="n">fsm_state</span> <span class="o">=</span> <span class="no">`E_fsm_states_S10</span><span class="p">;</span>
+      <span class="k">end</span>
+      <span class="k">default</span> <span class="o">:</span> <span class="k">begin</span>
+        <span class="n">fsm_state</span>            <span class="o">=</span> <span class="mh">3</span><span class="p">&#39;</span><span class="n">b</span><span class="o">???</span><span class="p">;</span>
+        <span class="n">detOut</span>               <span class="o">=</span> <span class="mh">1</span><span class="p">&#39;</span><span class="n">b</span><span class="o">?</span><span class="p">;</span>
+      <span class="k">end</span>
+    <span class="k">endcase</span>
+    <span class="n">fsm_state_sig</span>            <span class="o">=</span> <span class="n">fsm_state</span><span class="p">;</span>
+  <span class="k">end</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="k">negedge</span> <span class="n">rst</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rst</span> <span class="o">==</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span> <span class="n">fsm_state_prev1</span> <span class="o">&lt;=</span> <span class="no">`E_fsm_states_S0</span><span class="p">;</span>
+    <span class="k">else</span> <span class="n">fsm_state_prev1</span> <span class="o">&lt;=</span> <span class="n">fsm_state_sig</span><span class="p">;</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<hr />
+<h2 id="simple-moving-average">Simple Moving Average<a class="headerlink" href="#simple-moving-average" title="Permanent link">🔗</a></h2>
+<p>In this <a href="https://en.wikipedia.org/wiki/Moving_average">simple moving average</a> (SMA) example, the signed 16-bit input, <span class="arithmatex">\(x\)</span> </p>
+<h3 id="no-feedback-implementation">No feedback implementation<a class="headerlink" href="#no-feedback-implementation" title="Permanent link">🔗</a></h3>
+<div class="arithmatex">\[
+y_k=\left(x_k+x_{k-1}+x_{k-2}+x_{k-3}\right)/4
+\]</div>
+<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">SMA.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">SMA</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span>   <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span> <span class="n">init</span> <span class="mi">0</span>
+  <span class="k">val</span> <span class="n">y</span>   <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span>
+  <span class="k">val</span> <span class="n">sum</span> <span class="o">=</span> <span class="o">(</span><span class="n">x</span> <span class="o">+^</span> <span class="n">x</span><span class="o">.</span><span class="n">prev</span><span class="o">)</span> <span class="o">+^</span> <span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">prev</span><span class="o">(</span><span class="mi">2</span><span class="o">)</span> <span class="o">+^</span> <span class="n">x</span><span class="o">.</span><span class="n">prev</span><span class="o">(</span><span class="mi">3</span><span class="o">))</span>
+  <span class="n">y</span>       <span class="o">:=</span> <span class="o">(</span><span class="n">sum</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="o">).</span><span class="n">resize</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">SMA.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.SMA_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">SMA</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">clk</span>                <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">rst</span>                <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">x</span>                  <span class="o">:</span> <span class="k">in</span>  <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="n">y</span>                  <span class="o">:</span> <span class="k">out</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">SMA</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">SMA_arch</span> <span class="k">of</span> <span class="nc">SMA</span> <span class="k">is</span>  
+  <span class="k">signal</span> <span class="n">x_prev1</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev2</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev3</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev1_sig</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">x_prev2_sig</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">begin</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>  
+    <span class="k">variable</span> <span class="n">sum</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">17</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">18</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">begin</span>
+    <span class="n">sum</span>              <span class="o">:=</span> <span class="n">resize</span><span class="p">(</span><span class="n">resize</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span> <span class="o">+</span> <span class="n">x_prev1</span><span class="p">,</span> <span class="mi">18</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="n">resize</span><span class="p">(</span><span class="n">x_prev2</span><span class="p">,</span> <span class="mi">17</span><span class="p">)</span> <span class="o">+</span> <span class="n">x_prev3</span><span class="p">);</span>
+    <span class="n">x_prev1_sig</span>      <span class="o">&lt;=</span> <span class="n">x_prev1</span><span class="p">;</span>
+    <span class="n">x_prev2_sig</span>      <span class="o">&lt;=</span> <span class="n">x_prev2</span><span class="p">;</span>
+    <span class="n">y</span>                <span class="o">&lt;=</span> <span class="n">resize</span><span class="p">(</span><span class="n">sum</span> <span class="k">sra</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+  <span class="n">sync_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="n">rst</span><span class="p">,</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="n">rst</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="k">then</span>
+      <span class="n">x_prev1</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">x_prev2</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">x_prev3</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+    <span class="k">elsif</span> <span class="n">rising_edge</span><span class="p">(</span><span class="n">clk</span><span class="p">)</span> <span class="k">then</span>
+      <span class="n">x_prev1</span>        <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="n">x_prev2</span>        <span class="o">&lt;=</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+      <span class="n">x_prev3</span>        <span class="o">&lt;=</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">SMA_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">SMA.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>               <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;SMA_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">SMA</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span>               <span class="n">clk</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span>               <span class="n">rst</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span>
+<span class="p">);</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev1</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev2</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev3</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">16</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">sum_part</span> <span class="o">=</span> <span class="mh">17</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">sum</span> <span class="o">=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y_part</span> <span class="o">=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">sum_part</span>                <span class="o">=</span> <span class="p">({</span><span class="n">x</span><span class="p">[</span><span class="mh">15</span><span class="p">],</span> <span class="n">x</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]})</span> <span class="o">+</span> <span class="n">x_prev1</span><span class="p">;</span>
+    <span class="n">sum</span>                     <span class="o">=</span> <span class="p">({</span><span class="n">sum_part</span><span class="p">[</span><span class="mh">16</span><span class="p">],</span> <span class="n">sum_part</span><span class="p">[</span><span class="mh">16</span><span class="o">:</span><span class="mh">0</span><span class="p">]})</span> <span class="o">+</span> <span class="p">(({</span><span class="n">x_prev2</span><span class="p">[</span><span class="mh">15</span><span class="p">],</span> <span class="n">x_prev2</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]})</span> <span class="o">+</span> <span class="n">x_prev3</span><span class="p">);</span>
+    <span class="n">y_part</span>                  <span class="o">=</span> <span class="n">sum</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="n">x_prev1_sig</span>             <span class="o">=</span> <span class="n">x_prev1</span><span class="p">;</span>
+    <span class="n">x_prev2_sig</span>             <span class="o">=</span> <span class="n">x_prev2</span><span class="p">;</span>
+    <span class="n">y</span>                       <span class="o">=</span> <span class="p">{</span><span class="n">y_part</span><span class="p">[</span><span class="mh">17</span><span class="p">],</span> <span class="n">y_part</span><span class="p">[</span><span class="mh">14</span><span class="o">:</span><span class="mh">0</span><span class="p">]};</span>
+  <span class="k">end</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="k">negedge</span> <span class="n">rst</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rst</span> <span class="o">==</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span> 
+    <span class="k">begin</span>
+      <span class="n">x_prev1</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">x_prev2</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">x_prev3</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+    <span class="k">end</span>
+    <span class="k">else</span> 
+    <span class="k">begin</span>
+      <span class="n">x_prev1</span>               <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="n">x_prev2</span>               <span class="o">&lt;=</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+      <span class="n">x_prev3</span>               <span class="o">&lt;=</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<h3 id="feedback-implementation">Feedback implementation<a class="headerlink" href="#feedback-implementation" title="Permanent link">🔗</a></h3>
+<div class="arithmatex">\[\begin{eqnarray} 
+a_0 &amp;=&amp; 0 \\
+a_k &amp;=&amp; a_{k-1} - x_{k-4}+x_k \\
+y_k &amp;=&amp; a_k/4
+\end{eqnarray}\]</div>
+<div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">SMA_FB.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span>1
+2
+3
+4
+5
+6
+7
+8
+9</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">SMA_FB</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">x</span>   <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span> <span class="n">init</span> <span class="mi">0</span>
+  <span class="k">val</span> <span class="n">y</span>   <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span>
+  <span class="k">val</span> <span class="n">acc</span> <span class="o">=</span> <span class="nc">DFSInt</span><span class="o">(</span><span class="mi">18</span><span class="o">)</span> <span class="n">init</span> <span class="mi">0</span>
+  <span class="n">acc</span> <span class="o">:=</span> <span class="n">acc</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">prev</span><span class="o">(</span><span class="mi">4</span><span class="o">)</span> <span class="o">+</span> <span class="n">x</span>
+  <span class="n">y</span>   <span class="o">:=</span> <span class="o">(</span><span class="n">acc</span> <span class="o">&gt;&gt;</span> <span class="mi">2</span><span class="o">).</span><span class="n">resize</span><span class="o">(</span><span class="mi">16</span><span class="o">)</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">SMA_FB.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.SMA_FB_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">SMA_FB</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">clk</span>                <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">rst</span>                <span class="o">:</span> <span class="k">in</span>  <span class="kt">std_logic</span><span class="p">;</span>
+  <span class="n">x</span>                  <span class="o">:</span> <span class="k">in</span>  <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="n">y</span>                  <span class="o">:</span> <span class="k">out</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">SMA_FB</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">SMA_FB_arch</span> <span class="k">of</span> <span class="nc">SMA_FB</span> <span class="k">is</span>  
+  <span class="k">signal</span> <span class="n">x_prev1</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev2</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev3</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev4</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">acc_prev1</span>   <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">17</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">18</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">signal</span> <span class="n">x_prev1_sig</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">x_prev2_sig</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">x_prev3_sig</span> <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">15</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="k">signal</span> <span class="n">acc_sig</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">17</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+<span class="k">begin</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>  
+    <span class="k">variable</span> <span class="n">acc</span>     <span class="o">:</span> <span class="kt">signed</span><span class="p">(</span><span class="mi">17</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span> <span class="o">:=</span> <span class="mi">18</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+  <span class="k">begin</span>
+    <span class="n">acc</span>              <span class="o">:=</span> <span class="n">acc_prev1</span><span class="p">;</span>
+    <span class="n">acc</span>              <span class="o">:=</span> <span class="p">(</span><span class="n">acc</span> <span class="o">-</span> <span class="n">x_prev4</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">x_prev1_sig</span>      <span class="o">&lt;=</span> <span class="n">x_prev1</span><span class="p">;</span>
+    <span class="n">x_prev2_sig</span>      <span class="o">&lt;=</span> <span class="n">x_prev2</span><span class="p">;</span>
+    <span class="n">x_prev3_sig</span>      <span class="o">&lt;=</span> <span class="n">x_prev3</span><span class="p">;</span>
+    <span class="n">acc_sig</span>          <span class="o">&lt;=</span> <span class="n">acc</span><span class="p">;</span>
+    <span class="n">y</span>                <span class="o">&lt;=</span> <span class="n">resize</span><span class="p">(</span><span class="n">acc</span> <span class="k">sra</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+  <span class="n">sync_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="n">rst</span><span class="p">,</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="n">rst</span> <span class="o">=</span> <span class="sc">&#39;0&#39;</span> <span class="k">then</span>
+      <span class="n">x_prev1</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">x_prev2</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">x_prev3</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">x_prev4</span>        <span class="o">&lt;=</span> <span class="mi">16</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+      <span class="n">acc_prev1</span>      <span class="o">&lt;=</span> <span class="mi">18</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+    <span class="k">elsif</span> <span class="n">rising_edge</span><span class="p">(</span><span class="n">clk</span><span class="p">)</span> <span class="k">then</span>
+      <span class="n">x_prev1</span>        <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="n">x_prev2</span>        <span class="o">&lt;=</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+      <span class="n">x_prev3</span>        <span class="o">&lt;=</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+      <span class="n">x_prev4</span>        <span class="o">&lt;=</span> <span class="n">x_prev3_sig</span><span class="p">;</span>
+      <span class="n">acc_prev1</span>      <span class="o">&lt;=</span> <span class="n">acc_sig</span><span class="p">;</span>
+    <span class="k">end</span> <span class="k">if</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">SMA_FB_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><label for="__tabbed_5_3">SMA_FB.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
+ 2
+ 3
+ 4
+ 5
+ 6
+ 7
+ 8
+ 9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+29
+30
+31
+32
+33
+34
+35
+36
+37
+38
+39
+40
+41
+42
+43
+44
+45
+46
+47
+48
+49
+50
+51
+52
+53</pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>               <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;SMA_FB_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">SMA_FB</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span>               <span class="n">clk</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span>               <span class="n">rst</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y</span>
+<span class="p">);</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev1</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev2</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev3</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev4</span> <span class="o">=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">acc</span> <span class="o">=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">acc_prev1</span> <span class="o">=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">y_part</span> <span class="o">=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">x_prev3_sig</span><span class="p">;</span>
+  <span class="kt">reg</span>         <span class="k">signed</span> <span class="p">[</span><span class="mh">17</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">acc_sig</span><span class="p">;</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">acc</span>                     <span class="o">=</span> <span class="n">acc_prev1</span><span class="p">;</span>
+    <span class="n">acc</span>                     <span class="o">=</span> <span class="p">(</span><span class="n">acc</span> <span class="o">-</span> <span class="n">x_prev4</span><span class="p">)</span> <span class="o">+</span> <span class="n">x</span><span class="p">;</span>
+    <span class="n">y_part</span>                  <span class="o">=</span> <span class="n">acc</span> <span class="o">&gt;&gt;&gt;</span> <span class="mh">2</span><span class="p">;</span>
+    <span class="n">x_prev1_sig</span>             <span class="o">=</span> <span class="n">x_prev1</span><span class="p">;</span>
+    <span class="n">x_prev2_sig</span>             <span class="o">=</span> <span class="n">x_prev2</span><span class="p">;</span>
+    <span class="n">x_prev3_sig</span>             <span class="o">=</span> <span class="n">x_prev3</span><span class="p">;</span>
+    <span class="n">acc_sig</span>                 <span class="o">=</span> <span class="n">acc</span><span class="p">;</span>
+    <span class="n">y</span>                       <span class="o">=</span> <span class="p">{</span><span class="n">y_part</span><span class="p">[</span><span class="mh">17</span><span class="p">],</span> <span class="n">y_part</span><span class="p">[</span><span class="mh">14</span><span class="o">:</span><span class="mh">0</span><span class="p">]};</span>
+  <span class="k">end</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="k">negedge</span> <span class="n">rst</span> <span class="k">or</span> <span class="k">posedge</span> <span class="n">clk</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">rst</span> <span class="o">==</span> <span class="mh">1</span><span class="mb">&#39;b0</span><span class="p">)</span> 
+    <span class="k">begin</span>
+      <span class="n">x_prev1</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">x_prev2</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">x_prev3</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">x_prev4</span>               <span class="o">&lt;=</span> <span class="mh">16</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+      <span class="n">acc_prev1</span>             <span class="o">&lt;=</span> <span class="mh">18</span><span class="p">&#39;</span><span class="n">sd0</span><span class="p">;</span>
+    <span class="k">end</span>
+    <span class="k">else</span> 
+    <span class="k">begin</span>
+      <span class="n">x_prev1</span>               <span class="o">&lt;=</span> <span class="n">x</span><span class="p">;</span>
+      <span class="n">x_prev2</span>               <span class="o">&lt;=</span> <span class="n">x_prev1_sig</span><span class="p">;</span>
+      <span class="n">x_prev3</span>               <span class="o">&lt;=</span> <span class="n">x_prev2_sig</span><span class="p">;</span>
+      <span class="n">x_prev4</span>               <span class="o">&lt;=</span> <span class="n">x_prev3_sig</span><span class="p">;</span>
+      <span class="n">acc_prev1</span>             <span class="o">&lt;=</span> <span class="n">acc_sig</span><span class="p">;</span>
+    <span class="k">end</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<hr />
+<h2 id="looks-cool-i-wish-to-know-more">Looks cool! I wish to know more<a class="headerlink" href="#looks-cool-i-wish-to-know-more" title="Permanent link">🔗</a></h2>
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+    <div class="md-footer-nav">
+      <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
+        
+          <a href="../.." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                DFDocs
+              </div>
+            </div>
+          </a>
+        
+        
+          <a href="../motivation/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Motivation (Why Another HDL)
+              </div>
+            </div>
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"/></svg>
+            </div>
+          </a>
+        
+      </nav>
+    </div>
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+          <div class="md-footer-copyright__highlight">
+            Copyright &copy; 2019 <a href="https://www.researchgate.net/profile/Oron_Port">Oron Port</a> and <a href="https://yoav.net.technion.ac.il">Yoav Etsion</a>
+          </div>
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+          Material for MkDocs
+        </a>
+      </div>
+      
+  <div class="md-footer-social">
+    
+      
+      
+        
+        
+      
+      <a href="https://www.github.com/soronpo/" target="_blank" rel="noopener" title="www.github.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 512"><path d="M186.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1zM480 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2zm-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3zm-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://www.researchgate.net/profile/Oron_Port" target="_blank" rel="noopener" title="www.researchgate.net" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path d="M0 32v448h448V32H0zm262.2 334.4c-6.6 3-33.2 6-50-14.2-9.2-10.6-25.3-33.3-42.2-63.6-8.9 0-14.7 0-21.4-.6v46.4c0 23.5 6 21.2 25.8 23.9v8.1c-6.9-.3-23.1-.8-35.6-.8-13.1 0-26.1.6-33.6.8v-8.1c15.5-2.9 22-1.3 22-23.9V225c0-22.6-6.4-21-22-23.9V193c25.8 1 53.1-.6 70.9-.6 31.7 0 55.9 14.4 55.9 45.6 0 21.1-16.7 42.2-39.2 47.5 13.6 24.2 30 45.6 42.2 58.9 7.2 7.8 17.2 14.7 27.2 14.7v7.3zm22.9-135c-23.3 0-32.2-15.7-32.2-32.2V167c0-12.2 8.8-30.4 34-30.4s30.4 17.9 30.4 17.9l-10.7 7.2s-5.5-12.5-19.7-12.5c-7.9 0-19.7 7.3-19.7 19.7v26.8c0 13.4 6.6 23.3 17.9 23.3 14.1 0 21.5-10.9 21.5-26.8h-17.9v-10.7h30.4c0 20.5 4.7 49.9-34 49.9zm-116.5 44.7c-9.4 0-13.6-.3-20-.8v-69.7c6.4-.6 15-.6 22.5-.6 23.3 0 37.2 12.2 37.2 34.5 0 21.9-15 36.6-39.7 36.6z"/></svg>
+      </a>
+    
+      
+      
+        
+        
+      
+      <a href="https://twitter.com/soronpo" target="_blank" rel="noopener" title="twitter.com" class="md-footer-social__link">
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"/></svg>
+      </a>
+    
+  </div>
+
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="../../assets/javascripts/vendor.7e0ee788.min.js"></script>
+      <script src="../../assets/javascripts/bundle.b3a72adc.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      
+      <script>
+        app = initialize({
+          base: "../..",
+          features: ['tabs'],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+    
+  </body>
+</html>
