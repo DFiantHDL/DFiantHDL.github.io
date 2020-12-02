@@ -159,6 +159,72 @@
       
       
         
+          
+
+  
+
+<nav class="md-tabs md-tabs--active" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-tabs__inner md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+        
+      
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
+        Introduction
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../getting-started/initial-setup/" class="md-tabs__link">
+        Getting Started
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../user-guide/type-system/" class="md-tabs__link">
+        User Guide
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+    <li class="md-tabs__item">
+      
+      
+      <a href="../../about/release-notes/" class="md-tabs__link">
+        About
+      </a>
+    </li>
+  
+
+      
+    </ul>
+  </div>
+</nav>
+        
       
       <main class="md-main" data-md-component="main">
         <div class="md-main__inner md-grid">
@@ -223,7 +289,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../index.md" class="md-nav__link">
+    <a href="../.." class="md-nav__link">
       DFDocs
     </a>
   </li>
@@ -340,7 +406,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../motivation/index.md" class="md-nav__link">
+    <a href="../motivation/" class="md-nav__link">
       Motivation (Why Another HDL)
     </a>
   </li>
@@ -352,7 +418,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../dataflow-abstraction/index.md" class="md-nav__link">
+    <a href="../dataflow-abstraction/" class="md-nav__link">
       A Dataflow Hardware Description Abstraction
     </a>
   </li>
@@ -438,7 +504,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/type-system/index.md" class="md-nav__link">
+    <a href="../../user-guide/type-system/" class="md-nav__link">
       Type System
     </a>
   </li>
@@ -462,7 +528,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/connectivity/index.md" class="md-nav__link">
+    <a href="../../user-guide/connectivity/" class="md-nav__link">
       Connectivity
     </a>
   </li>
@@ -522,7 +588,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../user-guide/errors/index.md" class="md-nav__link">
+    <a href="../../user-guide/errors/" class="md-nav__link">
       Errors
     </a>
   </li>
@@ -559,7 +625,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../about/release-notes.md" class="md-nav__link">
+    <a href="../../about/release-notes/" class="md-nav__link">
       Release Notes
     </a>
   </li>
@@ -571,7 +637,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../about/contributing.md" class="md-nav__link">
+    <a href="../../about/contributing/" class="md-nav__link">
       Contributing
     </a>
   </li>
@@ -583,7 +649,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../about/LICENSE.md" class="md-nav__link">
+    <a href="../../about/LICENSE/" class="md-nav__link">
       License
     </a>
   </li>
@@ -595,7 +661,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../about/acknowledgements.md" class="md-nav__link">
+    <a href="../../about/acknowledgements/" class="md-nav__link">
       Acknowledgements
     </a>
   </li>
@@ -1964,14 +2030,28 @@ y_k &amp;=&amp; a_k/4
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
+          <a href="../.." class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+            <div class="md-footer-nav__button md-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
+            </div>
+            <div class="md-footer-nav__title">
+              <div class="md-ellipsis">
+                <span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                DFDocs
+              </div>
+            </div>
+          </a>
         
-          <a href="../../getting-started/initial-setup/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+        
+          <a href="../motivation/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Initial Setup
+                Motivation (Why Another HDL)
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
@@ -2039,7 +2119,7 @@ y_k &amp;=&amp; a_k/4
       <script>
         app = initialize({
           base: "../..",
-          features: ['tabs'],
+          features: ['navigation.tabs'],
           search: Object.assign({
             worker: "../../assets/javascripts/worker/search.4ac00218.min.js"
           }, typeof search !== "undefined" && search)

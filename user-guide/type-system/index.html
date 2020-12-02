@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/synthesis/">
+        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/type-system/">
       
       
         <meta name="author" content="Oron Port">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Synthesis - DFDocs</title>
+        <title>Type System - DFDocs</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#synthesis" class="md-skip">
+        <a href="#type-system" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Synthesis
+              Type System
             
           </span>
         </div>
@@ -201,7 +201,7 @@
       
         
       
-      <a href="../type-system/" class="md-tabs__link md-tabs__link--active">
+      <a href="./" class="md-tabs__link md-tabs__link--active">
         User Guide
       </a>
     </li>
@@ -409,11 +409,111 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../type-system/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Type System
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       Type System
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mutable-dataflow-variables-and-immutable-dataflow-values" class="md-nav__link">
+    Mutable Dataflow Variables and Immutable Dataflow Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bit-accurate-operations-type-inference-and-data-structures" class="md-nav__link">
+    Bit-Accurate Operations, Type Inference, and Data Structures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bit-aliasing-and-casting" class="md-nav__link">
+    Bit Aliasing and Casting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-types" class="md-nav__link">
+    Basic Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfbits" class="md-nav__link">
+    DFBits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfbool" class="md-nav__link">
+    DFBool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfuint" class="md-nav__link">
+    DFUInt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfsint" class="md-nav__link">
+    DFSInt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfenum" class="md-nav__link">
+    DFEnum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -481,20 +581,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../synthesis/" class="md-nav__link">
       Synthesis
     </a>
-    
   </li>
 
         
@@ -605,6 +696,83 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#mutable-dataflow-variables-and-immutable-dataflow-values" class="md-nav__link">
+    Mutable Dataflow Variables and Immutable Dataflow Values
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bit-accurate-operations-type-inference-and-data-structures" class="md-nav__link">
+    Bit-Accurate Operations, Type Inference, and Data Structures
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#bit-aliasing-and-casting" class="md-nav__link">
+    Bit Aliasing and Casting
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#basic-types" class="md-nav__link">
+    Basic Types
+  </a>
+  
+    <nav class="md-nav" aria-label="Basic Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#dfbits" class="md-nav__link">
+    DFBits
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfbool" class="md-nav__link">
+    DFBool
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfuint" class="md-nav__link">
+    DFUInt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfsint" class="md-nav__link">
+    DFSInt
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dfenum" class="md-nav__link">
+    DFEnum
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -615,13 +783,51 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/DFiantHDL/DFiant/edit/master/docs/user-guide/synthesis/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/DFiantHDL/DFiant/edit/master/docs/user-guide/type-system/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link">🔗</a></h1>
-<hr />
+                <h1 id="type-system">Type System<a class="headerlink" href="#type-system" title="Permanent link">🔗</a></h1>
+<p>DFiant is a Scala library, hence it inherently supports type safe and rich language constructs. DFiant brings type driven development concepts to hardware design, by creating an extensible dataflow class hierarchy, with the trait <code>DFAny</code> at its head (similar concept to Scala's Unified Types hierarchy). <code>DFAny</code> contains all fields that are common to every dataflow variable (e.g., <code>.width</code> represents the number of bits contained by the variable). Fig. 1 illustrates a simplified inheritance diagram of DFiant's dataflow types. Further explanation is given in the <a href="#mutable-dataflow-variables-and-immutable-dataflow-values">next section</a>. </p>
+<p align="center">
+  <img src="../type-system/type-system.png"><br>
+  <b>Fig. 1: DFiant dataflow types: simplified inheritance diagram</b><br>
+</p>
+
+<h2 id="mutable-dataflow-variables-and-immutable-dataflow-values">Mutable Dataflow Variables and Immutable Dataflow Values<a class="headerlink" href="#mutable-dataflow-variables-and-immutable-dataflow-values" title="Permanent link">🔗</a></h2>
+<p>DFiant supports dataflow variables mutability via the <code>:=</code> operator. Do not confuse with Scala-level mutability which is enabled by using <code class="highlight"><span class="k">var</span></code> instead of <code class="highlight"><span class="k">val</span></code>. Each dataflow class has two variations: an immutable class, which inherits from <code>DFAny.Val</code> and a mutable class, which inherits from <code>DFAny.Var</code> and accepts <code>:=</code>. The difference between the types enforces an immutable right-hand-side (RHS), where required, and a mutable variable creation. </p>
+<p>Consider, for instance, the DFiant implementation of <code>g</code> in Table \ref<code>tbl:StateExDefImpl</code>: <code>a</code> is immutable because it is a RHS addition between the dataflow variable <code>i</code> and a literal value <code>5</code>. Contrarily, <code>c</code> is mutable, since it is a dataflow variable constructor (<code>.init</code> constructs a new initialized variable, while preserving the mutability trait). </p>
+<p>Fig. 1 demonstrates a dual class definition for every type  (immutable and mutable). The naming convention helps to reason about the mutability. For example, <code>DFBits</code> and <code>DFBits.Var</code> are immutable and mutable classes, respectively. Constructing a new variable via <code>DFBits</code> (e.g, <code class="highlight"><span class="k">val</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">DFBits</span><span class="o">[</span><span class="err">5</span><span class="o">]</span></code>) returns the mutable <code>DFBits.Var[5]</code>. Usually, we either receive or return an immutable type, hence we do not require annotating a type with its mutable variation. In cases where we want to return a mutable type, we annotate it as an output port (see Section~\ref<code>sec:io_ports</code>).</p>
+<div class="admonition error">
+<p class="admonition-title">Don't use <code>var</code> with dataflow values/variables</p>
+<p>Because the semantics may get confusing, we enforced a compiler error if a dataflow variable is constructed and fed into a Scala <code class="highlight"><span class="k">var</span></code> reference. For example <code class="highlight"><span class="k">var</span> <span class="n">a</span> <span class="o">=</span> <span class="nc">DFUInt</span><span class="o">(</span><span class="mi">8</span><span class="o">)</span></code> will generate a Scala compiler error. </p>
+</div>
+<h2 id="bit-accurate-operations-type-inference-and-data-structures">Bit-Accurate Operations, Type Inference, and Data Structures<a class="headerlink" href="#bit-accurate-operations-type-inference-and-data-structures" title="Permanent link">🔗</a></h2>
+<p>All DFiant's dataflow types are bit-accurate and structurally static, with their bit-width set upon construction (e.g., <code>DFBits[5]</code> is a 5-bit vector). Operations between dataflow variables produce a bit-accurate result with the proper type inference. For example, an addition between an unsigned 5-bit variable (<code>DFUInt[5]</code>) and a signed 10-bit variable (<code>DFSInt[10]</code>) produces an adder that can be implicitly converted to a 10-bit signed variable, if carry is not required, or an 11-bit signed variable by explicitly invoking <code>.wc</code> from the addition.</p>
+<p>DFiant also allows operations between dataflow types and their corresponding Scala numeric types, by treating the Scala numeric types as constants (e.g., addition between <code>DFSInt</code> and <code>Integer</code> variables). A constant in the dataflow graph is a node that can produce infinite tokens of the same value.   </p>
+<h2 id="bit-aliasing-and-casting">Bit Aliasing and Casting<a class="headerlink" href="#bit-aliasing-and-casting" title="Permanent link">🔗</a></h2>
+<p>Aliasing in DFiant enables referencing a part of a dataflow variable, by invoking <code>.bits(hiIdx, loIdx)</code>, which creates a bits vector alias that references the original variable at the given index parameters. Every change of a dataflow variable affects its alias and vice versa (similar to VHDL's signal aliasing). Since this function also casts the variable as <code>DFBits</code>, this feature is used as a raw-data cast between different dataflow types. Aliasing of an alias is also possible, while maintaining relative bits indexing. Aliasing preserves the mutability trait: an alias of an immutable value is immutable, while an alias of a mutable variable is mutable. </p>
+<p>Fig.~\ref<code>fig:Aliasing</code> demonstrates aliasing code and its effect on the contents of a dataflow variable (<code>bits128</code>). Each line code does as follows:</p>
+<ol>
+<li>Constructs a new 128-bit vector, <code>bits128</code>, and clears it.</li>
+<li>Creates a new alias, <code>alias64</code>, which references the most significant 64 bits of <code>bits128</code>. Since <code>bits128</code> is a <code>DFBits</code> variable, there is no need to invoke <code>.bits()</code>, and we can apply the required indexes directly.</li>
+<li>Creates a new alias, <code>alias32</code>, which references the least significant 32 bits of <code>alias64</code>, which reference bits 64 to 95 of <code>bits128</code>.</li>
+<li>Constructs a new double precision floating point dataflow variable, <code>dbl</code>, and initialize its value as <code>1.0</code> (hexadecimal value of <code>0x3FF00...0</code>).</li>
+<li>Modifies the least significant byte of <code>dbl</code>.</li>
+<li>Sets the most significant bit of <code>bits128</code>.</li>
+<li>Assigns <code>dbl</code> to the least significant 64 bits of <code>bits128</code> through casting. All the bits of <code>dbl</code> are selected because <code>.bits()</code> is invoked without index parameters.</li>
+<li>Modifies a byte of <code>bits128</code>.</li>
+</ol>
+<h2 id="basic-types">Basic Types<a class="headerlink" href="#basic-types" title="Permanent link">🔗</a></h2>
+<p>DFiant pays</p>
+<h3 id="dfbits">DFBits<a class="headerlink" href="#dfbits" title="Permanent link">🔗</a></h3>
+<h3 id="dfbool">DFBool<a class="headerlink" href="#dfbool" title="Permanent link">🔗</a></h3>
+<h3 id="dfuint">DFUInt<a class="headerlink" href="#dfuint" title="Permanent link">🔗</a></h3>
+<h3 id="dfsint">DFSInt<a class="headerlink" href="#dfsint" title="Permanent link">🔗</a></h3>
+<h3 id="dfenum">DFEnum<a class="headerlink" href="#dfenum" title="Permanent link">🔗</a></h3>
+                
+                  
                 
               
               
@@ -640,7 +846,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../simulation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../../getting-started/initial-setup/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -649,19 +855,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Simulation
+                Initial Setup
               </div>
             </div>
           </a>
         
         
-          <a href="../errors/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../state/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Errors
+                State (Memory)
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">

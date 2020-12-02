@@ -10,7 +10,7 @@
       
       
       
-        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/synthesis/">
+        <link rel="canonical" href="https://dfianthdl.github.io/intro/dataflow-abstraction/">
       
       
         <meta name="author" content="Oron Port">
@@ -20,7 +20,7 @@
     
     
       
-        <title>Synthesis - DFDocs</title>
+        <title>A Dataflow Hardware Description Abstraction - DFDocs</title>
       
     
     
@@ -71,7 +71,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#synthesis" class="md-skip">
+        <a href="#a-dataflow-hardware-description-abstraction" class="md-skip">
           Skip to content
         </a>
       
@@ -101,7 +101,7 @@
           </span>
           <span class="md-header-nav__topic md-ellipsis">
             
-              Synthesis
+              A Dataflow Hardware Description Abstraction
             
           </span>
         </div>
@@ -173,7 +173,9 @@
     <li class="md-tabs__item">
       
       
-      <a href="../.." class="md-tabs__link">
+        
+      
+      <a href="../.." class="md-tabs__link md-tabs__link--active">
         Introduction
       </a>
     </li>
@@ -199,9 +201,7 @@
     <li class="md-tabs__item">
       
       
-        
-      
-      <a href="../type-system/" class="md-tabs__link md-tabs__link--active">
+      <a href="../../user-guide/type-system/" class="md-tabs__link">
         User Guide
       </a>
     </li>
@@ -265,10 +265,12 @@
       
       
 
+  
 
-  <li class="md-nav__item md-nav__item--nested">
+
+  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" >
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-1" type="checkbox" id="nav-1" checked>
     <label class="md-nav__link" for="nav-1">
       Introduction
       <span class="md-nav__icon md-icon"></span>
@@ -299,7 +301,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../intro/first-look/" class="md-nav__link">
+    <a href="../first-look/" class="md-nav__link">
       DFiant: First Look
     </a>
   </li>
@@ -311,7 +313,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../../intro/motivation/" class="md-nav__link">
+    <a href="../motivation/" class="md-nav__link">
       Motivation (Why Another HDL)
     </a>
   </li>
@@ -321,11 +323,123 @@
           
           
 
+  
 
-  <li class="md-nav__item">
-    <a href="../../intro/dataflow-abstraction/" class="md-nav__link">
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        A Dataflow Hardware Description Abstraction
+        <span class="md-nav__icon md-icon"></span>
+      </label>
+    
+    <a href="./" class="md-nav__link md-nav__link--active">
       A Dataflow Hardware Description Abstraction
     </a>
+    
+      
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-technology-backend-registers" class="md-nav__link">
+    Synchronous Technology Backend Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous Technology Backend Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipelining-and-path-balancing" class="md-nav__link">
+    Pipelining and Path-Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronizers" class="md-nav__link">
+    Synchronizers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-technology-interface-registers" class="md-nav__link">
+    Synchronous Technology Interface Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous Technology Interface Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-io-and-blackbox-interfaces" class="md-nav__link">
+    External IO and Blackbox Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timers" class="md-nav__link">
+    Timers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-functionality-state-registers" class="md-nav__link">
+    Design Functionality (State) Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Functionality (State) Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#derived-state" class="md-nav__link">
+    Derived State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feedback-state" class="md-nav__link">
+    Feedback State
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+    
   </li>
 
         
@@ -387,12 +501,10 @@
       
       
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active md-nav__item--nested">
+  <li class="md-nav__item md-nav__item--nested">
     
-    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" checked>
+    <input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" type="checkbox" id="nav-3" >
     <label class="md-nav__link" for="nav-3">
       User Guide
       <span class="md-nav__icon md-icon"></span>
@@ -411,7 +523,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../type-system/" class="md-nav__link">
+    <a href="../../user-guide/type-system/" class="md-nav__link">
       Type System
     </a>
   </li>
@@ -423,7 +535,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../state/" class="md-nav__link">
+    <a href="../../user-guide/state/" class="md-nav__link">
       State (Memory)
     </a>
   </li>
@@ -435,7 +547,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../connectivity/" class="md-nav__link">
+    <a href="../../user-guide/connectivity/" class="md-nav__link">
       Connectivity
     </a>
   </li>
@@ -447,7 +559,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../meta/" class="md-nav__link">
+    <a href="../../user-guide/meta/" class="md-nav__link">
       Meta Hardware Description
     </a>
   </li>
@@ -459,7 +571,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../compilation/" class="md-nav__link">
+    <a href="../../user-guide/compilation/" class="md-nav__link">
       Compilation
     </a>
   </li>
@@ -471,7 +583,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../simulation/" class="md-nav__link">
+    <a href="../../user-guide/simulation/" class="md-nav__link">
       Simulation
     </a>
   </li>
@@ -481,20 +593,11 @@
           
           
 
-  
 
-
-  <li class="md-nav__item md-nav__item--active">
-    
-    <input class="md-nav__toggle md-toggle" data-md-toggle="toc" type="checkbox" id="__toc">
-    
-      
-    
-    
-    <a href="./" class="md-nav__link md-nav__link--active">
+  <li class="md-nav__item">
+    <a href="../../user-guide/synthesis/" class="md-nav__link">
       Synthesis
     </a>
-    
   </li>
 
         
@@ -504,7 +607,7 @@
 
 
   <li class="md-nav__item">
-    <a href="../errors/" class="md-nav__link">
+    <a href="../../user-guide/errors/" class="md-nav__link">
       Errors
     </a>
   </li>
@@ -605,6 +708,95 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-technology-backend-registers" class="md-nav__link">
+    Synchronous Technology Backend Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous Technology Backend Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#pipelining-and-path-balancing" class="md-nav__link">
+    Pipelining and Path-Balancing
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#synchronizers" class="md-nav__link">
+    Synchronizers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#synchronous-technology-interface-registers" class="md-nav__link">
+    Synchronous Technology Interface Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Synchronous Technology Interface Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#external-io-and-blackbox-interfaces" class="md-nav__link">
+    External IO and Blackbox Interfaces
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#timers" class="md-nav__link">
+    Timers
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-functionality-state-registers" class="md-nav__link">
+    Design Functionality (State) Registers
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Functionality (State) Registers">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#derived-state" class="md-nav__link">
+    Derived State
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#feedback-state" class="md-nav__link">
+    Feedback State
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -615,13 +807,51 @@
             <article class="md-content__inner md-typeset">
               
                 
-                  <a href="https://github.com/DFiantHDL/DFiant/edit/master/docs/user-guide/synthesis/index.md" title="Edit this page" class="md-content__button md-icon">
+                  <a href="https://github.com/DFiantHDL/DFiant/edit/master/docs/intro/dataflow-abstraction/index.md" title="Edit this page" class="md-content__button md-icon">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20.71 7.04c.39-.39.39-1.04 0-1.41l-2.34-2.34c-.37-.39-1.02-.39-1.41 0l-1.84 1.83 3.75 3.75M3 17.25V21h3.75L17.81 9.93l-3.75-3.75L3 17.25z"/></svg>
                   </a>
                 
                 
-                <h1 id="synthesis">Synthesis<a class="headerlink" href="#synthesis" title="Permanent link">🔗</a></h1>
+                <h1 id="a-dataflow-hardware-description-abstraction">A Dataflow Hardware Description Abstraction<a class="headerlink" href="#a-dataflow-hardware-description-abstraction" title="Permanent link">🔗</a></h1>
+<p>
+    How dataflow abstractions help decouple the functionality from its constraints? <br>
+  What dataflow HDL constructs are required to achieve maximum portable code? 
+</p>
+
 <hr />
+<p align="center">
+  <img src="../dataflow-abstraction/hdl-abstraction.svg"><br>
+  <b>Fig.1: HDL abstraction layer summary (lowest=netlist, highest=dataflow)</b><br> 
+  <b>Each layer subsumes the capabilities of the layer below it. Dataflow constructs replace RTL registers with their true functionality (e.g., state) or insert them implicitly (e.g., pipelining)</b><br>
+</p>
+
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Fig. 1 summarizes the basic elements that make up HDLs at different abstraction layers, from a netlist up to the dataflow constructs presented in this paper. Each layer includes the expressive capabilities of the lowest layer (e.g., structural instance composition is possible in all HDLs). The layers are tagged with the relevant HDL names. Note that HLS languages and simulation constructs are not included in this summary. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; The basic notion of a dataflow abstraction is that instead of wires and registers we have dataflow token streams. This key difference between RTL and dataflow abstractions reveals why the former is coupled to device and timing constraints, while the latter is agnostic to them. Primarily, <em>the RTL model requires designers to express what operations take place in each cycle, whereas the dataflow model only require the designer to order the operations based on their data dependencies</em>. More specifically, the RTL model utilizes combinational operations that must complete (their propagation delay) within a given cycle if fed to a register, while the dataflow abstraction only assumes order and not on which cycle operations begin or complete. By decoupling operations from fixed clock cycles the dataflow model enables the compilation toolchain to map operations to cycles and thereby independently pipeline the design. Furthermore, the RTL model requires designers to use registers for a variety of uses and thus binds the design to specific timing conditions. Specifically, we find three main uses for registers in the RTL model: <em>synchronous technology backend</em>, <em>synchronous technology interface</em>, and <em>design functionality</em> (i.e., state). We now turn to discuss these different uses for registers and how the dataflow model can derive the first two uses without explicit user description.</p>
+<hr />
+<h2 id="synchronous-technology-backend-registers">Synchronous Technology Backend Registers<a class="headerlink" href="#synchronous-technology-backend-registers" title="Permanent link">🔗</a></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Registers are often required in a low-level design due to the underlying synchronous technology. Since they are unrelated to the functional requirement, a dataflow HDL can derive them automatically based on the functional requirements and design constraints. 
+We differentiate between the following backend uses of registers:</p>
+<h3 id="pipelining-and-path-balancing">Pipelining and Path-Balancing<a class="headerlink" href="#pipelining-and-path-balancing" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Pipeline registers are inserted to split long combinational paths, and their placement is determined by designer-specified constraints, such as the maximum path cycle latency or the maximum propagation delay between registers. Pipelining increases the path cycle latency, and if the path converges with another path that requires no pipelining, then additional path-balancing registers are added to maintain correctness of the design. Because a balanced pipelining does not affect the design functionality, it can be automatically applied by the dataflow HDL compiler.   </p>
+<h3 id="synchronizers">Synchronizers<a class="headerlink" href="#synchronizers" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Clock domain crossing (CDC) and asynchronous signals are exposed to metastability. Synchronizers, often composed of registers, are used to mitigate its effect and bring the design to the proper reliability. Since we wish to have a a clockless design frontend, we want the synchronizers to be implicit. A dataflow HDL compiler needs to infer synchronizers according to the design constraints without designer intervention. Note: our work currently focuses on single clock designs so the compiler we implemented does not yet support this feature.</p>
+<hr />
+<h2 id="synchronous-technology-interface-registers">Synchronous Technology Interface Registers<a class="headerlink" href="#synchronous-technology-interface-registers" title="Permanent link">🔗</a></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Functional design requirements are often accompanied by synchronous input/output (IO) timing constraints such as clocked protocol interfaces or real-time restrictions. However, these constraints only affect the interface and are unrelated to the design itself. To maximize design portability, we apply timed or legacy constructs <em>solely in the periphery</em>, while coding the design core with only clockless dataflow constructs. We differentiate between the following synchronous signaling:</p>
+<h3 id="external-io-and-blackbox-interfaces">External IO and Blackbox Interfaces<a class="headerlink" href="#external-io-and-blackbox-interfaces" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; External IOs that are exposed to the top design hierarchy or blackboxes that are exposed to the internal design core may impose synchronous protocols (e.g., data is valid one clock cycle after address is set). A dataflow HDL supports legacy RTL constructs to synchronously interface external IOs and instantiate blackboxes. </p>
+<h3 id="timers">Timers<a class="headerlink" href="#timers" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Timers are design constructs for generating real-time signals or creating derivations of timed signal inputs. For example, a design using a 100MHz clock may drive a UART stream at 10Mbps or toggle a led at 1Hz. Rather than directly using registers as clock dividers or employing clock generation components (e.g., PLLs), one can create functional representation of their timed use-cases. A dataflow HDL has timer constructs that generate tokens at a given or derived rate. The compiler can take all clocks into consideration and generate the proper clock tree based on the available device resources and other design constraints. </p>
+<hr />
+<h2 id="design-functionality-state-registers">Design Functionality (State) Registers<a class="headerlink" href="#design-functionality-state-registers" title="Permanent link">🔗</a></h2>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Functional registers, or state, are needed when a design must access (previous) values that are no longer available on an input signal (e.g., cumulative sum or a state-machine's state). RTL designs invoke registers (behaviorally) to store the state. But, registers not only store the state, but also enforce specific cycle latencies. Furthermore, typical RTL languages declare additional variables and place extra assignments just to save the state. A dataflow HDL overcomes all these issues by including a construct to reuse a token from the stream history. Additionally, a related construct should set a token history to be used at initialization time.
+We differentiate between two kinds of state: <em>derived state</em>, and <em>feedback state</em>. </p>
+<h3 id="derived-state">Derived State<a class="headerlink" href="#derived-state" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; A derived state is a state whose current output value is <em>independent</em> of its previous and can thereby be deduced by the compiler. For example, checking if a dataflow stream value has changed requires reusing the previous token and comparing to the current token. </p>
+<h3 id="feedback-state">Feedback State<a class="headerlink" href="#feedback-state" title="Permanent link">🔗</a></h3>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; A feedback state is a state whose current output value is <em>dependent</em> on its previous state value. For example, the current cumulative sum value is dependent on the previous sum value. Therefore, a dataflow HDL requires not only to fetch previous token values, but also set the future state value. Addressable memory pools also hold feedback state (e.g., a processor register-file, memory blocks) and can be expressed as a large selectable state array or available dedicated memory components.</p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; The two kinds of state differ heavily in performance improvement when the design is pipelined. A derived state path can produce a token for every clock tick, and pipelining a combination operation to reduce its cycle time will also increase its throughput. In contrast, a feedback state path is circular and cannot be pipelined as-is. </p>
+<p>&nbsp;&nbsp;&nbsp;&nbsp; Feedback state causes bottlenecks in many systems. For instance, a RISC-V processor program counter (PC) register manifests as a feedback state. The processor pipeline can only be improved thanks to a speculative mechanism that predicts the next PC value to prefetch instructions (e.g., PC+4 for a branch-not-taken prediction). In case of a miss-prediction other mechanisms take place. Further work may expand on dataflow abstractions that solve such problems functionally.</p>
                 
               
               
@@ -640,7 +870,7 @@
     <div class="md-footer-nav">
       <nav class="md-footer-nav__inner md-grid" aria-label="Footer">
         
-          <a href="../simulation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
+          <a href="../motivation/" class="md-footer-nav__link md-footer-nav__link--prev" rel="prev">
             <div class="md-footer-nav__button md-icon">
               <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"/></svg>
             </div>
@@ -649,19 +879,19 @@
                 <span class="md-footer-nav__direction">
                   Previous
                 </span>
-                Simulation
+                Motivation (Why Another HDL)
               </div>
             </div>
           </a>
         
         
-          <a href="../errors/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
+          <a href="../../getting-started/initial-setup/" class="md-footer-nav__link md-footer-nav__link--next" rel="next">
             <div class="md-footer-nav__title">
               <div class="md-ellipsis">
                 <span class="md-footer-nav__direction">
                   Next
                 </span>
-                Errors
+                Initial Setup
               </div>
             </div>
             <div class="md-footer-nav__button md-icon">
