@@ -16,7 +16,7 @@
         <link rel="canonical" href="https://dfianthdl.github.io/intro/first-look/">
       
       <link rel="shortcut icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.5">
+      <meta name="generator" content="mkdocs-1.1.2, mkdocs-material-6.2.6">
     
     
       
@@ -24,10 +24,10 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.15aa0b43.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.cb6bc1d0.min.css">
       
         
-        <link rel="stylesheet" href="../../assets/stylesheets/palette.75751829.min.css">
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.39b8e14a.min.css">
         
           
           
@@ -283,7 +283,6 @@
       
       
 
-
   
   
     
@@ -458,7 +457,6 @@
       
       
 
-
   
   
   
@@ -513,7 +511,6 @@
       
       
       
-
 
   
   
@@ -641,7 +638,6 @@
       
       
       
-
 
   
   
@@ -824,11 +820,12 @@
                 <h1 id="dfiant-first-look">DFiant: First Look<a class="headerlink" href="#dfiant-first-look" title="Permanent link">🔗</a></h1>
 <p>Your first encounter with the DFiant syntax, semantics and language features</p>
 <hr />
-<p>In this section we provide simple examples to demonstrate various DFiant syntax, semantics and languages features. If you wish to understand how to run these examples yourself, please refer to the <u>Getting Started</u> chapter of this documentation. </p>
+<p>In this section we provide simple examples to demonstrate various DFiant syntax, semantics and languages features. If you wish to understand how to run these examples yourself, please refer to the <a href="/getting-started/">Getting Started</a> chapter of this documentation. </p>
 <h2 id="main-feature-overview">Main Feature Overview<a class="headerlink" href="#main-feature-overview" title="Permanent link">🔗</a></h2>
 <ul>
-<li>Target and timing agnostic dataflow hardware description</li>
-<li>Strong bit-accurate type-safety</li>
+<li><strong>Concise</strong> and simple syntax</li>
+<li>Write <strong>portable</strong> code: Target and timing agnostic dataflow hardware description</li>
+<li>Strong <strong>bit-accurate type-safety</strong></li>
 <li>Simplified port connections</li>
 <li>Automatic latency path balancing</li>
 <li>Automatic/manual pipelining</li>
@@ -1085,43 +1082,44 @@
   <b>Fig. 1b: A DFiant implementation of the identity function as a toplevel design and the generated VHDL/Verilog files</b><br>
 </p>
 
-<p>The Scala code in Fig. 1b describes a program that runs the DFiant compiler on an identity function dataflow design, <code>ID</code>. Since DFiant is a Scala library some if its compilation process is done statically via the Scala compiler and the rest during the Scala runtime execution. </p>
+<p>The Scala code in Fig. 1b describes our ID design as a Scala class. To compile this further to <abbr title="Register-Transfer Level">RTL</abbr> or simulate it we need to create a program that instantiates the class and invokes additional commands. See the <a href="/getting-started/">getting started</a> guide for further details. </p>
 <div class="admonition summary">
-<p class="admonition-title">Writing a DFiant compilation program – easy as 1-2-3!</p>
+<p class="admonition-title">Defining a new dataflow design</p>
 <ol>
-<li><code class="highlight"><span class="k">import</span> <span class="nn">DFiant._</span></code> to import all the required namespace fields</li>
-<li><code class="highlight"><span class="k">trait</span> <span class="nc">_design_name_</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{}</span></code> to define your dataflow design. Populate your design with the required dataflow functionality.</li>
-<li><code class="highlight"><span class="k">object</span> <span class="nc">_program_name_</span> <span class="k">extends</span> <span class="nc">DFApp</span><span class="o">.</span><span class="nc">VHDLCompiler</span><span class="o">[</span><span class="k">_</span><span class="kt">design_name_</span><span class="o">]</span></code> to create your compilation program entry point.</li>
+<li><code class="highlight"><span class="k">import</span> <span class="nn">DFiant._</span></code> once per source file.</li>
+<li><code class="highlight"><span class="nd">@df</span> <span class="k">class</span> <span class="nc">_design_name_</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{}</span></code> to define your dataflow design. Populate your design with the required dataflow functionality.</li>
 </ol>
 </div>
 <details class="info"><summary>ID.scala line-by-line breakdown</summary><ul>
 <li>
-<p><strong>Line 1</strong>: This <code class="highlight"><span class="k">import</span></code> statement summons all the DFiant classes, types and objects into the current scope. This is a must in every DFiant codebase.</p>
+<p><strong>Line 1</strong>: This <code class="highlight"><span class="k">import</span></code> statement summons all the DFiant classes, types and objects into the current scope. This is a must for every dataflow design source file.</p>
 </li>
 <li>
-<p><strong>Lines 3-7</strong>: This <code>ID</code> Scala <code class="highlight"><span class="k">trait</span></code> is extended from the <code>DFDesign</code> (abstract) class and therefore declares it as a dataflow design. The reason why this is a <code class="highlight"><span class="k">trait</span></code> and not a <code class="highlight"><span class="k">class</span></code> is discussed <a href="">later</a> in this documentation. Currently, the <em>rule of thumb</em> to describe dataflow designs is to use traits that extend <code>DFDesign</code>.</p>
+<p><strong>Lines 3-7</strong>: The <code>ID</code> Scala <code class="highlight"><span class="k">class</span></code> is extended from the <code>DFDesign</code> (abstract) class and therefore declares it as a dataflow design. In addition, we also need to annotate the class with the <code>@df</code> dataflow context annotation. This annotation provides an <code class="highlight"><span class="k">implicit</span></code> context that is required for the DFiant compilation. In case this annotation is missing, you will get a <a href="/user-guide/errors/#missing-context">missing context</a> error. Note: currently in Scala 2.xx we populate a class within braces <code>{}</code>. For those of you who dislike braces, a braceless syntax is expected to be available in Scala 3, where DFiant will migrate to in the future. </p>
 <ul>
 <li>
-<p><strong>Lines 4-5</strong>: Here we construct the input port <code>x</code> and output port <code>y</code>.Both were set as a 16-bit signed integer dataflow variable via the <code>DFSInt[W]</code> constructor, where <code>W</code> is a width <strong>type</strong> argument that can accept any positive integer literal. It is also possible to use a width <strong>term</strong> argument via<code>DFSInt(width)</code>. DFiant also support various types such as <code>DFBits</code>, <code>DFUInt</code>, and <code>DFBool</code>. All these dataflow variable construction options and more are discussed <a href="/getting-started/">later</a> in this documentation. <br />The syntax <code class="highlight"><span class="k">val</span> <span class="nc">_name_</span> <span class="o">=</span> <span class="nc">_dataflow_variable_constructor_</span> <span class="o">&lt;&gt;</span> <span class="nc">_direction_</span></code> is used to construct a port and give it a named Scala reference. The Scala reference name will affect the name of this port when compiled to the required backend representation. </p>
+<p><strong>Lines 4-5</strong>: Here we construct the input port <code>x</code> and output port <code>y</code>. Both were set as a 16-bit signed integer dataflow variable via the <code>DFSInt(width)</code> constructor, where <code>width</code> is any positive integer. DFiant also support various types such as <code>DFBits</code>, <code>DFUInt</code>, and <code>DFBool</code>. All these dataflow variable construction options and more are discussed <a href="/user-guide/type-system">later</a> in this documentation. <br />The syntax <code class="highlight"><span class="k">val</span> <span class="nc">_name_</span> <span class="o">=</span> <span class="nc">_dataflow_type_constructor_</span> <span class="o">&lt;&gt;</span> <span class="nc">_direction_</span></code> is used to construct a port and give it a named Scala reference. The Scala reference name will affect the name of this port when compiled to the required backend representation. </p>
 </li>
 <li>
-<p><strong>Line 6</strong>: The assignment operator <code>:=</code> set the dataflow output port to receive input port values as they are.</p>
+<p><strong>Line 6</strong>: The assignment operator <code>:=</code> sets the dataflow output port to consume all input port tokens as they are.</p>
 </li>
 </ul>
-</li>
-<li>
-<p><strong>Line 9</strong>: This object is an extension of a <a href="https://www.scala-lang.org/api/current/scala/App.html">Scala <code>App</code> trait</a> that creates a <code>main</code> entry point for the DFiant compilation program. By inheriting <code>DFApp.VHDLCompiler[_top_]</code> we also generate the top design and execute the compilation and commitment to VHDL files. </p>
 </li>
 </ul>
 </details>
-<details class="info"><summary>Generated VHDL files observations</summary><ul>
-<li>The id.vhdl file is readable and maintains the names set in the DFiant design. The generated files follow various writing conventions such as capitalized port names and proper code alignment.</li>
-<li>The id_pkg.vhdl is a package file that is shared between all VHDL files generated by DFiant and  contains common conversion functions that may be required. Additionally it may contain other definitions like enumeration types.</li>
+<details class="info"><summary>Generated <abbr title="Register-Transfer Level">RTL</abbr> files observations</summary><ul>
+<li>The ID.vhdl/ID.v files are readable and maintain the names set in the DFiant design. The generated files follow various writing conventions such as lowercase keywords and proper code alignment.</li>
+<li>The ID_pkg.vhdl is a package file that is shared between all VHDL files generated by DFiant and  contains common conversion functions that may be required. Additionally it may contain other definitions like enumeration types.</li>
 </ul>
 </details>
 <hr />
 <h2 id="hierarchy-and-connection-example">Hierarchy and Connection Example<a class="headerlink" href="#hierarchy-and-connection-example" title="Permanent link">🔗</a></h2>
-<p><img alt="idtop" src="idtop.png" /></p>
+<p>One of the most qualifying characteristics of hardware design is the composition of modules/entities via hierarchies and <abbr title="Input/Output">IO</abbr> port connections. DFiant is no exception and easily enables dataflow design compositions. Fig. 2a demonstrates such a composition that creates yet another identity function, but this time as a chained composition of two identity functions. The top-level design <code>IDTop</code> introduces two instances of <code>ID</code> we saw in the previous example and connects them accordingly.</p>
+<p align="center">
+  <img src="../first-look/idtop.png"><br>
+  <b>Fig. 2a: Functional drawing of the dataflow design 'IDTop' with an input port 'x' and an output port 'y'</b><br>
+</p>
+
 <div class="tabbed-set" data-tabs="2:3"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><label for="__tabbed_2_1">IDTop.scala</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span> 1
  2
@@ -1276,6 +1274,10 @@
 </td></tr></table>
 </div>
 </div>
+<p align="center">
+  <b>Fig. 2b: A DFiant implementation of IDTop as a toplevel design and the generated VHDL/Verilog files</b><br>
+</p>
+
 <hr />
 <h2 id="finite-step-state-machine-fsm-example">Finite Step (State) Machine (FSM) Example<a class="headerlink" href="#finite-step-state-machine-fsm-example" title="Permanent link">🔗</a></h2>
 <div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">SeqDet.scala</label><div class="tabbed-content">
@@ -2160,15 +2162,15 @@ y_k &amp;=&amp; a_k/4
       
     </div>
     
-      <script src="../../assets/javascripts/vendor.93c04032.min.js"></script>
-      <script src="../../assets/javascripts/bundle.83e5331e.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+      <script src="../../assets/javascripts/vendor.53cc9318.min.js"></script>
+      <script src="../../assets/javascripts/bundle.e9c9f54f.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
       
       <script>
         app = initialize({
           base: "../..",
           features: ['navigation.tabs'],
           search: Object.assign({
-            worker: "../../assets/javascripts/worker/search.8c7e0a7e.min.js"
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
           }, typeof search !== "undefined" && search)
         })
       </script>
