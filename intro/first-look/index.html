@@ -1388,7 +1388,188 @@ object IDTopApp extends App {
 </details>
 <hr />
 <h2 id="concurrency-abstraction">Concurrency Abstraction<a class="headerlink" href="#concurrency-abstraction" title="Permanent link">🔗</a></h2>
-<p>DFiant assumes every dataflow variable is a stream</p>
+<p>Concurrency and data scheduling abstractions rely heavily on language semantics. DFiant code is expressed in a sequential manner yet employs an asynchronous dataflow programming model to enable implicit and intuitive concurrent hardware description. This is achieved by setting the data scheduling order, or <em>token-flow</em>, according to the <em>data dependency</em>: all independent dataflow expressions are scheduled concurrently, while dependent operations are synthesized into a guarded FIFO-styled pipeline. </p>
+<div class="arithmatex">\[\begin{aligned}
+    &amp;f:(i_{k},j_{k})_{k\in \mathbb{N}}\rightarrow (a_k,b_k,c_k,d_k,e_k)_{k\in \mathbb{N}}\\ 
+  &amp;\triangleq\left\{
+  \begin{split}
+  a_k &amp; = i_k + 5 \\
+  b_k &amp; = a_k * 3 \\
+  c_k &amp; = a_k + b_k \\
+  d_k &amp; = i_k - 1 \\
+  e_k &amp; = j_k / 4 \\
+  \end{split}\right.~~~~~k\geq 0 \\
+  \\
+  \end{aligned}\]</div>
+<p align="center">
+  <img src="../first-look/Conc.svg"><br>
+  <b>Fig. 4a: Functional drawing of the dataflow design 'Conc' with an input port 'x' and an output port 'y'</b><br>
+</p>
+<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">Conc.scala</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">import</span> <span class="nn">DFiant._</span>
+
+<span class="nd">@df</span> <span class="k">class</span> <span class="nc">Conc</span> <span class="k">extends</span> <span class="nc">DFDesign</span> <span class="o">{</span>
+  <span class="k">val</span> <span class="n">i</span><span class="o">,</span> <span class="n">j</span>      <span class="o">=</span> <span class="nc">DFUInt</span><span class="o">(</span><span class="mi">32</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">IN</span>
+  <span class="k">val</span> <span class="n">a</span><span class="o">,</span><span class="n">b</span><span class="o">,</span><span class="n">c</span><span class="o">,</span><span class="n">d</span><span class="o">,</span><span class="n">e</span> <span class="o">=</span> <span class="nc">DFUInt</span><span class="o">(</span><span class="mi">32</span><span class="o">)</span> <span class="o">&lt;&gt;</span> <span class="nc">OUT</span>
+  <span class="n">a</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">5</span>
+  <span class="n">b</span> <span class="o">:=</span> <span class="n">a</span> <span class="o">*</span> <span class="mi">3</span>
+  <span class="n">c</span> <span class="o">:=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span>
+  <span class="n">d</span> <span class="o">:=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span>
+  <span class="n">e</span> <span class="o">:=</span> <span class="n">j</span> <span class="o">/</span> <span class="mi">4</span>
+<span class="o">}</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">Conc.vhdl</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="k">library</span> <span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span> <span class="nn">work.Conc_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span> <span class="nc">Conc</span> <span class="k">is</span>
+<span class="k">port</span> <span class="p">(</span>
+  <span class="n">i</span>   <span class="o">:</span> <span class="k">in</span>  <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">j</span>   <span class="o">:</span> <span class="k">in</span>  <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">a</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">b</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">c</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">d</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">);</span>
+  <span class="n">e</span>   <span class="o">:</span> <span class="k">out</span> <span class="kt">unsigned</span><span class="p">(</span><span class="mi">31</span> <span class="k">downto</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span> <span class="nc">Conc</span><span class="p">;</span>
+
+<span class="k">architecture</span> <span class="nc">Conc_arch</span> <span class="k">of</span> <span class="nc">Conc</span> <span class="k">is</span>
+<span class="k">begin</span>
+  <span class="n">async_proc</span> <span class="o">:</span> <span class="k">process</span> <span class="p">(</span><span class="k">all</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">a</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">+</span> <span class="mi">5</span><span class="p">;</span>
+    <span class="n">b</span> <span class="o">&lt;=</span> <span class="n">resize</span><span class="p">(</span><span class="n">a</span> <span class="o">*</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">32</span><span class="p">);</span>
+    <span class="n">c</span> <span class="o">&lt;=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">d</span> <span class="o">&lt;=</span> <span class="n">i</span> <span class="o">-</span> <span class="mi">1</span><span class="p">;</span>
+    <span class="n">e</span> <span class="o">&lt;=</span> <span class="n">j</span> <span class="o">/</span> <span class="mi">4</span><span class="p">;</span>
+  <span class="k">end</span> <span class="k">process</span><span class="p">;</span>
+<span class="k">end</span> <span class="nc">Conc_arch</span><span class="p">;</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">Conc.v</label><div class="tabbed-content">
+<table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span></pre></div></td><td class="code"><div class="highlight"><pre><span></span><code><span class="no">`default_nettype</span>        <span class="n">none</span>
+<span class="no">`timescale</span> <span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span> <span class="s">&quot;Conc_defs.v&quot;</span>
+
+
+<span class="k">module</span> <span class="n">Conc</span><span class="p">(</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">i</span><span class="p">,</span>
+  <span class="k">input</span>  <span class="kt">wire</span> <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">j</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">a</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">b</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">c</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">d</span><span class="p">,</span>
+  <span class="k">output</span> <span class="kt">reg</span>  <span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span> <span class="n">e</span>
+<span class="p">);</span>
+  <span class="k">always</span> <span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+  <span class="k">begin</span>
+    <span class="n">a</span>                <span class="o">=</span> <span class="n">i</span> <span class="o">+</span> <span class="mh">5</span><span class="p">;</span>
+    <span class="n">b</span>                <span class="o">=</span> <span class="n">a</span> <span class="o">*</span> <span class="mh">3</span><span class="p">;</span>
+    <span class="n">c</span>                <span class="o">=</span> <span class="n">a</span> <span class="o">+</span> <span class="n">b</span><span class="p">;</span>
+    <span class="n">d</span>                <span class="o">=</span> <span class="n">i</span> <span class="o">-</span> <span class="mh">1</span><span class="p">;</span>
+    <span class="n">e</span>                <span class="o">=</span> <span class="n">j</span> <span class="o">/</span> <span class="mh">4</span><span class="p">;</span>
+  <span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+</td></tr></table>
+</div>
+</div>
+<p align="center">
+  <b>Fig. 4b: A DFiant implementation of Conc as a toplevel design and the generated VHDL/Verilog files</b><br>
+</p>
+
+<details class="dfiant"><summary>Conc.scala observations</summary><ul>
+<li><strong>Lines 6-7</strong>: </li>
+<li>For more information access the <a href="/user-guide/state">state section</a>.</li>
+</ul>
+</details>
+<details class="rtl"><summary>Conc <abbr title="Register-Transfer Level">RTL</abbr> files observations</summary><ul>
+<li>Bla Bla</li>
+</ul>
+</details>
+<details class="dfiant"><summary>Conc demo</summary><pre class="scastie"><code>import DFiant._
+
+@df class Conc extends DFDesign {
+  val i, j      = DFUInt(32) &lt;&gt; IN
+  val a,b,c,d,e = DFUInt(32) &lt;&gt; OUT
+  a := i + 5
+  b := a * 3
+  c := a + b
+  d := i - 1
+  e := j / 4
+}
+
+object ConcApp extends App {
+  import DFiant.compiler.backend.verilog.v2001
+  val conc = new Conc
+  conc.compile.printGenFiles(colored = false)
+}</code></pre>
+</details>
 <hr />
 <h2 id="state-abstraction">State Abstraction<a class="headerlink" href="#state-abstraction" title="Permanent link">🔗</a></h2>
 <p>So far, all the examples were <a href="https://en.wikipedia.org/wiki/Pure_function">pure (stateless) functions</a>, whereas frequently in hardware we need to express a <em>state</em>. A state is needed when a design must access (previous) values that are no longer (or never were) available on its input. DFiant assumes every dataflow variable is a token stream and provides constructs to initialize the token history via the <code>init</code> construct, reuse tokens via the <code>.prev</code> construct, and update the state via the assignment <code>:=</code> construct. </p>
@@ -1408,7 +1589,7 @@ y_k=\left(x_k+x_{k-1}+x_{k-2}+x_{k-3}\right)/4~~~~x_{i&lt;0}=0
   <img src="../first-look/SMA_DS.svg"><br>
   <b>Fig. 3a: Functional drawing of the dataflow design 'SMA_DS' with an input port 'x' and an output port 'y'</b><br>
 </p>
-<div class="tabbed-set" data-tabs="3:3"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><label for="__tabbed_3_1">SMA_DS.scala</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">SMA_DS.scala</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1431,7 +1612,7 @@ y_k=\left(x_k+x_{k-1}+x_{k-2}+x_{k-3}\right)/4~~~~x_{i&lt;0}=0
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><label for="__tabbed_3_2">SMA_DS.vhdl</label><div class="tabbed-content">
+<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">SMA_DS.vhdl</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1526,7 +1707,7 @@ y_k=\left(x_k+x_{k-1}+x_{k-2}+x_{k-3}\right)/4~~~~x_{i&lt;0}=0
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_3_3" name="__tabbed_3" type="radio" /><label for="__tabbed_3_3">SMA_DS.v</label><div class="tabbed-content">
+<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">SMA_DS.v</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1669,7 +1850,7 @@ y_k &amp;=&amp; \left(s_{0,k}+s_{2,k}\right)/4~~~~x_{i&lt;0}=0
   <img src="../first-look/SMA_DS2.svg"><br>
   <b>Fig. 4a: Functional drawing of the dataflow design 'SMA_DS2' with an input port 'x' and an output port 'y'</b><br>
 </p>
-<div class="tabbed-set" data-tabs="4:3"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><label for="__tabbed_4_1">SMA_DS2.scala</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">SMA_DS2.scala</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1692,7 +1873,7 @@ y_k &amp;=&amp; \left(s_{0,k}+s_{2,k}\right)/4~~~~x_{i&lt;0}=0
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><label for="__tabbed_4_2">SMA_DS2.vhdl</label><div class="tabbed-content">
+<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">SMA_DS2.vhdl</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1783,7 +1964,7 @@ y_k &amp;=&amp; \left(s_{0,k}+s_{2,k}\right)/4~~~~x_{i&lt;0}=0
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_4_3" name="__tabbed_4" type="radio" /><label for="__tabbed_4_3">SMA_DS2.v</label><div class="tabbed-content">
+<input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><label for="__tabbed_5_3">SMA_DS2.v</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1915,7 +2096,7 @@ a_0 &amp;=&amp; 0 \\
 a_k &amp;=&amp; a_{k-1} - x_{k-4}+x_k \\
 y_k &amp;=&amp; a_k/4
 \end{eqnarray}\]</div>
-<div class="tabbed-set" data-tabs="5:3"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><label for="__tabbed_5_1">SMA_CS.scala</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">SMA_CS.scala</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1936,7 +2117,7 @@ y_k &amp;=&amp; a_k/4
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><label for="__tabbed_5_2">SMA_CS.vhdl</label><div class="tabbed-content">
+<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">SMA_CS.vhdl</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2045,7 +2226,7 @@ y_k &amp;=&amp; a_k/4
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_5_3" name="__tabbed_5" type="radio" /><label for="__tabbed_5_3">SMA_CS.v</label><div class="tabbed-content">
+<input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><label for="__tabbed_6_3">SMA_CS.v</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2157,7 +2338,7 @@ y_k &amp;=&amp; a_k/4
 </div>
 <hr />
 <h2 id="finite-step-state-machine-fsm-example">Finite Step (State) Machine (FSM) Example<a class="headerlink" href="#finite-step-state-machine-fsm-example" title="Permanent link">🔗</a></h2>
-<div class="tabbed-set" data-tabs="6:3"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><label for="__tabbed_6_1">SeqDet.scala</label><div class="tabbed-content">
+<div class="tabbed-set" data-tabs="7:3"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><label for="__tabbed_7_1">SeqDet.scala</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2202,7 +2383,7 @@ y_k &amp;=&amp; a_k/4
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><label for="__tabbed_6_2">SeqDet.vhdl</label><div class="tabbed-content">
+<input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><label for="__tabbed_7_2">SeqDet.vhdl</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2359,7 +2540,7 @@ y_k &amp;=&amp; a_k/4
 </code></pre></div>
 </td></tr></table>
 </div>
-<input id="__tabbed_6_3" name="__tabbed_6" type="radio" /><label for="__tabbed_6_3">SeqDet.v</label><div class="tabbed-content">
+<input id="__tabbed_7_3" name="__tabbed_7" type="radio" /><label for="__tabbed_7_3">SeqDet.v</label><div class="tabbed-content">
 <table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
