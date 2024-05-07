@@ -1,78 +1,116 @@
-div.output-console * {
-  color: white
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu {
-  margin-top: 0px;
-  margin-bottom: 0px;
-  margin-left: 0px;
+/* fix position of the scastie panel to fit the admonition */
+details.dfhdl div.scastie.embedded, div.admonition.dfhdl div.scastie.embedded {
+  margin-left: -0.6rem;
   margin-right: 0px;
-  top: -37px;
-  left: 170px;
-  right: 360px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu li.btn.run-button {
-  margin-top: 5px;
-  margin-left: 0px;
-  padding-left: 0px;
-  padding-bottom: 0px;
-  padding-top: 0px;
-  background-color: #ecf3ff;
-  width: 110px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu li.logo {
-  margin-top: -35px;
-  margin-left: 100px;
-  padding-right: 0px;
-  margin-right: 0px;
-  padding-left: 0px;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  background-color: #ecf3ff;
-  width: 110px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu li.logo img {
-  background-color: black;
-  padding-top: 0px;
-  padding-bottom: 0px;
-  padding-left: 2px;
-  padding-right: 2px;
-  height: 20px;
-  line-height: 20px;
-}
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu li.btn.run-button i.fa.fa-play {
-  background-color: black;
-  color: white;
-  margin-left: 5px;
-  margin-right: 5px;
-  width: 20px;
-  height: 20px;
-  line-height: 20px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded {
-  margin-left: -13px;
-  padding-right: 46px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant p {
-  margin-bottom: 0px;
   margin-top: 0px;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.code ul.embedded-menu > *{
-  font-size: 15px;
-  color: #2000ff;
-}
-
-html.js-focus-visible.js body div.md-container main.md-main div.md-main__inner.md-grid div.md-content article.md-content__inner.md-typeset details.dfiant div.scastie.embedded {
+  margin-bottom: 0px;
+  width: calc(100% + 1.2rem);
+  padding-left: 0px;
+  padding-right: 0px;
   padding-top: 0px;
   padding-bottom: 0px;
-  margin-bottom: 0px;
-  margin-top: 0px;
-  width: 103.8%;
-  padding-right: 0px;
 }
+
+/* fix code coloring to match superfences code highlighting */
+div.scastie.embedded * div.main-panel div.content div.editor-container.inner-container {
+  div.console-container.console-open div.console {
+    background-color: var(--md-code-bg-color);
+  }
+
+  div.cm-scroller, div.cm-scroller div.cm-gutters {
+    background-color: var(--md-code-bg-color);
+    font-family: var(--md-code-font-family);
+  }
+  
+  div.cm-scroller, div.cm-scroller div.cm-gutters {
+    background-color: var(--md-code-bg-color);
+    font-family: var(--md-code-font-family);
+  }
+  div.cm-indent-markers.cm-line {
+    span.number {
+      color: var(--md-code-hl-number-color);
+    }
+    span.boolean {
+      color: var(--md-code-hl-number-color);
+    }
+    span.string {
+      color: var(--md-code-hl-string-color);
+    }
+    span.variable {
+      color: var(--md-code-hl-name-color);
+    }
+    span.operator {
+      color: var(--md-code-hl-operator-color);
+    }
+    span.property {
+      color: var(--md-code-hl-name-color)!important;
+    }
+    span.property span.method-call {
+      color: var(--md-code-hl-name-color)!important;
+    }
+    span.function-call {
+      color: var(--md-code-hl-name-color)!important;
+    }
+    span.function-call span.type span.constructor {
+      color: var(--md-code-hl-function-color)!important;
+    }
+  }  
+  div.cm-line {
+    span.keyword {
+      color: var(--md-code-hl-keyword-color);
+    }
+    span.include {
+      color: var(--md-code-hl-keyword-color);
+    } 
+    span.namespace {
+      color: var(--md-code-hl-function-color);
+    }
+    span.type {
+      color: var(--md-code-hl-function-color);
+    }
+    span.punctuation-delimiter {
+      color: var(--md-code-hl-punctuation-color);
+    }
+  }
+  span.comment span.spell {
+    color: var(--md-code-hl-comment-color);
+  }
+}
+/* Fix dark panel coloring to match admonition */
+div.scastie.embedded div.app.dark div.main-panel div.content div.editor-container.inner-container div.console-container {
+  div.switcher-show {
+    div.console-label {
+      color: var(--md-admonition-fg-color);
+    }
+    background:#222c3f;
+  }
+  div.switcher-hide {
+    div.console-label {
+      color: var(--md-admonition-fg-color);
+    }
+    background:#222c3f;
+  }
+  div.console div.handler {
+    background: #3f7ee7;
+  }
+}
+/* Fix light panel coloring to match admonition */
+div.scastie.embedded div.app.light div.main-panel div.content div.editor-container.inner-container div.console-container {
+  div.switcher-show {
+    div.console-label {
+      color: var(--md-admonition-fg-color);
+    }
+    background:#ecf3ff;
+  }
+  div.switcher-hide {
+    div.console-label {
+      color: var(--md-admonition-fg-color);
+    }
+    background:#ecf3ff;
+  }
+  div.console div.handler {
+    background: #5a97fd;
+  }
+}
+
+
