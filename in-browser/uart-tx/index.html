@@ -12,9 +12,13 @@
         <meta name="author" content="Oron Port">
       
       
-        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/compilation/">
+        <link rel="canonical" href="https://dfianthdl.github.io/in-browser/uart-tx/">
       
       
+        <link rel="prev" href="../alu/">
+      
+      
+        <link rel="next" href="../../about/contributing/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -22,7 +26,7 @@
     
     
       
-        <title>Compilation - DFiant HDL (DFHDL)</title>
+        <title>UART Transmitter - DFiant HDL (DFHDL)</title>
       
     
     
@@ -66,6 +70,8 @@
     
       <link rel="stylesheet" href="../../css/d3-hwschematic.css">
     
+      <link rel="stylesheet" href="../../css/in-browser.css">
+    
     <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
@@ -92,7 +98,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#compilation" class="md-skip">
+        <a href="#uart-transmitter" class="md-skip">
           Skip to content
         </a>
       
@@ -127,7 +133,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Compilation
+              UART Transmitter
             
           </span>
         </div>
@@ -279,11 +285,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../../in-browser/1-bit-full-adder/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../1-bit-full-adder/" class="md-tabs__link">
           
   
   Run In Browser
@@ -328,6 +336,8 @@
         <div class="md-main__inner md-grid">
           
             
+              
+                
               
               <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
                 <div class="md-sidebar__scrollwrap">
@@ -547,27 +557,30 @@
       
   
   
+    
   
   
+  
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_4" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
-        
-          
-          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -578,7 +591,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_4">
             <span class="md-nav__icon md-icon"></span>
             Run In Browser
@@ -592,7 +605,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../in-browser/1-bit-full-adder/" class="md-nav__link">
+      <a href="../1-bit-full-adder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -613,7 +626,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../in-browser/n-bit-full-adder/" class="md-nav__link">
+      <a href="../n-bit-full-adder/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -634,7 +647,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../in-browser/counter/" class="md-nav__link">
+      <a href="../counter/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -655,7 +668,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../in-browser/led-blinker/" class="md-nav__link">
+      <a href="../led-blinker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -676,7 +689,7 @@
   
   
     <li class="md-nav__item">
-      <a href="../../in-browser/alu/" class="md-nav__link">
+      <a href="../alu/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -694,10 +707,19 @@
                 
   
   
+    
   
   
-    <li class="md-nav__item">
-      <a href="../../in-browser/uart-tx/" class="md-nav__link">
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
         
   
   <span class="md-ellipsis">
@@ -706,6 +728,7 @@
   
 
       </a>
+      
     </li>
   
 
@@ -838,7 +861,9 @@
             
             
               
-              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -849,23 +874,6 @@
   
     
   
-  
-    <label class="md-nav__title" for="__toc">
-      <span class="md-nav__icon md-icon"></span>
-      Table of contents
-    </label>
-    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
-      
-        <li class="md-nav__item">
-  <a href="#elaboration" class="md-nav__link">
-    <span class="md-ellipsis">
-      Elaboration
-    </span>
-  </a>
-  
-</li>
-      
-    </ul>
   
 </nav>
                   </div>
@@ -883,9 +891,96 @@
   
 
 
-<h1 id="compilation">Compilation<a class="headerlink" href="#compilation" title="Permanent link"></a></h1>
-<hr />
-<h2 id="elaboration">Elaboration<a class="headerlink" href="#elaboration" title="Permanent link"></a></h2>
+<h1 id="uart-transmitter">UART Transmitter<a class="headerlink" href="#uart-transmitter" title="Permanent link"></a></h1>
+<pre class="scastie"><code>import dfhdl.* //import all the DFHDL goodness
+
+class UART_Tx(
+    val CLK_FREQ_KHz: Int &lt;&gt; CONST,
+    val BAUD_RATE_BPS: Int &lt;&gt; CONST
+) extends RTDesign:
+  val data_en    = Bit             &lt;&gt; IN
+  val DATA_BITS  = 8
+  val data       = Bits(DATA_BITS) &lt;&gt; IN
+  val tx         = Bit             &lt;&gt; OUT.REG
+  val tx_en      = Bit             &lt;&gt; OUT.REG
+  val tx_done    = Bit             &lt;&gt; OUT.REG
+  val BIT_CLOCKS = CLK_FREQ_KHz * 1000 / BAUD_RATE_BPS
+
+  enum Status extends Encode.OneHot:
+    case Idle, StartBit, DataBits, StopBit, Finalize
+  import Status.*
+  val status     = Status                 &lt;&gt; VAR.REG init Idle
+  val bitClkCnt  = UInt.until(BIT_CLOCKS) &lt;&gt; VAR.REG init 0
+  val dataBitCnt = UInt.until(DATA_BITS)  &lt;&gt; VAR.REG init 0
+  val shiftData  = Bits(DATA_BITS)        &lt;&gt; VAR.REG
+
+  // To save on writing the "bit clock count wait" 3 times,
+  // we use DFHDL's meta-programming capability.
+  @internals.metaContextIgnore
+  def waitBitAndThen(onThreshold: =&gt; Unit): Unit =
+    if (bitClkCnt == BIT_CLOCKS - 1)
+      bitClkCnt.din := 0
+      onThreshold
+    else bitClkCnt.din := bitClkCnt + 1
+
+  status match
+    case Idle =&gt;
+      tx_en.din      := 0
+      tx.din         := 1
+      tx_done.din    := 0
+      bitClkCnt.din  := 0
+      dataBitCnt.din := 0
+      if (data_en)
+        shiftData.din := data
+        status.din    := StartBit
+
+    case StartBit =&gt;
+      tx_en.din := 1
+      tx.din    := 0
+      waitBitAndThen { status.din := DataBits }
+
+    case DataBits =&gt;
+      tx.din := shiftData.lsbit
+      waitBitAndThen {
+        shiftData.din := shiftData &gt;&gt; 1
+        if (dataBitCnt == DATA_BITS - 1)
+          dataBitCnt.din := 0
+          status.din     := StopBit
+        else dataBitCnt.din := dataBitCnt + 1
+      }
+
+    case StopBit =&gt;
+      tx.din := 1
+      waitBitAndThen {
+        tx_done.din := 1
+        status.din  := Finalize
+      }
+
+    case Finalize =&gt;
+      tx_en.din   := 0
+      tx_done.din := 1
+      status.din  := Idle
+  end match
+end UART_Tx
+
+////////////////////////////////////////////////////////////////////////////////////////////////
+// DFHDL Compiler Options:                                                                    //
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Enables printing the generated chosen backend code:
+given options.CompilerOptions.PrintGenFiles = true
+// Uncomment to select vhdl compilation (default is verilog):
+// given options.CompilerOptions.Backend = backends.vhdl
+// Uncomment to enable printing design code before compilation (after elaboration):
+// given options.CompilerOptions.PrintDesignCodeBefore = true
+// Uncomment to enable printing design code after compilation:
+// given options.CompilerOptions.PrintDesignCodeAfter = true
+// Uncomment to set different clock and reset configurations:
+// given options.CompilerOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)
+// given options.CompilerOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)
+////////////////////////////////////////////////////////////////////////////////////////////////
+
+//The entry point to your compilation program starts here
+@main def hello = UART_Tx(50000, 115200).compile</code></pre>
 
 
 
@@ -893,8 +988,13 @@
 
 
 
+  
+  
 
 
+
+
+  
 
 
 
