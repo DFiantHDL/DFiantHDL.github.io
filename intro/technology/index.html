@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.23">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.25">
     
     
       
@@ -978,7 +978,7 @@
 
 
 <h1 id="technology">The DFiant Technology<a class="headerlink" href="#technology" title="Permanent link"></a></h1>
-<p>DFiant navigates the complexities of hardware design with a nuanced approach that addresses the limitations of traditional methods. Register-transfer level (<abbr title="Register-Transfer Level">RTL</abbr>) abstraction, while precise, often shifts the design focus from the "what" of functionality to the "how" of implementation. This subtle yet significant distinction restricts design flexibility, making it challenging to optimize for external constraints like performance or power without compromising on tool automation capabilities. The detailed nature of <abbr title="Register-Transfer Level">RTL</abbr> leads to complex, verbose coding, and extended simulation time. Although such granularity of control is sometimes necessary, it often exceeds the requirements of many applications.</p>
+<p>DFiant navigates the complexities of hardware design with a nuanced approach that addresses the limitations of traditional methods. The register-transfer level (<abbr title="Register-Transfer Level">RTL</abbr>) abstraction, while precise, often shifts the design focus from the "what" of functionality to the "how" of implementation. This subtle yet significant distinction restricts design flexibility, making it challenging to optimize for external constraints like performance or power without compromising on tool automation capabilities. The detailed nature of <abbr title="Register-Transfer Level">RTL</abbr> leads to complex, verbose coding, and extended simulation time. Although such granularity of control is sometimes necessary, it often exceeds the requirements of many applications.</p>
 <p>Conversely, High-Level Synthesis (<abbr title="High-Level Synthesis">HLS</abbr>) tools offer an abstraction that simplifies hardware design, particularly for those without a background in hardware engineering. By utilizing familiar programming languages and incorporating auto-pipelining and optimization, <abbr title="High-Level Synthesis">HLS</abbr> makes hardware acceleration more accessible. However, the inherent sequential semantics of these languages can obstruct the development of parallel hardware architectures, making it especially challenging to describe processors or synchronous interfaces.</p>
 <p>A newer category, High-Level RTLs (HL-RTLs), such as <a href="https://www.chisel-lang.org/">Chisel</a> and <a href="https://amaranth-lang.org/docs/amaranth/latest/">Amaranth</a>, aims to bridge these gaps. Embedded within popular programming languages as domain-specific languages (DSLs), these HL-RTLs introduce innovative constructs for hardware generation. However, despite these significant advancements, they remain anchored to the <abbr title="Register-Transfer Level">RTL</abbr> model, which can restrict implementation flexibility. Furthermore, their level of abstraction does not fully support the verification capabilities found in VHDL and Verilog, which benefit from event-driven semantics.</p>
 <p>DFiant attempts to introduce an optimal middle ground, which covers key <abbr title="Hardware Description Language">HDL</abbr> technologies across dimensions of both control and productivity (sort of "have the cake and it it too").</p>
@@ -1010,7 +1010,7 @@
 <p>DFHDL stands out by offering a comprehensive integration of three key domain abstractions—dataflow (<abbr title="Dataflow">DF</abbr>), register-transfer (<abbr title="Register-Transfer">RT</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>)—all within a single <abbr title="Hardware Description Language">HDL</abbr>, as illustrated in Figure 4. This unique capability allows developers to employ a cohesive syntax to seamlessly blend these abstractions: <abbr title="Dataflow">DF</abbr>, <abbr title="Register-Transfer">RT</abbr>, and <abbr title="Event-Driven">ED</abbr>. Each abstraction brings its own set of advantages in terms of control, synthesizability, simulation speed, and functional correctness.</p>
 <p><img alt="design-domains" src="design-domains-light.png#only-light" />
 <img alt="design-domains" src="design-domains-dark.png#only-dark" /></p>
-<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through an carefully constructed compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect—whether VHDL 93/2008 or Verilog/SystemVerilog—determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
+<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through a carefully constructed compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect—whether VHDL 93/2008 or Verilog/SystemVerilog—determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
 <p>A standout feature of DFHDL is its ability to regenerate the code in DFHDL syntax at any point in the compilation process, including intermediate stages. This transparency offers developers valuable insights into each step of the optimization or compilation, a stark contrast to many <abbr title="High-Level Synthesis">HLS</abbr> tools that produce hard-to-interpret code, leaving developers to decipher the underlying processes in case of issues.</p>
 <h2 id="more-details">More Details<a class="headerlink" href="#more-details" title="Permanent link"></a></h2>
 <p>For more details on motivation, you can read <a href="https://capra.cs.cornell.edu/latte21/paper/4.pdf">this position paper</a>.</p>
@@ -1104,7 +1104,9 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.ebd0bdb7.min.js"></script>
+      <script src="../../assets/javascripts/bundle.081f42fc.min.js"></script>
+      
+        <script src="../../javascripts/nav-workaround.js"></script>
       
         <script src="../../javascripts/config.js"></script>
       
