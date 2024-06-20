@@ -1088,13 +1088,22 @@
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// DFHDL Elaboration Options:                                                                 //</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// Uncomment to set different clock and reset configurations:</span>
+<span class="c1">// given options.ElaborationOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
+<span class="c1">// given options.ElaborationOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 <span class="c1">// DFHDL Compiler Options:                                                                    //</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
@@ -1106,9 +1115,6 @@
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeBefore = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
-<span class="c1">// Uncomment to set different clock and reset configurations:</span>
-<span class="c1">// given options.CompilerOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
-<span class="c1">// given options.CompilerOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 
 <span class="c1">//The entry point to your compilation program starts here</span>
@@ -1133,6 +1139,12 @@ class Counter8 extends RTDesign:
   cnt.din := cnt + 1
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
+// DFHDL Elaboration Options:                                                                 //
+////////////////////////////////////////////////////////////////////////////////////////////////
+// Uncomment to set different clock and reset configurations:
+// given options.ElaborationOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)
+// given options.ElaborationOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)
+////////////////////////////////////////////////////////////////////////////////////////////////
 // DFHDL Compiler Options:                                                                    //
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Enables printing the generated chosen backend code:
@@ -1143,9 +1155,6 @@ given options.CompilerOptions.PrintGenFiles = true
 // given options.CompilerOptions.PrintDesignCodeBefore = true
 // Uncomment to enable printing design code after compilation:
 // given options.CompilerOptions.PrintDesignCodeAfter = true
-// Uncomment to set different clock and reset configurations:
-// given options.CompilerOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)
-// given options.CompilerOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)
 ////////////////////////////////////////////////////////////////////////////////////////////////
 
 //The entry point to your compilation program starts here
@@ -1192,7 +1201,10 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.4.2</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.4.2</span>
 <span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.4.9</span>
 <span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.4.9</span>
 <span class="c1">//&gt; using option -deprecation -language:implicitConversions</span>
@@ -1205,6 +1217,12 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// DFHDL Elaboration Options:                                                                 //</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// Uncomment to set different clock and reset configurations:</span>
+<span class="c1">// given options.ElaborationOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
+<span class="c1">// given options.ElaborationOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 <span class="c1">// DFHDL Compiler Options:                                                                    //</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 <span class="c1">// Enables printing the generated chosen backend code:</span>
@@ -1215,9 +1233,6 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeBefore = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
-<span class="c1">// Uncomment to set different clock and reset configurations:</span>
-<span class="c1">// given options.CompilerOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
-<span class="c1">// given options.CompilerOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 
 <span class="c1">//The entry point to your compilation program starts here</span>
@@ -1263,13 +1278,22 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// DFHDL Elaboration Options:                                                                 //</span>
+<span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
+<span class="c1">// Uncomment to set different clock and reset configurations:</span>
+<span class="c1">// given options.ElaborationOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
+<span class="c1">// given options.ElaborationOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 <span class="c1">// DFHDL Compiler Options:                                                                    //</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
@@ -1281,9 +1305,6 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeBefore = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
-<span class="c1">// Uncomment to set different clock and reset configurations:</span>
-<span class="c1">// given options.CompilerOptions.DefaultClkCfg = ClkCfg(ClkCfg.Edge.Rising)</span>
-<span class="c1">// given options.CompilerOptions.DefaultRstCfg = RstCfg(RstCfg.Mode.Async, RstCfg.Active.Low)</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 
 <span class="c1">//The entry point to your compilation program starts here</span>
