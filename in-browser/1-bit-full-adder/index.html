@@ -894,7 +894,7 @@
 <h1 id="run-in-browser">1-Bit Full Adder<a class="headerlink" href="#run-in-browser" title="Permanent link"></a></h1>
 <pre class="scastie"><code>import dfhdl.* //import all the DFHDL goodness
 
-class FullAdder1 extends EDDesign:
+@top class FullAdder1 extends EDDesign:
   val a, b, c_in = Bit &lt;&gt; IN
   val sum, c_out = Bit &lt;&gt; OUT
 
@@ -912,10 +912,7 @@ given options.CompilerOptions.PrintGenFiles = true
 // given options.CompilerOptions.PrintDesignCodeBefore = true
 // Uncomment to enable printing design code after compilation:
 // given options.CompilerOptions.PrintDesignCodeAfter = true
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//The entry point to your compilation program starts here
-@main def main = FullAdder1().compile </code></pre>
+////////////////////////////////////////////////////////////////////////////////////////////////</code></pre>
 
 
 

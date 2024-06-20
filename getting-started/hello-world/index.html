@@ -1088,13 +1088,10 @@
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1116,16 +1113,13 @@
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
-
-<span class="c1">//The entry point to your compilation program starts here</span>
-<span class="nd">@main</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Counter8</span><span class="p">().</span><span class="n">compile</span><span class="p">.</span><span class="n">commit</span>
 </code></pre></div></td></tr></table></div>
 <div class="admonition summary">
 <p class="admonition-title">Writing a DFHDL compilation program – as easy as 01-10-11!</p>
 <ol>
 <li><code class="highlight"><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span></code> once per source file, to import all the required namespace objects, types, and functionality.</li>
 <li><code class="highlight"><span class="k">class</span><span class="w"> </span><span class="nc">_design_name_</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span></code> to define your register-transfer (<abbr title="Register-Transfer">RT</abbr>) domain design. Populate your design with the required interface and functionality. DFHDL supports two additional design domains: dataflow (<abbr title="Dataflow">DF</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>).</li>
-<li><code class="highlight"><span class="nd">@main</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_design_name_</span><span class="p">().</span><span class="n">compile</span><span class="p">.</span><span class="n">commit</span></code> to create your compilation program entry point, instantiate the design, elaborate it, compile it to Verilog or VHDL (see compiler options), and finally commit the files to disk.</li>
+<li>Add <code class="highlight"><span class="nd">@top</span></code> annotation to your top-level design (e.g., <code class="highlight"><span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">top_design_name_</span><span class="w"> </span><span class="p">...</span></code>) to automatically create a compilation program entry point for the design, instantiate it, elaborate it, compile it to Verilog or VHDL (see compiler options), and finally commit the files to disk.</li>
 </ol>
 </div>
 <h2 id="run-it-in-your-browser">Run It In Your Browser<a class="headerlink" href="#run-it-in-your-browser" title="Permanent link"></a></h2>
@@ -1134,7 +1128,7 @@
 <pre class="scastie"><code>import dfhdl.* //import all the DFHDL goodness
 
 /** Generates an 8-bit overlapping count */
-class Counter8 extends RTDesign:
+@top class Counter8 extends RTDesign:
   val cnt = UInt(8) &lt;&gt; OUT.REG init 0
   cnt.din := cnt + 1
 
@@ -1155,10 +1149,7 @@ given options.CompilerOptions.PrintGenFiles = true
 // given options.CompilerOptions.PrintDesignCodeBefore = true
 // Uncomment to enable printing design code after compilation:
 // given options.CompilerOptions.PrintDesignCodeAfter = true
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//The entry point to your compilation program starts here
-@main def main = Counter8().compile.commit</code></pre>
+////////////////////////////////////////////////////////////////////////////////////////////////</code></pre>
 </details>
 <p>For more examples that are available to run in your browser, see the <a class="autorefs autorefs-internal" href="../../in-browser/1-bit-full-adder/#run-in-browser">relevant section</a>.</p>
 <h2 id="run-it-on-your-system">Run It On Your System<a class="headerlink" href="#run-it-on-your-system" title="Permanent link"></a></h2>
@@ -1201,18 +1192,15 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">27</span>
 <span class="normal">28</span>
 <span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.4.2</span>
-<span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.4.9</span>
-<span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.4.9</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.4.2</span>
+<span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.5.0</span>
+<span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.5.0</span>
 <span class="c1">//&gt; using option -deprecation -language:implicitConversions</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1234,9 +1222,6 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
-
-<span class="c1">//The entry point to your compilation program starts here</span>
-<span class="nd">@main</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Counter8</span><span class="p">().</span><span class="n">compile</span><span class="p">.</span><span class="n">commit</span>
 </code></pre></div></td></tr></table></div>
 </details>
 <div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o Counter8.scala https://dfianthdl.github.io/getting-started/hello-world/scala-cli-single-file/Counter8.scala</span>
@@ -1250,8 +1235,8 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.4.2</span>
-<span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.4.9</span>
-<span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.4.9</span>
+<span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.5.0</span>
+<span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.5.0</span>
 <span class="c1">//&gt; using option -deprecation -language:implicitConversions</span>
 </code></pre></div></td></tr></table></div>
 <div class="copy highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">projectFolder/Counter8.scala</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -1278,13 +1263,10 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">22</span>
 <span class="normal">23</span>
 <span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
+<span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1306,9 +1288,6 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
 <span class="c1">// given options.CompilerOptions.PrintDesignCodeAfter = true</span>
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
-
-<span class="c1">//The entry point to your compilation program starts here</span>
-<span class="nd">@main</span><span class="w"> </span><span class="k">def</span><span class="w"> </span><span class="nf">main</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Counter8</span><span class="p">().</span><span class="n">compile</span><span class="p">.</span><span class="n">commit</span>
 </code></pre></div></td></tr></table></div>
 </details>
 <div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o project.scala https://dfianthdl.github.io/getting-started/hello-world/scala-cli-project/project.scala</span>
@@ -1341,7 +1320,7 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.8</span><span class="p">.</span><span class="n">1</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.8</span><span class="p">.</span><span class="n">2</span>
 <span class="n">runner</span><span class="p">.</span><span class="n">dialect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">scala</span><span class="mi">3</span>
 
 <span class="n">maxColumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>

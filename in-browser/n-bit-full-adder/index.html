@@ -901,7 +901,7 @@ class FullAdder1 extends EDDesign:
   sum   &lt;&gt; (a ^ b ^ c_in)
   c_out &lt;&gt; (a &amp;&amp; b || b &amp;&amp; c_in || c_in &amp;&amp; a)
 
-class FullAdderN(val n: Int) extends EDDesign:
+@top class FullAdderN(val n: Int = 4) extends EDDesign:
   val a, b  = Bits(n) &lt;&gt; IN
   val c_in  = Bit     &lt;&gt; IN
   val sum   = Bits(n) &lt;&gt; OUT
@@ -928,10 +928,7 @@ given options.CompilerOptions.PrintGenFiles = true
 // given options.CompilerOptions.PrintDesignCodeBefore = true
 // Uncomment to enable printing design code after compilation:
 // given options.CompilerOptions.PrintDesignCodeAfter = true
-////////////////////////////////////////////////////////////////////////////////////////////////
-
-//The entry point to your compilation program starts here
-@main def main = FullAdderN(4).compile</code></pre>
+////////////////////////////////////////////////////////////////////////////////////////////////</code></pre>
 
 
 
