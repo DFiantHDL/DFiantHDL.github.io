@@ -12,13 +12,13 @@
         <meta name="author" content="Oron Port">
       
       
-        <link rel="canonical" href="https://dfianthdl.github.io/in-browser/uart-tx/">
+        <link rel="canonical" href="https://dfianthdl.github.io/in-browser/true-dpr/">
       
       
-        <link rel="prev" href="../alu/">
+        <link rel="prev" href="../uart-tx/">
       
       
-        <link rel="next" href="../true-dpr/">
+        <link rel="next" href="../../about/contributing/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
@@ -26,7 +26,7 @@
     
     
       
-        <title>UART Transmitter - DFiant HDL (DFHDL)</title>
+        <title>True DPR - DFiant HDL (DFHDL)</title>
       
     
     
@@ -98,7 +98,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#uart-transmitter" class="md-skip">
+        <a href="#true-dual-port-ram" class="md-skip">
           Skip to content
         </a>
       
@@ -173,7 +173,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              UART Transmitter
+              True DPR
             
           </span>
         </div>
@@ -777,6 +777,27 @@
                 
   
   
+  
+  
+    <li class="md-nav__item">
+      <a href="../uart-tx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    UART Transmitter
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -793,33 +814,12 @@
         
   
   <span class="md-ellipsis">
-    UART Transmitter
-  </span>
-  
-
-      </a>
-      
-    </li>
-  
-
-              
-            
-              
-                
-  
-  
-  
-  
-    <li class="md-nav__item">
-      <a href="../true-dpr/" class="md-nav__link">
-        
-  
-  <span class="md-ellipsis">
     True DPR
   </span>
   
 
       </a>
+      
     </li>
   
 
@@ -982,77 +982,25 @@
   
 
 
-<h1 id="uart-transmitter">UART Transmitter<a class="headerlink" href="#uart-transmitter" title="Permanent link"></a></h1>
-<pre class="scastie"><code>import dfhdl.* //import all the DFHDL goodness
+<h1 id="true-dual-port-ram">True Dual-Port RAM<a class="headerlink" href="#true-dual-port-ram" title="Permanent link"></a></h1>
+<pre class="scastie"><code>import dfhdl.*
 
-@top class UART_Tx(
-    val CLK_FREQ_KHz: Int &lt;&gt; CONST  = 50000,
-    val BAUD_RATE_BPS: Int &lt;&gt; CONST = 115200
-) extends RTDesign:
-  val data_en    = Bit             &lt;&gt; IN
-  val DATA_BITS  = 8
-  val data       = Bits(DATA_BITS) &lt;&gt; IN
-  val tx         = Bit             &lt;&gt; OUT.REG
-  val tx_en      = Bit             &lt;&gt; OUT.REG
-  val tx_done    = Bit             &lt;&gt; OUT.REG
-  val BIT_CLOCKS = CLK_FREQ_KHz * 1000 / BAUD_RATE_BPS
+@top class TrueDPR(
+    val DATA_WIDTH: Int &lt;&gt; CONST = 8,
+    val ADDR_WIDTH: Int &lt;&gt; CONST = 8
+) extends EDDesign:
+  val ram = Bits(DATA_WIDTH) X (2 ** ADDR_WIDTH) &lt;&gt; VAR.SHARED
 
-  enum Status extends Encode.OneHot:
-    case Idle, StartBit, DataBits, StopBit, Finalize
-  import Status.*
-  val status     = Status                 &lt;&gt; VAR.REG init Idle
-  val bitClkCnt  = UInt.until(BIT_CLOCKS) &lt;&gt; VAR.REG init 0
-  val dataBitCnt = UInt.until(DATA_BITS)  &lt;&gt; VAR.REG init 0
-  val shiftData  = Bits(DATA_BITS)        &lt;&gt; VAR.REG
+  val a, b = new RTDomain:
+    val data = Bits(DATA_WIDTH) &lt;&gt; IN
+    val addr = Bits(ADDR_WIDTH) &lt;&gt; IN
+    val q    = Bits(DATA_WIDTH) &lt;&gt; OUT.REG
+    val we   = Bit              &lt;&gt; IN
 
-  // To save on writing the "bit clock count wait" 3 times,
-  // we use DFHDL's meta-programming capability.
-  @internals.metaContextIgnore
-  def waitBitAndThen(onThreshold: =&gt; Unit): Unit =
-    if (bitClkCnt == BIT_CLOCKS - 1)
-      bitClkCnt.din := 0
-      onThreshold
-    else bitClkCnt.din := bitClkCnt + 1
-
-  status match
-    case Idle =&gt;
-      tx_en.din      := 0
-      tx.din         := 1
-      tx_done.din    := 0
-      bitClkCnt.din  := 0
-      dataBitCnt.din := 0
-      if (data_en)
-        shiftData.din := data
-        status.din    := StartBit
-
-    case StartBit =&gt;
-      tx_en.din := 1
-      tx.din    := 0
-      waitBitAndThen { status.din := DataBits }
-
-    case DataBits =&gt;
-      tx.din := shiftData.lsbit
-      waitBitAndThen {
-        shiftData.din := shiftData &gt;&gt; 1
-        if (dataBitCnt == DATA_BITS - 1)
-          dataBitCnt.din := 0
-          status.din     := StopBit
-        else dataBitCnt.din := dataBitCnt + 1
-      }
-
-    case StopBit =&gt;
-      tx.din := 1
-      waitBitAndThen {
-        tx_done.din := 1
-        status.din  := Finalize
-      }
-
-    case Finalize =&gt;
-      tx_en.din   := 0
-      tx_done.din := 1
-      status.din  := Idle
-  end match
-end UART_Tx
+    if (we)
+      ram(addr) := data
+    q.din       := ram(addr)
+end TrueDPR
 
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // DFHDL Elaboration Options:                                                                 //
