@@ -22,7 +22,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.31">
+      <meta name="generator" content="mkdocs-1.6.0, mkdocs-material-9.5.33">
     
     
       
@@ -1010,8 +1010,8 @@ class FullAdder1 extends EDDesign:
   val a, b, c_in = Bit &lt;&gt; IN
   val sum, c_out = Bit &lt;&gt; OUT
 
-  sum   &lt;&gt; (a ^ b ^ c_in)
-  c_out &lt;&gt; (a &amp;&amp; b || b &amp;&amp; c_in || c_in &amp;&amp; a)
+  sum   &lt;&gt; a ^ b ^ c_in
+  c_out &lt;&gt; a &amp;&amp; b || b &amp;&amp; c_in || c_in &amp;&amp; a
 
 @top class FullAdderN(val n: Int = 4) extends EDDesign:
   val a, b  = Bits(n) &lt;&gt; IN
@@ -1035,8 +1035,6 @@ end FullAdderN
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Select backend compiler:
 given options.CompilerOptions.Backend = backends.verilog
-// Enables printing the generated chosen backend code:
-given options.CompilerOptions.PrintGenFiles = true
 // Uncomment to enable printing design code after elaboration (before compilation):
 // given options.ElaborationOptions.PrintDesignCodeAfter = true
 // Uncomment to enable printing design code after compilation:
@@ -1137,7 +1135,7 @@ given options.CompilerOptions.PrintGenFiles = true
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.b8dbb3d2.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.fe8b6f2b.min.js"></script>
+      <script src="../../assets/javascripts/bundle.af256bd8.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       
