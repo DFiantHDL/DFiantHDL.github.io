@@ -1590,7 +1590,7 @@
 </blockquote>
 </li>
 <li><a class="autorefs autorefs-internal" href="#DFEnum">DFHDL Enumeration: <code>... extends Encoding</code></a></li>
-<li><a class="autorefs autorefs-internal" href="#DFVector">DFHDL Vector: <code>[CellType] X [Dim]</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#DFVector">DFHDL Vector: <code>_CellType_ X _Dim_</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFStruct">DFHDL Structure: <code>... extends Struct</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFTuple">DFHDL Tuple: <code>(T1, T2, ..., Tn)</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFOpaque">DFHDL Opaque: <code>... extends Opaque</code></a></li>
@@ -1602,8 +1602,8 @@
 <hr />
 <p>Determines what kind of access the user has on the value. User explicit modifiers:</p>
 <ul>
-<li><a class="autorefs autorefs-internal" href="#Dcl">Variable: <code>VAR</code></a></li>
-<li><a class="autorefs autorefs-internal" href="#Dcl">Port: <code>IN</code>/<code>OUT</code>/<code>INOUT</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#Dcl">Variable: <code>VAR[.REG][.SHARED]</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#Dcl">Port: <code>IN</code>/<code>OUT[.REG]</code>/<code>INOUT[.REG]</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFConst">Constant: <code>CONST</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFStruct">Struct Field: <code>VAL</code></a></li>
 <li><a class="autorefs autorefs-internal" href="../methods/#DesignDef">Method Param: <code>VAL</code></a></li>
@@ -1624,23 +1624,25 @@
 <h2 id="Dcl">Variable and Port Declarations<a class="headerlink" href="#Dcl" title="Permanent link"></a></h2>
 <p>Ports are DFHDL values that define the inputs and outputs of a design. Variables are DFHDL values that represent internal design wiring, logic, or state.</p>
 <h3 id="dcl-syntax">Syntax<a class="headerlink" href="#dcl-syntax" title="Permanent link"></a></h3>
-<div class="highlight"><span class="filename">Port & variable declaration syntax</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">_name_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_dftype_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">_modifier_</span><span class="w"> </span><span class="p">[</span><span class="n">init</span><span class="w"> </span><span class="n">_const_</span><span class="p">]</span>
+<div class="highlight"><span class="filename">Port/Variable declaration syntax</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">_name_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_dftype_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">_modifier_</span><span class="w"> </span><span class="p">[</span><span class="n">init</span><span class="w"> </span><span class="n">_const_</span><span class="p">]</span>
 </code></pre></div>
 <ul>
+<li><strong><code>_name_</code></strong> is the Scala value name reference for the DFHDL port/variable you constructed. The DFHDL compiler preserves this name and uses it in error messages and the final generated artifacts (e.g., Verilog module or VHDL entity port names). More information is available under the <a class="autorefs autorefs-internal" href="#naming">naming</a> section.</li>
+<li><strong><code>_dftype_</code></strong> is set according to the shape type (DFType) of the DFHDL value. Each of the supported DFTypes have their own constructors. See relevant sections for the DFHDL DFType you wish to construct.</li>
+<li><strong><code>&lt;&gt;</code></strong> is the operator applied between a <code>_dftype_</code> and a <code>_modifier_</code> to construct the Scala value that represents a DFHDL variable or port accordingly. Note: the same <code>&lt;&gt;</code> operator is used as a language construct for declaring <a class="autorefs autorefs-internal" href="#connection">connections</a>. Thanks to Scala method overloading, <code>&lt;&gt;</code> can be shared for both use-cases with no issues (due to the Scala argument type difference). </li>
 <li><strong><code>_modifier_</code></strong> is set with one of the following: <ul>
 <li><code>VAR</code> - to construct a variable</li>
 <li><code>IN</code> - to construct an input port</li>
 <li><code>OUT</code> - to construct an output port</li>
 <li><code>INOUT</code> - to construct an input-output port</li>
+<li><code>VAR.REG</code> / <code>OUT.REG</code> / <code>INOUT.REG</code> - to construct a registered variable/port (available only in <abbr title="Register-Transfer">RT</abbr> domains) </li>
+<li><code>VAR.SHARED</code> - to construct a shared variable that can be assigned in more than one domain (this feature is to be used scarcely, to model unique designs like <a class="autorefs autorefs-internal" href="../../in-browser/true-dpr/#true-dpr">True Dual-Port RAM</a>)</li>
 </ul>
 </li>
-<li><strong><code>_dftype_</code></strong> is set according to the shape type (DFType) of the DFHDL value. Each of the supported DFTypes have their own constructors. See relevant sections for the DFHDL DFType you wish to construct.</li>
-<li><strong><code>&lt;&gt;</code></strong> is the operator applied between a <code>_dftype_</code> and a <code>_modifier_</code> to construct the Scala value that represents a DFHDL variable or port accordingly. Note: the same <code>&lt;&gt;</code> operator is used as a language construct for declaring <a class="autorefs autorefs-internal" href="#connection">connections</a>. Thanks to Scala method overloading, <code>&lt;&gt;</code> can be shared for both use-cases with no issues (due to the Scala argument type difference). </li>
 <li><strong><code>init</code></strong> is an optional construct to initialize the DFHDL variable/port declaration history with the applied <code>_const_</code> value.</li>
 <li><strong><code>_const_</code></strong> is the <a class="autorefs autorefs-internal" href="../state/#state-initialization">state history</a> initialization value or sequence of initialization values as a <a href="https://docs.scala-lang.org/tour/tuples.html" target="_blank">Scala Tuple</a>. This value must be a <a class="autorefs autorefs-internal" href="#DFConst">constant</a> that is supported by the DFType <code>_dftype_</code>.</li>
-<li><strong><code>_name_</code></strong> is the Scala value name reference for the DFHDL variable/port you constructed. The DFHDL compiler preserves this name and uses it in error messages and the final generated artifacts (e.g., Verilog module or VHDL entity port names). More information is available under the <a class="autorefs autorefs-internal" href="#naming">naming</a> section.</li>
 </ul>
-<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Port & variable declaration examples</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Port/Variable declaration examples</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1714,11 +1716,11 @@
 For input ports this occurs outside their design scope, while connecting to an external value. 
 For output ports and variables this occurs only within their design scope, while connecting to an internal value.</p>
 <h4 id="assignable-mutable">Assignable (Mutable)<a class="headerlink" href="#assignable-mutable" title="Permanent link"></a></h4>
-<p>Output ports, input-output ports, and variables are assignable (mutable), when they can be the receiving (drain/consumer) end of an <a class="autorefs autorefs-internal" href="#assignment">assignment</a> <code>:=</code>/<code>:==</code> operation, which occurs only within their design scope. Input ports can never be assigned (are immutable). </p>
+<p>Output ports, input-output ports, and variables are assignable (mutable), when they can be the receiving (drain/consumer) end of an <a class="autorefs autorefs-internal" href="#assignment">assignment</a> <code>:=</code>/<code>:==</code> operation, which occurs only within their design scope. Input ports can never be assigned (are immutable). Registered ports and variables are assignable only when referencing their registers' input via <code>.din</code> selection.</p>
 <h4 id="not-constant">Not Constant<a class="headerlink" href="#not-constant" title="Permanent link"></a></h4>
 <p>Ports and variables are never considered to be constant (even when connected/assigned only once and to a constant value) for elaboration. Later compilation stages can apply further constant propagation steps that reduce logic utilization.</p>
 <h4 id="inout-port-limitation"><code>INOUT</code> Port Limitation<a class="headerlink" href="#inout-port-limitation" title="Permanent link"></a></h4>
-<p><code>INOUT</code> (bidirectional) ports are generally used to reduce <abbr title="Input/Output">IO</abbr> pins from top-level device connectivity (e.g., protocols like <a href="https://en.wikipedia.org/wiki/I%C2%B2C" target="_blank">I<sup>2</sup>C</a> benefit from such ability). They are not meant for inter-device wiring reduction, and thus should be used scarcely within their designed purpose. Throughout the years they were also used to workaround <abbr title="Hardware Description Language">HDL</abbr> limitations like reading from output ports in VHDL'93, or lack of <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interfaces</a>. Since DFHDL has none of these limitation, we encourage you to use <code>INOUT</code> for their intended purpose only, as synthesis tools for FPGAs and even ASICs will not cooperate. Although, theoretically, in <abbr title="Dataflow">DF</abbr> domain we can enable bidirectional communication that can later be compiled into two separate ports, there is no real value behind this.</p>
+<p><code>INOUT</code> (bidirectional) ports are generally used to define <abbr title="Input/Output">IO</abbr> pins of top-level device connectivity (e.g., protocols like <a href="https://en.wikipedia.org/wiki/I%C2%B2C" target="_blank">I<sup>2</sup>C</a> benefit from such ability). They are not meant for inter-device wiring reduction, and thus should be used scarcely within their intended purpose. Throughout the years they were also used to workaround <abbr title="Hardware Description Language">HDL</abbr> limitations like reading from output ports in VHDL'93, or lack of <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interfaces</a>. Since DFHDL has none of these limitation, we encourage you to use <code>INOUT</code> for their intended purpose only, as synthesis tools for FPGAs and even ASICs will not cooperate. Although, theoretically, in <abbr title="Dataflow">DF</abbr> domain we can enable bidirectional communication that can later be compiled into two separate ports, there is no real value behind this.</p>
 <h4 id="grouping">Grouping<a class="headerlink" href="#grouping" title="Permanent link"></a></h4>
 <p>Ports can also be grouped together in a dedicated <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interface [wip]</a>.</p>
 <h3 id="Dcl-transitioning">Transitioning<a class="headerlink" href="#Dcl-transitioning" title="Permanent link"></a></h3>

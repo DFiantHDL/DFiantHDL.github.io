@@ -98,7 +98,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#true-dual-port-ram" class="md-skip">
+        <a href="#true-dpr" class="md-skip">
           Skip to content
         </a>
       
@@ -1003,7 +1003,7 @@
   
 
 
-<h1 id="true-dual-port-ram">True Dual-Port RAM<a class="headerlink" href="#true-dual-port-ram" title="Permanent link"></a></h1>
+<h1 id="true-dpr">True Dual-Port RAM<a class="headerlink" href="#true-dpr" title="Permanent link"></a></h1>
 <pre class="scastie"><code>import dfhdl.*
 
 @top class TrueDPR(
@@ -1034,8 +1034,6 @@ end TrueDPR
 ////////////////////////////////////////////////////////////////////////////////////////////////
 // Select backend compiler:
 given options.CompilerOptions.Backend = backends.verilog
-// Enables printing the generated chosen backend code:
-given options.CompilerOptions.PrintGenFiles = true
 // Uncomment to enable printing design code after elaboration (before compilation):
 // given options.ElaborationOptions.PrintDesignCodeAfter = true
 // Uncomment to enable printing design code after compilation:
