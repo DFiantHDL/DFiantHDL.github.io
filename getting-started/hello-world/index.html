@@ -675,18 +675,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scala-cli-single-file" class="md-nav__link">
+  <a href="#scala-single-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Scala-cli Single File
+      Scala Single File
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#scala-cli-project" class="md-nav__link">
+  <a href="#scala-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Scala-cli Project
+      Scala Project
     </span>
   </a>
   
@@ -1115,18 +1115,18 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scala-cli-single-file" class="md-nav__link">
+  <a href="#scala-single-file" class="md-nav__link">
     <span class="md-ellipsis">
-      Scala-cli Single File
+      Scala Single File
     </span>
   </a>
   
 </li>
         
           <li class="md-nav__item">
-  <a href="#scala-cli-project" class="md-nav__link">
+  <a href="#scala-project" class="md-nav__link">
     <span class="md-ellipsis">
-      Scala-cli Project
+      Scala Project
     </span>
   </a>
   
@@ -1268,13 +1268,13 @@ given options.CompilerOptions.PrintGenFiles = true
 <p>To run this example on your system, make sure to first follow the <a class="autorefs autorefs-internal" href="../initial-setup/#getting-started">initial setup</a> instructions.</p>
 <p>You have several options to run Scala programs on your system:</p>
 <ul>
-<li>For this simple <code>Counter8</code> example, you can just use the simplest <a class="autorefs autorefs-internal" href="#scala-cli-single-file">scala-cli-single-file</a> approach. </li>
-<li>For common DFHDL projects, we recommend using the <a class="autorefs autorefs-internal" href="#scala-cli-project">scala-cli project</a> approach. </li>
-<li>For more complex, full-production DFHDL projects, we recommended using an <a class="autorefs autorefs-internal" href="#sbt-project">sbt project</a>.</li>
+<li>For this simple <code>Counter8</code> example, you can just use the simplest <a class="autorefs autorefs-internal" href="#scala-single-file">scala-single-file</a> approach. </li>
+<li>For common DFHDL projects, we recommend using the <a class="autorefs autorefs-internal" href="#scala-project">scala project</a> approach. </li>
+<li>For complex, full-production DFHDL projects, you may need to use an <a class="autorefs autorefs-internal" href="#sbt-project">sbt project</a>, but this is usually not required.</li>
 </ul>
-<h3 id="scala-cli-single-file">Scala-cli Single File<a class="headerlink" href="#scala-cli-single-file" title="Permanent link"></a></h3>
+<h3 id="scala-single-file">Scala Single File<a class="headerlink" href="#scala-single-file" title="Permanent link"></a></h3>
 <details class="dfhdl">
-<summary>View the scala-cli single file example</summary>
+<summary>View the scala single file example</summary>
 <div class="copy highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Counter8.scala</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1336,13 +1336,13 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 </code></pre></div></td></tr></table></div>
 </details>
-<div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o Counter8.scala https://dfianthdl.github.io/getting-started/hello-world/scala-cli-single-file/Counter8.scala</span>
-<span class="go">scala-cli run ./Counter8.scala</span>
+<div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o Counter8.scala https://dfianthdl.github.io/getting-started/hello-world/scala-single-file/Counter8.scala</span>
+<span class="go">scala run ./Counter8.scala</span>
 </code></pre></div>
-<p>For more information, please consult the <a href="https://scala-cli.virtuslab.org/docs/overview" target="_blank">scala-cli documentation</a>.</p>
-<h3 id="scala-cli-project">Scala-cli Project<a class="headerlink" href="#scala-cli-project" title="Permanent link"></a></h3>
+<p>For more information, please run <code>scala run --help</code> or consult the <a href="https://scala-cli.virtuslab.org/docs/commands/run" target="_blank">online documentation</a>.</p>
+<h3 id="scala-project">Scala Project<a class="headerlink" href="#scala-project" title="Permanent link"></a></h3>
 <details class="dfhdl">
-<summary>View the scala-cli project files example</summary>
+<summary>View the scala project files example</summary>
 <div class="copy highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">projectFolder/project.scala</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1402,11 +1402,11 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="c1">////////////////////////////////////////////////////////////////////////////////////////////////</span>
 </code></pre></div></td></tr></table></div>
 </details>
-<div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o project.scala https://dfianthdl.github.io/getting-started/hello-world/scala-cli-project/project.scala</span>
-<span class="go">curl -o Counter8.scala https://dfianthdl.github.io/getting-started/hello-world/scala-cli-project/Counter8.scala</span>
-<span class="go">scala-cli run .</span>
+<div class="copy highlight"><span class="filename">Download and run in your terminal</span><pre><span></span><code><span class="go">curl -o project.scala https://dfianthdl.github.io/getting-started/hello-world/scala-project/project.scala</span>
+<span class="go">curl -o Counter8.scala https://dfianthdl.github.io/getting-started/hello-world/scala-project/Counter8.scala</span>
+<span class="go">scala run .</span>
 </code></pre></div>
-<p>For more information, please consult the <a href="https://scala-cli.virtuslab.org/docs/overview" target="_blank">scala-cli documentation</a>.</p>
+<p>For more information, please run <code>scala run --help</code> or consult the <a href="https://scala-cli.virtuslab.org/docs/commands/run" target="_blank">online documentation</a>.</p>
 <h3 id="sbt-project">sbt Project<a class="headerlink" href="#sbt-project" title="Permanent link"></a></h3>
 <p>The best way to get started with a DFHDL sbt project, is clone our template from github:</p>
 <div class="copy highlight"><span class="filename">Clone and run in your terminal</span><pre><span></span><code><span class="go">git clone https://github.com/DFiantHDL/dfhdl-template</span>
@@ -1449,7 +1449,7 @@ given options.CompilerOptions.PrintGenFiles = true
 <span class="n">newlines</span><span class="p">.</span><span class="n">selectChains</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">keep</span>
 </code></pre></div></td></tr></table></div>
 </details>
-<div class="copy highlight"><span class="filename">Download it via your terminal</span><pre><span></span><code><span class="go">curl -o .scalafmt.conf https://dfianthdl.github.io/getting-started/hello-world/scala-cli-project/.scalafmt.conf</span>
+<div class="copy highlight"><span class="filename">Download it via your terminal</span><pre><span></span><code><span class="go">curl -o .scalafmt.conf https://dfianthdl.github.io/getting-started/hello-world/scala-project/.scalafmt.conf</span>
 </code></pre></div>
 <p>For more information, please consult the <a href="https://scalameta.org/scalafmt/docs/configuration.html" target="_blank">Scalafmt documentation</a>.</p>
 
