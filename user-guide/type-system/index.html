@@ -1603,7 +1603,7 @@
 <p>Determines what kind of access the user has on the value. User explicit modifiers:</p>
 <ul>
 <li><a class="autorefs autorefs-internal" href="#Dcl">Variable: <code>VAR[.REG][.SHARED]</code></a></li>
-<li><a class="autorefs autorefs-internal" href="#Dcl">Port: <code>IN</code>/<code>OUT[.REG]</code>/<code>INOUT[.REG]</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#Dcl">Port: <code>IN</code>/<code>OUT[.REG]</code>/<code>INOUT</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFConst">Constant: <code>CONST</code></a></li>
 <li><a class="autorefs autorefs-internal" href="#DFStruct">Struct Field: <code>VAL</code></a></li>
 <li><a class="autorefs autorefs-internal" href="../methods/#DesignDef">Method Param: <code>VAL</code></a></li>
@@ -1634,8 +1634,8 @@
 <li><code>VAR</code> - to construct a variable</li>
 <li><code>IN</code> - to construct an input port</li>
 <li><code>OUT</code> - to construct an output port</li>
-<li><code>INOUT</code> - to construct an input-output port</li>
-<li><code>VAR.REG</code> / <code>OUT.REG</code> / <code>INOUT.REG</code> - to construct a registered variable/port (available only in <abbr title="Register-Transfer">RT</abbr> domains) </li>
+<li><code>INOUT</code> - to construct a bidirectional input-output port</li>
+<li><code>VAR.REG</code> / <code>OUT.REG</code> - to construct a registered variable or output port (available only in <abbr title="Register-Transfer">RT</abbr> domains) </li>
 <li><code>VAR.SHARED</code> - to construct a shared variable that can be assigned in more than one domain (this feature is to be used scarcely, to model unique designs like <a class="autorefs autorefs-internal" href="../../in-browser/true-dpr/#true-dpr">True Dual-Port RAM</a>)</li>
 </ul>
 </li>
@@ -1674,9 +1674,7 @@
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//error: global variables are not </span>
-<span class="c1">//allowed</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//error: Port/Variable declarations cannot be global</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span>
 <span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
@@ -1689,12 +1687,10 @@
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Boolean</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
-<span class="w">    </span><span class="c1">//error: cannot create a port in a </span>
-<span class="w">    </span><span class="c1">//DFHDL condition</span>
+<span class="w">    </span><span class="c1">//error: Ports can only be directly owned by a design, a domain or an interface.</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span>
 <span class="w">    </span><span class="n">o</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
 </code></pre></div></td></tr></table></div></p>
@@ -1714,15 +1710,143 @@
 <h4 id="connectable">Connectable<a class="headerlink" href="#connectable" title="Permanent link"></a></h4>
 <p>Ports and variables are connectable, meaning they can be the receiving (drain/consumer) end of a <a class="autorefs autorefs-internal" href="#connection">connection</a> <code>&lt;&gt;</code> operation. 
 For input ports this occurs outside their design scope, while connecting to an external value. 
-For output ports and variables this occurs only within their design scope, while connecting to an internal value.</p>
+For output ports and variables this occurs only within their design scope, while connecting to an internal value.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">ID</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="c1">//connecting x to y</span>
+</code></pre></div></td></tr></table></div></p>
 <h4 id="assignable-mutable">Assignable (Mutable)<a class="headerlink" href="#assignable-mutable" title="Permanent link"></a></h4>
-<p>Output ports, input-output ports, and variables are assignable (mutable), when they can be the receiving (drain/consumer) end of an <a class="autorefs autorefs-internal" href="#assignment">assignment</a> <code>:=</code>/<code>:==</code> operation, which occurs only within their design scope. Input ports can never be assigned (are immutable). Registered ports and variables are assignable only when referencing their registers' input via <code>.din</code> selection.</p>
+<p>Output ports, input-output ports, and variables are assignable (mutable), when they can be the receiving (drain/consumer) end of an <a class="autorefs autorefs-internal" href="#assignment">assignment</a> <code>:=</code>/<code>:==</code> operation, which occurs only within their design scope. Input ports can never be assigned (are immutable). Registered ports and variables are assignable only when referencing their registers' input via <code>.din</code> selection (referencing a register without <code>.din</code> is always considered to be its output, which is immutable). </p>
+<p>Assignment semantics are a key difference between the different design domains DFHDL has to offer. Here are some basic examples:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">//dataflow assignment of x to y</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Foo2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span>
+<span class="w">  </span><span class="c1">//wire assignment of x to y1</span>
+<span class="w">  </span><span class="n">y1</span><span class="w">     </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span>
+<span class="w">  </span><span class="c1">//registered assignment of x to y2</span>
+<span class="w">  </span><span class="n">y2</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Foo3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y1</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y2</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="c1">//blocking assignment of x to y1</span>
+<span class="w">    </span><span class="n">y1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">      </span><span class="c1">//non-blocking assignment of x to y2</span>
+<span class="w">      </span><span class="n">y2</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Errors1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">//error: Cannot assign to an immutable value.</span>
+<span class="w">  </span><span class="n">x</span><span class="w">  </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="c1">//error: Cannot assign to a register output; it is immutable.</span>
+<span class="w">  </span><span class="c1">//To assign to the register&#39;s input, apply `.din` on the LHS argument of the assignment.</span>
+<span class="w">  </span><span class="n">y1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="c1">//error: Non-blocking assignments `:==` are allowed only inside an event-driven (ED) domain.</span>
+<span class="w">  </span><span class="c1">//Change the assignment to a regular assignment `:=` or the logic domain to ED.</span>
+<span class="w">  </span><span class="n">y2</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Errors2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">//error: Blocking assignments `:=` are only allowed inside a process under an event-driven (ED) domain.</span>
+<span class="w">  </span><span class="c1">//Change the assignment to a connection `&lt;&gt;` or place it in a process.</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="c1">//error: Non-blocking assignments `:==` are only allowed inside a process under an event-driven (ED) domain.</span>
+<span class="w">  </span><span class="c1">//Change the assignment to a connection `&lt;&gt;` or place it in a process.</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div>
+Be sure to read more on assignment rules and semantics in the <a class="autorefs autorefs-internal" href="#assignment">assignment</a> section.</p>
 <h4 id="not-constant">Not Constant<a class="headerlink" href="#not-constant" title="Permanent link"></a></h4>
-<p>Ports and variables are never considered to be constant (even when connected/assigned only once and to a constant value) for elaboration. Later compilation stages can apply further constant propagation steps that reduce logic utilization.</p>
+<p>Ports and variables are never considered to be <a class="autorefs autorefs-internal" href="#DFConst">constant</a> (even when connected/assigned only once and to a constant value) for elaboration. Later compilation stages can apply further constant propagation steps that reduce logic utilization.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Errors</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">c</span><span class="p">:</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="c1">// error: Not a constant</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">e</span><span class="p">:</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div></p>
 <h4 id="inout-port-limitation"><code>INOUT</code> Port Limitation<a class="headerlink" href="#inout-port-limitation" title="Permanent link"></a></h4>
-<p><code>INOUT</code> (bidirectional) ports are generally used to define <abbr title="Input/Output">IO</abbr> pins of top-level device connectivity (e.g., protocols like <a href="https://en.wikipedia.org/wiki/I%C2%B2C" target="_blank">I<sup>2</sup>C</a> benefit from such ability). They are not meant for inter-device wiring reduction, and thus should be used scarcely within their intended purpose. Throughout the years they were also used to workaround <abbr title="Hardware Description Language">HDL</abbr> limitations like reading from output ports in VHDL'93, or lack of <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interfaces</a>. Since DFHDL has none of these limitation, we encourage you to use <code>INOUT</code> for their intended purpose only, as synthesis tools for FPGAs and even ASICs will not cooperate. Although, theoretically, in <abbr title="Dataflow">DF</abbr> domain we can enable bidirectional communication that can later be compiled into two separate ports, there is no real value behind this.</p>
+<p><code>INOUT</code> (bidirectional) ports are generally used to define <abbr title="Input/Output">IO</abbr> pins of top-level device connectivity (e.g., protocols like <a href="https://en.wikipedia.org/wiki/I%C2%B2C" target="_blank">I<sup>2</sup>C</a> benefit from such ability). They are not meant for inter-device wiring reduction, and thus should be used scarcely within their intended purpose. Throughout the years they were also used to workaround <abbr title="Hardware Description Language">HDL</abbr> limitations like reading from output ports in VHDL'93, or lack of <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interfaces</a>. Since DFHDL has none of these limitations, we encourage you to use <code>INOUT</code> for their intended purpose only, as synthesis tools for FPGAs and even ASICs will not cooperate. Although, theoretically, in <abbr title="Dataflow">DF</abbr> domain we can enable bidirectional communication that can later be compiled into two separate ports, there is no real value behind this.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">I2CCore</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">scl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">INOUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sda</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">INOUT</span>
+</code></pre></div></td></tr></table></div></p>
 <h4 id="grouping">Grouping<a class="headerlink" href="#grouping" title="Permanent link"></a></h4>
-<p>Ports can also be grouped together in a dedicated <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interface [wip]</a>.</p>
+<p>Ports can be grouped together in dedicated <a class="autorefs autorefs-internal" href="../interfaces/#interfaces">interfaces</a>.</p>
 <h3 id="Dcl-transitioning">Transitioning<a class="headerlink" href="#Dcl-transitioning" title="Permanent link"></a></h3>
 <details class="rtl">
 <summary>Differences from Verilog</summary>
