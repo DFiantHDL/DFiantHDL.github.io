@@ -60,7 +60,9 @@
     
       <link rel="stylesheet" href="../../css/dfhdl-admonition.css">
     
-      <link rel="stylesheet" href="../../css/rtl-admonition.css">
+      <link rel="stylesheet" href="../../css/verilog-admonition.css">
+    
+      <link rel="stylesheet" href="../../css/vhdl-admonition.css">
     
       <link rel="stylesheet" href="../../css/d2.css">
     
@@ -1177,7 +1179,7 @@
 
 <h1 id="hello-world">Hello Hardware World<a class="headerlink" href="#hello-world" title="Permanent link"></a></h1>
 <h2 id="the-basic-dfhdl-program">The Basic DFHDL Program<a class="headerlink" href="#the-basic-dfhdl-program" title="Permanent link"></a></h2>
-<p>Since DFHDL is a Scala library, were are creating a Scala program that takes DFHDL designs and compiles (transpiles) them into lower representations (e.g., VHDL or Verilog). As such, some of DFHDL's compilation process is done statically via the Scala compiler and the rest during the Scala runtime execution. The Scala code below describes a program that runs the DFHDL compiler on an 8-bit overlapping counter design, <code>Counter8</code>. </p>
+<p>Since DFHDL is a Scala library, we are creating a Scala program that takes DFHDL designs and compiles (transpiles) them into lower representations (e.g., VHDL or Verilog). As such, some of DFHDL's compilation process is done statically via the Scala compiler and the rest during the Scala runtime execution. The Scala code below describes a program that runs the DFHDL compiler on an 8-bit overlapping counter design, <code>Counter8</code>. </p>
 <div class="copy highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1411,14 +1413,14 @@ given options.CompilerOptions.PrintBackendCode = true
 </code></pre></div>
 <p>For more information, please run <code>scala run --help</code> or consult the <a href="https://scala-cli.virtuslab.org/docs/commands/run" target="_blank">online documentation</a>.</p>
 <h3 id="sbt-project">sbt Project<a class="headerlink" href="#sbt-project" title="Permanent link"></a></h3>
-<p>The best way to get started with a DFHDL sbt project, is clone our template from github:</p>
+<p>The best way to get started with a DFHDL sbt project is to clone our template from GitHub:</p>
 <div class="copy highlight"><span class="filename">Clone and run in your terminal</span><pre><span></span><code><span class="go">git clone https://github.com/DFiantHDL/dfhdl-template</span>
 <span class="go">cd dfhdl-template</span>
 <span class="go">sbt run</span>
 </code></pre></div>
 <p>For more information, please consult the <a href="https://www.scala-sbt.org/1.x/docs/" target="_blank">sbt documentation</a>.</p>
 <h3 id="recommended-scala-formatting-for-dfhdl">Recommended Scala Formatting for DFHDL<a class="headerlink" href="#recommended-scala-formatting-for-dfhdl" title="Permanent link"></a></h3>
-<p>We recommend to actively use <a href="https://scalameta.org/scalafmt/" target="_blank">Scalafmt</a>, a code formatter for Scala that integrates well with your toolchain. The following setting is recommended for DFHDL designs:</p>
+<p>We recommend actively using <a href="https://scalameta.org/scalafmt/" target="_blank">Scalafmt</a>, a code formatter for Scala that integrates well with your toolchain. The following setting is recommended for DFHDL designs:</p>
 <details class="dfhdl">
 <summary>View the Scalafmt recommended configuration file</summary>
 <div class="copy highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">projectFolder/.scalafmt.conf</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
