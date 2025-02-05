@@ -18,7 +18,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.1">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.2">
     
     
       
@@ -26,7 +26,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.a40c8224.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.d7758b05.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.06af60db.min.css">
@@ -51,6 +51,8 @@
       <link rel="stylesheet" href="../../css/scastie.css">
     
       <link rel="stylesheet" href="../../css/vs.css">
+    
+      <link rel="stylesheet" href="../../css/user-guide.css">
     
       <link rel="stylesheet" href="../../css/lhs-permalink.css">
     
@@ -1285,7 +1287,7 @@
 <li><em>top-app design</em> - a <code>@top</code> annotated <em>top design</em> that generates a main entry with the default application.</li>
 </ul>
 </div>
-<div class="hdelk-diagram" id="hdelk-diagram-5857205798914377652" style="width: 100%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram--1379524106357818806" style="width: 100%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1458,7 +1460,7 @@
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-5857205798914377652");
+        hdelk.layout(diagram, "hdelk-diagram--1379524106357818806");
     });
 </script>
 </div>
@@ -1493,10 +1495,12 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span>
 <span class="c1">//optionally set the default backend configuration option</span>
 <span class="c1">//(can be overridden by the top-app CLI)</span>
 <span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backends</span><span class="p">.</span><span class="n">verilog</span>
+
 <span class="cm">/** A two-bits left shifter */</span>
 <span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">LeftShift2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="cm">/** bits input */</span>
@@ -1505,7 +1509,7 @@
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-5222809002084941373" style="width: 100%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-8966992572630517735" style="width: 100%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1538,7 +1542,7 @@
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-5222809002084941373");
+        hdelk.layout(diagram, "hdelk-diagram-8966992572630517735");
     });
 </script>
 </div>
@@ -1625,13 +1629,15 @@
 //optionally set the default backend configuration option
 //(can be overridden by the top-app CLI)
 given options.CompilerOptions.Backend = backends.verilog
+
 /** A two-bits left shifter */
 @top class LeftShift2 extends RTDesign:
   /** bits input */
   val iBits = Bits(8) &lt;&gt; IN
   /** bits output */
   val oBits = Bits(8) &lt;&gt; OUT
-  oBits := iBits &lt;&lt; 2</code></pre>
+  oBits := iBits &lt;&lt; 2
+</code></pre>
 </details>
 </div>
 <h3 id="design-params-syntax">Parameter Block Syntax<a class="headerlink" href="#design-params-syntax" title="Permanent link"></a></h3>
@@ -1664,17 +1670,17 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="normal">10</span>
 <span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** A basic left shifter */</span>
 <span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">LeftShiftBasic</span><span class="p">(</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
 <span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="cm">/** bits input */</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="cm">/** requested shift */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="cm">/** bits output */</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span><span class="w">  </span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-3776762706778306088" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-4523716483579086005" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1716,7 +1722,7 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-3776762706778306088");
+        hdelk.layout(diagram, "hdelk-diagram-4523716483579086005");
     });
 </script>
 </div>
@@ -1808,17 +1814,19 @@ given options.CompilerOptions.Backend = backends.verilog
 <summary>Runnable example</summary>
 <pre class="scastie"><code>import dfhdl.*
 given options.CompilerOptions.Backend = backends.verilog
+
 /** A basic left shifter */
 @top class LeftShiftBasic(
-    val width: Int = 8,
+    val width: Int = 8
 ) extends RTDesign:
   /** bits input */
-  val iBits = Bits(width)       &lt;&gt; IN
+  val iBits = Bits(width) &lt;&gt; IN
   /** requested shift */
   val shift = UInt.until(width) &lt;&gt; IN
   /** bits output */
-  val oBits = Bits(width)       &lt;&gt; OUT
-  oBits := iBits &lt;&lt; shift  </code></pre>
+  val oBits = Bits(width) &lt;&gt; OUT
+  oBits := iBits &lt;&lt; shift
+</code></pre>
 </details>
 </div>
 <div class="admonition">
@@ -1853,9 +1861,9 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="cm">/** bits output */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span><span class="w">  </span>
+<span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-8835852916495615626" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-5006072606345435289" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1897,7 +1905,7 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-8835852916495615626");
+        hdelk.layout(diagram, "hdelk-diagram-5006072606345435289");
     });
 </script>
 </div>
@@ -2009,6 +2017,7 @@ given options.CompilerOptions.Backend = backends.verilog
 <summary>Runnable example</summary>
 <pre class="scastie"><code>import dfhdl.*
 given options.CompilerOptions.Backend = backends.verilog
+
 /** A generic left shifter 
   *   
   * @param width
@@ -2023,7 +2032,8 @@ given options.CompilerOptions.Backend = backends.verilog
   val shift = UInt.until(width) &lt;&gt; IN
   /** bits output */
   val oBits = Bits(width)       &lt;&gt; OUT
-  oBits := iBits &lt;&lt; shift  </code></pre>
+  oBits := iBits &lt;&lt; shift
+</code></pre>
 </details>
 </div>
 <h3 id="design-dcl-rules">Rules<a class="headerlink" href="#design-dcl-rules" title="Permanent link"></a></h3>
@@ -2061,7 +2071,7 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="cm">/** bits output */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--6933826019421412424" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram--4880566399541000493" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -2103,7 +2113,7 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram--6933826019421412424");
+        hdelk.layout(diagram, "hdelk-diagram--4880566399541000493");
     });
 </script>
 </div>
@@ -2302,7 +2312,7 @@ All other Scala class modifiers have no special effect or limitation from a DFHD
 <span class="w">  </span><span class="n">p1A</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">x</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">y</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--181749700406316056" style="width: 98%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-9018383762686662173" style="width: 98%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -2377,7 +2387,7 @@ All other Scala class modifiers have no special effect or limitation from a DFHD
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram--181749700406316056");
+        hdelk.layout(diagram, "hdelk-diagram-9018383762686662173");
     });
 </script>
 </div>
@@ -3045,7 +3055,7 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.5090c770.min.js"></script>
+      <script src="../../assets/javascripts/bundle.f13b1293.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       
