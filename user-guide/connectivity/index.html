@@ -1329,182 +1329,9 @@
 <li><em>top-app design</em> - A <code>@top</code> annotated <em>top design</em> that generates a main entry with the default application.</li>
 </ul>
 </div>
-<div class="hdelk-diagram" id="hdelk-diagram--1412943465151617400" style="width: 100%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "Top",
-      "label": "top",
-      "parameters": [
-        "param"
-      ],
-      "inPorts": [
-        {
-          "id": "i1",
-          "label": "in port"
-        }
-      ],
-      "outPorts": [
-        {
-          "id": "o1",
-          "label": "out port"
-        },
-        {
-          "id": "o2",
-          "label": " "
-        },
-        {
-          "id": "o3",
-          "label": " "
-        }
-      ],
-      "children": [
-        {
-          "id": "const",
-          "constant": 1
-        },
-        {
-          "id": "A",
-          "label": "child A",
-          "highlight": 1,
-          "parameters": [
-            "param1",
-            "param2"
-          ],
-          "inPorts": [
-            {
-              "id": "i1",
-              "label": " "
-            },
-            {
-              "id": "i2",
-              "label": " "
-            }
-          ],
-          "outPorts": [
-            {
-              "id": "o1",
-              "label": " "
-            },
-            {
-              "id": "o2",
-              "label": " "
-            }
-          ],
-          "children": [
-            {
-              "id": "opA1",
-              "label": ""
-            },
-            {
-              "id": "opA2",
-              "label": ""
-            }
-          ],
-          "edges": [
-            [
-              "A.i1",
-              "opA1"
-            ],
-            [
-              "opA1",
-              "A.o1"
-            ],
-            [
-              "A.i2",
-              "opA2"
-            ],
-            [
-              "opA2",
-              "A.o2"
-            ]
-          ]
-        },
-        {
-          "id": "B",
-          "label": "child B",
-          "highlight": 1,
-          "inPorts": [
-            {
-              "id": "i1",
-              "label": " "
-            }
-          ],
-          "outPorts": [
-            {
-              "id": "o1",
-              "label": " "
-            }
-          ],
-          "children": [
-            {
-              "id": "opB1",
-              "label": ""
-            }
-          ],
-          "edges": [
-            [
-              "B.i1",
-              "opB1"
-            ],
-            [
-              "opB1",
-              "B.o1"
-            ]
-          ]
-        },
-        {
-          "id": "opTop",
-          "label": ""
-        }
-      ],
-      "edges": [
-        [
-          "Top.i1",
-          "A.i1"
-        ],
-        [
-          "A.o1",
-          "A.i2"
-        ],
-        [
-          "A.o1",
-          "opTop"
-        ],
-        [
-          "opTop",
-          "Top.o1"
-        ],
-        [
-          "A.o2",
-          "B.i1"
-        ],
-        [
-          "B.o1",
-          "Top.o2"
-        ],
-        [
-          "A.o2",
-          "Top.o3"
-        ],
-        [
-          "Top.param",
-          "A.param2"
-        ],
-        [
-          "const",
-          "A.param1"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram--1412943465151617400");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram--6478367968059387473" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="445.28515625" height="327.384765625" viewBox="0 0 445.28515625 327.384765625"><g><g><rect width="445.28515625" height="327.384765625" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="318.328125" height="256.623046875" fill="#ffffff" stroke-width="1" stroke="#000000" x="59.25390625" y="58.76171875"></rect></g><text font-size="16" fill="#666666" x="203.859375" y="80.86328125"><tspan dy="0" x="203.859375">top</tspan></text><g><line x1="59.25390625" y1="271.384765625" x2="155.63671875" y2="271.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="152.63671875" y="268.384765625"></rect></g><g><polyline points="245.48828125,271.384765625 255.48828125,271.384765625 255.48828125,303.384765625 145.63671875,303.384765625 145.63671875,231.384765625 155.63671875,231.384765625" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="152.63671875" y="228.384765625"></rect></g><g><polyline points="245.48828125,271.384765625 265.48828125,271.384765625 265.48828125,285.384765625 310.53515625,285.384765625" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="307.53515625" y="282.384765625"></rect></g><g><line x1="330.53515625" y1="285.384765625" x2="377.58203125" y2="285.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="374.58203125" y="282.384765625"></rect></g><g><line x1="245.48828125" y1="231.384765625" x2="275.48828125" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="272.48828125" y="228.384765625"></rect></g><g><line x1="365.58203125" y1="231.384765625" x2="377.58203125" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="374.58203125" y="228.384765625"></rect></g><g><polyline points="245.48828125,231.384765625 265.48828125,231.384765625 265.48828125,263.384765625 377.58203125,263.384765625" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="374.58203125" y="260.384765625"></rect></g><g><polyline points="98.4453125,58.76171875 98.4453125,95.76171875 209.75390625,95.76171875 209.75390625,130.76171875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="206.75390625" y="127.76171875"></rect></g><g><polyline points="125.63671875,120.76171875 189.75390625,120.76171875 189.75390625,130.76171875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="186.75390625" y="127.76171875"></rect></g><g><g><polygon points="71.25390625,105.76171875 115.63671875,105.76171875 125.63671875,115.76171875 125.63671875,135.76171875 71.25390625,135.76171875" fill="#ffffff" stroke-width="1" stroke="#000000"></polygon></g><text font-size="16" fill="#666666" x="76.25390625" y="127.86328125"><tspan dy="0" x="76.25390625">const</tspan></text></g><g><g><rect width="63.6171875" height="109" fill="#dddddd" stroke-width="2" stroke="#444444" x="168.75390625" y="184.384765625"></rect></g><text font-size="16" fill="#222222" x="173.75390625" y="206.486328125"><tspan dy="0" x="173.75390625">child A</tspan></text><g><line x1="168.75390625" y1="271.384765625" x2="180.75390625" y2="271.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="177.75390625" y="268.384765625"></rect></g><g><line x1="200.75390625" y1="271.384765625" x2="232.37109375" y2="271.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="229.37109375" y="268.384765625"></rect></g><g><line x1="168.75390625" y1="231.384765625" x2="180.75390625" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="177.75390625" y="228.384765625"></rect></g><g><line x1="200.75390625" y1="231.384765625" x2="232.37109375" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="229.37109375" y="228.384765625"></rect></g><g><g><rect width="20" height="20" fill="#ffffff" stroke-width="1" stroke="#000000" x="180.75390625" y="261.384765625"></rect></g></g><g><g><rect width="20" height="20" fill="#ffffff" stroke-width="1" stroke="#000000" x="180.75390625" y="221.384765625"></rect></g></g><rect width="13.1171875" height="18" x="155.63671875" y="222.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="160.63671875" y="237.2109375"><tspan dy="0" x="160.63671875"> </tspan></text><rect width="13.1171875" height="18" x="155.63671875" y="262.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="160.63671875" y="277.2109375"><tspan dy="0" x="160.63671875"> </tspan></text><rect width="13.1171875" height="18" x="232.37109375" y="262.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="237.37109375" y="277.2109375"><tspan dy="0" x="237.37109375"> </tspan></text><rect width="13.1171875" height="18" x="232.37109375" y="222.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="237.37109375" y="237.2109375"><tspan dy="0" x="237.37109375"> </tspan></text><rect width="18" height="53.623046875" x="180.75390625" y="130.76171875" fill="#dddddd" stroke-width="2" stroke="#444444"></rect><text font-size="12" fill="#222222" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="135.76171875" y="-184.927734375"><tspan dy="0" x="135.76171875">param1</tspan></text><rect width="18" height="53.623046875" x="200.75390625" y="130.76171875" fill="#dddddd" stroke-width="2" stroke="#444444"></rect><text font-size="12" fill="#222222" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="135.76171875" y="-204.927734375"><tspan dy="0" x="135.76171875">param2</tspan></text></g><g><g><rect width="63.859375" height="69" fill="#dddddd" stroke-width="2" stroke="#444444" x="288.60546875" y="184.384765625"></rect></g><text font-size="16" fill="#222222" x="293.60546875" y="206.486328125"><tspan dy="0" x="293.60546875">child B</tspan></text><g><line x1="288.60546875" y1="231.384765625" x2="300.60546875" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="297.60546875" y="228.384765625"></rect></g><g><line x1="320.60546875" y1="231.384765625" x2="352.46484375" y2="231.384765625" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="349.46484375" y="228.384765625"></rect></g><g><g><rect width="20" height="20" fill="#ffffff" stroke-width="1" stroke="#000000" x="300.60546875" y="221.384765625"></rect></g></g><rect width="13.1171875" height="18" x="275.48828125" y="222.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="280.48828125" y="237.2109375"><tspan dy="0" x="280.48828125"> </tspan></text><rect width="13.1171875" height="18" x="352.46484375" y="222.384765625" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="357.46484375" y="237.2109375"><tspan dy="0" x="357.46484375"> </tspan></text></g><g><g><rect width="20" height="20" fill="#ffffff" stroke-width="1" stroke="#000000" x="310.53515625" y="275.384765625"></rect></g></g><rect width="47.25390625" height="18" x="12" y="262.384765625" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="277.2109375"><tspan dy="0" x="17">in port</tspan></text><rect width="55.703125" height="18" x="377.58203125" y="276.384765625" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="382.58203125" y="291.2109375"><tspan dy="0" x="382.58203125">out port</tspan></text><rect width="13.1171875" height="18" x="377.58203125" y="222.384765625" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="382.58203125" y="237.2109375"><tspan dy="0" x="382.58203125"> </tspan></text><rect width="13.1171875" height="18" x="377.58203125" y="254.384765625" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="382.58203125" y="269.2109375"><tspan dy="0" x="382.58203125"> </tspan></text><rect width="18" height="46.76171875" x="89.4453125" y="12" fill="#ffffff" stroke-width="1" stroke="#000000"></rect><text font-size="12" fill="#666666" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="17" y="-93.619140625"><tspan dy="0" x="17">param</tspan></text></g></g></svg>
+</div>
 </div>
 <h2 id="design-declaration">Design Declaration<a class="headerlink" href="#design-declaration" title="Permanent link"></a></h2>
 <h3 id="design-dcl-syntax">Syntax<a class="headerlink" href="#design-dcl-syntax" title="Permanent link"></a></h3>
@@ -1551,59 +1378,9 @@
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--7670075190250270780" style="width: 100%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "LeftShift2",
-      "inPorts": [
-        "iBits"
-      ],
-      "outPorts": [
-        "oBits"
-      ],
-      "children": [
-        {
-          "id": "const",
-          "label": 2,
-          "constant": 1
-        },
-        {
-          "id": "op",
-          "label": "<<",
-          "northPorts": [
-            {
-              "id": "shift",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        }
-      ],
-      "edges": [
-        [
-          "const",
-          "op.shift"
-        ],
-        [
-          "LeftShift2.iBits",
-          "op"
-        ],
-        [
-          "op",
-          "LeftShift2.oBits"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram--7670075190250270780");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram-8646718334478731758" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="195.271484375" height="129" viewBox="0 0 195.271484375 129"><g><g><rect width="195.271484375" height="129" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="99.4453125" height="105" fill="#ffffff" stroke-width="1" stroke="#000000" x="45.806640625" y="12"></rect></g><text font-size="16" fill="#666666" x="57.919921875" y="34.1015625"><tspan dy="0" x="57.919921875">LeftShift2</tspan></text><g><polyline points="80.955078125,64 117.103515625,64 117.103515625,74" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="114.103515625" y="71"></rect></g><g><line x1="45.806640625" y1="90" x2="100.955078125" y2="90" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="97.955078125" y="87"></rect></g><g><line x1="133.251953125" y1="90" x2="145.251953125" y2="90" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="142.251953125" y="87"></rect></g><g><g><polygon points="57.806640625,49 70.955078125,49 80.955078125,59 80.955078125,79 57.806640625,79" fill="#ffffff" stroke-width="1" stroke="#000000"></polygon></g><text font-size="16" fill="#666666" x="62.806640625" y="71.1015625"><tspan dy="0" x="62.806640625">2</tspan></text></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="100.955078125" y="75"></rect></g><text font-size="16" fill="#666666" x="105.955078125" y="97.1015625"><tspan dy="0" x="105.955078125">&lt;&lt;</tspan></text><rect width="5" height="1" x="114.603515625" y="74" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="72.94140625" y="-112.27734375"><tspan dy="0" x="72.94140625"> </tspan></text></g><rect width="33.806640625" height="18" x="12" y="81" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="95.826171875"><tspan dy="0" x="17">iBits</tspan></text><rect width="38.01953125" height="18" x="145.251953125" y="81" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="150.251953125" y="95.826171875"><tspan dy="0" x="150.251953125">oBits</tspan></text></g></g></svg>
+</div>
 </div>
 <p>This design is also a top-app design, since it's annotated with <code>@top</code>. This means that we have an executable Scala program that compiles the design and generates a Verilog or VHDL backend code. The backend configuration option can be set via a <abbr title="Command-line Interface">CLI</abbr> argument, or alternatively, be set via an implicit backend setting like in the code above. The <code>@top</code> annotation captures the <a href="https://docs.scala-lang.org/scala3/book/ca-context-parameters.html#given-instances-implicit-definitions-in-scala-2" target="_blank">implicit/given</a> options within its scope and feeds them to the top-app <abbr title="Command-line Interface">CLI</abbr> program as default to run when no <abbr title="Command-line Interface">CLI</abbr> arguments are given.</p>
 <div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
@@ -1739,59 +1516,9 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-3344763647829136425" style="width: 90%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "top",
-      "label": "LeftShiftBasic",
-      "inPorts": [
-        "iBits",
-        "shift"
-      ],
-      "outPorts": [
-        "oBits"
-      ],
-      "parameters": [
-        "width"
-      ],
-      "children": [
-        {
-          "id": "op",
-          "label": "<<",
-          "northPorts": [
-            {
-              "id": "shift",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        }
-      ],
-      "edges": [
-        [
-          "top.shift",
-          "op.shift"
-        ],
-        [
-          "top.iBits",
-          "op"
-        ],
-        [
-          "op",
-          "top.oBits"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram-3344763647829136425");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram-3987975756633212385" style="width: 90%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="211.080078125" height="164.32421875" viewBox="0 0 211.080078125 164.32421875"><g><g><rect width="211.080078125" height="164.32421875" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="114.6328125" height="99" fill="#ffffff" stroke-width="1" stroke="#000000" x="46.427734375" y="53.32421875"></rect></g><text font-size="16" fill="#666666" x="51.427734375" y="75.42578125"><tspan dy="0" x="51.427734375">LeftShiftBasic</tspan></text><g><polyline points="46.427734375,99.32421875 74.576171875,99.32421875 74.576171875,109.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="71.576171875" y="106.32421875"></rect></g><g><line x1="46.427734375" y1="125.32421875" x2="58.427734375" y2="125.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="55.427734375" y="122.32421875"></rect></g><g><line x1="90.724609375" y1="125.32421875" x2="161.060546875" y2="125.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="158.060546875" y="122.32421875"></rect></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="58.427734375" y="110.32421875"></rect></g><text font-size="16" fill="#666666" x="63.427734375" y="132.42578125"><tspan dy="0" x="63.427734375">&lt;&lt;</tspan></text><rect width="5" height="1" x="72.076171875" y="109.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="108.265625" y="-69.75"><tspan dy="0" x="108.265625"> </tspan></text></g><rect width="34.427734375" height="18" x="12" y="90.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="105.150390625"><tspan dy="0" x="17">shift</tspan></text><rect width="33.806640625" height="18" x="12.62109375" y="116.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17.62109375" y="131.150390625"><tspan dy="0" x="17.62109375">iBits</tspan></text><rect width="38.01953125" height="18" x="161.060546875" y="116.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="166.060546875" y="131.150390625"><tspan dy="0" x="166.060546875">oBits</tspan></text><rect width="18" height="41.32421875" x="58.427734375" y="12" fill="#ffffff" stroke-width="1" stroke="#000000"></rect><text font-size="12" fill="#666666" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="17" y="-62.6015625"><tspan dy="0" x="17">width</tspan></text></g></g></svg>
+</div>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Generated Verilog</label><label for="__tabbed_2_2">Generated VHDL</label></div>
 <div class="tabbed-content">
@@ -1930,59 +1657,9 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--19782941659632150" style="width: 90%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "top",
-      "label": "LeftShiftGen",
-      "inPorts": [
-        "iBits",
-        "shift"
-      ],
-      "outPorts": [
-        "oBits"
-      ],
-      "parameters": [
-        "width"
-      ],
-      "children": [
-        {
-          "id": "op",
-          "label": "<<",
-          "northPorts": [
-            {
-              "id": "shift",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        }
-      ],
-      "edges": [
-        [
-          "top.shift",
-          "op.shift"
-        ],
-        [
-          "top.iBits",
-          "op"
-        ],
-        [
-          "op",
-          "top.oBits"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram--19782941659632150");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram-9009722632853165897" style="width: 90%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="202.962890625" height="164.32421875" viewBox="0 0 202.962890625 164.32421875"><g><g><rect width="202.962890625" height="164.32421875" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="106.515625" height="99" fill="#ffffff" stroke-width="1" stroke="#000000" x="46.427734375" y="53.32421875"></rect></g><text font-size="16" fill="#666666" x="51.427734375" y="75.42578125"><tspan dy="0" x="51.427734375">LeftShiftGen</tspan></text><g><polyline points="46.427734375,99.32421875 74.576171875,99.32421875 74.576171875,109.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="71.576171875" y="106.32421875"></rect></g><g><line x1="46.427734375" y1="125.32421875" x2="58.427734375" y2="125.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="55.427734375" y="122.32421875"></rect></g><g><line x1="90.724609375" y1="125.32421875" x2="152.943359375" y2="125.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="149.943359375" y="122.32421875"></rect></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="58.427734375" y="110.32421875"></rect></g><text font-size="16" fill="#666666" x="63.427734375" y="132.42578125"><tspan dy="0" x="63.427734375">&lt;&lt;</tspan></text><rect width="5" height="1" x="72.076171875" y="109.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="108.265625" y="-69.75"><tspan dy="0" x="108.265625"> </tspan></text></g><rect width="34.427734375" height="18" x="12" y="90.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="105.150390625"><tspan dy="0" x="17">shift</tspan></text><rect width="33.806640625" height="18" x="12.62109375" y="116.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17.62109375" y="131.150390625"><tspan dy="0" x="17.62109375">iBits</tspan></text><rect width="38.01953125" height="18" x="152.943359375" y="116.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="157.943359375" y="131.150390625"><tspan dy="0" x="157.943359375">oBits</tspan></text><rect width="18" height="41.32421875" x="58.427734375" y="12" fill="#ffffff" stroke-width="1" stroke="#000000"></rect><text font-size="12" fill="#666666" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="17" y="-62.6015625"><tspan dy="0" x="17">width</tspan></text></g></g></svg>
+</div>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Generated Verilog</label><label for="__tabbed_3_2">Generated VHDL</label></div>
 <div class="tabbed-content">
@@ -2167,104 +1844,9 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="p">.</span><span class="nc">Left</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="p">.</span><span class="nc">Right</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--3126671790997734018" style="width: 90%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "top",
-      "label": "LRShiftFlat",
-      "inPorts": [
-        "iBits",
-        "shift",
-        "dir"
-      ],
-      "outPorts": [
-        "oBits"
-      ],
-      "parameters": [
-        "width"
-      ],
-      "children": [
-        {
-          "id": "opL",
-          "label": "<<",
-          "northPorts": [
-            {
-              "id": "shift",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        },
-        {
-          "id": "opR",
-          "label": ">>",
-          "southPorts": [
-            {
-              "id": "shift",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        },
-        {
-          "id": "mux",
-          "label": "mux",
-          "northPorts": [
-            {
-              "id": "sel",
-              "label": " ",
-              "height": 5,
-              "width": 1
-            }
-          ]
-        }
-      ],
-      "edges": [
-        [
-          "top.shift",
-          "opR.shift"
-        ],
-        [
-          "top.shift",
-          "opL.shift"
-        ],
-        [
-          "top.iBits",
-          "opR"
-        ],
-        [
-          "top.iBits",
-          "opL"
-        ],
-        [
-          "top.dir",
-          "mux.sel"
-        ],
-        [
-          "opL",
-          "mux"
-        ],
-        [
-          "opR",
-          "mux"
-        ],
-        [
-          "mux",
-          "top.oBits"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram--3126671790997734018");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram-3992439018180379969" style="width: 90%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="249.830078125" height="247.32421875" viewBox="0 0 249.830078125 247.32421875"><g><g><rect width="249.830078125" height="247.32421875" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="153.3828125" height="182" fill="#ffffff" stroke-width="1" stroke="#000000" x="46.427734375" y="53.32421875"></rect></g><text font-size="16" fill="#666666" x="81.736328125" y="75.42578125"><tspan dy="0" x="81.736328125">LRShiftFlat</tspan></text><g><polyline points="46.427734375,121.32421875 68.427734375,121.32421875 68.427734375,223.32421875 104.576171875,223.32421875 104.576171875,213.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="101.576171875" y="210.32421875"></rect></g><g><polyline points="46.427734375,121.32421875 104.576171875,121.32421875 104.576171875,131.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="101.576171875" y="128.32421875"></rect></g><g><polyline points="46.427734375,147.32421875 78.427734375,147.32421875 78.427734375,197.32421875 88.427734375,197.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="85.427734375" y="194.32421875"></rect></g><g><line x1="46.427734375" y1="147.32421875" x2="88.427734375" y2="147.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="85.427734375" y="144.32421875"></rect></g><g><polyline points="46.427734375,99.32421875 164.267578125,99.32421875 164.267578125,136.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="161.267578125" y="133.32421875"></rect></g><g><line x1="120.724609375" y1="147.32421875" x2="140.724609375" y2="147.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="137.724609375" y="144.32421875"></rect></g><g><polyline points="120.724609375,197.32421875 130.724609375,197.32421875 130.724609375,157.32421875 140.724609375,157.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="137.724609375" y="154.32421875"></rect></g><g><line x1="187.810546875" y1="152.32421875" x2="199.810546875" y2="152.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="196.810546875" y="149.32421875"></rect></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="88.427734375" y="132.32421875"></rect></g><text font-size="16" fill="#666666" x="93.427734375" y="154.42578125"><tspan dy="0" x="93.427734375">&lt;&lt;</tspan></text><rect width="5" height="1" x="102.076171875" y="131.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="130.265625" y="-99.75"><tspan dy="0" x="130.265625"> </tspan></text></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="88.427734375" y="182.32421875"></rect></g><text font-size="16" fill="#666666" x="93.427734375" y="204.42578125"><tspan dy="0" x="93.427734375">&gt;&gt;</tspan></text><rect width="5" height="1" x="102.076171875" y="212.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="211.265625" y="-99.75"><tspan dy="0" x="211.265625"> </tspan></text></g><g><g><rect width="47.0859375" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="140.724609375" y="137.32421875"></rect></g><text font-size="16" fill="#666666" x="145.724609375" y="159.42578125"><tspan dy="0" x="145.724609375">mux</tspan></text><rect width="5" height="1" x="161.767578125" y="136.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="135.265625" y="-159.44140625"><tspan dy="0" x="135.265625"> </tspan></text></g><rect width="25.287109375" height="18" x="21.140625" y="90.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="26.140625" y="105.150390625"><tspan dy="0" x="26.140625">dir</tspan></text><rect width="34.427734375" height="18" x="12" y="112.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="127.150390625"><tspan dy="0" x="17">shift</tspan></text><rect width="33.806640625" height="18" x="12.62109375" y="138.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17.62109375" y="153.150390625"><tspan dy="0" x="17.62109375">iBits</tspan></text><rect width="38.01953125" height="18" x="199.810546875" y="143.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="204.810546875" y="158.150390625"><tspan dy="0" x="204.810546875">oBits</tspan></text><rect width="18" height="41.32421875" x="58.427734375" y="12" fill="#ffffff" stroke-width="1" stroke="#000000"></rect><text font-size="12" fill="#666666" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="17" y="-62.6015625"><tspan dy="0" x="17">width</tspan></text></g></g></svg>
+</div>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Generated Verilog</label><label for="__tabbed_4_2">Generated VHDL</label></div>
 <div class="tabbed-content">
@@ -2604,51 +2186,9 @@ enum ShiftDir extends Encode:
 <span class="w">  </span><span class="cm">/** bits output */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-1991313368343596285" style="width: 90%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "stroke-width": 0,
-  "children": [
-    {
-      "id": "top",
-      "label": "ShiftGen",
-      "inPorts": [
-        "iBits",
-        "shift"
-      ],
-      "outPorts": [
-        "oBits"
-      ],
-      "parameters": [
-        "width"
-      ],
-      "children": [
-        {
-          "id": "op",
-          "label": "<<"
-        }
-      ],
-      "edges": [
-        [
-          "top.shift",
-          "op"
-        ],
-        [
-          "top.iBits",
-          "op"
-        ],
-        [
-          "op",
-          "top.oBits"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram-1991313368343596285");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram-3537110951515154484" style="width: 90%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="174.611328125" height="155.32421875" viewBox="0 0 174.611328125 155.32421875"><g><g><rect width="174.611328125" height="155.32421875" fill="#ffffff" stroke-width="0" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="78.1640625" height="90" fill="#ffffff" stroke-width="1" stroke="#000000" x="46.427734375" y="53.32421875"></rect></g><text font-size="16" fill="#666666" x="51.427734375" y="75.42578125"><tspan dy="0" x="51.427734375">ShiftGen</tspan></text><g><polyline points="46.427734375,122.32421875 68.427734375,122.32421875 68.427734375,110.32421875 78.427734375,110.32421875" fill="none" stroke-width="1" stroke="#888888"></polyline><rect width="6" height="6" fill="#888888" x="75.427734375" y="107.32421875"></rect></g><g><line x1="46.427734375" y1="100.32421875" x2="78.427734375" y2="100.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="75.427734375" y="97.32421875"></rect></g><g><line x1="110.724609375" y1="105.32421875" x2="124.591796875" y2="105.32421875" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="121.591796875" y="102.32421875"></rect></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="78.427734375" y="90.32421875"></rect></g><text font-size="16" fill="#666666" x="83.427734375" y="112.42578125"><tspan dy="0" x="83.427734375">&lt;&lt;</tspan></text></g><rect width="34.427734375" height="18" x="12" y="113.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="128.150390625"><tspan dy="0" x="17">shift</tspan></text><rect width="33.806640625" height="18" x="12.62109375" y="91.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17.62109375" y="106.150390625"><tspan dy="0" x="17.62109375">iBits</tspan></text><rect width="38.01953125" height="18" x="124.591796875" y="96.32421875" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="129.591796875" y="111.150390625"><tspan dy="0" x="129.591796875">oBits</tspan></text><rect width="18" height="41.32421875" x="58.427734375" y="12" fill="#ffffff" stroke-width="1" stroke="#000000"></rect><text font-size="12" fill="#666666" transform="matrix(6.123233995736766e-17,1,-1,6.123233995736766e-17,0,0)" x="17" y="-62.6015625"><tspan dy="0" x="17">width</tspan></text></g></g></svg>
+</div>
 </div>
 <div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Generated Verilog</label><label for="__tabbed_7_2">Generated VHDL</label></div>
 <div class="tabbed-content">
@@ -2845,84 +2385,9 @@ All other Scala class modifiers have no special effect or limitation from a DFHD
 <span class="w">  </span><span class="n">p1A</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">x</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">y</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-6953921678555498656" style="width: 98%;"></div>
-<script type="text/javascript">
-    document.addEventListener("DOMContentLoaded", function() {
-        var diagram = {
-  "children": [
-    {
-      "id": "Plus2",
-      "inPorts": [
-        "x"
-      ],
-      "outPorts": [
-        "y"
-      ],
-      "children": [
-        {
-          "id": "p1A",
-          "highlight": 1,
-          "type": "Plus1",
-          "ports": [
-            "x",
-            "y"
-          ]
-        },
-        {
-          "id": "p1B",
-          "highlight": 1,
-          "type": "Plus1",
-          "ports": [
-            "x",
-            "y"
-          ]
-        }
-      ],
-      "edges": [
-        [
-          "Plus2.x",
-          "p1A.x"
-        ],
-        [
-          "p1A.y",
-          "p1B.x"
-        ],
-        [
-          "p1B.y",
-          "Plus2.y"
-        ]
-      ]
-    },
-    {
-      "id": "Plus1",
-      "children": [
-        {
-          "id": "op",
-          "label": "+1"
-        }
-      ],
-      "inPorts": [
-        "x"
-      ],
-      "outPorts": [
-        "y"
-      ],
-      "edges": [
-        [
-          "Plus1.x",
-          "op"
-        ],
-        [
-          "op",
-          "Plus1.y"
-        ]
-      ]
-    }
-  ]
-};
-        hdelk.layout(diagram, "hdelk-diagram-6953921678555498656");
-    });
-</script>
+<div class="hdelk-diagram" id="hdelk-diagram--4880259496057256479" style="width: 98%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="253.423828125" height="218" viewBox="0 0 253.423828125 218"><g><g><rect width="253.423828125" height="218" fill="#ffffff" stroke-width="1" stroke="#000000" x="0" y="0"></rect></g><g><g><rect width="197.08984375" height="95" fill="#ffffff" stroke-width="1" stroke="#000000" x="28.287109375" y="111"></rect></g><text font-size="16" fill="#666666" x="104.69140625" y="133.1015625"><tspan dy="0" x="104.69140625">Plus2</tspan></text><g><line x1="28.287109375" y1="171" x2="40.287109375" y2="171" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="37.287109375" y="168"></rect></g><g><line x1="116.83203125" y1="171" x2="136.83203125" y2="171" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="133.83203125" y="168"></rect></g><g><line x1="213.376953125" y1="171" x2="225.376953125" y2="171" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="222.376953125" y="168"></rect></g><g><g><rect width="44.2109375" height="46" fill="#dddddd" stroke-width="2" stroke="#444444" x="56.57421875" y="148"></rect></g><text font-size="16" fill="#222222" x="62.140625" y="170.1015625"><tspan dy="0" x="62.140625">p1A</tspan></text><text font-size="12" fill="#666666" x="61.57421875" y="185.826171875"><tspan dy="0" x="61.57421875">Plus1</tspan></text><rect width="16.287109375" height="18" x="40.287109375" y="162" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="45.287109375" y="176.826171875"><tspan dy="0" x="45.287109375">x</tspan></text><rect width="16.046875" height="18" x="100.78515625" y="162" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="105.78515625" y="176.826171875"><tspan dy="0" x="105.78515625">y</tspan></text></g><g><g><rect width="44.2109375" height="46" fill="#dddddd" stroke-width="2" stroke="#444444" x="153.119140625" y="148"></rect></g><text font-size="16" fill="#222222" x="158.564453125" y="170.1015625"><tspan dy="0" x="158.564453125">p1B</tspan></text><text font-size="12" fill="#666666" x="158.119140625" y="185.826171875"><tspan dy="0" x="158.119140625">Plus1</tspan></text><rect width="16.287109375" height="18" x="136.83203125" y="162" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="141.83203125" y="176.826171875"><tspan dy="0" x="141.83203125">x</tspan></text><rect width="16.046875" height="18" x="197.330078125" y="162" fill="#444444" stroke-width="0" stroke="#444444"></rect><text font-size="12" fill="#ffffff" x="202.330078125" y="176.826171875"><tspan dy="0" x="202.330078125">y</tspan></text></g><rect width="16.287109375" height="18" x="12" y="162" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="176.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="225.376953125" y="162" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="230.376953125" y="176.826171875"><tspan dy="0" x="230.376953125">y</tspan></text></g><g><g><rect width="56.296875" height="79" fill="#ffffff" stroke-width="1" stroke="#000000" x="28.287109375" y="12"></rect></g><text font-size="16" fill="#666666" x="34.294921875" y="34.1015625"><tspan dy="0" x="34.294921875">Plus1</tspan></text><g><line x1="28.287109375" y1="64" x2="40.287109375" y2="64" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="37.287109375" y="61"></rect></g><g><line x1="72.583984375" y1="64" x2="84.583984375" y2="64" stroke-width="1" stroke="#888888"></line><rect width="6" height="6" fill="#888888" x="81.583984375" y="61"></rect></g><g><g><rect width="32.296875" height="30" fill="#ffffff" stroke-width="1" stroke="#000000" x="40.287109375" y="49"></rect></g><text font-size="16" fill="#666666" x="45.287109375" y="71.1015625"><tspan dy="0" x="45.287109375">+1</tspan></text></g><rect width="16.287109375" height="18" x="12" y="55" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="17" y="69.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="84.583984375" y="55" fill="#000000" stroke-width="0" stroke="#000000"></rect><text font-size="12" fill="#ffffff" x="89.583984375" y="69.826171875"><tspan dy="0" x="89.583984375">y</tspan></text></g></g></svg>
+</div>
 </div>
 <h3 id="port-via-connections">Port Via Connections<a class="headerlink" href="#port-via-connections" title="Permanent link"></a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
