@@ -1021,6 +1021,48 @@
   
 </li>
         
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#design-composition-instantiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      Design Composition &amp; Instantiation
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Design Composition & Instantiation">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#direct-connection-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Direct Connection Composition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#via-connection-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Via Connection Composition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#functional-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Composition
+    </span>
+  </a>
+  
+</li>
+        
           <li class="md-nav__item">
   <a href="#design-dcl-rules" class="md-nav__link">
     <span class="md-ellipsis">
@@ -1278,16 +1320,16 @@
 <p>DFHDL supports composable design hierarchies by instantiating design classes and connecting ports.</p>
 <div class="grid">
 <div class="admonition quote">
-<p class="admonition-title">terminology</p>
+<p class="admonition-title">Terminology</p>
 <ul>
-<li><em>design</em> - a Scala class extending <code>XXDesign</code>, where <code>XX</code> can be <code>DF</code>, <code>RT</code>, or <code>ED</code>, corresponding to the desired <a class="autorefs autorefs-internal" href="../design-domains/#design-domains">design domain</a>.</li>
-<li><em>design member</em> - any DFHDL object instantiated within a design (the design <em>contains</em> or <em>owns</em> all its members).</li>
-<li><em>child design/component</em> - a design instance that is owned by another design.</li>
-<li><em>top design</em> - the highest-level design in the hierarchy (no other design contains it), also known as the <em>top-level design</em>.</li>
-<li><em>top-app design</em> - a <code>@top</code> annotated <em>top design</em> that generates a main entry with the default application.</li>
+<li><em>design</em> - A Scala class extending <code>XXDesign</code>, where <code>XX</code> can be <code>DF</code>, <code>RT</code>, or <code>ED</code>, corresponding to the desired <a class="autorefs autorefs-internal" href="../design-domains/#design-domains">design domain</a>.</li>
+<li><em>design member</em> - Any DFHDL object instantiated within a design (the design <em>contains</em> or <em>owns</em> all its members).</li>
+<li><em>child design/component</em> - A design instance that is owned by another design.</li>
+<li><em>top design</em> - The highest-level design in the hierarchy (no other design contains it), also known as the <em>top-level design</em>.</li>
+<li><em>top-app design</em> - A <code>@top</code> annotated <em>top design</em> that generates a main entry with the default application.</li>
 </ul>
 </div>
-<div class="hdelk-diagram" id="hdelk-diagram--1379524106357818806" style="width: 100%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram--1412943465151617400" style="width: 100%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1460,7 +1502,7 @@
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram--1379524106357818806");
+        hdelk.layout(diagram, "hdelk-diagram--1412943465151617400");
     });
 </script>
 </div>
@@ -1509,7 +1551,7 @@
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-8966992572630517735" style="width: 100%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram--7670075190250270780" style="width: 100%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1525,11 +1567,28 @@
       ],
       "children": [
         {
+          "id": "const",
+          "label": 2,
+          "constant": 1
+        },
+        {
           "id": "op",
-          "label": "<<"
+          "label": "<<",
+          "northPorts": [
+            {
+              "id": "shift",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
         }
       ],
       "edges": [
+        [
+          "const",
+          "op.shift"
+        ],
         [
           "LeftShift2.iBits",
           "op"
@@ -1542,7 +1601,7 @@
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-8966992572630517735");
+        hdelk.layout(diagram, "hdelk-diagram--7670075190250270780");
     });
 </script>
 </div>
@@ -1680,7 +1739,7 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-4523716483579086005" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-3344763647829136425" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1702,13 +1761,21 @@ given options.CompilerOptions.Backend = backends.verilog
       "children": [
         {
           "id": "op",
-          "label": "<<"
+          "label": "<<",
+          "northPorts": [
+            {
+              "id": "shift",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
         }
       ],
       "edges": [
         [
           "top.shift",
-          "op"
+          "op.shift"
         ],
         [
           "top.iBits",
@@ -1722,7 +1789,7 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-4523716483579086005");
+        hdelk.layout(diagram, "hdelk-diagram-3344763647829136425");
     });
 </script>
 </div>
@@ -1863,7 +1930,7 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-5006072606345435289" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram--19782941659632150" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -1885,13 +1952,21 @@ given options.CompilerOptions.Backend = backends.verilog
       "children": [
         {
           "id": "op",
-          "label": "<<"
+          "label": "<<",
+          "northPorts": [
+            {
+              "id": "shift",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
         }
       ],
       "edges": [
         [
           "top.shift",
-          "op"
+          "op.shift"
         ],
         [
           "top.iBits",
@@ -1905,7 +1980,7 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-5006072606345435289");
+        hdelk.layout(diagram, "hdelk-diagram--19782941659632150");
     });
 </script>
 </div>
@@ -2036,6 +2111,464 @@ given options.CompilerOptions.Backend = backends.verilog
 </code></pre>
 </details>
 </div>
+<h2 id="design-composition-instantiation">Design Composition &amp; Instantiation<a class="headerlink" href="#design-composition-instantiation" title="Permanent link"></a></h2>
+<p>DFHDL supports three mechanisms to form a design hierarchy through design instantiation and composition: </p>
+<ul>
+<li><a class="autorefs autorefs-internal" href="#direct-connection-composition">Direct Connection Composition</a> - The most common and recommended mechanism to construct complex design hierarchies that have multiple inputs and outputs. Within this mechanism the design instantiation and port connection can executed separately. This enables child design ports referencing without declaring and connecting intermediate variables.</li>
+<li><a class="autorefs autorefs-internal" href="#via-connection-composition">Via Connection Composition</a> - A legacy mechanism to connect ports only within a design instantiation. This mechanism mainly exists for co-existance with the Verilog module instancing and VHDL component instancing mechanisms. The DFHDL compiler automatically tranforms a direct connection composition into a via connection composition.</li>
+<li><a class="autorefs autorefs-internal" href="#functional-composition">Functional Composition</a> - A method call mechanism to describe design composition. This mechanism is reserved for dataflow designs only and is mostly relevant for arithmetic/logic design functionality that has a single output port. The DFHDL compiler automatically transforms a functional composition into direct design composition.</li>
+</ul>
+<p>The following subsections dive into further details of the three design composition mechanisms. For this purpose, we continue with our running example of a bits shifter. To demonstrate composition, lets first describe a bit more complex shifter that has both left and right shift capabilities, as a flat (composition-less) design:</p>
+<div class="admonition">
+<p class="admonition-title">Generic left-right shifter, flat design example</p>
+<p>The DFHDL code below implements a generic left-right shifter flat design named <code>LRShiftFlat</code>. This design expands on <code>LeftShiftGen</code> by adding a <code>dir</code> enum port value that specifies the shift direction and a shift operation multiplexer through a <code class="highlight"><span class="k">match</span></code> statement.</p>
+<div class="grid">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encode</span><span class="p">:</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Left</span><span class="p">,</span><span class="w"> </span><span class="nc">Right</span>
+
+<span class="cm">/** A left-right bits shifter (flat version)</span>
+<span class="cm">  *</span>
+<span class="cm">  * @param width</span>
+<span class="cm">  *   the width of the input and output bits</span>
+<span class="cm">  */</span>
+<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">LRShiftFlat</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="cm">/** bits input */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="cm">/** requested shift */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">shift</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="cm">/** direction of shift */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dir</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="w">          </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="cm">/** bits output */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">dir</span><span class="w"> </span><span class="k">match</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="p">.</span><span class="nc">Left</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="p">.</span><span class="nc">Right</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">shift</span>
+</code></pre></div></td></tr></table></div>
+<div class="hdelk-diagram" id="hdelk-diagram--3126671790997734018" style="width: 90%;"></div>
+<script type="text/javascript">
+    document.addEventListener("DOMContentLoaded", function() {
+        var diagram = {
+  "stroke-width": 0,
+  "children": [
+    {
+      "id": "top",
+      "label": "LRShiftFlat",
+      "inPorts": [
+        "iBits",
+        "shift",
+        "dir"
+      ],
+      "outPorts": [
+        "oBits"
+      ],
+      "parameters": [
+        "width"
+      ],
+      "children": [
+        {
+          "id": "opL",
+          "label": "<<",
+          "northPorts": [
+            {
+              "id": "shift",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
+        },
+        {
+          "id": "opR",
+          "label": ">>",
+          "southPorts": [
+            {
+              "id": "shift",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
+        },
+        {
+          "id": "mux",
+          "label": "mux",
+          "northPorts": [
+            {
+              "id": "sel",
+              "label": " ",
+              "height": 5,
+              "width": 1
+            }
+          ]
+        }
+      ],
+      "edges": [
+        [
+          "top.shift",
+          "opR.shift"
+        ],
+        [
+          "top.shift",
+          "opL.shift"
+        ],
+        [
+          "top.iBits",
+          "opR"
+        ],
+        [
+          "top.iBits",
+          "opL"
+        ],
+        [
+          "top.dir",
+          "mux.sel"
+        ],
+        [
+          "opL",
+          "mux"
+        ],
+        [
+          "opR",
+          "mux"
+        ],
+        [
+          "mux",
+          "top.oBits"
+        ]
+      ]
+    }
+  ]
+};
+        hdelk.layout(diagram, "hdelk-diagram--3126671790997734018");
+    });
+</script>
+</div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Generated Verilog</label><label for="__tabbed_4_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">LRShiftFlat.sv</label><label for="__tabbed_5_2">LRShiftFlat_defs.svh</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/* A left-right bits shifter (flat version)</span>
+
+<span class="cm">   @param width</span>
+<span class="cm">     the width of the input and output bits</span>
+<span class="cm">  */</span>
+<span class="no">`default_nettype</span><span class="w"> </span><span class="n">none</span>
+<span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
+<span class="no">`include</span><span class="w"> </span><span class="s">&quot;LRShiftFlat_defs.svh&quot;</span>
+
+<span class="k">module</span><span class="w"> </span><span class="n">LRShiftFlat</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">)(</span>
+<span class="w">  </span><span class="cm">/* bits input */</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">iBits</span><span class="p">,</span>
+<span class="w">  </span><span class="cm">/* requested shift */</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">$clog2</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">shift</span><span class="p">,</span>
+<span class="w">  </span><span class="cm">/* direction of shift */</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="w">             </span><span class="n">dir</span><span class="p">,</span>
+<span class="w">  </span><span class="cm">/* bits output */</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">         </span><span class="n">oBits</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">dir</span><span class="p">)</span>
+<span class="w">      </span><span class="nl">ShiftDir_Left:</span><span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span>
+<span class="w">      </span><span class="nl">ShiftDir_Right:</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">iBits</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">shift</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`ifndef</span><span class="w"> </span><span class="n">LRSHIFTFLAT_DEFS</span>
+<span class="cp">`define LRSHIFTFLAT_DEFS</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">0</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">ShiftDir_Left</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">ShiftDir_Right</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">1</span>
+<span class="p">}</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span>
+
+<span class="no">`endif</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tabbed-block">
+<div class="tabbed-set tabbed-alternate" data-tabs="6:2"><input checked="checked" id="__tabbed_6_1" name="__tabbed_6" type="radio" /><input id="__tabbed_6_2" name="__tabbed_6" type="radio" /><div class="tabbed-labels"><label for="__tabbed_6_1">LRShiftFlat.vhd</label><label for="__tabbed_6_2">LRShiftFlat_pkg.vhd</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">-- A left-right bits shifter (flat version)</span>
+<span class="c1">--</span>
+<span class="c1">-- @param width</span>
+<span class="c1">--   the width of the input and output bits</span>
+<span class="k">library</span><span class="w"> </span><span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">work.dfhdl_pkg.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">work.LRShiftFlat_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">entity</span><span class="w"> </span><span class="nc">LRShiftFlat</span><span class="w"> </span><span class="k">is</span>
+<span class="k">generic</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">width</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">8</span>
+<span class="p">);</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- bits input </span>
+<span class="w">  </span><span class="n">iBits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">-- requested shift </span>
+<span class="w">  </span><span class="n">shift</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">clog2</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">-- direction of shift </span>
+<span class="w">  </span><span class="n">dir</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span>
+<span class="w">  </span><span class="c1">-- bits output </span>
+<span class="w">  </span><span class="n">oBits</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">LRShiftFlat</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">LRShiftFlat_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">LRShiftFlat</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">dir</span><span class="w"> </span><span class="k">is</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">ShiftDir_Left</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">slv_sll</span><span class="p">(</span><span class="n">iBits</span><span class="p">,</span><span class="w"> </span><span class="n">to_integer</span><span class="p">(</span><span class="n">shift</span><span class="p">));</span>
+<span class="w">      </span><span class="k">when</span><span class="w"> </span><span class="n">ShiftDir_Right</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">slv_srl</span><span class="p">(</span><span class="n">iBits</span><span class="p">,</span><span class="w"> </span><span class="n">to_integer</span><span class="p">(</span><span class="n">shift</span><span class="p">));</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">LRShiftFlat_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span>
+<span class="normal">31</span>
+<span class="normal">32</span>
+<span class="normal">33</span>
+<span class="normal">34</span>
+<span class="normal">35</span>
+<span class="normal">36</span>
+<span class="normal">37</span>
+<span class="normal">38</span>
+<span class="normal">39</span>
+<span class="normal">40</span>
+<span class="normal">41</span>
+<span class="normal">42</span>
+<span class="normal">43</span>
+<span class="normal">44</span>
+<span class="normal">45</span>
+<span class="normal">46</span>
+<span class="normal">47</span>
+<span class="normal">48</span>
+<span class="normal">49</span>
+<span class="normal">50</span>
+<span class="normal">51</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">library</span><span class="w"> </span><span class="nn">ieee</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.std_logic_1164.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">ieee.numeric_std.</span><span class="k">all</span><span class="p">;</span>
+<span class="k">use</span><span class="w"> </span><span class="nn">work.dfhdl_pkg.</span><span class="k">all</span><span class="p">;</span>
+
+<span class="k">package</span><span class="w"> </span><span class="n">LRShiftFlat_pkg</span><span class="w"> </span><span class="k">is</span>
+<span class="k">type</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">ShiftDir_Left</span><span class="p">,</span><span class="w"> </span><span class="n">ShiftDir_Right</span>
+<span class="p">);</span>
+<span class="k">function</span><span class="w"> </span><span class="n">bitWidth</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">integer</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_slv</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_t_enum_ShiftDir</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">bool_sel</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span>
+
+
+<span class="k">end</span><span class="w"> </span><span class="k">package</span><span class="w"> </span><span class="nc">LRShiftFlat_pkg</span><span class="p">;</span>
+
+<span class="k">package</span><span class="w"> </span><span class="k">body</span><span class="w"> </span><span class="n">LRShiftFlat_pkg</span><span class="w"> </span><span class="k">is</span>
+<span class="k">function</span><span class="w"> </span><span class="n">bitWidth</span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_slv</span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">variable</span><span class="w"> </span><span class="n">int_val</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="p">;</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">A</span><span class="w"> </span><span class="k">is</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="n">ShiftDir_Left</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">int_val</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="n">ShiftDir_Right</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">int_val</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span>
+<span class="w">  </span><span class="k">return</span><span class="w"> </span><span class="n">resize</span><span class="p">(</span><span class="n">to_slv</span><span class="p">(</span><span class="n">int_val</span><span class="p">),</span><span class="w"> </span><span class="mi">1</span><span class="p">);</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_t_enum_ShiftDir</span><span class="p">(</span><span class="n">A</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">to_integer</span><span class="p">(</span><span class="kt">unsigned</span><span class="p">(</span><span class="n">A</span><span class="p">))</span><span class="w"> </span><span class="k">is</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="mi">0</span><span class="w">              </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ShiftDir_Left</span><span class="p">;</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="mi">1</span><span class="w">              </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">ShiftDir_Right</span><span class="p">;</span>
+<span class="w">    </span><span class="k">when</span><span class="w"> </span><span class="k">others</span><span class="w">         </span><span class="o">=&gt;</span><span class="w"> </span>
+<span class="w">      </span><span class="k">assert</span><span class="w"> </span><span class="n">false</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="s">&quot;Unknown state detected!&quot;</span><span class="w"> </span><span class="k">severity</span><span class="w"> </span><span class="n">error</span><span class="p">;</span>
+<span class="w">      </span><span class="k">return</span><span class="w"> </span><span class="n">ShiftDir_Left</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">case</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">bool_sel</span><span class="p">(</span><span class="n">C</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="p">;</span><span class="w"> </span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">;</span><span class="w"> </span><span class="n">F</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">t_enum_ShiftDir</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="n">C</span><span class="w"> </span><span class="k">then</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">T</span><span class="p">;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">F</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="k">end</span><span class="p">;</span>
+
+<span class="k">end</span><span class="w"> </span><span class="k">package</span><span class="w"> </span><span class="k">body</span><span class="w"> </span><span class="nc">LRShiftFlat_pkg</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<details class="dfhdl">
+<summary>Runnable example</summary>
+<pre class="scastie"><code>import dfhdl.*
+given options.CompilerOptions.Backend = backends.verilog
+
+enum ShiftDir extends Encode:
+  case Left, Right
+
+/** A left-right bits shifter (flat version)
+  *
+  * @param width
+  *   the width of the input and output bits
+  */
+@top class LRShiftFlat(
+    val width: Int &lt;&gt; CONST = 8
+) extends RTDesign:
+  /** bits input */
+  val iBits = Bits(width)       &lt;&gt; IN
+  /** requested shift */
+  val shift = UInt.until(width) &lt;&gt; IN
+  /** direction of shift */
+  val dir   = ShiftDir          &lt;&gt; IN
+  /** bits output */
+  val oBits = Bits(width)       &lt;&gt; OUT
+  dir match
+    case ShiftDir.Left  =&gt; oBits := iBits &lt;&lt; shift
+    case ShiftDir.Right =&gt; oBits := iBits &gt;&gt; shift
+</code></pre>
+</details>
+</div>
+<h3 id="direct-connection-composition">Direct Connection Composition<a class="headerlink" href="#direct-connection-composition" title="Permanent link"></a></h3>
+<h3 id="via-connection-composition">Via Connection Composition<a class="headerlink" href="#via-connection-composition" title="Permanent link"></a></h3>
+<h3 id="functional-composition">Functional Composition<a class="headerlink" href="#functional-composition" title="Permanent link"></a></h3>
 <h3 id="design-dcl-rules">Rules<a class="headerlink" href="#design-dcl-rules" title="Permanent link"></a></h3>
 <h4 id="design-class-inheritance">Design class inheritance<a class="headerlink" href="#design-class-inheritance" title="Permanent link"></a></h4>
 <p>It is possible to leverage the power of Scala inheritance to share design functionality between design class declarations.</p>
@@ -2071,7 +2604,7 @@ given options.CompilerOptions.Backend = backends.verilog
 <span class="w">  </span><span class="cm">/** bits output */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">oBits</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w">       </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram--4880566399541000493" style="width: 90%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-1991313368343596285" style="width: 90%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -2113,11 +2646,11 @@ given options.CompilerOptions.Backend = backends.verilog
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram--4880566399541000493");
+        hdelk.layout(diagram, "hdelk-diagram-1991313368343596285");
     });
 </script>
 </div>
-<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Generated Verilog</label><label for="__tabbed_4_2">Generated VHDL</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="7:2"><input checked="checked" id="__tabbed_7_1" name="__tabbed_7" type="radio" /><input id="__tabbed_7_2" name="__tabbed_7" type="radio" /><div class="tabbed-labels"><label for="__tabbed_7_1">Generated Verilog</label><label for="__tabbed_7_2">Generated VHDL</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -2312,7 +2845,7 @@ All other Scala class modifiers have no special effect or limitation from a DFHD
 <span class="w">  </span><span class="n">p1A</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">x</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">y</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-9018383762686662173" style="width: 98%;"></div>
+<div class="hdelk-diagram" id="hdelk-diagram-6953921678555498656" style="width: 98%;"></div>
 <script type="text/javascript">
     document.addEventListener("DOMContentLoaded", function() {
         var diagram = {
@@ -2387,7 +2920,7 @@ All other Scala class modifiers have no special effect or limitation from a DFHD
     }
   ]
 };
-        hdelk.layout(diagram, "hdelk-diagram-9018383762686662173");
+        hdelk.layout(diagram, "hdelk-diagram-6953921678555498656");
     });
 </script>
 </div>
