@@ -15,14 +15,18 @@
         <link rel="canonical" href="https://dfianthdl.github.io/user-guide/design-domains/">
       
       
+        <link rel="prev" href="../../in-browser/true-dpr/">
+      
+      
+        <link rel="next" href="../design-hierarchy/">
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.4">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.6.7">
     
     
       
-        <title>Design Domains - DFiant HDL (DFHDL)</title>
+        <title>Domain Abstractions - DFiant HDL (DFHDL)</title>
       
     
     
@@ -175,7 +179,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Design Domains
+              Domain Abstractions
             
           </span>
         </div>
@@ -375,11 +379,13 @@
         
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
-        <a href="../design-hierarchy/" class="md-tabs__link">
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="./" class="md-tabs__link">
           
   
   User Guide
@@ -875,27 +881,30 @@
       
   
   
+    
   
   
+  
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   <span class="md-ellipsis">
@@ -907,12 +916,360 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             User Guide
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  <span class="md-ellipsis">
+    Domain Abstractions
+    
+  </span>
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  <span class="md-ellipsis">
+    Domain Abstractions
+    
+  </span>
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dataflow-df-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataflow (DF) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataflow (DF) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-transfer-rt-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Transfer (RT) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Register Transfer (RT) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clock-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clock Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reset Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtdomain-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      RTDomain Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inclusion-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inclusion Policies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-rt-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic RT Domain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-clock-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Clock Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Domains
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-types-and-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Types and Initialization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Register Types and Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#register-declarations-vs-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Declarations vs Aliases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-access-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Access Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Composition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-register-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Register Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-and-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns and Pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-driven-ed-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event-Driven (ED) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event-Driven (ED) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assignment-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assignment Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Interaction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Interaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cross-domain-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Domain Communication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-flattening" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Flattening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
             
               
                 
@@ -926,6 +1283,50 @@
   
   <span class="md-ellipsis">
     Design Hierarchy
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../type-system/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Type System
+    
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conditionals/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Conditionals
     
   </span>
   
@@ -1079,6 +1480,299 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#dataflow-df-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dataflow (DF) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dataflow (DF) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#key-features" class="md-nav__link">
+    <span class="md-ellipsis">
+      Key Features
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#example" class="md-nav__link">
+    <span class="md-ellipsis">
+      Example
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#register-transfer-rt-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Transfer (RT) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Register Transfer (RT) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#domain-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Configuration
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Configuration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#clock-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Clock Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#reset-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Reset Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#rtdomain-configuration" class="md-nav__link">
+    <span class="md-ellipsis">
+      RTDomain Configuration
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#inclusion-policies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Inclusion Policies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Types
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Types">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#basic-rt-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Basic RT Domain
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-clock-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Multiple Clock Domains
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      Related Domains
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-types-and-initialization" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Types and Initialization
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Register Types and Initialization">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#register-declarations-vs-aliases" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Declarations vs Aliases
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-access-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Access Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#register-composition" class="md-nav__link">
+    <span class="md-ellipsis">
+      Register Composition
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#advanced-register-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      Advanced Register Patterns
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#common-patterns-and-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      Common Patterns and Pitfalls
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#event-driven-ed-domain" class="md-nav__link">
+    <span class="md-ellipsis">
+      Event-Driven (ED) Domain
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Event-Driven (ED) Domain">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#process-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Process Types
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#assignment-types" class="md-nav__link">
+    <span class="md-ellipsis">
+      Assignment Types
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#domain-interaction" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Interaction
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Domain Interaction">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#cross-domain-communication" class="md-nav__link">
+    <span class="md-ellipsis">
+      Cross-Domain Communication
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#domain-flattening" class="md-nav__link">
+    <span class="md-ellipsis">
+      Domain Flattening
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#compilation-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Compilation Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#best-practices" class="md-nav__link">
+    <span class="md-ellipsis">
+      Best Practices
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1101,6 +1795,494 @@
 <p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through an intelligent compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect—whether VHDL 93/2008 or Verilog/SystemVerilog—determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
 <p><img alt="design-domains" src="design-domains-light.png#only-light" />
 <img alt="design-domains" src="design-domains-dark.png#only-dark" /></p>
+<h2 id="dataflow-df-domain">Dataflow (<abbr title="Dataflow">DF</abbr>) Domain<a class="headerlink" href="#dataflow-df-domain" title="Permanent link"></a></h2>
+<p>The dataflow domain provides the highest level of abstraction, focusing on data dependencies rather than timing.</p>
+<h3 id="key-features">Key Features<a class="headerlink" href="#key-features" title="Permanent link"></a></h3>
+<ul>
+<li>Timing-agnostic descriptions</li>
+<li>Implicit state handling</li>
+<li>Token stream semantics</li>
+<li>History access via <code>.prev</code></li>
+</ul>
+<h3 id="example">Example<a class="headerlink" href="#example" title="Permanent link"></a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Accumulator</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span><span class="p">.</span><span class="n">prev</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">input</span><span class="w">  </span><span class="c1">// Implicit state handling</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="register-transfer-rt-domain">Register Transfer (<abbr title="Register-Transfer">RT</abbr>) Domain<a class="headerlink" href="#register-transfer-rt-domain" title="Permanent link"></a></h2>
+<p>The <abbr title="Register-Transfer">RT</abbr> domain provides explicit control over registers and timing while maintaining hardware-friendly abstractions.</p>
+<h3 id="domain-configuration">Domain Configuration<a class="headerlink" href="#domain-configuration" title="Permanent link"></a></h3>
+<h4 id="clock-configuration">Clock Configuration<a class="headerlink" href="#clock-configuration" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Clock edge options</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">risingEdge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Rising</span><span class="w">   </span><span class="c1">// Rising edge triggered</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">fallingEdge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Falling</span><span class="w"> </span><span class="c1">// Falling edge triggered</span>
+
+<span class="c1">// Clock configuration with options</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">clkCfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">(</span>
+<span class="w">  </span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Rising</span><span class="p">,</span><span class="w">    </span><span class="c1">// Clock edge sensitivity</span>
+<span class="w">  </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">50</span><span class="p">.</span><span class="nc">MHz</span><span class="p">,</span><span class="w">                </span><span class="c1">// Clock frequency</span>
+<span class="w">  </span><span class="n">portName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;clk&quot;</span><span class="p">,</span><span class="w">             </span><span class="c1">// Port name in generated code</span>
+<span class="w">  </span><span class="n">inclusionPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">InclusionPolicy</span><span class="p">.</span><span class="nc">AsNeeded</span><span class="w"> </span><span class="c1">// Port inclusion policy</span>
+<span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="reset-configuration">Reset Configuration<a class="headerlink" href="#reset-configuration" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Reset mode options</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">asyncRst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Mode</span><span class="p">.</span><span class="nc">Async</span><span class="w">  </span><span class="c1">// Asynchronous reset</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">syncRst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Mode</span><span class="p">.</span><span class="nc">Sync</span><span class="w">    </span><span class="c1">// Synchronous reset</span>
+
+<span class="c1">// Reset active level</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">activeHigh</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Active</span><span class="p">.</span><span class="nc">High</span><span class="w"> </span><span class="c1">// Reset active at 1</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">activeLow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Active</span><span class="p">.</span><span class="nc">Low</span><span class="w">   </span><span class="c1">// Reset active at 0</span>
+
+<span class="c1">// Reset configuration with options</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">rstCfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">(</span>
+<span class="w">  </span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Mode</span><span class="p">.</span><span class="nc">Sync</span><span class="p">,</span><span class="w">         </span><span class="c1">// Reset mode</span>
+<span class="w">  </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Active</span><span class="p">.</span><span class="nc">High</span><span class="p">,</span><span class="w">     </span><span class="c1">// Active level</span>
+<span class="w">  </span><span class="n">portName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;rst&quot;</span><span class="p">,</span><span class="w">                </span><span class="c1">// Port name in generated code</span>
+<span class="w">  </span><span class="n">inclusionPolicy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">InclusionPolicy</span><span class="p">.</span><span class="nc">AsNeeded</span><span class="w"> </span><span class="c1">// Port inclusion policy</span>
+<span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="rtdomain-configuration">RTDomain Configuration<a class="headerlink" href="#rtdomain-configuration" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Complete domain configuration</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">domainCfg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RTDomainCfg</span><span class="p">(</span><span class="n">clkCfg</span><span class="p">,</span><span class="w"> </span><span class="n">rstCfg</span><span class="p">)</span>
+
+<span class="c1">// Special configurations</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">combDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RTDomainCfg</span><span class="p">.</span><span class="nc">Comb</span><span class="w">           </span><span class="c1">// Combinational domain (no clk/rst)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">defaultDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RTDomainCfg</span><span class="p">.</span><span class="nc">Default</span><span class="w">     </span><span class="c1">// Default configuration</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">derivedDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RTDomainCfg</span><span class="p">.</span><span class="nc">Derived</span><span class="w">     </span><span class="c1">// Derived from parent domain</span>
+
+<span class="c1">// Domain without reset</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">noRstDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domainCfg</span><span class="p">.</span><span class="n">norst</span><span class="w">           </span><span class="c1">// Remove reset from configuration</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="inclusion-policies">Inclusion Policies<a class="headerlink" href="#inclusion-policies" title="Permanent link"></a></h4>
+<p>The <code>InclusionPolicy</code> determines how clock and reset ports are included in the generated code:</p>
+<ul>
+<li><code>AsNeeded</code>: Only includes ports when they are actually used</li>
+<li><code>AlwaysAtTop</code>: Always includes ports at the top level with <code>@unused</code> annotation if not used</li>
+</ul>
+<h3 id="domain-types">Domain Types<a class="headerlink" href="#domain-types" title="Permanent link"></a></h3>
+<h4 id="basic-rt-domain">Basic <abbr title="Register-Transfer">RT</abbr> Domain<a class="headerlink" href="#basic-rt-domain" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BasicRTDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">domainCfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="w">  </span><span class="c1">// Registered on configured clock edge</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="multiple-clock-domains">Multiple Clock Domains<a class="headerlink" href="#multiple-clock-domains" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MultiClockDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">mainCfg</span><span class="p">):</span>
+<span class="w">  </span><span class="c1">// Main domain at 100MHz</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">mainClk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">(</span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Rising</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="nc">MHz</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">mainRst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">(</span><span class="n">mode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Mode</span><span class="p">.</span><span class="nc">Sync</span><span class="p">,</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RstCfg</span><span class="p">.</span><span class="nc">Active</span><span class="p">.</span><span class="nc">High</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// Slow domain at 25MHz</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">slowClk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">(</span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Rising</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">25</span><span class="p">.</span><span class="nc">MHz</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">slowDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="nc">RTDomainCfg</span><span class="p">(</span><span class="n">slowClk</span><span class="p">,</span><span class="w"> </span><span class="n">mainRst</span><span class="p">)):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">slow_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// Fast domain at 200MHz</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">fastClk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">(</span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ClkCfg</span><span class="p">.</span><span class="nc">Edge</span><span class="p">.</span><span class="nc">Rising</span><span class="p">,</span><span class="w"> </span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="p">.</span><span class="nc">MHz</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">fastDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="nc">RTDomainCfg</span><span class="p">(</span><span class="n">fastClk</span><span class="p">,</span><span class="w"> </span><span class="n">mainRst</span><span class="p">)):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">fast_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="related-domains">Related Domains<a class="headerlink" href="#related-domains" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RelatedDomainsDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">mainCfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">baseDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="n">baseCfg</span><span class="p">):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">base_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// Inherits clock/reset from baseDomain</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">relatedDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">baseDomain</span><span class="p">.</span><span class="nc">RelatedDomain</span><span class="p">:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">related_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// Related domain without reset</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">noRstRelated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">baseDomain</span><span class="p">.</span><span class="nc">RelatedDomain</span><span class="p">(</span><span class="n">baseCfg</span><span class="p">.</span><span class="n">norst</span><span class="p">):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">norst_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="register-types-and-initialization">Register Types and Initialization<a class="headerlink" href="#register-types-and-initialization" title="Permanent link"></a></h3>
+<h4 id="register-declarations-vs-aliases">Register Declarations vs Aliases<a class="headerlink" href="#register-declarations-vs-aliases" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RegisterPatterns</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+
+<span class="w">  </span><span class="c1">// Register Declaration - creates a new register</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1">// Variable register</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1">// Output register</span>
+
+<span class="w">  </span><span class="c1">// Register Alias - creates a registered version of a signal</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">delayed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="w">      </span><span class="c1">// One cycle delay of x</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">delayed2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Two cycle delay of x</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="register-access-patterns">Register Access Patterns<a class="headerlink" href="#register-access-patterns" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RegisterAccess</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// CORRECT: Writing to register input using .din</span>
+<span class="w">  </span><span class="n">reg</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">            </span><span class="c1">// Updates register input</span>
+<span class="w">  </span><span class="n">out</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">reg</span><span class="w">         </span><span class="c1">// Updates output register input</span>
+
+<span class="w">  </span><span class="c1">// INCORRECT: Attempting to write to register output</span>
+<span class="w">  </span><span class="n">reg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">               </span><span class="c1">// Error: Can&#39;t write to register output</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">reg</span><span class="w">            </span><span class="c1">// Error: Can&#39;t write to register output</span>
+
+<span class="w">  </span><span class="c1">// Reading from registers (always reads output)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reg</span><span class="w">        </span><span class="c1">// Reads register output</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">outValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w">     </span><span class="c1">// Reads output register value</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="register-composition">Register Composition<a class="headerlink" href="#register-composition" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RegisterComposition</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+
+<span class="w">  </span><span class="c1">// Using register declarations</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">reg1</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">reg2</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">reg1</span><span class="w">      </span><span class="c1">// Chaining registers</span>
+
+<span class="w">  </span><span class="c1">// Using register aliases</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stage1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="w">    </span><span class="c1">// Same as reg1</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stage2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="c1">// Same as reg2, but more concise</span>
+
+<span class="w">  </span><span class="c1">// Mixing declarations and aliases</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">reg3</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">stage2</span><span class="w">    </span><span class="c1">// Can mix both styles</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="advanced-register-patterns">Advanced Register Patterns<a class="headerlink" href="#advanced-register-patterns" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">AdvancedRegisters</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+
+<span class="w">  </span><span class="c1">// Conditional registration</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="n">reg</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">y</span><span class="w">     </span><span class="c1">// Register y when x &gt; 10</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">reg</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">     </span><span class="c1">// Register x otherwise</span>
+
+<span class="w">  </span><span class="c1">// Register with enable</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">enReg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">en</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">en</span><span class="p">)</span>
+<span class="w">    </span><span class="n">enReg</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">   </span><span class="c1">// Only update when enabled</span>
+
+<span class="w">  </span><span class="c1">// Multiple cycle delays with processing</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">processed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">reg</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Add 1 and delay 2 cycles</span>
+</code></pre></div></td></tr></table></div>
+<h4 id="common-patterns-and-pitfalls">Common Patterns and Pitfalls<a class="headerlink" href="#common-patterns-and-pitfalls" title="Permanent link"></a></h4>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RegisterPitfalls</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">cfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// GOOD: Explicit input/output separation</span>
+<span class="w">  </span><span class="n">reg</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">        </span><span class="c1">// Write to input</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="w">    </span><span class="c1">// Read from output</span>
+
+<span class="w">  </span><span class="c1">// BAD: Attempting to write to output</span>
+<span class="w">  </span><span class="n">reg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">           </span><span class="c1">// Error: Writing to output</span>
+
+<span class="w">  </span><span class="c1">// GOOD: Register alias for simple delays</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">delayed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="w">    </span><span class="c1">// Clean and clear intent</span>
+
+<span class="w">  </span><span class="c1">// BAD: Unnecessary register declaration for simple delay</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">regDelay</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">regDelay</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">      </span><span class="c1">// More verbose than needed</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="event-driven-ed-domain">Event-Driven (<abbr title="Event-Driven">ED</abbr>) Domain<a class="headerlink" href="#event-driven-ed-domain" title="Permanent link"></a></h2>
+<p>The <abbr title="Event-Driven">ED</abbr> domain provides the lowest level of abstraction, with explicit process blocks and event sensitivity.</p>
+<h3 id="process-types">Process Types<a class="headerlink" href="#process-types" title="Permanent link"></a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EDExample</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="w">  </span><span class="c1">// Combinational process</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="w">  </span><span class="c1">// Clock-sensitive process</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+
+<span class="w">  </span><span class="c1">// Clock and reset process</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">      </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">      </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="assignment-types">Assignment Types<a class="headerlink" href="#assignment-types" title="Permanent link"></a></h3>
+<ul>
+<li>Blocking (<code>:=</code>): Immediate effect</li>
+<li>Non-blocking (<code>:==</code>): Scheduled update
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w">  </span><span class="c1">// Blocking read</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">temp</span><span class="w">    </span><span class="c1">// Non-blocking write</span>
+</code></pre></div></td></tr></table></div></li>
+</ul>
+<h2 id="domain-interaction">Domain Interaction<a class="headerlink" href="#domain-interaction" title="Permanent link"></a></h2>
+<h3 id="cross-domain-communication">Cross-Domain Communication<a class="headerlink" href="#cross-domain-communication" title="Permanent link"></a></h3>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CrossDomainExample</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">(</span><span class="n">mainCfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">domainA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="n">cfgA</span><span class="p">):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">reg_a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">reg_a</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span>
+
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">domainB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="n">cfgB</span><span class="p">):</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">reg_b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">reg_b</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">domainA</span><span class="p">.</span><span class="n">reg_a</span><span class="p">.</span><span class="n">reg</span><span class="w">  </span><span class="c1">// Cross-domain registration</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="domain-flattening">Domain Flattening<a class="headerlink" href="#domain-flattening" title="Permanent link"></a></h3>
+<p>During compilation, nested domains are flattened while preserving clock and reset relationships:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Original nested domains</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">innerDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">(</span><span class="n">innerCfg</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="c1">// After flattening</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">innerDomain_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="n">process</span><span class="p">(</span><span class="n">innerDomain_clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">innerDomain_rst</span><span class="p">)</span><span class="w"> </span>
+<span class="w">    </span><span class="n">innerDomain_reg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span>
+<span class="w">    </span><span class="n">innerDomain_reg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">next_value</span>
+</code></pre></div></td></tr></table></div></p>
+<h2 id="compilation-flow">Compilation Flow<a class="headerlink" href="#compilation-flow" title="Permanent link"></a></h2>
+<ol>
+<li><strong>Domain Resolution</strong>:</li>
+<li>Flattens nested domains</li>
+<li>Resolves clock and reset configurations</li>
+<li>
+<p>Establishes domain hierarchies</p>
+</li>
+<li>
+<p><strong>State Management</strong>:</p>
+</li>
+<li>Converts <abbr title="Dataflow">DF</abbr> <code>.prev</code> to explicit registers</li>
+<li>Handles <abbr title="Register-Transfer">RT</abbr> register declarations</li>
+<li>
+<p>Manages <abbr title="Event-Driven">ED</abbr> process state variables</p>
+</li>
+<li>
+<p><strong>Process Generation</strong>:</p>
+</li>
+<li>Converts <abbr title="Dataflow">DF</abbr> and <abbr title="Register-Transfer">RT</abbr> to <abbr title="Event-Driven">ED</abbr> processes</li>
+<li>Optimizes sensitivity lists</li>
+<li>
+<p>Handles blocking/non-blocking assignments</p>
+</li>
+<li>
+<p><strong>Backend Generation</strong>:</p>
+</li>
+<li>Generates VHDL or Verilog code</li>
+<li>Preserves timing relationships</li>
+<li>Maintains design hierarchy</li>
+</ol>
+<h2 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link"></a></h2>
+<ol>
+<li><strong>Domain Selection</strong>:</li>
+<li>Use <abbr title="Dataflow">DF</abbr> for algorithmic descriptions</li>
+<li>Use <abbr title="Register-Transfer">RT</abbr> for timing-critical paths</li>
+<li>
+<p>Use <abbr title="Event-Driven">ED</abbr> for low-level control</p>
+</li>
+<li>
+<p><strong>Clock Domain Crossing</strong>:</p>
+</li>
+<li>Use explicit synchronization</li>
+<li>Maintain clear domain boundaries</li>
+<li>
+<p>Document clock relationships</p>
+</li>
+<li>
+<p><strong>State Management</strong>:</p>
+</li>
+<li>Initialize all registers</li>
+<li>Use appropriate reset strategies</li>
+<li>
+<p>Consider reset domains</p>
+</li>
+<li>
+<p><strong>Performance Optimization</strong>:</p>
+</li>
+<li>Balance domain abstractions</li>
+<li>Use appropriate clock domains</li>
+<li>Consider resource utilization</li>
+</ol>
 
 
 
@@ -1191,7 +2373,7 @@
     <script id="__config" type="application/json">{"base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.f8cc74c7.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../../assets/javascripts/bundle.f1b6f286.min.js"></script>
+      <script src="../../assets/javascripts/bundle.c8b220af.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       
