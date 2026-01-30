@@ -2133,10 +2133,10 @@
 <span class="w">    </span><span class="c1">// Use part1 and part2 bits</span>
 
 <span class="c1">// Store extracted bits in variables</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DEAD${extracted: B[32]}BEEF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nd">@unchecked</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DEAD${extracted: B[32]}BEEF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
 
 <span class="c1">// Extract multiple sections into variables</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DE${first: B[16]}ADBE${second: B[16]}EF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">:</span><span class="w"> </span><span class="nd">@unchecked</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DE${first: B[16]}ADBE${second: B[16]}EF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
 
 <span class="c1">// Using guards with extracted bit fields</span>
 <span class="n">y</span><span class="w"> </span><span class="k">match</span>
