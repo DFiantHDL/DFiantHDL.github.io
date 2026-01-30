@@ -1395,7 +1395,7 @@ enum ALUSel extends Encoded:
     case OR    =&gt; op1 | op2
     case XOR   =&gt; op1 ^ op2
     case SLT   =&gt; (op1.sint &lt; op2.sint).extend
-    case SLTU  =&gt; (op1 &lt; op2).extend
+    case SLTU  =&gt; (op1.uint &lt; op2.uint).extend
     case SLL   =&gt; op1 &lt;&lt; shamt
     case SRL   =&gt; op1 &gt;&gt; shamt
     case SRA   =&gt; (op1.sint &gt;&gt; shamt).bits
