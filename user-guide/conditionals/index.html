@@ -2222,6 +2222,35 @@
 <li>Optimizes bit pattern matching into efficient comparisons</li>
 <li>Extracts struct fields into temporary variables when needed</li>
 </ol>
+<div class="admonition tip">
+<p class="admonition-title">Use enumerations for state matching</p>
+<p>For FSM-style <code>match</code> over states, define an enumeration with the appropriate <a href="../type-system/#dfhdl-enumeration-enum--extends-encoded">encoding</a> and match on its members:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">:</span><span class="w">  </span><span class="c1">// 00, 01, 10</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Idle</span><span class="p">,</span><span class="w"> </span><span class="nc">Start</span><span class="p">,</span><span class="w"> </span><span class="nc">Data</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="n">state</span><span class="w"> </span><span class="k">match</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Idle</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// idle logic</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Start</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// start logic</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Data</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// data logic</span>
+</code></pre></div></td></tr></table></div>
+<p>For non-sequential state encodings, use <code>Encoded.Manual</code>:
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">.</span><span class="nc">Manual</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Idle</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;0&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Start</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;3&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Data</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;5&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div></p>
+</div>
 <h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link"></a></h3>
 <ol>
 <li><strong>Use Match for Multi-Way Branching</strong>: When dealing with multiple cases, match is often clearer than nested if-else</li>

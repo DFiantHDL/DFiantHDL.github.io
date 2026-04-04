@@ -1335,10 +1335,10 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#using-chatgpt" class="md-nav__link">
+  <a href="#design-structure" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Using ChatGPT
+        Design Structure
       
     </span>
   </a>
@@ -1346,10 +1346,54 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#summary" class="md-nav__link">
+  <a href="#types-and-literals" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Summary
+        Types and Literals
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#processes-and-sequential-logic" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Processes and Sequential Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#operations" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Operations
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#parametric-constants" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Parametric Constants
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#common-pitfalls" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Common Pitfalls
       
     </span>
   </a>
@@ -1377,9 +1421,8 @@
 
 
 <h1 id="transitioning-from-verilog-to-dfhdl">Transitioning from Verilog to DFHDL<a class="headerlink" href="#transitioning-from-verilog-to-dfhdl" title="Permanent link"></a></h1>
-<h2 id="using-chatgpt">Using ChatGPT<a class="headerlink" href="#using-chatgpt" title="Permanent link"></a></h2>
-<p>Help me ChatGPT, you're my only hope</p>
-<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link"></a></h2>
+<p>This guide helps Verilog/SystemVerilog users translate common patterns into DFHDL. For full type system details, see the <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#type-system">Type System reference</a>.</p>
+<h2 id="design-structure">Design Structure<a class="headerlink" href="#design-structure" title="Permanent link"></a></h2>
 <div class="admonition verilog">
 <p class="admonition-title">Module Definition</p>
 <div class="grid">
@@ -1422,28 +1465,35 @@
 </code></pre></div>
 <div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">p</span><span class="p">:</span><span class="w"> </span><span class="nc">Bits</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;8&#39;1011&quot;</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Concat</span><span class="w"> </span><span class="p">#(</span>
-<span class="w">  </span><span class="k">parameter</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">len1</span><span class="p">;</span>
-<span class="w">  </span><span class="k">parameter</span><span class="w">  </span><span class="kt">int</span><span class="w"> </span><span class="n">len2</span><span class="p">;</span>
-<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outlen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len2</span>
-<span class="p">)</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="n">len1</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="n">i1</span><span class="p">;</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="p">[</span><span class="n">len2</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="n">i2</span><span class="p">;</span>
-<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="n">outlen</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+</div>
+<p>Inter-dependent parameters and ports example:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Concat</span><span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">len2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">midVec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h55</span>
+<span class="p">)(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">len1</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="n">i1</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">len2</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="n">i2</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">outlen</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
 <span class="p">);</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">};</span>
+<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">midLen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">outlen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">midLen</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len2</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">midVec</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">};</span>
 <span class="k">endmodule</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Concat</span><span class="p">(</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">len1</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">len2</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">len1</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">len2</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">midVec</span><span class="p">:</span><span class="w"> </span><span class="nc">Bits</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;55&quot;</span>
 <span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">outlen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len2</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">len1</span><span class="p">)</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">len2</span><span class="p">)</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">outlen</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">midLen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">midVec</span><span class="p">.</span><span class="n">width</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">outlen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">len1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">midLen</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">len2</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">len1</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">len2</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">outlen</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">i1</span><span class="p">,</span><span class="w"> </span><span class="n">midVec</span><span class="p">,</span><span class="w"> </span><span class="n">i2</span><span class="p">)</span>
 <span class="k">end</span><span class="w"> </span><span class="nc">Concat</span>
 </code></pre></div>
 </div>
@@ -1455,9 +1505,509 @@
 <span class="kt">wire</span><span class="w">  </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="err">’</span><span class="n">b1011</span><span class="p">;</span>
 <span class="kt">reg</span><span class="w">   </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="err">’</span><span class="n">b1011</span><span class="p">;</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;8&#39;1011&quot;</span>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;8’1011&quot;</span>
 </code></pre></div>
 </div>
+</div>
+<h2 id="types-and-literals">Types and Literals<a class="headerlink" href="#types-and-literals" title="Permanent link"></a></h2>
+<div class="admonition verilog">
+<p class="admonition-title">Numeric Literals</p>
+<p>DFHDL uses string interpolators for sized literals. Each type has its own interpolator -- do not mix Verilog base prefixes (<code>’b</code>, <code>’d</code>, <code>’h</code>) inside them.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="mi">8</span><span class="err">’</span><span class="n">b1011_0000</span><span class="w">   </span><span class="c1">// binary</span>
+<span class="mi">8</span><span class="err">’</span><span class="n">hB0</span><span class="w">          </span><span class="c1">// hex</span>
+<span class="mi">8</span><span class="err">’</span><span class="n">d176</span><span class="w">         </span><span class="c1">// decimal</span>
+<span class="mi">5</span><span class="err">’</span><span class="n">d27</span><span class="w">          </span><span class="c1">// 5-bit decimal</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="n">b</span><span class="s">&quot;8’1011_0000&quot;</span><span class="w">  </span><span class="c1">// binary (b&quot;...&quot;)</span>
+<span class="n">h</span><span class="s">&quot;8’B0&quot;</span><span class="w">         </span><span class="c1">// hex (h&quot;...&quot;)</span>
+<span class="n">d</span><span class="s">&quot;8’176&quot;</span><span class="w">        </span><span class="c1">// unsigned decimal (d&quot;...&quot;)</span>
+<span class="n">d</span><span class="s">&quot;5’27&quot;</span><span class="w">         </span><span class="c1">// 5-bit unsigned decimal</span>
+</code></pre></div>
+</div>
+<p><code>b"..."</code> accepts only binary digits (<code>0</code>, <code>1</code>, <code>?</code>). Writing <code>b"5’d27"</code> is an error -- use <code>d"5’27"</code> for decimal values.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title"><code>$clog2</code> and Width Computation</p>
+<p>Instead of computing widths manually with <code>$clog2</code>, use <code>.until</code> or <code>.to</code> constructors which set the width automatically:</p>
+<table>
+<thead>
+<tr>
+<th>Verilog</th>
+<th>DFHDL</th>
+<th>Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>$clog2(N)</code></td>
+<td><code>UInt.until(N)</code> / <code>Bits.until(N)</code></td>
+<td><code>clog2(N)</code> bits, valid for N &gt;= 2</td>
+</tr>
+<tr>
+<td><code>$clog2(N+1)</code></td>
+<td><code>UInt.to(N)</code> / <code>Bits.to(N)</code></td>
+<td><code>clog2(N+1)</code> bits, valid for N &gt;= 1</td>
+</tr>
+</tbody>
+</table>
+<p><code>UInt.until(1)</code> is <strong>invalid</strong> (would produce 0-bit width). For counters that count 0 to N inclusive (common with <code>$clog2(N+1)</code>), use <code>UInt.to(N)</code>.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">parameter</span><span class="w"> </span><span class="n">RATE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5208</span><span class="p">;</span>
+<span class="k">localparam</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">$</span><span class="n">clog2</span><span class="p">(</span><span class="n">RATE</span><span class="p">);</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">counter</span><span class="p">;</span>
+
+<span class="c1">// Counter 0..SCALE inclusive</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[$</span><span class="n">clog2</span><span class="p">(</span><span class="n">SCALE</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nc">RATE</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5208</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="nc">RATE</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+
+
+<span class="c1">// Counter 0..SCALE inclusive</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">to</span><span class="p">(</span><span class="nc">SCALE</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+</div>
+<div class="admonition warning">
+<p class="admonition-title">Choosing <code>.until(N)</code> vs <code>.to(N)</code> for counters</p>
+<p>If the Verilog counter resets <em>when it reaches</em> <code>N</code> (i.e., <code>counter == N</code>), the variable must be able to hold the value <code>N</code>, so use <code>UInt.to(N)</code>. If the counter only ever holds values <code>0..N-1</code>, use <code>UInt.until(N)</code>. For many values of <code>N</code>, both produce the same bit width (<code>clog2(N) == clog2(N+1)</code>), so the bug is silent until formal verification catches an out-of-range comparison.</p>
+</div>
+<p>See <a class="autorefs autorefs-internal" title="UInt/SInt/Int" href="../../user-guide/type-system/#DFDecimal">UInt/SInt constructors</a> and <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#DFBits">Bits constructors</a> for details. See also the <a class="autorefs autorefs-internal" title="Int Parameter Operations (**, clog2)" href="../../user-guide/type-system/#int-param-ops"><code>clog2</code> anti-pattern warning</a>.</p>
+</div>
+<h2 id="processes-and-sequential-logic">Processes and Sequential Logic<a class="headerlink" href="#processes-and-sequential-logic" title="Permanent link"></a></h2>
+<div class="admonition verilog">
+<p class="admonition-title">Process Blocks (always)</p>
+<p>Verilog <code>always</code> blocks map to DFHDL <abbr title="Event-Driven">ED</abbr> domain <code>process(...)</code> blocks.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="c1">// Combinational</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="c1">// Sequential (clocked)</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">  </span><span class="n">counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">end</span>
+
+<span class="c1">// Sequential with async reset</span>
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">rst</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="c1">// Combinational</span>
+<span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
+
+
+<span class="c1">// Sequential (clocked)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="c1">// Sequential with async reset</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">q</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">d</span>
+</code></pre></div>
+</div>
+<ul>
+<li><code>always @(*)</code> becomes <code>process(all):</code></li>
+<li><code>always @(posedge clk)</code> becomes <code>process(clk):</code> with <code>if (clk.rising)</code> inside</li>
+<li>Verilog blocking <code>=</code> becomes DFHDL <code>:=</code> (use in combinational processes)</li>
+<li>Verilog non-blocking <code>&lt;=</code> becomes DFHDL <code>:==</code> (use in clocked processes)</li>
+</ul>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Variable Initialization (init)</p>
+<p>In <abbr title="Event-Driven">ED</abbr> domain, <code>init</code> on a <code>VAR</code> generates a Verilog <code>reg</code> with an initial value. This maps to both <code>initial begin</code> blocks and <code>reg ... = value</code> declarations.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="err">’</span><span class="n">d0</span><span class="p">;</span>
+<span class="c1">// or equivalently:</span>
+<span class="c1">// initial counter = 8’d0;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div>
+</div>
+<p>An <code>output reg</code> with an initial value maps directly to <code>OUT init</code>:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="n">din</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="n">dout</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">initial</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">1&#39;b1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">din</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">      </span><span class="n">dout</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">din</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">FSM State Encoding</p>
+<p>Verilog FSMs typically use <code>parameter</code> constants and <code>case</code>/<code>if</code> chains. In DFHDL, the idiomatic translation uses an <code>enum extends Encoded</code> and <code>match</code>:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">parameter</span><span class="w"> </span><span class="n">READY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mb">2&#39;b00</span><span class="p">,</span>
+<span class="w">          </span><span class="n">AIM</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mb">2&#39;b01</span><span class="p">,</span>
+<span class="w">          </span><span class="n">FIRE</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mb">2&#39;b10</span><span class="p">;</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="w">    </span><span class="nl">READY:</span><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">AIM</span><span class="p">;</span>
+<span class="w">    </span><span class="nl">AIM:</span><span class="w">     </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">FIRE</span><span class="p">;</span>
+<span class="w">    </span><span class="nl">FIRE:</span><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+<span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+<span class="w">  </span><span class="k">endcase</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">:</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="p">,</span><span class="w"> </span><span class="nc">Aim</span><span class="p">,</span><span class="w"> </span><span class="nc">Fire</span>
+<span class="k">import</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="n">*</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="nc">Ready</span>
+
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="k">match</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Aim</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Aim</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Fire</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Fire</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+</code></pre></div>
+</div>
+<p>If the encoded Verilog state values follow a standard pattern (incremental, gray, one-hot), use the corresponding <code>Encoded</code> variant. For non-standard encodings, use <code>Encoded.Manual</code> with a constructor parameter:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Verilog: parameter INIT=3&#39;b000, RUN=3&#39;b011, DONE=3&#39;b101, ERR=3&#39;b110;</span>
+<span class="k">enum</span><span class="w"> </span><span class="nc">Phase</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">.</span><span class="nc">Manual</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Init</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Phase</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Run</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">Phase</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Done</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Phase</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Err</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">Phase</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>The constructor parameter <code>(val value: UInt[N] &lt;&gt; CONST)</code> is required for <code>Encoded.Manual</code> and the bit width <code>N</code> must match the argument to <code>Encoded.Manual(N)</code>. Omitting it causes a compile error. See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#DFEnum">Enumeration</a> for all encoding options.</p>
+<p>When the Verilog FSM uses an explicit reset instead of <code>initial</code>, omit the <code>init</code> and handle reset inside the clocked process:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">state</span><span class="p">)</span>
+<span class="w">      </span><span class="nl">READY:</span><span class="w">   </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">AIM</span><span class="p">;</span>
+<span class="w">      </span><span class="nl">AIM:</span><span class="w">     </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">FIRE</span><span class="p">;</span>
+<span class="w">      </span><span class="nl">FIRE:</span><span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+<span class="w">      </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">  </span><span class="c1">// no init</span>
+
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">      </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="n">state</span><span class="w"> </span><span class="k">match</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Aim</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nc">Aim</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Fire</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="nc">Fire</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+<span class="w">        </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+</code></pre></div>
+</div>
+<p>Avoid modeling FSM states as <code>Bits</code> or <code>UInt</code> constants -- it is an anti-pattern. When compiling to SystemVerilog (SV), the SV enums are being utilized as well.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Integer <code>case</code> Statements (non-enum)</p>
+<p>When the Verilog <code>case</code> selector is a plain integer counter (not an FSM), use <code>match</code> with integer literal cases directly:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">case</span><span class="w"> </span><span class="p">(</span><span class="n">sel</span><span class="p">)</span>
+<span class="w">  </span><span class="mi">&#39;d0</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">60</span><span class="p">;</span>
+<span class="w">  </span><span class="mi">&#39;d1</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">110</span><span class="p">;</span>
+<span class="w">  </span><span class="mi">&#39;d2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">&#39;d3</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">200</span><span class="p">;</span>
+<span class="w">  </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span>
+<span class="k">endcase</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="n">sel</span><span class="w"> </span><span class="k">match</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">60</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">110</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">200</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="k">end</span><span class="w"> </span><span class="k">match</span>
+</code></pre></div>
+</div>
+<p>Integer literal pattern matching works with <code>UInt</code> and <code>SInt</code> selectors. Guard conditions (<code>case _ if sel == N</code>) also work but are less idiomatic. See <a class="autorefs autorefs-internal" href="../../user-guide/conditionals/#match-expressions">Match Expressions</a> for full details.</p>
+</div>
+<h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link"></a></h2>
+<div class="admonition verilog">
+<p class="admonition-title">Shift Operators</p>
+<p>Verilog has separate <code>&gt;&gt;</code> (logical) and <code>&gt;&gt;&gt;</code> (arithmetic) right shift operators. DFHDL uses only <code>&gt;&gt;</code>, but the behavior depends on the operand type:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">RightShifter</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">logical</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">arith</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">arith</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">RightShifter</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logical</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">arith</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="w">  </span><span class="n">logical</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">arith</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">data</span><span class="p">.</span><span class="n">sint</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">bits</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">RightShifter</span>
+</code></pre></div>
+</div>
+<p>There is no <code>&gt;&gt;&gt;</code> operator in DFHDL. The type of the <abbr title="Left-hand Side">LHS</abbr> determines the shift semantics: <code>&gt;&gt;</code> on <code>UInt</code>/<code>Bits</code> zero-fills, <code>&gt;&gt;</code> on <code>SInt</code> sign-extends. See <a class="autorefs autorefs-internal" title="Shift Operations (<<, >>)" href="../../user-guide/type-system/#shift-ops">Shift Operations</a> for details.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Bit/Boolean Operators: <code>|</code>/<code>&amp;</code> and <code>||</code>/<code>&amp;&amp;</code></p>
+<p>In DFHDL, <code>||</code>/<code>&amp;&amp;</code> and <code>|</code>/<code>&amp;</code> are interchangeable on <code>Bit</code> and <code>Boolean</code> types. The generated Verilog operator depends on the <abbr title="Left-hand Side">LHS</abbr> type: <code>Bit</code> produces bitwise <code>|</code>/<code>&amp;</code>, <code>Boolean</code> produces logical <code>||</code>/<code>&amp;&amp;</code>.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="k">output</span><span class="w"> </span><span class="n">o1</span><span class="p">,</span><span class="w"> </span><span class="n">o2</span><span class="p">,</span><span class="w"> </span><span class="n">o3</span><span class="p">;</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">o1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">o3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">o1</span><span class="p">,</span><span class="w"> </span><span class="n">o2</span><span class="p">,</span><span class="w"> </span><span class="n">o3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="n">o1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">c</span>
+<span class="n">o2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span>
+<span class="n">o3</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">bool</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">c</span>
+</code></pre></div>
+</div>
+<p>See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#logical-ops">Logical Operations</a> for the full reference and Verilog/VHDL mapping tables.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Reduction Operators (<code>&amp;v</code>, <code>|v</code>, <code>^v</code>)</p>
+<p>Verilog's unary reduction operators have direct DFHDL equivalents using postfix <code>.&amp;</code>, <code>.|</code>, <code>.^</code> on <code>Bits</code> values:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">v</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">all_set</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">&amp;</span><span class="n">v</span><span class="p">;</span><span class="w">    </span><span class="c1">// AND reduce</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">any_set</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">|</span><span class="n">v</span><span class="p">;</span><span class="w">    </span><span class="c1">// OR reduce</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">parity</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="o">^</span><span class="n">v</span><span class="p">;</span><span class="w">    </span><span class="c1">// XOR reduce</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">not_all</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">~&amp;</span><span class="n">v</span><span class="p">;</span><span class="w">   </span><span class="c1">// NAND reduce</span>
+<span class="kt">logic</span><span class="w"> </span><span class="n">none_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">~|</span><span class="n">v</span><span class="p">;</span><span class="w">   </span><span class="c1">// NOR reduce</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">v</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">all_set</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">&amp;</span><span class="w">     </span><span class="c1">// Bit: AND reduce</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">any_set</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="o">|</span><span class="w">     </span><span class="c1">// Bit: OR reduce</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">parity</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">v</span><span class="p">.</span><span class="n">^</span><span class="w">     </span><span class="c1">// Bit: XOR reduce</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">not_all</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">v</span><span class="p">.</span><span class="n">&amp;</span><span class="w">    </span><span class="c1">// Bit: NAND reduce</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">none_set</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">!</span><span class="n">v</span><span class="p">.</span><span class="o">|</span><span class="w">    </span><span class="c1">// Bit: NOR reduce</span>
+</code></pre></div>
+</div>
+<p>See <a class="autorefs autorefs-internal" title="Bit Reduction Operations (.&, .|, .^)" href="../../user-guide/type-system/#reduction-ops">Bit Reduction Operations</a> for full details.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Part-Select Notation (<code>-:</code> and <code>+:</code>)</p>
+<p>Verilog's descending and ascending part-select notation maps to DFHDL's <code>(hi, lo)</code> range slice, or use the convenience methods <code>.msbits(n)</code> and <code>.lsbits(n)</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Verilog</th>
+<th>DFHDL</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>sig[base -: W]</code></td>
+<td><code>sig(base, base - W + 1)</code></td>
+<td>Descending slice from <code>base</code>, <code>W</code> bits</td>
+</tr>
+<tr>
+<td><code>sig[base +: W]</code></td>
+<td><code>sig(base + W - 1, base)</code></td>
+<td>Ascending slice from <code>base</code>, <code>W</code> bits</td>
+</tr>
+<tr>
+<td><code>sig[N-1 -: W]</code></td>
+<td><code>sig.msbits(W)</code> or <code>sig(N-1, N-W)</code></td>
+<td>Top <code>W</code> bits</td>
+</tr>
+<tr>
+<td><code>sig[0 +: W]</code></td>
+<td><code>sig.lsbits(W)</code> or <code>sig(W-1, 0)</code></td>
+<td>Bottom <code>W</code> bits</td>
+</tr>
+<tr>
+<td><code>sig[idx]</code></td>
+<td><code>sig(idx)</code></td>
+<td>Single bit access</td>
+</tr>
+</tbody>
+</table>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">top4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">15</span><span class="w"> </span><span class="o">-:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">bot4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="w">  </span><span class="o">+:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="kt">logic</span><span class="w">       </span><span class="n">bit5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// top 4 bits</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">bot4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">lsbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// bottom 4 bits</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span><span class="c1">// single bit</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Arithmetic with Signed Values and Constants</p>
+<p>DFHDL arithmetic requires the <abbr title="Left-hand Side">LHS</abbr> to be at least as wide as the <abbr title="Right-hand Side">RHS</abbr> and to have compatible sign. A plain Scala <code>Int</code> literal is unsigned, so it cannot appear on the <abbr title="Left-hand Side">LHS</abbr> of arithmetic with <code>SInt</code>. The best practice is to use <strong>sized signed literals</strong> (<code>sd"W'value"</code>) with the target operation width:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Verilog: y &lt;= 2 * mul_val + y0;   (all signed, 16-bit)</span>
+<span class="c1">// ERROR: plain 2 is unsigned</span>
+<span class="n">y</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mul_val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y0</span>
+<span class="c1">// CORRECT: use a sized signed literal</span>
+<span class="n">y</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;2&quot;</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">mul_val</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y0</span>
+
+<span class="c1">// Verilog: err &lt;= 2 - (2 * r0);    (signed, 18-bit result)</span>
+<span class="c1">// ERROR: sd&quot;2&quot; is SInt[3], narrower than RHS</span>
+<span class="n">err</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;2&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">r0</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="nc">CORDW</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+<span class="c1">// CORRECT: match the LHS width to the operation width</span>
+<span class="n">err</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;${CORDW + 2}&#39;2&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="p">(</span><span class="n">r0</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="nc">CORDW</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>The general rule: the <strong>wider</strong> operand must be on the <abbr title="Left-hand Side">LHS</abbr>, and when mixing constants with signed DFHDL values, use <code>sd"W'value"</code> with the appropriate width <code>W</code>.</p>
+<p>See <a class="autorefs autorefs-internal" title="Arithmetic Operations (+, -, *, /, %)" href="../../user-guide/type-system/#arithmetic-ops">Arithmetic Operations</a> and <a class="autorefs autorefs-internal" title="Carry Arithmetic (+^, -^, *^)" href="../../user-guide/type-system/#carry-ops">Carry Arithmetic</a> for full details.</p>
+</div>
+<h2 id="parametric-constants">Parametric Constants<a class="headerlink" href="#parametric-constants" title="Permanent link"></a></h2>
+<div class="admonition verilog">
+<p class="admonition-title">Parametric-Width Bits Constants</p>
+<p>Verilog parameters can be bit-vector constants whose width depends on another parameter. In DFHDL, use <code>Bits[Int] &lt;&gt; CONST</code> (unbounded width) for the parameter. The width is inferred from the default literal value, and other local values can derive their widths from it:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">MyDesign</span><span class="w"> </span><span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">MASK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;hB8</span>
+<span class="p">)(</span>
+<span class="w">    </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">MyDesign</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">MASK</span><span class="p">:</span><span class="w">  </span><span class="nc">Bits</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;B8&quot;</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="c1">// MASK.width gives the actual width</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">MASK</span><span class="p">.</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">// ...</span>
+</code></pre></div>
+</div>
+<p>See the <a href="#parameter-declarations">Parameter Declarations</a> section above for a complete inter-dependent parameters example.</p>
+</div>
+<h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link"></a></h2>
+<div class="admonition verilog">
+<p class="admonition-title">Scala Reserved Keywords as DFHDL Port or Variable Names</p>
+<p>Some Verilog port names (<code>val</code>, <code>type</code>, <code>class</code>, <code>match</code>, <code>case</code>, <code>object</code>, etc.) are reserved in Scala. Use backtick escaping:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">reg</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">val</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">val</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16&#39;sd42</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">`val`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">`val`</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
+</code></pre></div>
+</div>
+<p>Alternatively, use a non-keyword name with the Scala <code>@targetName</code> annotation to set the actual <abbr title="Hardware Description Language">HDL</abbr> name:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">class</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16&#39;sd42</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">class_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">class_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title"><code>Bits</code> Initialization or Assignment</p>
+<p><code>Bits</code> values cannot be initialized or assigned with plain integers. Use <code>all(0)</code> or a sized literal:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8&#39;d0</span><span class="p">;</span>
+<span class="kt">reg</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">mask</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;hFF</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">flags</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">mask</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;8&#39;FF&quot;</span>
+<span class="c1">// NOT: Bits(8) &lt;&gt; VAR init 0  // error</span>
+</code></pre></div>
+</div>
+<p>Note: <code>UInt</code> and <code>SInt</code> can be initialized or assigned with plain integers.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Inline Conditional Expressions</p>
+<p>Verilog's ternary operator <code>cond ? a : b</code> has three DFHDL equivalents:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">assign</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+
+<span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">cond</span><span class="w"> </span><span class="o">?</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="c1">// 1. Using .sel (closest to ternary)</span>
+<span class="n">out</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">cond</span><span class="p">.</span><span class="n">sel</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1">// 2. Inline if/else (wrap in parentheses)</span>
+<span class="n">out</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1">// 3. Statement form</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span>
+<span class="k">else</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div>
+</div>
+<p>The <code>.sel</code> method compiles directly to Verilog's ternary operator. For complex nested conditions, prefer <code>if</code>/<code>else</code> or <code>match</code> over chaining <code>.sel</code> calls. See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#sel-ops">Selection (.sel)</a> for details.</p>
+<p>When using inline <code>if</code>/<code>else</code> as the <abbr title="Right-hand Side">RHS</abbr> of <code>:=</code> or <code>:==</code>, <strong>parentheses are required</strong>. Without them, Scala 3 parses the <code>if</code> as a statement, not an expression:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// CORRECT: parenthesized inline if with := and &lt;&gt;</span>
+<span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="n">out</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+
+<span class="c1">// PARSE ERROR: bare inline if on RHS of := or &lt;&gt;</span>
+<span class="c1">// out := if (cond) a else b  // &quot;end of statement expected&quot;</span>
+
+<span class="c1">// CORRECT: statement form (no parentheses needed)</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">cond</span><span class="p">)</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span>
+<span class="k">else</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div></td></tr></table></div>
+<p>This applies to all assignment operators (<code>:=</code>, <code>:==</code>, <code>&lt;&gt;</code>). Use <code>.sel</code> or the parenthesized form for inline conditionals; use the statement form for multi-assignment branches.</p>
 </div>
 
 

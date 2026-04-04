@@ -1807,6 +1807,25 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="go">scala run .</span>
 </code></pre></div>
 <p>For more information, please run <code>scala run --help</code> or consult the <a href="https://scala-cli.virtuslab.org/docs/commands/run" target="_blank">online documentation</a>.</p>
+<div class="admonition tip">
+<p class="admonition-title">Multi-file projects</p>
+<p>In a scala-cli project with multiple <code>.scala</code> files, shared <code>given</code> declarations (such as compiler options) must appear in exactly one file. Place them in your <code>project.scala</code> file to avoid duplicate definition errors.</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">project.scala</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">//&gt; using scala 3.8.1</span>
+<span class="c1">//&gt; using dep io.github.dfianthdl::dfhdl::0.17.0</span>
+<span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.17.0</span>
+
+<span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span>
+<span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backends</span><span class="p">.</span><span class="n">verilog</span>
+<span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">PrintBackendCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
+</code></pre></div></td></tr></table></div>
+<p>Individual design files should <code>import dfhdl.*</code> but not redeclare the shared <code>given</code> options.</p>
+</div>
 <h3 id="sbt-project">sbt Project<a class="headerlink" href="#sbt-project" title="Permanent link"></a></h3>
 <p>The best way to get started with a DFHDL sbt project is to clone our template from GitHub:</p>
 <div class="copy highlight"><span class="filename">Clone and run in your terminal</span><pre><span></span><code><span class="go">git clone https://github.com/DFiantHDL/dfhdl-template</span>
@@ -1832,7 +1851,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.10</span><span class="p">.</span><span class="n">5</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.10</span><span class="p">.</span><span class="n">7</span>
 <span class="n">runner</span><span class="p">.</span><span class="n">dialect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">scala</span><span class="mi">3</span>
 
 <span class="n">maxColumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>

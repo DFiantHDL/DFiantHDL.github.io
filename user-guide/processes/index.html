@@ -1328,6 +1328,241 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#rt-domain-clock-bound-fsm-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        RT domain: clock-bound FSM process
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="RT domain: clock-bound FSM process">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#syntax-process-processforever" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax: process / process.forever
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#step-based-fsm" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Step-based FSM
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#fallthrough" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        fallThrough
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#onentry-and-onexit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        onEntry and onExit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#waits-and-loops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Waits and loops
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#process-with-no-steps" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Process with no steps
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ed-domain-sensitivity-driven-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED domain: sensitivity-driven processes
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ed-process-forms" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED process forms
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ED process forms">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#sensitivity-list-processsig1-sig2" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Sensitivity list: process(sig1, sig2, ...)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#combinational-style-processall" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinational-style: process(all)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#forever-process-processforever-process" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Forever process: process.forever / process
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#edge-sensitivity" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Edge sensitivity
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#assignments-inside-processes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Assignments inside processes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Assignments inside processes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#blocking-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Blocking assignment :=
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-blocking-assignment" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-blocking assignment :==
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#local-variables" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local variables
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#relation-to-design-domains" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Relation to design domains
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#summary" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1347,6 +1582,251 @@
 
 
 <h1 id="processes">Processes<a class="headerlink" href="#processes" title="Permanent link"></a></h1>
+<p>Processes define <em>when</em> a block of logic runs. DFHDL supports processes in two domains:</p>
+<ul>
+<li><strong><abbr title="Register-Transfer">RT</abbr> domain</strong>: A <strong>clock-bound</strong> process used to describe finite-state machines (FSMs). The process runs in lockstep with the domain clock and uses steps, waits, and control flow that the compiler lowers to registers and combinational logic.</li>
+<li><strong><abbr title="Event-Driven">ED</abbr> domain</strong>: <strong>Sensitivity-driven</strong> processes that run when listed signals change (or all read signals with <code>process(all)</code>), giving the same level of control as <code>process</code> in VHDL or <code>always</code> in Verilog.</li>
+</ul>
+<p>Processes are not available in the dataflow (<abbr title="Dataflow">DF</abbr>) domain. Processes cannot be nested inside another process.</p>
+<h2 id="rt-domain-clock-bound-fsm-process"><abbr title="Register-Transfer">RT</abbr> domain: clock-bound FSM process<a class="headerlink" href="#rt-domain-clock-bound-fsm-process" title="Permanent link"></a></h2>
+<p>In an <a href="../design-domains/"><abbr title="Register-Transfer">RT</abbr> design</a>, a process is used to describe a finite-state machine that is <strong>clock-bound</strong>: it advances on the domain clock and is compiled to a state register plus combinational next-state and output logic.</p>
+<h3 id="syntax-process-processforever">Syntax: <code>process</code> / <code>process.forever</code><a class="headerlink" href="#syntax-process-processforever" title="Permanent link"></a></h3>
+<p>Use the shorthand <code>process:</code> (or <code>process.forever</code>) inside an <code>RTDesign</code> or <code>RTDomain</code>. The block contains either plain combinational logic (assignments, no steps) or step definitions that form an FSM.</p>
+<h3 id="step-based-fsm">Step-based FSM<a class="headerlink" href="#step-based-fsm" title="Permanent link"></a></h3>
+<p>Define states as <code>def Name: Step = ...</code> and control flow with:</p>
+<ul>
+<li><strong><code>NextStep</code></strong> — advance to the next step in definition order.</li>
+<li><strong><code>ThisStep</code></strong> — stay in the current step for another cycle.</li>
+<li><strong><code>FirstStep</code></strong> — go to the first step (e.g. reset to initial state).</li>
+<li><strong>Step name</strong> (e.g. <code>S1</code>, <code>S2</code>) — jump to that step.</li>
+</ul>
+<p>You can optionally name the process (e.g. <code>val my_fsm = process:</code>) so the compiler uses that name for the generated state enum and state register.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SimpleFSM</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="n">process</span><span class="p">:</span>
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">S0</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
+<span class="w">      </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nc">NextStep</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nc">S0</span>
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">S1</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
+<span class="w">      </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nc">S2</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nc">FirstStep</span>
+<span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">S2</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
+<span class="w">      </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nc">ThisStep</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nc">FirstStep</span>
+</code></pre></div></td></tr></table></div>
+<p>The compiler lowers this to a state enum, a state register, and a <code>match</code> on the state; see <a href="../design-domains/">Design Domains</a> for the compilation flow.</p>
+<h3 id="fallthrough">fallThrough<a class="headerlink" href="#fallthrough" title="Permanent link"></a></h3>
+<p>A step can define <strong><code>def fallThrough = cond</code></strong> where <code>cond</code> is a Boolean/Bit expression. When the condition holds, the step advances to the next step in the same cycle (conditional advancement); when it does not, the FSM stays in the current step.</p>
+<h3 id="onentry-and-onexit">onEntry and onExit<a class="headerlink" href="#onentry-and-onexit" title="Permanent link"></a></h3>
+<p>Inside a step you can define:</p>
+<ul>
+<li><strong><code>def onEntry = ...</code></strong> — run when entering the step (once per transition into this state).</li>
+<li><strong><code>def onExit = ...</code></strong> — run when leaving the step (once per transition out of this state).</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">S1</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">onEntry</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nc">S2</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nc">FirstStep</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">S2</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">onExit</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="p">)</span><span class="w"> </span><span class="nc">ThisStep</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="nc">FirstStep</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="waits-and-loops">Waits and loops<a class="headerlink" href="#waits-and-loops" title="Permanent link"></a></h3>
+<p><abbr title="Register-Transfer">RT</abbr> processes can use <strong>cycle waits</strong> (e.g. <code>1.cy.wait</code>, <code>n.cy.wait</code>) and <strong>wait conditions</strong> (<code>waitUntil(cond)</code>, <code>waitWhile(cond)</code>). The compiler converts these into step blocks and counters so that the behavior remains clock-bound and synthesizable.</p>
+<h3 id="process-with-no-steps">Process with no steps<a class="headerlink" href="#process-with-no-steps" title="Permanent link"></a></h3>
+<p>If the process body has no step definitions, it is purely combinational and runs every cycle:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
+<span class="w">  </span><span class="n">y</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="ed-domain-sensitivity-driven-processes"><abbr title="Event-Driven">ED</abbr> domain: sensitivity-driven processes<a class="headerlink" href="#ed-domain-sensitivity-driven-processes" title="Permanent link"></a></h2>
+<p>In an <a href="../design-domains/"><abbr title="Event-Driven">ED</abbr> design</a>, processes are <strong>sensitivity-driven</strong>: they run when an event occurs on one of their sensitivity signals (or on any read signal with <code>process(all)</code>).</p>
+<h2 id="ed-process-forms"><abbr title="Event-Driven">ED</abbr> process forms<a class="headerlink" href="#ed-process-forms" title="Permanent link"></a></h2>
+<h3 id="sensitivity-list-processsig1-sig2">Sensitivity list: <code>process(sig1, sig2, ...)</code><a class="headerlink" href="#sensitivity-list-processsig1-sig2" title="Permanent link"></a></h3>
+<p>The process runs whenever any of the listed signals change.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CombAndSeq</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="w">  </span><span class="c1">// Combinational logic: runs when x changes</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="w">  </span><span class="c1">// Sequential logic: runs on clock (and optionally reset) events</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">      </span><span class="n">r</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div>
+<p>You can list multiple signals, including edge-qualified signals (see <a href="#edge-sensitivity">Edge sensitivity</a>).</p>
+<h3 id="combinational-style-processall">Combinational-style: <code>process(all)</code><a class="headerlink" href="#combinational-style-processall" title="Permanent link"></a></h3>
+<p>The process is sensitive to <em>all</em> signals that are read in the block. Use this for combinational logic that should react to any input change. The compiler infers the actual sensitivity list from the block body.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CombLogic</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="forever-process-processforever-process">Forever process: <code>process.forever</code> / <code>process</code><a class="headerlink" href="#forever-process-processforever-process" title="Permanent link"></a></h3>
+<p>A process with no sensitivity list runs continuously. It is allowed in <abbr title="Register-Transfer">RT</abbr> and <abbr title="Event-Driven">ED</abbr>, but <strong>not</strong> in <abbr title="Dataflow">DF</abbr>. The shorthand <code>process:</code> (no arguments) is rewritten by the compiler to <code>process.forever</code>.</p>
+<ul>
+<li><strong>In <abbr title="Register-Transfer">RT</abbr></strong>: <code>process:</code> is the <a href="#rt-domain-clock-bound-fsm-process">clock-bound FSM process</a> described above (steps, waits, etc.).</li>
+<li><strong>In <abbr title="Event-Driven">ED</abbr></strong>: Use it for testbenches or clock generation (e.g. toggling a clock with <code>wait</code>).</li>
+</ul>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Testbench</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="n">process</span><span class="p">.</span><span class="n">forever</span><span class="p">:</span>
+<span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">!</span><span class="n">clk</span>
+<span class="w">    </span><span class="mi">5</span><span class="p">.</span><span class="n">ns</span><span class="p">.</span><span class="n">wait</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="edge-sensitivity">Edge sensitivity<a class="headerlink" href="#edge-sensitivity" title="Permanent link"></a></h2>
+<p>For sequential (clocked) logic you typically want the process to run only on a specific clock edge. You can either:</p>
+<ol>
+<li><strong>List the clock and check the edge inside the block</strong> (VHDL-style):</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">reg</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<ol>
+<li><strong>Put the edge in the sensitivity list</strong> (Verilog-style; compiler may normalize to this):</li>
+</ol>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="n">reg</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<p>Edge options are <code>.rising</code> and <code>.falling</code> on clock (or bit) signals. When reset is used, list both clock and reset and branch on reset then clock edge:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="assignments-inside-processes">Assignments inside processes<a class="headerlink" href="#assignments-inside-processes" title="Permanent link"></a></h2>
+<h3 id="blocking-assignment">Blocking assignment <code>:=</code><a class="headerlink" href="#blocking-assignment" title="Permanent link"></a></h3>
+<p>Takes effect immediately within the process. Use for combinational logic and for intermediate values that are read later in the same process.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w">   </span><span class="c1">// read a, b</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">temp</span><span class="w">          </span><span class="c1">// immediate update of y</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="non-blocking-assignment">Non-blocking assignment <code>:==</code><a class="headerlink" href="#non-blocking-assignment" title="Permanent link"></a></h3>
+<p>Schedules an update at the end of the current evaluation step. Use for registers and outputs that should not create combinational feedback within the same process.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">// register update</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition tip">
+<p class="admonition-title">Rule of thumb</p>
+<p>Use <code>:=</code> for combinational (e.g. in <code>process(all)</code> or combinational branches). Use <code>:==</code> for register and sequential outputs in clocked processes.</p>
+</div>
+<h2 id="local-variables">Local variables<a class="headerlink" href="#local-variables" title="Permanent link"></a></h2>
+<p>You can declare local variables inside a process with <code>VAL</code> or <code>VAR</code>; they are visible only within that process and help structure combinational or sequential logic.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">z</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="relation-to-design-domains">Relation to design domains<a class="headerlink" href="#relation-to-design-domains" title="Permanent link"></a></h2>
+<table>
+<thead>
+<tr>
+<th>Domain</th>
+<th>Processes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><abbr title="Dataflow">DF</abbr></strong></td>
+<td>No processes. Behavior is expressed with dataflow and <code>.prev</code>; the compiler introduces registers and eventually <abbr title="Event-Driven">ED</abbr> processes.</td>
+</tr>
+<tr>
+<td><strong><abbr title="Register-Transfer">RT</abbr></strong></td>
+<td><strong>Clock-bound FSM process</strong>: <code>process:</code> (or <code>process.forever</code>) with optional step definitions (<code>def Name: Step = ...</code>), <code>onEntry</code>/<code>onExit</code>, and waits. Compiled to a state register and match logic. Plain <abbr title="Register-Transfer">RT</abbr> register code (no process) is also lowered to <abbr title="Event-Driven">ED</abbr> processes by the compiler.</td>
+</tr>
+<tr>
+<td><strong><abbr title="Event-Driven">ED</abbr></strong></td>
+<td><strong>Sensitivity-driven</strong>: <code>process(sig1, sig2, ...)</code>, <code>process(all)</code>, and <code>process.forever</code> / <code>process</code>. Full control over sensitivity and blocking vs non-blocking assignment.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="../design-domains/">Design Domains</a> for the overall flow from <abbr title="Dataflow">DF</abbr> → <abbr title="Register-Transfer">RT</abbr> → <abbr title="Event-Driven">ED</abbr> and how processes fit into compilation.</p>
+<h2 id="summary">Summary<a class="headerlink" href="#summary" title="Permanent link"></a></h2>
+<ul>
+<li><strong><abbr title="Register-Transfer">RT</abbr></strong>: Use <strong><code>process:</code></strong> in <strong>RTDesign</strong> / <strong>RTDomain</strong> for a clock-bound FSM with <strong><code>def Name: Step = ...</code></strong>, <strong><code>NextStep</code></strong> / <strong><code>ThisStep</code></strong> / <strong><code>FirstStep</code></strong>, and optional <strong><code>onEntry</code></strong> / <strong><code>onExit</code></strong> and waits.</li>
+<li><strong><abbr title="Event-Driven">ED</abbr></strong>: Use <strong><code>process(sig1, sig2, ...)</code></strong> or <strong><code>process(all)</code></strong> in <strong>EDDesign</strong> / <strong>EDDomain</strong> to define when a block runs; <strong><code>process(all)</code></strong> for combinational logic; <strong><code>process(clk)</code></strong> (and optionally <strong><code>process(clk, rst)</code></strong>) with <strong><code>clk.rising</code></strong> / <strong><code>clk.falling</code></strong> for sequential logic.</li>
+<li>Use <strong><code>:=</code></strong> for immediate (blocking) updates and <strong><code>:==</code></strong> for register (non-blocking) updates in <abbr title="Event-Driven">ED</abbr> processes.</li>
+<li>Processes cannot be nested and are not available in the <abbr title="Dataflow">DF</abbr> domain.</li>
+</ul>
 
 
 
