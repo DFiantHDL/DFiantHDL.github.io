@@ -1681,7 +1681,12 @@
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CombAndSeq</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">CombAndSeq</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
@@ -1691,11 +1696,16 @@
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
-<span class="w">  </span><span class="c1">// Sequential logic: runs on clock (and optionally reset) events</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="c1">// Sequential logic, Verilog style: runs on clock (and optionally reset) events</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">    </span><span class="n">r1</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
+
+<span class="w">  </span><span class="c1">// Sequential logic, VHDL style: runs on clock (and optionally reset) events</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
-<span class="w">      </span><span class="n">r</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
+<span class="w">      </span><span class="n">r2</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
 </code></pre></div></td></tr></table></div>
 <p>You can list multiple signals, including edge-qualified signals (see <a href="#edge-sensitivity">Edge sensitivity</a>).</p>
 <h3 id="combinational-style-processall">Combinational-style: <code>process(all)</code><a class="headerlink" href="#combinational-style-processall" title="Permanent link"></a></h3>
@@ -1781,7 +1791,7 @@
 <p>Use <code>:=</code> for combinational (e.g. in <code>process(all)</code> or combinational branches). Use <code>:==</code> for register and sequential outputs in clocked processes.</p>
 </div>
 <h2 id="local-variables">Local variables<a class="headerlink" href="#local-variables" title="Permanent link"></a></h2>
-<p>You can declare local variables inside a process with <code>VAL</code> or <code>VAR</code>; they are visible only within that process and help structure combinational or sequential logic.</p>
+<p>You can declare local variables inside a process with <code>VAR</code>; they are visible only within that process and help structure combinational or sequential logic.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -1796,6 +1806,37 @@
 <span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">z</span>
 </code></pre></div></td></tr></table></div>
+<p>You can also use plain Scala <code>val</code> declarations (without <code>&lt;&gt; VAR</code> or <code>&lt;&gt; CONST</code>) inside process blocks to name intermediate sub-expressions. These are DFHDL values created inline -- they do not declare new ports or variables but serve as readable names for parts of a computation:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w">          </span><span class="c1">// intermediate DFHDL value</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">overflow</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w">    </span><span class="c1">// single-bit check</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">overflow</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">max_val</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">sum</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>Do not use <code>&lt;&gt; CONST</code> or <code>&lt;&gt; VAR</code> modifiers inside processes for these intermediates -- plain <code>val name = expr</code> is sufficient.</p>
+<div class="admonition warning">
+<p class="admonition-title">Local <code>VAR</code> in clocked processes become registers</p>
+<p>Local <code>VAR</code> declared inside a clocked <code>process(clk):</code> block are synthesized as <strong>flip-flop registers</strong> in the generated Verilog, not combinational wires. This is because the DFHDL compiler treats any variable written inside a clocked process as sequential storage.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="c1">// This VAR becomes a register in Verilog:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">temp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">    </span><span class="n">temp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">temp</span>
+</code></pre></div></td></tr></table></div>
+<p>If you need a purely combinational intermediate inside a clocked process, use a plain Scala <code>val</code> (without <code>&lt;&gt; VAR</code>) for simple expressions, or compute the intermediate in a separate <code>process(all):</code> block and read the result in the clocked process.</p>
+</div>
 <h2 id="relation-to-design-domains">Relation to design domains<a class="headerlink" href="#relation-to-design-domains" title="Permanent link"></a></h2>
 <table>
 <thead>

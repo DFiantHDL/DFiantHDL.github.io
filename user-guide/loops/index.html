@@ -12,7 +12,7 @@
         <meta name="author" content="Oron Port">
       
       
-        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/naming/">
+        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/loops/">
       
       
       
@@ -25,7 +25,7 @@
     
     
       
-        <title>Naming - DFiant HDL (DFHDL)</title>
+        <title>Loops - DFiant HDL (DFHDL)</title>
       
     
     
@@ -102,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#naming" class="md-skip">
+        <a href="#loops" class="md-skip">
           Skip to content
         </a>
       
@@ -177,7 +177,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Naming
+              Loops
             
           </span>
         </div>
@@ -1335,33 +1335,22 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reserved-names" class="md-nav__link">
+  <a href="#elaboration-time-loops-generate-loops" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reserved Names
+        Elaboration-Time Loops (Generate Loops)
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reserved Names">
+    <nav class="md-nav" aria-label="Elaboration-Time Loops (Generate Loops)">
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#scala-reserved-keywords" class="md-nav__link">
+  <a href="#elaboration-time-conditionals" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scala Reserved Keywords
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#dfhdl-built-in-names" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        DFHDL Built-in Names
+        Elaboration-Time Conditionals
       
     </span>
   </a>
@@ -1374,52 +1363,24 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#resolution-patterns" class="md-nav__link">
+  <a href="#ed-domain-loops" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Resolution Patterns
-      
-    </span>
-  </a>
-  
-    <nav class="md-nav" aria-label="Resolution Patterns">
-      <ul class="md-nav__list">
-        
-          <li class="md-nav__item">
-  <a href="#backtick-escaping" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Backtick Escaping
+        ED Domain Loops
       
     </span>
   </a>
   
 </li>
-        
-          <li class="md-nav__item">
-  <a href="#targetname-annotation" class="md-nav__link">
+      
+        <li class="md-nav__item">
+  <a href="#rt-domain-loops" class="md-nav__link">
     <span class="md-ellipsis">
       
-        @targetName Annotation
+        RT Domain Loops
       
     </span>
   </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#type-alias-for-class-name-conflicts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type Alias for Class Name Conflicts
-      
-    </span>
-  </a>
-  
-</li>
-        
-      </ul>
-    </nav>
   
 </li>
       
@@ -1443,74 +1404,63 @@
   
 
 
-<h1 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link"></a></h1>
-<h2 id="reserved-names">Reserved Names<a class="headerlink" href="#reserved-names" title="Permanent link"></a></h2>
-<p>When translating from Verilog, signal and module names may conflict with names already in scope from Scala or DFHDL. There are two categories of conflicts:</p>
-<h3 id="scala-reserved-keywords">Scala Reserved Keywords<a class="headerlink" href="#scala-reserved-keywords" title="Permanent link"></a></h3>
-<p>Scala keywords cannot be used directly as identifiers. Use backtick escaping:</p>
-<p><code>val</code>, <code>var</code>, <code>def</code>, <code>type</code>, <code>class</code>, <code>object</code>, <code>trait</code>, <code>enum</code>, <code>match</code>, <code>case</code>, <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>do</code>, <code>return</code>, <code>throw</code>, <code>try</code>, <code>catch</code>, <code>finally</code>, <code>yield</code>, <code>import</code>, <code>export</code>, <code>new</code>, <code>this</code>, <code>super</code>, <code>true</code>, <code>false</code>, <code>null</code>, <code>then</code>, <code>end</code>, <code>given</code>, <code>using</code>, <code>extension</code>, <code>with</code>, <code>abstract</code>, <code>final</code>, <code>override</code>, <code>sealed</code>, <code>lazy</code>, <code>private</code>, <code>protected</code></p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Verilog signal named &quot;val&quot;</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">`val`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="n">`val`</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="dfhdl-built-in-names">DFHDL Built-in Names<a class="headerlink" href="#dfhdl-built-in-names" title="Permanent link"></a></h3>
-<p><code>import dfhdl.*</code> brings DFHDL built-in functions and types into scope. If a user-defined class has the same name as a built-in, the built-in shadows the class. Known built-ins that commonly conflict with Verilog module names:</p>
-<p><code>abs</code>, <code>clog2</code>, <code>max</code>, <code>min</code>, <code>all</code>, <code>Bit</code>, <code>Bits</code>, <code>UInt</code>, <code>SInt</code></p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Module named &quot;abs&quot; conflicts with dfhdl.abs</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">abs</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">DATA_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="c1">// ...</span>
+<h1 id="loops">Loops<a class="headerlink" href="#loops" title="Permanent link"></a></h1>
+<p>DFHDL supports loops in several contexts with different semantics depending on the domain and placement.</p>
+<h2 id="elaboration-time-loops-generate-loops">Elaboration-Time Loops (Generate Loops)<a class="headerlink" href="#elaboration-time-loops-generate-loops" title="Permanent link"></a></h2>
+<p>Scala <code>for</code> loops at design scope (outside processes) run at elaboration time. They unroll into repeated hardware -- equivalent to Verilog <code>generate for</code>. The generated <abbr title="Hardware Description Language">HDL</abbr> contains no loop; each iteration produces distinct instances.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">(</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">STAGES</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 
-<span class="c1">// In the parent design, `abs(...)` resolves to the built-in function.</span>
-<span class="c1">// Fix: create a type alias before instantiation</span>
-<span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">AbsModule</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">// Elaboration-time loop: unrolls into STAGES instances</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">STAGES</span><span class="p">.</span><span class="n">toScalaInt</span><span class="w"> </span><span class="k">yield</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Stage</span><span class="p">(</span><span class="nc">IDX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
+<span class="w">    </span><span class="n">s</span>
+<span class="w">  </span><span class="c1">// Connect chain...</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Pipeline</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="resolution-patterns">Resolution Patterns<a class="headerlink" href="#resolution-patterns" title="Permanent link"></a></h2>
-<h3 id="backtick-escaping">Backtick Escaping<a class="headerlink" href="#backtick-escaping" title="Permanent link"></a></h3>
-<p>For Scala keywords used as signal names:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">`type`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">`match`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="targetname-annotation"><code>@targetName</code> Annotation<a class="headerlink" href="#targetname-annotation" title="Permanent link"></a></h3>
-<p>When a Scala-side name must differ from the generated <abbr title="Hardware Description Language">HDL</abbr> name, use <code>@targetName</code> to set the hardware name explicitly. This is useful when:</p>
-<ul>
-<li>A port name conflicts with a sub-module class name in the same design</li>
-<li>You want to rename a Scala identifier but preserve the original Verilog port name</li>
-</ul>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
+<p>When a design containing an elaboration-time loop is instantiated with different parameter values, DFHDL creates distinct elaborated designs (with enumerated names), each with a different number of unrolled instances.</p>
+<h3 id="elaboration-time-conditionals">Elaboration-Time Conditionals<a class="headerlink" href="#elaboration-time-conditionals" title="Permanent link"></a></h3>
+<p>Unlike Verilog <code>generate if</code>, DFHDL type-checks <strong>both</strong> branches of an <code>if</code> expression at elaboration time, regardless of the parameter value. This means both branches must be type-correct for all possible parameter values:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// PROBLEM: when DEPTH == 1, the else branch has an invalid slice</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">DEPTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nc">ELEM_WIDTH</span><span class="p">))</span><span class="w">  </span><span class="c1">// invalid range when DEPTH=1</span>
 
-<span class="c1">// Port &quot;kernel&quot; conflicts with class &quot;kernel&quot; in scope</span>
-<span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;kernel&quot;</span><span class="p">)</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">kernel_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="c1">// Generated HDL port is still named &quot;kernel&quot;</span>
-
-<span class="c1">// The class &quot;kernel&quot; remains available for instantiation</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernel</span><span class="p">()</span>
+<span class="c1">// SOLUTION: use .resize or guard index computations</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">DEPTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span>
+<span class="k">else</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nc">ELEM_WIDTH</span><span class="p">))</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="type-alias-for-class-name-conflicts">Type Alias for Class Name Conflicts<a class="headerlink" href="#type-alias-for-class-name-conflicts" title="Permanent link"></a></h3>
-<p>When a class name conflicts with a DFHDL built-in function:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span><span class="w">   </span><span class="c1">// alias resolves the class, not the function</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">AbsModule</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span>
-</code></pre></div></td></tr></table></div>
+<h2 id="ed-domain-loops"><abbr title="Event-Driven">ED</abbr> Domain Loops<a class="headerlink" href="#ed-domain-loops" title="Permanent link"></a></h2>
+<p>In <abbr title="Event-Driven">ED</abbr> designs, <code>for</code> and <code>while</code> loops inside processes produce combinational or sequential logic depending on the process type. These loops are unrolled by the compiler.</p>
+<h2 id="rt-domain-loops"><abbr title="Register-Transfer">RT</abbr> Domain Loops<a class="headerlink" href="#rt-domain-loops" title="Permanent link"></a></h2>
+<p>In <abbr title="Register-Transfer">RT</abbr> designs, <code>for</code> and <code>while</code> loops inside processes create synthesizable procedural FSMs. The compiler transforms the loop body into state machine transitions. See <a class="autorefs autorefs-internal" href="../processes/#processes">Processes</a> for details on <abbr title="Register-Transfer">RT</abbr> domain process semantics.</p>
 
 
 
