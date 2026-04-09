@@ -1343,6 +1343,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Elaboration">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-check" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wildcard Arithmetic Value Checking
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1368,6 +1385,19 @@
 <h1 id="compilation">Compilation<a class="headerlink" href="#compilation" title="Permanent link"></a></h1>
 <hr />
 <h2 id="elaboration">Elaboration<a class="headerlink" href="#elaboration" title="Permanent link"></a></h2>
+<h3 id="wildcard-check">Wildcard Arithmetic Value Checking<a class="headerlink" href="#wildcard-check" title="Permanent link"></a></h3>
+<p>When <a class="autorefs autorefs-internal" title="Arithmetic Operations (+, -, *, /, %)" href="../type-system/#arithmetic-ops">arithmetic operations</a> involve wildcard <code>Int</code> values (Scala <code>Int</code> or DFHDL <code>Int</code> parameters), the wildcard <code>Int</code> value adapts to the bit-accurate value's sign and width. The value is then checked to ensure it fits. This check occurs at three levels, depending on when the value becomes known:</p>
+<ol>
+<li>
+<p><strong>Scala compile-time</strong> -- Literal Scala integers (e.g., <code>u8 + 1000</code>) have known values at compile time. The Scala compiler reports an error immediately if the wildcard <code>Int</code> value exceeds the bit-accurate value's range or has incompatible sign.</p>
+</li>
+<li>
+<p><strong>DFHDL elaboration-time</strong> -- Non-literal Scala integers (e.g., <code>val x: Int = computeValue(); u8 + x</code>) and DFHDL <code>Int</code> constants whose values are resolved during elaboration. A DFHDL elaboration error (Scala runtime error) is generated if the value does not fit.</p>
+</li>
+<li>
+<p><strong>Synthesis/simulation-time</strong> -- DFHDL <code>Int</code> parameters that are set externally or computed in complex generation loops may not be known until synthesis or simulation. Assertions must be added to verify these values at the target platform level. This is a planned future feature (TODO).</p>
+</li>
+</ol>
 
 
 

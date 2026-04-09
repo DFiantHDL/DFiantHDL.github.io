@@ -1697,7 +1697,7 @@
   <a href="#d-interp" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decimal String-Interpolator
+        Unsigned Decimal String-Interpolator
       
     </span>
   </a>
@@ -2253,6 +2253,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#constant-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constant Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#type-conversion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2411,10 +2422,49 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bit-Accurate Type Constraints (UInt, SInt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commutative-result-type-rules-max-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commutative result type rules (+, *, max, min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-commutative-result-type-rules-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-commutative result type rules (-, /, %)
+      
+    </span>
+  </a>
+  
 </li>
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wildcard Int Values
+      
+    </span>
+  </a>
   
 </li>
         
@@ -3354,7 +3404,7 @@
   <a href="#d-interp" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Decimal String-Interpolator
+        Unsigned Decimal String-Interpolator
       
     </span>
   </a>
@@ -3910,6 +3960,17 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
+  <a href="#constant-propagation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Constant Propagation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#type-conversion" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -4068,10 +4129,49 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Bit-Accurate Type Constraints (UInt, SInt)">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#commutative-result-type-rules-max-min" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Commutative result type rules (+, *, max, min)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#non-commutative-result-type-rules-" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Non-commutative result type rules (-, /, %)
+      
+    </span>
+  </a>
+  
 </li>
         
       </ul>
     </nav>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#wildcard-ops" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Wildcard Int Values
+      
+    </span>
+  </a>
   
 </li>
         
@@ -4635,7 +4735,7 @@ Be sure to read more on assignment rules and semantics in the <a class="autorefs
 <li><strong>Literal value generators:</strong> These language constructs directly generate constant DFHDL values. Currently, these are:<ul>
 <li><a class="autorefs autorefs-internal" title="Binary Bits String-Interpolator" href="#b-interp">Binary <code>Bits</code> string interpolator</a></li>
 <li><a class="autorefs autorefs-internal" title="Hexadecimal Bits String-Interpolator" href="#h-interp">Hexadecimal <code>Bits</code> string interpolator</a></li>
-<li><a class="autorefs autorefs-internal" title="Decimal String-Interpolator" href="#d-interp">Decimal string interpolator</a></li>
+<li><a class="autorefs autorefs-internal" title="Unsigned Decimal String-Interpolator" href="#d-interp">Decimal string interpolator</a></li>
 <li><a class="autorefs autorefs-internal" title="Signed Decimal String-Interpolator" href="#sd-interp">Signed Decimal string interpolator</a></li>
 </ul>
 </li>
@@ -4783,12 +4883,12 @@ See the <a class="autorefs autorefs-internal" title="Connectivity" href="../conn
 The candidate produces a constant DFHDL value if the candidate argument is a constant.</p>
 <div class="admonition info">
 <p class="admonition-title">Operation supported values for an argument of DFType <code>T</code></p>
-<div class="d2"><svg data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 831 208" role="img" aria-label="Diagram"><svg class="d2-d133d6cfbdd64747aca3cfc9e5040afa d2-svg" width="831" height="208" viewBox="-11 -11 831 208"><rect x="-11.000000" y="-11.000000" width="831.000000" height="208.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css">
-.d2-d133d6cfbdd64747aca3cfc9e5040afa .text-bold {
-	font-family: "d2-d133d6cfbdd64747aca3cfc9e5040afa-font-bold";
+<div class="d2"><svg data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 831 208" role="img" aria-label="Diagram"><svg class="d2-744a50958c78498887a897f3252a24d0 d2-svg" width="831" height="208" viewBox="-11 -11 831 208"><rect x="-11.000000" y="-11.000000" width="831.000000" height="208.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css">
+.d2-744a50958c78498887a897f3252a24d0 .text-bold {
+	font-family: "d2-744a50958c78498887a897f3252a24d0-font-bold";
 }
 @font-face {
-	font-family: d2-d133d6cfbdd64747aca3cfc9e5040afa-font-bold;
+	font-family: d2-744a50958c78498887a897f3252a24d0-font-bold;
 	src: url("data:application/font-woff;base64,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");
 }</style><style type="text/css">.shape {
   shape-rendering: geometricPrecision;
@@ -4803,78 +4903,78 @@ The candidate produces a constant DFHDL value if the candidate argument is a con
   opacity: 0.5;
 }
 
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N1{fill:#0A0F25;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N2{fill:#676C7E;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N3{fill:#9499AB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N4{fill:#CFD2DD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N5{fill:#DEE1EB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N6{fill:#EEF1F8;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-N7{fill:#FFFFFF;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B1{fill:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B2{fill:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B3{fill:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B4{fill:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B5{fill:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-B6{fill:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-AA2{fill:#4A6FF3;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-AA4{fill:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-AA5{fill:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-AB4{fill:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .fill-AB5{fill:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N1{stroke:#0A0F25;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N2{stroke:#676C7E;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N3{stroke:#9499AB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N4{stroke:#CFD2DD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N5{stroke:#DEE1EB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N6{stroke:#EEF1F8;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-N7{stroke:#FFFFFF;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B1{stroke:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B2{stroke:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B3{stroke:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B4{stroke:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B5{stroke:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-B6{stroke:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-AA2{stroke:#4A6FF3;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-AA4{stroke:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-AA5{stroke:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-AB4{stroke:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .stroke-AB5{stroke:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N1{background-color:#0A0F25;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N2{background-color:#676C7E;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N3{background-color:#9499AB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N4{background-color:#CFD2DD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N5{background-color:#DEE1EB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N6{background-color:#EEF1F8;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-N7{background-color:#FFFFFF;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B1{background-color:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B2{background-color:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B3{background-color:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B4{background-color:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B5{background-color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-B6{background-color:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-AA2{background-color:#4A6FF3;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-AA4{background-color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-AA5{background-color:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-AB4{background-color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .background-color-AB5{background-color:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N1{color:#0A0F25;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N2{color:#676C7E;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N3{color:#9499AB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N4{color:#CFD2DD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N5{color:#DEE1EB;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N6{color:#EEF1F8;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-N7{color:#FFFFFF;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B1{color:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B2{color:#0D32B2;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B3{color:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B4{color:#E3E9FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B5{color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-B6{color:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-AA2{color:#4A6FF3;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-AA4{color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-AA5{color:#F7F8FE;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-AB4{color:#EDF0FD;}
-		.d2-d133d6cfbdd64747aca3cfc9e5040afa .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-d133d6cfbdd64747aca3cfc9e5040afa);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}</style><g class="VENhbmQ="><g class="shape"><rect x="220.000000" y="0.000000" width="118.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="279.000000" y="38.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="279.000000" dy="0.000000">`T`</tspan><tspan x="279.000000" dy="18.500000">Candidate</tspan></text></g><g class="VFZhbA=="><g class="shape"><rect x="724.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="766.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="766.500000" dy="0.000000">`T`</tspan><tspan x="766.500000" dy="18.500000">Value</tspan></text></g><g class="QW55"><g class="shape"><rect x="0.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="42.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="42.500000" dy="0.000000">Any</tspan><tspan x="42.500000" dy="18.500000">Value</tspan></text></g><g class="T3BDYW5k"><g class="shape"><rect x="473.000000" y="88.000000" width="118.000000" height="98.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="532.000000" y="126.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="532.000000" dy="0.000000">`T`</tspan><tspan x="532.000000" dy="17.666667">Operation</tspan><tspan x="532.000000" dy="17.666667">Candidate</tspan></text></g><g class="KFRDYW5kIC0mZ3Q7IFRWYWwpWzBd is!"><marker id="mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 339.486301 33.516317 C 391.899994 27.350000 430.799988 25.750000 468.750000 25.750000 C 506.700012 25.750000 670.900024 33.150002 720.998452 60.816309" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134)" mask="url(#d2-d133d6cfbdd64747aca3cfc9e5040afa)" /><rect x="514.000000" y="14.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="534.500000" y="33.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBUQ2FuZClbMF0= is?"><path d="M 86.349344 68.238471 C 138.899994 46.598999 166.100006 41.000000 216.500000 41.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134)" mask="url(#d2-d133d6cfbdd64747aca3cfc9e5040afa)" /><rect x="129.000000" y="31.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="150.500000" y="50.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KFRDYW5kIC0mZ3Q7IE9wQ2FuZClbMF0= is?"><path d="M 339.358833 64.488066 C 391.899994 85.349998 419.100006 95.550003 469.728039 113.418720" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134)" mask="url(#d2-d133d6cfbdd64747aca3cfc9e5040afa)" /><rect x="384.000000" y="77.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="405.500000" y="96.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KE9wQ2FuZCAtJmd0OyBUVmFsKVswXQ== is!"><path d="M 592.500000 136.500000 C 644.099976 136.500000 670.900024 130.500000 720.849262 108.134660" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134)" mask="url(#d2-d133d6cfbdd64747aca3cfc9e5040afa)" /><rect x="640.000000" y="119.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="660.500000" y="138.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBPcENhbmQpWzBd is?"><path d="M 86.223868 112.764040 C 138.899994 143.750000 177.800003 151.750000 215.750000 151.750000 C 253.699997 151.750000 419.100006 150.149994 469.527398 144.217365" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-d133d6cfbdd64747aca3cfc9e5040afa-3488378134)" mask="url(#d2-d133d6cfbdd64747aca3cfc9e5040afa)" /><rect x="253.000000" y="138.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="274.500000" y="157.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><mask id="d2-d133d6cfbdd64747aca3cfc9e5040afa" maskUnits="userSpaceOnUse" x="-11" y="-11" width="831" height="208">
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N1{fill:#0A0F25;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N2{fill:#676C7E;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N3{fill:#9499AB;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N4{fill:#CFD2DD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N5{fill:#DEE1EB;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N6{fill:#EEF1F8;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-N7{fill:#FFFFFF;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B1{fill:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B2{fill:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B3{fill:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B4{fill:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B5{fill:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-B6{fill:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-AA2{fill:#4A6FF3;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-AA4{fill:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-AA5{fill:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-AB4{fill:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .fill-AB5{fill:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N1{stroke:#0A0F25;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N2{stroke:#676C7E;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N3{stroke:#9499AB;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N4{stroke:#CFD2DD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N5{stroke:#DEE1EB;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N6{stroke:#EEF1F8;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-N7{stroke:#FFFFFF;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B1{stroke:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B2{stroke:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B3{stroke:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B4{stroke:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B5{stroke:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-B6{stroke:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA2{stroke:#4A6FF3;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA4{stroke:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA5{stroke:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-AB4{stroke:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .stroke-AB5{stroke:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N1{background-color:#0A0F25;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N2{background-color:#676C7E;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N3{background-color:#9499AB;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N4{background-color:#CFD2DD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N5{background-color:#DEE1EB;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N6{background-color:#EEF1F8;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-N7{background-color:#FFFFFF;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B1{background-color:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B2{background-color:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B3{background-color:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B4{background-color:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B5{background-color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-B6{background-color:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA2{background-color:#4A6FF3;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA4{background-color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA5{background-color:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-AB4{background-color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .background-color-AB5{background-color:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N1{color:#0A0F25;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N2{color:#676C7E;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N3{color:#9499AB;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N4{color:#CFD2DD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N5{color:#DEE1EB;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N6{color:#EEF1F8;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-N7{color:#FFFFFF;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B1{color:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B2{color:#0D32B2;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B3{color:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B4{color:#E3E9FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B5{color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-B6{color:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-AA2{color:#4A6FF3;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-AA4{color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-AA5{color:#F7F8FE;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-AB4{color:#EDF0FD;}
+		.d2-744a50958c78498887a897f3252a24d0 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}</style><g class="VENhbmQ="><g class="shape"><rect x="220.000000" y="0.000000" width="118.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="279.000000" y="38.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="279.000000" dy="0.000000">`T`</tspan><tspan x="279.000000" dy="18.500000">Candidate</tspan></text></g><g class="VFZhbA=="><g class="shape"><rect x="724.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="766.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="766.500000" dy="0.000000">`T`</tspan><tspan x="766.500000" dy="18.500000">Value</tspan></text></g><g class="QW55"><g class="shape"><rect x="0.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="42.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="42.500000" dy="0.000000">Any</tspan><tspan x="42.500000" dy="18.500000">Value</tspan></text></g><g class="T3BDYW5k"><g class="shape"><rect x="473.000000" y="88.000000" width="118.000000" height="98.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="532.000000" y="126.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="532.000000" dy="0.000000">`T`</tspan><tspan x="532.000000" dy="17.666667">Operation</tspan><tspan x="532.000000" dy="17.666667">Candidate</tspan></text></g><g class="KFRDYW5kIC0mZ3Q7IFRWYWwpWzBd is!"><marker id="mk-d2-744a50958c78498887a897f3252a24d0-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 339.486301 33.516317 C 391.899994 27.350000 430.799988 25.750000 468.750000 25.750000 C 506.700012 25.750000 670.900024 33.150002 720.998452 60.816309" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="514.000000" y="14.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="534.500000" y="33.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBUQ2FuZClbMF0= is?"><path d="M 86.349344 68.238471 C 138.899994 46.598999 166.100006 41.000000 216.500000 41.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="129.000000" y="31.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="150.500000" y="50.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KFRDYW5kIC0mZ3Q7IE9wQ2FuZClbMF0= is?"><path d="M 339.358833 64.488066 C 391.899994 85.349998 419.100006 95.550003 469.728039 113.418720" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="384.000000" y="77.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="405.500000" y="96.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KE9wQ2FuZCAtJmd0OyBUVmFsKVswXQ== is!"><path d="M 592.500000 136.500000 C 644.099976 136.500000 670.900024 130.500000 720.849262 108.134660" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="640.000000" y="119.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="660.500000" y="138.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBPcENhbmQpWzBd is?"><path d="M 86.223868 112.764040 C 138.899994 143.750000 177.800003 151.750000 215.750000 151.750000 C 253.699997 151.750000 419.100006 150.149994 469.527398 144.217365" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="253.000000" y="138.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="274.500000" y="157.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><mask id="d2-744a50958c78498887a897f3252a24d0" maskUnits="userSpaceOnUse" x="-11" y="-11" width="831" height="208">
 <rect x="-11" y="-11" width="831" height="208" fill="white" />
 <rect x="516.000000" y="17.000000" width="37" height="21" fill="black" />
 <rect x="131.000000" y="34.000000" width="39" height="21" fill="black" />
@@ -5210,7 +5310,7 @@ vector of <code>Bits</code> have overlapping equivalent APIs. </p>
 <li>Unbounded: <code>Bits[Int]</code></li>
 </ul>
 <h4 id="literal-constant-value-generation">Literal (Constant) Value Generation<a class="headerlink" href="#literal-constant-value-generation" title="Permanent link"></a></h4>
-<p>Literal (constant) DFHDL <code>Bits</code> value generation is carried out through <a class="autorefs autorefs-internal" title="Binary Bits String-Interpolator" href="#b-interp">binary</a> and <a class="autorefs autorefs-internal" title="Hexadecimal Bits String-Interpolator" href="#h-interp">hexadecimal</a> string interpolation, a core <a href="https://docs.scala-lang.org/scala3/book/string-interpolation.html" target="_blank">Scala feature</a> that was customized for DFHDL's exact use-case. There are also bit-accurate <a class="autorefs autorefs-internal" title="Decimal String-Interpolator" href="#d-interp">decimal</a> and <a class="autorefs autorefs-internal" title="Signed Decimal String-Interpolator" href="#sd-interp">signed decimal</a> interpolations available that produce <code>UInt</code> and <code>SInt</code> DFHDL values. If needed, those values can be cast to <code>Bits</code>. No octal interpolation is currently available or planned.</p>
+<p>Literal (constant) DFHDL <code>Bits</code> value generation is carried out through <a class="autorefs autorefs-internal" title="Binary Bits String-Interpolator" href="#b-interp">binary</a> and <a class="autorefs autorefs-internal" title="Hexadecimal Bits String-Interpolator" href="#h-interp">hexadecimal</a> string interpolation, a core <a href="https://docs.scala-lang.org/scala3/book/string-interpolation.html" target="_blank">Scala feature</a> that was customized for DFHDL's exact use-case. There are also bit-accurate <a class="autorefs autorefs-internal" title="Unsigned Decimal String-Interpolator" href="#d-interp">decimal</a> and <a class="autorefs autorefs-internal" title="Signed Decimal String-Interpolator" href="#sd-interp">signed decimal</a> interpolations available that produce <code>UInt</code> and <code>SInt</code> DFHDL values. If needed, those values can be cast to <code>Bits</code>. No octal interpolation is currently available or planned.</p>
 <h5 id="b-interp">Binary Bits String-Interpolator<a class="headerlink" href="#b-interp" title="Permanent link"></a></h5>
 <div class="highlight"><span class="filename">Binary Bits string-interpolation syntax</span><pre><span></span><code><span class="n">b</span><span class="s">&quot;width&#39;bin&quot;</span>
 </code></pre></div>
@@ -5432,7 +5532,7 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <ul>
 <li><code>UInt</code> - Unsigned bit-accurate integer values</li>
 <li><code>SInt</code> - Signed bit-accurate integer values  </li>
-<li><code>Int</code> - 32-bit integer values (used mainly for parameters)</li>
+<li><code>Int</code> - 32-bit integer values (used mainly for parameters). In operations with <code>UInt</code> or <code>SInt</code>, both Scala <code>Int</code> and DFHDL <code>Int</code> act as <a class="autorefs autorefs-internal" title="Wildcard Int Values" href="#wildcard-ops">wildcards</a> that adapt to the bit-accurate value's sign and width.</li>
 </ul>
 <h4 id="dftype-constructors_2">DFType Constructors<a class="headerlink" href="#dftype-constructors_2" title="Permanent link"></a></h4>
 <div class="operations">
@@ -5494,32 +5594,36 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <li>Decimal literals (string interpolation values) </li>
 </ul>
 <h4 id="constant-generation">Constant Generation<a class="headerlink" href="#constant-generation" title="Permanent link"></a></h4>
-<h5 id="d-interp">Decimal String-Interpolator<a class="headerlink" href="#d-interp" title="Permanent link"></a></h5>
-<p>The decimal string interpolator <code>d</code> creates unsigned/signed integer constants (<code>UInt</code>) from decimal values.</p>
-<div class="highlight"><span class="filename">Decimal string-interpolation syntax</span><pre><span></span><code><span class="n">d</span><span class="s">&quot;width&#39;dec&quot;</span>
+<h5 id="d-interp">Unsigned Decimal String-Interpolator<a class="headerlink" href="#d-interp" title="Permanent link"></a></h5>
+<p>The unsigned decimal string interpolator <code>d</code> creates unsigned integer constants (<code>UInt</code>) from decimal values. For negative values, use the <a class="autorefs autorefs-internal" title="Signed Decimal String-Interpolator" href="#sd-interp">signed decimal string-interpolator</a>.</p>
+<div class="highlight"><span class="filename">Unsigned decimal string-interpolation syntax</span><pre><span></span><code><span class="n">d</span><span class="s">&quot;width&#39;dec&quot;</span>
 </code></pre></div>
 <ul>
-<li><strong>dec</strong> is a sequence of decimal characters ('0'-'9') with an optional prefix <code>-</code> for negative values</li>
+<li><strong>dec</strong> is a sequence of decimal characters ('0'-'9'). Negative values are not allowed.</li>
 <li><strong>width</strong> followed by a <code>'</code> is optional and specifies the exact width of the integer's bit representation</li>
 <li>Separators <code>_</code> (underscore) and <code>,</code> (comma) within <code>dec</code> are ignored</li>
 <li>If width is omitted, it is inferred from the value's size</li>
-<li>If specified, the output is padded with zeros or extended for signed numbers using two's complement</li>
-<li>Returns an unsigned <code>UInt[W]</code> for natural numbers and signed <code>SInt[W]</code> for negative numbers, where <code>W</code> is the width in bits</li>
+<li>If specified, the output is padded with zeros</li>
+<li>Returns <code>UInt[W]</code>, where <code>W</code> is the width in bits</li>
 <li>An error occurs if the specified width is less than required to represent the value</li>
+<li>When used with a DFHDL <code>Int</code> parameter, the interpolation binds it as unsigned</li>
 </ul>
-<p>Examples:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="w">      </span><span class="c1">// UInt[1], value = 0</span>
-<span class="n">d</span><span class="s">&quot;-1&quot;</span><span class="w">     </span><span class="c1">// SInt[2], value = -1 </span>
-<span class="n">d</span><span class="s">&quot;8&#39;-1&quot;</span><span class="w">   </span><span class="c1">// SInt[8], value = -1</span>
-<span class="n">d</span><span class="s">&quot;255&quot;</span><span class="w">    </span><span class="c1">// UInt[8], value = 255</span>
-<span class="n">d</span><span class="s">&quot;1,023&quot;</span><span class="w">  </span><span class="c1">// UInt[10], value = 1023</span>
-<span class="n">d</span><span class="s">&quot;1_000&quot;</span><span class="w">  </span><span class="c1">// UInt[10], value = 1000</span>
-</code></pre></div></td></tr></table></div></p>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="w">           </span><span class="c1">// UInt[1], value = 0</span>
+<span class="n">d</span><span class="s">&quot;255&quot;</span><span class="w">         </span><span class="c1">// UInt[8], value = 255</span>
+<span class="n">d</span><span class="s">&quot;8&#39;42&quot;</span><span class="w">        </span><span class="c1">// UInt[8], value = 42</span>
+<span class="n">d</span><span class="s">&quot;1,023&quot;</span><span class="w">       </span><span class="c1">// UInt[10], value = 1023</span>
+<span class="n">d</span><span class="s">&quot;1_000&quot;</span><span class="w">       </span><span class="c1">// UInt[10], value = 1000</span>
+<span class="n">d</span><span class="s">&quot;$param&quot;</span><span class="w">      </span><span class="c1">// UInt[Int], unsigned binding of Int parameter</span>
+<span class="n">d</span><span class="s">&quot;8&#39;$param&quot;</span><span class="w">    </span><span class="c1">// UInt[8], unsigned binding with explicit width</span>
+<span class="n">d</span><span class="s">&quot;${w}&#39;$param&quot;</span><span class="w"> </span><span class="c1">// UInt[w.type], unsigned binding with parametric width</span>
+</code></pre></div></td></tr></table></div>
 <h5 id="sd-interp">Signed Decimal String-Interpolator<a class="headerlink" href="#sd-interp" title="Permanent link"></a></h5>
 <p>The signed decimal string interpolator <code>sd</code> creates signed integer constants (<code>SInt</code>) from decimal values.</p>
 <div class="highlight"><span class="filename">Signed decimal string-interpolation syntax</span><pre><span></span><code><span class="n">sd</span><span class="s">&quot;width&#39;dec&quot;</span>
@@ -5531,18 +5635,24 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <li>Output is always a signed integer type <code>SInt[W]</code>, regardless of whether the value is negative or natural</li>
 <li>Width is always at least 2 bits to accommodate the sign bit</li>
 <li>An error occurs if the specified width is less than required to represent the value including the sign bit</li>
+<li>When used with a DFHDL <code>Int</code> parameter, the interpolation binds it as signed</li>
 </ul>
-<p>Examples:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sd</span><span class="s">&quot;0&quot;</span><span class="w">     </span><span class="c1">// SInt[2], value = 0 (natural number represented as signed)</span>
-<span class="n">sd</span><span class="s">&quot;-1&quot;</span><span class="w">    </span><span class="c1">// SInt[2], value = -1</span>
-<span class="n">sd</span><span class="s">&quot;255&quot;</span><span class="w">   </span><span class="c1">// SInt[9], value = 255 (natural number represented as signed)</span>
-<span class="n">sd</span><span class="s">&quot;8&#39;42&quot;</span><span class="w">  </span><span class="c1">// SInt[8], value = 42</span>
-<span class="n">sd</span><span class="s">&quot;8&#39;255&quot;</span><span class="w"> </span><span class="c1">// Error: width too small to represent value with sign bit</span>
-</code></pre></div></td></tr></table></div></p>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">sd</span><span class="s">&quot;0&quot;</span><span class="w">           </span><span class="c1">// SInt[2], value = 0 (natural number represented as signed)</span>
+<span class="n">sd</span><span class="s">&quot;-1&quot;</span><span class="w">          </span><span class="c1">// SInt[2], value = -1</span>
+<span class="n">sd</span><span class="s">&quot;255&quot;</span><span class="w">         </span><span class="c1">// SInt[9], value = 255 (natural number represented as signed)</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;42&quot;</span><span class="w">        </span><span class="c1">// SInt[8], value = 42</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;255&quot;</span><span class="w">       </span><span class="c1">// Error: width too small to represent value with sign bit</span>
+<span class="n">sd</span><span class="s">&quot;$param&quot;</span><span class="w">      </span><span class="c1">// SInt[Int], signed binding of Int parameter</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;$param&quot;</span><span class="w">    </span><span class="c1">// SInt[8], signed binding with explicit width</span>
+<span class="n">sd</span><span class="s">&quot;${w}&#39;$param&quot;</span><span class="w"> </span><span class="c1">// SInt[w.type], signed binding with parametric width</span>
+</code></pre></div></td></tr></table></div>
 <h4 id="examples">Examples<a class="headerlink" href="#examples" title="Permanent link"></a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -6066,6 +6176,22 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <span class="w">    </span><span class="n">doSomething</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link"></a></h2>
+<h3 id="constant-propagation">Constant Propagation<a class="headerlink" href="#constant-propagation" title="Permanent link"></a></h3>
+<p>When all operands of an expression are constants (<code>CONST</code>), the result is also a constant. This includes Scala <code>Int</code> literals, DFHDL <code>Int</code> parameters, and bit-accurate constants created with <code>d""</code> or <code>sd""</code>.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">c1</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">       </span><span class="c1">// constant + literal = constant</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">c2</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">   </span><span class="c1">// constant + param = constant</span>
+
+<span class="kd">val</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="c1">// VAR + literal = not constant</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">    </span><span class="c1">// VAR + param = not constant</span>
+</code></pre></div></td></tr></table></div>
 <h3 id="type-conversion">Conversions and Casts<a class="headerlink" href="#type-conversion" title="Permanent link"></a></h3>
 <p>The diagram below shows the conversion/cast paths between DFHDL types. Solid arrows are simple casts that preserve width; dashed arrows involve width changes.</p>
 <p><img alt="type-conversion" src="type-conversion-light.svg#only-light" width="70%" />
@@ -6692,7 +6818,7 @@ These operations propagate constant modifiers, meaning that if all arguments are
 <tr>
 <td><code>lhs + rhs</code></td>
 <td>Addition</td>
-<td>Same type as <abbr title="Left-hand Side">LHS</abbr></td>
+<td>Commutative: widest, most signed</td>
 </tr>
 <tr>
 <td><code>lhs - rhs</code></td>
@@ -6702,7 +6828,7 @@ These operations propagate constant modifiers, meaning that if all arguments are
 <tr>
 <td><code>lhs * rhs</code></td>
 <td>Multiplication</td>
-<td>Same type as <abbr title="Left-hand Side">LHS</abbr></td>
+<td>Commutative: widest, most signed</td>
 </tr>
 <tr>
 <td><code>lhs / rhs</code></td>
@@ -6714,11 +6840,58 @@ These operations propagate constant modifiers, meaning that if all arguments are
 <td>Modulo</td>
 <td>Same type as <abbr title="Left-hand Side">LHS</abbr></td>
 </tr>
+<tr>
+<td><code>lhs max rhs</code></td>
+<td>Maximum</td>
+<td>Commutative: widest, most signed</td>
+</tr>
+<tr>
+<td><code>lhs min rhs</code></td>
+<td>Minimum</td>
+<td>Commutative: widest, most signed</td>
+</tr>
 </tbody>
 </table>
 </div>
 <h4 id="bit-accurate-type-constraints-uint-sint">Bit-Accurate Type Constraints (<code>UInt</code>, <code>SInt</code>)<a class="headerlink" href="#bit-accurate-type-constraints-uint-sint" title="Permanent link"></a></h4>
-<p>The result of a standard arithmetic operation on bit-accurate types always has the <strong>same type as the <abbr title="Left-hand Side">LHS</abbr></strong> operand. The <abbr title="Right-hand Side">RHS</abbr> is resized to match the <abbr title="Left-hand Side">LHS</abbr> before the operation is applied.</p>
+<p><strong>Commutative operations</strong> (<code>+</code>, <code>*</code>, <code>max</code>, <code>min</code>) produce a result that is <strong>as wide and as signed as possible</strong> given both operands. The narrower operand is resized to match. Operand order does not affect the result type.</p>
+<p><strong>Non-commutative operations</strong> (<code>-</code>, <code>/</code>, <code>%</code>) use the <strong><abbr title="Left-hand Side">LHS</abbr> type</strong> as the result. The <abbr title="Right-hand Side">RHS</abbr> is resized to match the <abbr title="Left-hand Side">LHS</abbr> before the operation is applied. The <abbr title="Left-hand Side">LHS</abbr> must be at least as wide and at least as signed as the <abbr title="Right-hand Side">RHS</abbr>.</p>
+<h5 id="commutative-result-type-rules-max-min">Commutative result type rules (<code>+</code>, <code>*</code>, <code>max</code>, <code>min</code>)<a class="headerlink" href="#commutative-result-type-rules-max-min" title="Permanent link"></a></h5>
+<p>The result is signed if either operand is signed. When mixing signed and unsigned, the unsigned operand is implicitly sign-extended by 1 bit (gaining a <code>0</code> sign bit).</p>
+<div class="operations">
+<table>
+<thead>
+<tr>
+<th><abbr title="Left-hand Side">LHS</abbr> Type</th>
+<th><abbr title="Right-hand Side">RHS</abbr> Type</th>
+<th>Result Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>UInt[Max[LW, RW]]</code></td>
+</tr>
+<tr>
+<td><code>SInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[Max[LW, RW]]</code></td>
+</tr>
+<tr>
+<td><code>SInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>SInt[Max[LW, RW + 1]]</code></td>
+</tr>
+<tr>
+<td><code>UInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[Max[LW + 1, RW]]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<h5 id="non-commutative-result-type-rules-">Non-commutative result type rules (<code>-</code>, <code>/</code>, <code>%</code>)<a class="headerlink" href="#non-commutative-result-type-rules-" title="Permanent link"></a></h5>
 <p><strong>Sign rule</strong> -- The <abbr title="Left-hand Side">LHS</abbr> sign must be greater than or equal to the <abbr title="Right-hand Side">RHS</abbr> sign (<code>signed &gt;= unsigned</code>):</p>
 <div class="operations">
 <table>
@@ -6759,7 +6932,53 @@ These operations propagate constant modifiers, meaning that if all arguments are
 </table>
 </div>
 <p><strong>Width rule</strong> -- The <abbr title="Left-hand Side">LHS</abbr> width must be greater than or equal to the (effective) <abbr title="Right-hand Side">RHS</abbr> width. When applying <code>SInt op UInt</code>, the effective <abbr title="Right-hand Side">RHS</abbr> width is <code>RHS width + 1</code> because the unsigned value gains an implicit sign bit.</p>
-<p><strong>Scala <code>Int</code> literals</strong> are auto-promoted to a matching DFHDL type with the minimum required bit width. A negative <code>Int</code> literal on the <abbr title="Right-hand Side">RHS</abbr> of a <code>UInt</code> operation is a compile error (unsigned <abbr title="Left-hand Side">LHS</abbr> cannot accept a signed <abbr title="Right-hand Side">RHS</abbr>).</p>
+<h3 id="wildcard-ops">Wildcard <code>Int</code> Values<a class="headerlink" href="#wildcard-ops" title="Permanent link"></a></h3>
+<p>Both Scala <code>Int</code> values and DFHDL <code>Int</code> parameters (<code>Int &lt;&gt; CONST</code>) act as <strong>wildcards</strong> when used in operations with bit-accurate <code>UInt</code> or <code>SInt</code> values. The wildcard <code>Int</code> value adapts to the bit-accurate value's sign and width. If the wildcard <code>Int</code> value does not fit in the bit-accurate value's range or has incompatible sign, an error is generated.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+
+<span class="c1">// Wildcard `Int` value adapts to bit-accurate value in commutative ops</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span><span class="w">              </span><span class="c1">// UInt[8] (5 adapts to UInt[8])</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">          </span><span class="c1">// UInt[8] (param adapts to UInt[8])</span>
+<span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">          </span><span class="c1">// SInt[8] (param adapts to SInt[8])</span>
+<span class="n">param</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">          </span><span class="c1">// UInt[8] (commutative, same result)</span>
+
+<span class="c1">// Wildcard `Int` value adapts to bit-accurate value in non-commutative ops</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">3</span><span class="w">              </span><span class="c1">// UInt[8] (3 adapts to UInt[8])</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">param</span><span class="w">          </span><span class="c1">// UInt[8] (param adapts to UInt[8])</span>
+
+<span class="c1">// Wildcard `Int` value adapts in comparisons</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">200</span><span class="w">           </span><span class="c1">// OK (200 fits in UInt[8])</span>
+<span class="n">s8</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="w">           </span><span class="c1">// OK (-5 fits in SInt[8])</span>
+
+<span class="c1">// ERROR: wildcard `Int` value does not fit bit-accurate value</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000</span><span class="w">           </span><span class="c1">// ERROR: 1000 exceeds UInt[8] range (0..255)</span>
+<span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">           </span><span class="c1">// ERROR: -1 is negative for unsigned bit-accurate value</span>
+<span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000</span><span class="w">           </span><span class="c1">// ERROR: 1000 exceeds SInt[8] range (-128..127)</span>
+</code></pre></div></td></tr></table></div>
+<p>See <a class="autorefs autorefs-internal" href="../compilation/#wildcard-check">Wildcard Arithmetic Value Checking</a> for details on when these checks occur (compile-time, elaboration-time, or synthesis-time).</p>
 <div class="admonition tip">
 <p class="admonition-title"><code>Bits</code> values in arithmetic</p>
 <p><code>Bits</code> values are implicit <code>UInt</code> candidates, so they can participate in arithmetic directly. The compiler automatically inserts <code>.uint</code> conversions on the operands and <code>.bits</code> on the result:
@@ -6806,46 +7025,40 @@ Elaborates to:
 <span class="normal">31</span>
 <span class="normal">32</span>
 <span class="normal">33</span>
-<span class="normal">34</span>
-<span class="normal">35</span>
-<span class="normal">36</span>
-<span class="normal">37</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="normal">34</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">u4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 
-<span class="c1">// UInt + UInt (same width)</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">          </span><span class="c1">// UInt[8]</span>
-<span class="c1">// SInt + SInt</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s8</span><span class="w">          </span><span class="c1">// SInt[8]</span>
-<span class="c1">// SInt + UInt: RHS widened to 5 bits (4+1); 8 &gt;= 5, OK</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u4</span><span class="w">          </span><span class="c1">// SInt[8]</span>
-<span class="c1">// UInt + Scala Int literal (200 fits in 8 bits)</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">200</span><span class="w">         </span><span class="c1">// UInt[8]</span>
-<span class="c1">// Scala Int literal on LHS (200 is promoted to UInt[8])</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u8</span><span class="w">         </span><span class="c1">// UInt[8]</span>
+<span class="c1">// Commutative: result is widest, most signed</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">          </span><span class="c1">// UInt[8]  (max(8,8) = 8)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u4</span><span class="w">          </span><span class="c1">// UInt[8]  (max(8,4) = 8)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">          </span><span class="c1">// UInt[8]  (commutative, same as above)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u4</span><span class="w">          </span><span class="c1">// SInt[8]  (max(8, 4+1) = 8, signed)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s8</span><span class="w">          </span><span class="c1">// SInt[9]  (max(8+1, 8) = 9, signed)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">200</span><span class="w">         </span><span class="c1">// UInt[8]  (literal adapts)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">5</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">        </span><span class="c1">// SInt[8]  (negative literal, signed result)</span>
 
-<span class="c1">// error: Cannot apply this operation between an unsigned</span>
-<span class="c1">// value (LHS) and a signed value (RHS).</span>
-<span class="c1">// An explicit conversion must be applied.</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">s8</span>
+<span class="c1">// Non-commutative: LHS-dominant</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">200</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u8</span><span class="w">         </span><span class="c1">// UInt[8]</span>
 <span class="c1">// error: The applied RHS value width (8) is larger than</span>
 <span class="c1">// the LHS variable width (4).</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u4</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">u8</span>
 <span class="c1">// error: Cannot apply this operation between an unsigned</span>
 <span class="c1">// value (LHS) and a signed value (RHS).</span>
-<span class="c1">// An explicit conversion must be applied.</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">e3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">22</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">s8</span>
 
-<span class="c1">// Int arithmetic</span>
+<span class="c1">// Int parameter as wildcard in commutative ops</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w">        </span><span class="c1">// Int &lt;&gt; CONST = 20</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w">        </span><span class="c1">// Int &lt;&gt; CONST = 1</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r9</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">      </span><span class="c1">// UInt[8]  (param adapts to UInt[8])</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">u8</span><span class="w">      </span><span class="c1">// UInt[8]  (commutative, same result)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r11</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">      </span><span class="c1">// SInt[8]  (param adapts to SInt[8])</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r12</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span><span class="w">       </span><span class="c1">// Int &lt;&gt; CONST = 20</span>
 
 <span class="c1">// Double arithmetic</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">d1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Double</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">d2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Double</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d2</span><span class="w">          </span><span class="c1">// Double</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">r9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d2</span><span class="w">          </span><span class="c1">// Double</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r13</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d2</span><span class="w">         </span><span class="c1">// Double</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">r14</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d1</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d2</span><span class="w">         </span><span class="c1">// Double</span>
 </code></pre></div></td></tr></table></div>
 <div class="admonition warning">
 <p class="admonition-title">Overflow and automatic carry promotion</p>
@@ -6874,37 +7087,139 @@ Elaborates to:
 <span class="n">u9</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span><span class="w">          </span><span class="c1">// resized from 8 to 9, no carry promotion</span>
 </code></pre></div></td></tr></table></div>
 </div>
+<div class="admonition warning">
+<p class="admonition-title">Implicit Scala <code>Int</code> and Verilog-semantics mismatch</p>
+<p>In Verilog, unsized integer literals are 32-bit. When such a literal appears in an expression like <code>(a + b + c + d) / 4</code>, Verilog's context-dependent width propagation widens the entire expression to 32 bits, preventing intermediate overflow.</p>
+<p>In DFHDL, a Scala <code>Int</code> literal like <code>4</code> is implicitly converted to the minimum bit-accurate width (<code>UInt[3]</code> for value 4). Each <code>+</code> independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate additions stay at the <abbr title="Left-hand Side">LHS</abbr> width (e.g., 8 bits) and can overflow before the <code>/</code> is applied. Similarly, the Verilog pattern of "forcing larger evaluation" by adding a zero constant (e.g., <code>(a + b + 0) &gt;&gt; 1</code>) does not widen the expression in DFHDL.</p>
+<p>DFHDL issues an <strong>elaboration warning</strong> when it detects these patterns:</p>
+<p><strong>1. Non-modular operation with implicit <code>Int</code> and overflowing chain:</strong>
+A <code>/</code> or <code>%</code> operation has an implicit Scala <code>Int</code> (or DFHDL <code>Int</code>) operand, and the other operand contains anonymous sub-32-bit <code>+</code>/<code>-</code>/<code>*</code> operations.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">t1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="w">           </span><span class="c1">// WARNING: a + b can overflow at 8-bit</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">t2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">%</span><span class="w"> </span><span class="mi">3</span><span class="w">       </span><span class="c1">// WARNING: a * 3 + b can overflow</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">t3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="w">                  </span><span class="c1">// OK: no intermediate overflow possible</span>
+</code></pre></div></td></tr></table></div></p>
+<p><strong>2. Shift with implicit <code>Int</code> inside the expression chain ("forcing larger evaluation"):</strong>
+A <code>&gt;&gt;</code> or <code>&lt;&lt;</code> operation whose <abbr title="Left-hand Side">LHS</abbr> expression contains both an implicit <code>Int</code> operand and sub-32-bit <code>+</code>/<code>-</code>/<code>*</code> operations.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">t4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">      </span><span class="c1">// WARNING: + 0 forces 32-bit in Verilog, not in DFHDL</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">t5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w">          </span><span class="c1">// OK: no implicit Int in the + chain, Verilog also loses carry</span>
+</code></pre></div></td></tr></table></div></p>
+<p><strong>3. Assignment to wider target with implicit <code>Int</code> in the chain:</strong>
+An anonymous expression assigned to a wider target contains both an implicit <code>Int</code> and sub-32-bit <code>+</code>/<code>-</code>/<code>*</code> operations.
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">               </span><span class="c1">// WARNING: + 1 widens to 32-bit in Verilog, not in DFHDL</span>
+<span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;1&quot;</span><span class="w">            </span><span class="c1">// OK: explicit literal, no implicit Int</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="n">cnt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w">                 </span><span class="c1">// OK: same-width target, modular truncation matches</span>
+</code></pre></div></td></tr></table></div></p>
+<p><strong>No warning</strong> is issued when:</p>
+<ul>
+<li>The expression uses carry operations (<code>+^</code>, <code>-^</code>, <code>*^</code>), which widen the result.</li>
+<li>The integer constant is an explicit bit-accurate literal (e.g., <code>d"3'4"</code>).</li>
+<li>The bit-accurate expression width is already 32 bits or wider.</li>
+<li>The implicit <code>Int</code> is only used in modular operations (<code>+</code>, <code>-</code>, <code>*</code>) assigned to a same-width target.</li>
+</ul>
+<p><strong>Mitigation strategies:</strong>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="c1">// WARNING: implicit Int with non-carry chain before division</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span>
+
+<span class="c1">// Fix 1: use carry addition to prevent intermediate overflow</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">truncate</span>
+
+<span class="c1">// Fix 2: use an explicit bit-accurate literal to accept DFHDL</span>
+<span class="c1">// overflow semantics and silence the warning</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;3&#39;4&quot;</span>
+</code></pre></div></td></tr></table></div></p>
+</div>
 <h3 id="carry-ops">Carry Arithmetic (<code>+^</code>, <code>-^</code>, <code>*^</code>)<a class="headerlink" href="#carry-ops" title="Permanent link"></a></h3>
 <p>Applies to: <code>UInt</code>, <code>SInt</code></p>
-<p>Carry operations widen the result to prevent overflow. Unlike standard arithmetic, carry operations require both operands to have the <strong>same sign</strong>.</p>
+<p>Carry operations widen the result to prevent overflow. Mixed signedness is allowed -- the result is signed if either operand is signed. When mixing signs, the unsigned operand is sign-extended by 1 bit.</p>
+<p><strong>Carry addition and subtraction (<code>+^</code>, <code>-^</code>):</strong></p>
 <div class="operations">
 <table>
 <thead>
 <tr>
-<th>Operation</th>
-<th>Description</th>
-<th>Result Width</th>
-<th>Result Sign</th>
+<th><abbr title="Left-hand Side">LHS</abbr> Type</th>
+<th><abbr title="Right-hand Side">RHS</abbr> Type</th>
+<th>Result Type</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td><code>lhs +^ rhs</code></td>
-<td>Carry Addition</td>
-<td>max(LW, RW) + 1</td>
-<td>Same sign as operands</td>
+<td><code>UInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>UInt[Max[LW, RW] + 1]</code></td>
 </tr>
 <tr>
-<td><code>lhs -^ rhs</code></td>
-<td>Carry Subtraction</td>
-<td>max(LW, RW) + 1</td>
-<td>Same sign as operands</td>
+<td><code>SInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[Max[LW, RW] + 1]</code></td>
 </tr>
 <tr>
-<td><code>lhs *^ rhs</code></td>
-<td>Carry Multiplication</td>
-<td>LW + RW</td>
-<td>Same sign as operands</td>
+<td><code>SInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>SInt[Max[LW, RW + 1] + 1]</code></td>
+</tr>
+<tr>
+<td><code>UInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[Max[LW + 1, RW] + 1]</code></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p><strong>Carry multiplication (<code>*^</code>):</strong></p>
+<div class="operations">
+<table>
+<thead>
+<tr>
+<th><abbr title="Left-hand Side">LHS</abbr> Type</th>
+<th><abbr title="Right-hand Side">RHS</abbr> Type</th>
+<th>Result Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>UInt[LW + RW]</code></td>
+</tr>
+<tr>
+<td><code>SInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[LW + RW]</code></td>
+</tr>
+<tr>
+<td><code>SInt[LW]</code></td>
+<td><code>UInt[RW]</code></td>
+<td><code>SInt[LW + RW + 1]</code></td>
+</tr>
+<tr>
+<td><code>UInt[LW]</code></td>
+<td><code>SInt[RW]</code></td>
+<td><code>SInt[LW + 1 + RW]</code></td>
 </tr>
 </tbody>
 </table>
@@ -6947,10 +7262,6 @@ Elaborates to:
 <span class="kd">val</span><span class="w"> </span><span class="n">r5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">s8</span><span class="w">           </span><span class="c1">// SInt[9]</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">r6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">*^</span><span class="w"> </span><span class="n">s8</span><span class="w">           </span><span class="c1">// SInt[16]</span>
 </code></pre></div></td></tr></table></div>
-<div class="admonition tip">
-<p class="admonition-title">Carry vs standard sign rules</p>
-<p>Unlike standard arithmetic where <code>SInt op UInt</code> is allowed (the unsigned <abbr title="Right-hand Side">RHS</abbr> is implicitly widened), carry operations require both operands to have the <strong>same sign</strong>. This is because carry operations produce a wider result, and mixed-sign widening semantics would be ambiguous. Scala <code>Int</code> literals are still accepted when the literal's sign matches the DFHDL value's sign.</p>
-</div>
 <h3 id="comparison-ops">Comparison Operations (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>)<a class="headerlink" href="#comparison-ops" title="Permanent link"></a></h3>
 <p>Applies to: <code>UInt</code>, <code>SInt</code>, <code>Int</code>, <code>Double</code> (all comparisons); <code>Bits</code>, <code>Enum</code>, <code>Struct</code>, <code>Tuple</code> (<code>==</code>/<code>!=</code> only)</p>
 <h4 id="decimal-comparisons">Decimal Comparisons<a class="headerlink" href="#decimal-comparisons" title="Permanent link"></a></h4>

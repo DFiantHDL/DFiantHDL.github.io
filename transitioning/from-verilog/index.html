@@ -1685,7 +1685,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 </div>
-<p><code>.width</code> works on any DFHDL value. Use it to derive widths from existing declarations:</p>
+<p><code>.width</code> works on any DFHDL value (a port, variable, or constant — anything declared with <code>&lt;&gt;</code>; see <a href="#logicregwire">logic/reg/wire</a> above). Use it to derive widths from existing declarations:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="nc">MAX</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
@@ -1957,6 +1957,29 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <p><code>.repeat</code> works on any <code>Bits</code> value, including single-bit literals.</p>
 </div>
 <div class="admonition verilog">
+<p class="admonition-title">Bit Concatenation (<code>{a, b, ...}</code>)</p>
+<p>Verilog's concatenation operator <code>{a, b}</code> maps to the <code>++</code> operator or tuple <code>.toBits</code> in DFHDL:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">concat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">};</span>
+
+<span class="c1">// Parametric: {1&#39;b1, {(N-1){1&#39;b0}}}</span>
+<span class="k">parameter</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">half</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mb">1&#39;b1</span><span class="p">,</span><span class="w"> </span><span class="p">{(</span><span class="n">N</span><span class="o">-</span><span class="mi">1</span><span class="p">){</span><span class="mb">1&#39;b0</span><span class="p">}}};</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">concat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">b</span><span class="w">  </span><span class="c1">// Bits[16]</span>
+
+<span class="c1">// Parametric: MSB=1, rest zeros</span>
+<span class="kd">val</span><span class="w"> </span><span class="nc">N</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">half</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;1&quot;</span><span class="w"> </span><span class="o">++</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0&quot;</span><span class="p">.</span><span class="n">repeat</span><span class="p">(</span><span class="nc">N</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>Alternative: use tuple <code>.toBits</code> syntax for multi-value concatenation:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">concat</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">).</span><span class="n">toBits</span><span class="w">  </span><span class="c1">// equivalent to a ++ b ++ c</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="admonition verilog">
 <p class="admonition-title">Part-Select Notation (<code>-:</code> and <code>+:</code>)</p>
 <p>Verilog's descending and ascending part-select notation maps to DFHDL's <code>(hi, lo)</code> range slice, or use the convenience methods <code>.msbits(n)</code> and <code>.lsbits(n)</code>:</p>
 <table>
@@ -2007,176 +2030,100 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span><span class="c1">// single bit</span>
 </code></pre></div>
 </div>
-<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax. You do <strong>not</strong> need to convert <code>SInt</code> to <code>Bits</code> before slicing:</p>
+<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax. Slicing preserves the source type:</p>
+<table>
+<thead>
+<tr>
+<th>Source type</th>
+<th>Slice result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Bits[N]</code></td>
+<td><code>Bits</code></td>
+</tr>
+<tr>
+<td><code>UInt[N]</code></td>
+<td><code>UInt</code></td>
+</tr>
+<tr>
+<td><code>SInt[N]</code></td>
+<td><code>SInt</code></td>
+</tr>
+</tbody>
+</table>
+<p>You do <strong>not</strong> need to convert <code>SInt</code> to <code>Bits</code> before slicing — the result is already <code>SInt</code>:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">top8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">  </span><span class="c1">// 8-bit slice, returns Bits</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">  </span><span class="c1">// 8-bit SInt slice</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w">     </span><span class="c1">// single bit access</span>
 </code></pre></div></td></tr></table></div>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Arithmetic with Signed Values and Constants</p>
 <p><strong>Arithmetic operand compatibility:</strong>
-DFHDL enforces sign and width constraints at compile time. The <abbr title="Left-hand Side">LHS</abbr> must be at least as wide and at least as signed as the <abbr title="Right-hand Side">RHS</abbr>. When the <abbr title="Left-hand Side">LHS</abbr> is signed and the <abbr title="Right-hand Side">RHS</abbr> is unsigned, the <abbr title="Right-hand Side">RHS</abbr> is implicitly widened by 1 bit (for the sign bit), so the <abbr title="Left-hand Side">LHS</abbr> must be wide enough to accommodate that.</p>
-<table>
-<thead>
-<tr>
-<th><abbr title="Left-hand Side">LHS</abbr></th>
-<th><abbr title="Right-hand Side">RHS</abbr></th>
-<th>Result</th>
-<th>Constraints</th>
-<th>Valid</th>
-<th>Invalid</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>UInt[W1]</code></td>
-<td><code>UInt[W2]</code></td>
-<td><code>UInt[W1]</code></td>
-<td><code>W1 &gt;= W2</code></td>
-<td><code>d"8'5" + d"4'3"</code></td>
-<td><code>d"4'5" + d"8'3"</code></td>
-</tr>
-<tr>
-<td><code>UInt[W]</code></td>
-<td><code>Int</code></td>
-<td><code>UInt[W]</code></td>
-<td><code>Int</code> &gt;= 0, fits in W bits</td>
-<td><code>d"8'5" + 3</code></td>
-<td><code>d"8'5" + (-1)</code></td>
-</tr>
-<tr>
-<td><code>SInt[W1]</code></td>
-<td><code>SInt[W2]</code></td>
-<td><code>SInt[W1]</code></td>
-<td><code>W1 &gt;= W2</code></td>
-<td><code>sd"8'1" + sd"4'3"</code></td>
-<td><code>sd"4'5" + sd"8'3"</code></td>
-</tr>
-<tr>
-<td><code>SInt[W]</code></td>
-<td><code>Int</code></td>
-<td><code>SInt[W]</code></td>
-<td><code>Int</code> fits in W bits</td>
-<td><code>sd"8'5" + (-3)</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>SInt[W1]</code></td>
-<td><code>UInt[W2]</code></td>
-<td><code>SInt[W1]</code></td>
-<td><code>W1 &gt;= W2 + 1</code></td>
-<td><code>sd"8'5" + d"4'3"</code></td>
-<td><code>sd"4'5" + d"4'3"</code></td>
-</tr>
-<tr>
-<td><code>UInt[W]</code></td>
-<td><code>SInt[W2]</code></td>
-<td><strong>Error</strong></td>
-<td>Unsigned cannot accept signed <abbr title="Right-hand Side">RHS</abbr></td>
-<td></td>
-<td><code>d"8'5" + sd"4'3"</code></td>
-</tr>
-<tr>
-<td><code>Int</code></td>
-<td><code>Int</code></td>
-<td><code>Int</code></td>
-<td>Elaboration-time arithmetic</td>
-<td><code>3 + 5</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>Int</code> (&gt;= 0)</td>
-<td><code>UInt[W]</code></td>
-<td><code>UInt[Int]</code></td>
-<td><code>W</code> fits in <code>Int</code>'s width</td>
-<td><code>180 - d"4'3"</code></td>
-<td><code>2 - d"8'200"</code></td>
-</tr>
-<tr>
-<td><code>Int</code> (&lt; 0)</td>
-<td><code>SInt[W]</code></td>
-<td><code>SInt[Int]</code></td>
-<td><code>W</code> fits in <code>Int</code>'s width</td>
-<td><code>(-5) + sd"4'3"</code></td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<p>The constraint is on <strong>width</strong>, not value. A small value in a wide type is valid as <abbr title="Left-hand Side">LHS</abbr>: <code>d"8'1" + d"4'15"</code> works because <code>W1=8 &gt;= W2=4</code>.</p>
+DFHDL enforces sign and width constraints at compile time. <strong>Commutative operations</strong> (<code>+</code>, <code>*</code>, <code>max</code>, <code>min</code>) produce the widest, most signed result -- operand order does not matter. <strong>Non-commutative operations</strong> (<code>-</code>, <code>/</code>, <code>%</code>) require the <abbr title="Left-hand Side">LHS</abbr> to be at least as wide and signed as the <abbr title="Right-hand Side">RHS</abbr>. When mixing signed and unsigned, the unsigned operand is implicitly sign-extended by 1 bit.</p>
+<p>Both Scala <code>Int</code> values and DFHDL <code>Int</code> parameters act as <a class="autorefs autorefs-internal" title="Wildcard Int Values" href="../../user-guide/type-system/#wildcard-ops">wildcards</a> -- the wildcard <code>Int</code> value adapts to the bit-accurate value's sign and width. If the wildcard <code>Int</code> value does not fit, an error is generated.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Commutative: result is widest, most signed</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8] (max(8,4) = 8)</span>
+<span class="n">d</span><span class="s">&quot;4&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8] (commutative, same result)</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">   </span><span class="c1">// SInt[8] (max(8, 4+1) = 8, signed)</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">   </span><span class="c1">// SInt[9] (max(8+1, 4) = 9, signed)</span>
+<span class="n">d</span><span class="s">&quot;4&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;200&quot;</span><span class="w">  </span><span class="c1">// UInt[8] (larger operand widens the result)</span>
+
+<span class="c1">// Wildcard `Int` values adapt to bit-accurate values</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span><span class="w">         </span><span class="c1">// UInt[8] (3 adapts to UInt[8])</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="w">     </span><span class="c1">// SInt[8] (-3 adapts to SInt[8])</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">     </span><span class="c1">// UInt[8] (param adapts to UInt[8])</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">    </span><span class="c1">// SInt[8] (param adapts to SInt[8])</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000</span><span class="w">      </span><span class="c1">// ERROR: 1000 exceeds UInt[8] range</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">      </span><span class="c1">// ERROR: -1 is negative for UInt bit-accurate value</span>
+
+<span class="c1">// Non-commutative: LHS-dominant, LHS must be &gt;= RHS</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8]</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">   </span><span class="c1">// SInt[8] (RHS widened to 5 bits, 8 &gt;= 5)</span>
+<span class="c1">// d&quot;4&#39;5&quot; - d&quot;8&#39;3&quot; // ERROR: RHS width &gt; LHS width</span>
+<span class="c1">// d&quot;8&#39;5&quot; - sd&quot;4&#39;3&quot; // ERROR: unsigned LHS, signed RHS</span>
+</code></pre></div></td></tr></table></div>
 <p><strong>Comparison operand compatibility:</strong>
-Comparisons (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) require both operands to have the <strong>same signedness and width</strong>. When comparing with an <code>Int</code>, its actual width must not exceed the DFHDL value's width.</p>
-<table>
-<thead>
-<tr>
-<th><abbr title="Left-hand Side">LHS</abbr></th>
-<th><abbr title="Right-hand Side">RHS</abbr></th>
-<th>Constraints</th>
-<th>Valid</th>
-<th>Invalid</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td><code>UInt[W]</code></td>
-<td><code>UInt[W]</code></td>
-<td>Same width</td>
-<td><code>d"8'5" == d"8'3"</code></td>
-<td><code>d"8'5" == d"4'3"</code></td>
-</tr>
-<tr>
-<td><code>UInt[W]</code></td>
-<td><code>Int</code></td>
-<td><code>Int</code> &gt;= 0, fits in W bits</td>
-<td><code>d"8'5" == 3</code></td>
-<td><code>d"4'5" == 300</code></td>
-</tr>
-<tr>
-<td><code>SInt[W]</code></td>
-<td><code>SInt[W]</code></td>
-<td>Same width</td>
-<td><code>sd"8'5" &lt; sd"8'3"</code></td>
-<td><code>sd"8'5" &lt; sd"4'3"</code></td>
-</tr>
-<tr>
-<td><code>SInt[W]</code></td>
-<td><code>Int</code></td>
-<td><code>Int</code> fits in W bits</td>
-<td><code>sd"8'5" == (-3)</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>Int</code> (&gt;= 0)</td>
-<td><code>UInt[W]</code></td>
-<td>Fits in W bits</td>
-<td><code>3 == d"8'5"</code></td>
-<td><code>300 == d"4'5"</code></td>
-</tr>
-<tr>
-<td><code>Int</code> (&lt; 0)</td>
-<td><code>SInt[W]</code></td>
-<td>Fits in W bits</td>
-<td><code>(-3) == sd"8'5"</code></td>
-<td></td>
-</tr>
-<tr>
-<td><code>UInt[W]</code></td>
-<td><code>SInt[W2]</code></td>
-<td><strong>Error</strong></td>
-<td></td>
-<td><code>d"8'5" == sd"8'3"</code></td>
-</tr>
-<tr>
-<td><code>SInt[W]</code></td>
-<td><code>UInt[W2]</code></td>
-<td><strong>Error</strong></td>
-<td></td>
-<td><code>sd"8'5" == d"8'3"</code></td>
-</tr>
-</tbody>
-</table>
+Comparisons (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) require both operands to have the <strong>same signedness and width</strong>. <code>Int</code> values act as wildcards, adapting to the DFHDL value's type.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;3&quot;</span><span class="w">    </span><span class="c1">// OK (same sign, same width)</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">3</span><span class="w">         </span><span class="c1">// OK (3 adapts to UInt[8])</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;8&#39;3&quot;</span><span class="w">   </span><span class="c1">// OK (same sign, same width)</span>
+<span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">3</span><span class="p">)</span><span class="w">     </span><span class="c1">// OK (-3 adapts to SInt[8])</span>
+<span class="c1">// d&quot;8&#39;5&quot; == d&quot;4&#39;3&quot; // ERROR: different widths</span>
+<span class="c1">// d&quot;8&#39;5&quot; == sd&quot;8&#39;3&quot; // ERROR: different signedness</span>
+<span class="c1">// d&quot;4&#39;5&quot; == 300    // ERROR: 300 exceeds UInt[4] range</span>
+</code></pre></div></td></tr></table></div>
 <p>To compare values of different widths, use <code>.resize(W)</code> to match widths first. To compare values of different signedness, convert explicitly (e.g., <code>.bits.sint</code> or <code>.signed</code>).</p>
 <p><strong>UInt-to-SInt conversion methods:</strong></p>
 <ul>
@@ -2226,6 +2173,28 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 </code></pre></div>
 </div>
 <p>See <a class="autorefs autorefs-internal" title="Arithmetic Operations (+, -, *, /, %)" href="../../user-guide/type-system/#arithmetic-ops">Arithmetic Operations</a> and <a class="autorefs autorefs-internal" title="Carry Arithmetic (+^, -^, *^)" href="../../user-guide/type-system/#carry-ops">Carry Arithmetic</a> for full details.</p>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Integer Literal Width and Silent Overflow</p>
+<p>In Verilog, unsized integer literals are 32-bit. When combined with narrower signals, the wider literal causes the entire expression to evaluate at 32-bit width via context-dependent propagation. This prevents intermediate overflow in expressions like <code>(a + b + c + d) / 4</code>.</p>
+<p>In DFHDL, Scala <code>Int</code> literals are implicitly converted to minimum-width bit-accurate types (e.g., <code>4</code> becomes <code>UInt[3]</code>). Each arithmetic operation independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate results can overflow before reaching a division or shift.</p>
+<p>DFHDL detects this pattern at elaboration and issues a warning. See <a class="autorefs autorefs-internal" title="Arithmetic Operations (+, -, *, /, %)" href="../../user-guide/type-system/#arithmetic-ops">Implicit Scala <code>Int</code> and Verilog-semantics mismatch</a> for the full list of warning triggers.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
+<span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
+
+<span class="c1">// 4 is 32-bit, so (a+b+c+d) evaluates</span>
+<span class="c1">// at 32-bit width — no overflow</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL (with carry ops)</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="c1">// Use carry ops to match Verilog&#39;s</span>
+<span class="c1">// overflow-free semantics</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">truncate</span>
+</code></pre></div>
+</div>
 </div>
 <h2 id="parametric-constants">Parametric Constants<a class="headerlink" href="#parametric-constants" title="Permanent link"></a></h2>
 <div class="admonition verilog">
