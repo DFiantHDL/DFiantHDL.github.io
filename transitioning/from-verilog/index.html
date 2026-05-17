@@ -1768,32 +1768,6 @@
 </div>
 </div>
 <div class="admonition verilog">
-<p class="admonition-title"><code>@top</code> Annotation</p>
-<p>The <code>@top</code> annotation marks a design as a compilation entry point. The compiler generates a <code>main</code> method that elaborates, compiles, and emits <abbr title="Hardware Description Language">HDL</abbr> output for that design. In a typical design flow, only the testbench or top-level wrapper carries <code>@top</code>, and sub-modules are elaborated transitively.</p>
-<p>When translating and verifying modules one at a time (bottom-up), you may need to compile each module independently. In that case, every module being compiled must have <code>@top</code> so the compiler can generate an entry point for it. <code>@top</code>-annotated designs require <strong>all</strong> parameters to have default values.</p>
-<p>When a <code>@top</code>-annotated design is instantiated as a child of another design, the annotation has no effect. So the question is not whether <code>@top</code> causes harm, but whether it is practical: requiring default values for all parameters is annoying for reusable internal components and is not recommended. Mark only the designs you actually need to compile standalone.</p>
-<div class="grid">
-<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">lfsr</span><span class="w"> </span><span class="p">#(</span>
-<span class="w">  </span><span class="k">parameter</span><span class="w"> </span><span class="n">LEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
-<span class="p">)(</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="n">clk</span><span class="p">,</span>
-<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="p">[</span><span class="n">LEN</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span>
-<span class="p">);</span>
-<span class="w">  </span><span class="c1">// ...</span>
-<span class="k">endmodule</span>
-</code></pre></div>
-<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">lfsr</span><span class="p">(</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">LEN</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span>
-<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">      </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">LEN</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="c1">// ...</span>
-<span class="k">end</span><span class="w"> </span><span class="nn">lfsr</span>
-</code></pre></div>
-</div>
-<p>Without <code>@top</code>, running the compiled output fails with <code>ClassNotFoundException: top_&lt;ModuleName&gt;</code>. See <a class="autorefs autorefs-internal" href="../../user-guide/design-hierarchy/#design-hierarchy">Design Hierarchy</a> for full details on <code>@top</code> and <code>@top(false)</code>.</p>
-</div>
-<div class="admonition verilog">
 <p class="admonition-title">Parameter Declarations</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">parameter</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">p</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="err">’</span><span class="n">b1011</span><span class="p">;</span>
