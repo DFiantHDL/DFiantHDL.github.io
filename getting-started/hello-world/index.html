@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -401,6 +401,26 @@
   
   
   User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../transitioning/from-verilog/" class="md-tabs__link">
+          
+  
+  
+  Transitioning
 
         </a>
       </li>
@@ -1246,6 +1266,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../user-guide/connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../user-guide/conditionals/" class="md-nav__link">
         
   
@@ -1254,6 +1302,34 @@
     
   
     Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processes
   
 
     
@@ -1334,7 +1410,7 @@
   <span class="md-ellipsis">
     
   
-    About
+    Transitioning
   
 
     
@@ -1347,6 +1423,95 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transitioning/from-verilog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From Verilog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1606,7 +1771,7 @@
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1622,7 +1787,7 @@
 <span class="c1">// Enables printing the generated chosen backend code:</span>
 <span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">PrintBackendCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="c1">// Uncomment to select vhdl compilation (default is verilog):</span>
-<span class="c1">// given options.CompilerOptions.Backend = backends.vhdl</span>
+<span class="c1">// given options.CompilerOptions.Backend = _.vhdl</span>
 <span class="c1">// Uncomment to enable printing design code after elaboration (before compilation):</span>
 <span class="c1">// given options.ElaborationOptions.PrintDFHDLCode = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
@@ -1633,8 +1798,8 @@
 <p class="admonition-title">Writing a DFHDL compilation program – as easy as 01-10-11!</p>
 <ol>
 <li><code class="highlight"><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span></code> once per source file, to import all the required namespace objects, types, and functionality.</li>
-<li><code class="highlight"><span class="k">class</span><span class="w"> </span><span class="nc">_design_name_</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span></code> to define your register-transfer (<abbr title="Register-Transfer">RT</abbr>) domain design. Populate your design with the required interface and functionality. DFHDL supports two additional design domains: dataflow (<abbr title="Dataflow">DF</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>).</li>
-<li>Add <code class="highlight"><span class="nd">@top</span></code> annotation to your top-level design (e.g., <code class="highlight"><span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">top_design_name_</span><span class="w"> </span><span class="p">...</span></code>) to automatically create a compilation program entry point for the design, instantiate it, elaborate it, compile it to Verilog or VHDL (see compiler options), and finally commit the files to disk.</li>
+<li><code class="highlight"><span class="k">class</span><span class="w"> </span><span class="nc">_design_name_</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span></code> to define your register-transfer (<abbr title="Register-Transfer">RT</abbr>) domain design. Populate your design with the required interface and functionality. DFHDL supports two additional design domains: dataflow (<abbr title="Dataflow">DF</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>). This will automatically create a compilation program entry point for the design to elaborate it, compile it to Verilog or VHDL (see compiler options), and finally commit the files to disk.</li>
+<li>Run the Scala program. </li>
 </ol>
 </div>
 <h2 id="run-it-in-your-browser">Run It In Your Browser<a class="headerlink" href="#run-it-in-your-browser" title="Permanent link"></a></h2>
@@ -1643,7 +1808,7 @@
 <pre class="scastie"><code>import dfhdl.* //import all the DFHDL goodness
 
 /** Generates an 8-bit overlapping count */
-@top class Counter8 extends RTDesign:
+class Counter8 extends RTDesign:
   val cnt = UInt(8) &lt;&gt; OUT.REG init 0
   cnt.din := cnt + 1
 
@@ -1659,7 +1824,7 @@
 // Enables printing the generated chosen backend code:
 given options.CompilerOptions.PrintBackendCode = true
 // Uncomment to select vhdl compilation (default is verilog):
-// given options.CompilerOptions.Backend = backends.vhdl
+// given options.CompilerOptions.Backend = _.vhdl
 // Uncomment to enable printing design code after elaboration (before compilation):
 // given options.ElaborationOptions.PrintDFHDLCode = true
 // Uncomment to enable printing design code after compilation:
@@ -1714,7 +1879,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1730,7 +1895,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="c1">// Enables printing the generated chosen backend code:</span>
 <span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">PrintBackendCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="c1">// Uncomment to select vhdl compilation (default is verilog):</span>
-<span class="c1">// given options.CompilerOptions.Backend = backends.vhdl</span>
+<span class="c1">// given options.CompilerOptions.Backend = _.vhdl</span>
 <span class="c1">// Uncomment to enable printing design code after elaboration (before compilation):</span>
 <span class="c1">// given options.ElaborationOptions.PrintDFHDLCode = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
@@ -1778,7 +1943,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="normal">25</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span><span class="w"> </span><span class="c1">//import all the DFHDL goodness</span>
 
 <span class="cm">/** Generates an 8-bit overlapping count */</span>
-<span class="nd">@top</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Counter8</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">cnt</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">cnt</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
@@ -1794,7 +1959,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="c1">// Enables printing the generated chosen backend code:</span>
 <span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">PrintBackendCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 <span class="c1">// Uncomment to select vhdl compilation (default is verilog):</span>
-<span class="c1">// given options.CompilerOptions.Backend = backends.vhdl</span>
+<span class="c1">// given options.CompilerOptions.Backend = _.vhdl</span>
 <span class="c1">// Uncomment to enable printing design code after elaboration (before compilation):</span>
 <span class="c1">// given options.ElaborationOptions.PrintDFHDLCode = true</span>
 <span class="c1">// Uncomment to enable printing design code after compilation:</span>
@@ -1821,7 +1986,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="c1">//&gt; using plugin io.github.dfianthdl:::dfhdl-plugin:0.17.0</span>
 
 <span class="k">import</span><span class="w"> </span><span class="nn">dfhdl</span><span class="p">.</span><span class="n">*</span>
-<span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">backends</span><span class="p">.</span><span class="n">verilog</span>
+<span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_</span><span class="p">.</span><span class="n">verilog</span>
 <span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">PrintBackendCode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">true</span>
 </code></pre></div></td></tr></table></div>
 <p>Individual design files should <code>import dfhdl.*</code> but not redeclare the shared <code>given</code> options.</p>
@@ -1851,7 +2016,7 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="normal">12</span>
 <span class="normal">13</span>
 <span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.10</span><span class="p">.</span><span class="n">7</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">version</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mf">3.11</span><span class="p">.</span><span class="n">1</span>
 <span class="n">runner</span><span class="p">.</span><span class="n">dialect</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="err">scala</span><span class="mi">3</span>
 
 <span class="n">maxColumn</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span>
@@ -1962,10 +2127,10 @@ given options.CompilerOptions.PrintBackendCode = true
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

@@ -15,21 +15,25 @@
         <link rel="canonical" href="https://dfianthdl.github.io/user-guide/connectivity/">
       
       
+        <link rel="prev" href="../type-system/">
+      
+      
+        <link rel="next" href="../conditionals/">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
-        <title>Index - DFiant HDL (DFHDL)</title>
+        <title>Connectivity - DFiant HDL (DFHDL)</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -177,7 +181,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Index
+              Connectivity
             
           </span>
         </div>
@@ -386,15 +390,37 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../design-hierarchy/" class="md-tabs__link">
           
   
   
   User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../transitioning/from-verilog/" class="md-tabs__link">
+          
+  
+  
+  Transitioning
 
         </a>
       </li>
@@ -994,28 +1020,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1033,7 +1062,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1104,6 +1133,274 @@
                 
   
   
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#key-differences-between-and" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Key Differences Between &lt;&gt; and :=/:==
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#connection-rules" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection &lt;&gt; Rules
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Connection &lt;&gt; Rules">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#port-direct-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Direct Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#port-via-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Port Via Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflow-value-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataflow Value Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#dataflow-input-port-assignment-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Dataflow Input Port Assignment := Rule
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#immutable-value-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Immutable Value Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#different-type-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Different Type Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#multiple-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Multiple Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#mixing-assignments-and-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mixing Assignments and Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-statement-order" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection Statement Order
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connection-and-initial-conditions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connection and Initial Conditions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connectivity-open-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Open (Unconnected) Ports
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#initial-condition-cyclic-loop-errors" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Initial Condition Cyclic Loop Errors
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#valid-connection-and-assignment-examples" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Valid Connection and Assignment Examples
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#magnet-port-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Magnet Port Connections
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#future-work" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Future Work
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
   
   
     <li class="md-nav__item">
@@ -1115,6 +1412,34 @@
     
   
     Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processes
   
 
     
@@ -1195,7 +1520,7 @@
   <span class="md-ellipsis">
     
   
-    About
+    Transitioning
   
 
     
@@ -1208,6 +1533,95 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transitioning/from-verilog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From Verilog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -1606,7 +2020,7 @@
 <span class="w">  </span><span class="n">p1A</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">x</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">y</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-2458524437053039324" style="width: 98%;">
+<div class="hdelk-diagram" id="hdelk-diagram--1480973351049849373" style="width: 98%;">
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 253.423828125 218"><g><g><rect width="253.423828125" height="218" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="197.08984375" height="95" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="28.287109375" y="111"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="104.69140625" y="133.1015625"><tspan dy="0" x="104.69140625">Plus2</tspan></text><g><line x1="28.287109375" y1="171" x2="40.287109375" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="37.287109375" y="168"></rect></g><g><line x1="116.83203125" y1="171" x2="136.83203125" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="133.83203125" y="168"></rect></g><g><line x1="213.376953125" y1="171" x2="225.376953125" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="222.376953125" y="168"></rect></g><g><g><rect width="44.2109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="56.57421875" y="148"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="62.140625" y="170.1015625"><tspan dy="0" x="62.140625">p1A</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="61.57421875" y="185.826171875"><tspan dy="0" x="61.57421875">Plus1</tspan></text><rect width="16.287109375" height="18" x="40.287109375" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="45.287109375" y="176.826171875"><tspan dy="0" x="45.287109375">x</tspan></text><rect width="16.046875" height="18" x="100.78515625" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="105.78515625" y="176.826171875"><tspan dy="0" x="105.78515625">y</tspan></text></g><g><g><rect width="44.2109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="153.119140625" y="148"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="158.564453125" y="170.1015625"><tspan dy="0" x="158.564453125">p1B</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="158.119140625" y="185.826171875"><tspan dy="0" x="158.119140625">Plus1</tspan></text><rect width="16.287109375" height="18" x="136.83203125" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="141.83203125" y="176.826171875"><tspan dy="0" x="141.83203125">x</tspan></text><rect width="16.046875" height="18" x="197.330078125" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="202.330078125" y="176.826171875"><tspan dy="0" x="202.330078125">y</tspan></text></g><rect width="16.287109375" height="18" x="12" y="162" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="176.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="225.376953125" y="162" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="230.376953125" y="176.826171875"><tspan dy="0" x="230.376953125">y</tspan></text></g><g><g><rect width="56.296875" height="79" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="28.287109375" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="34.294921875" y="34.1015625"><tspan dy="0" x="34.294921875">Plus1</tspan></text><g><line x1="28.287109375" y1="64" x2="40.287109375" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="37.287109375" y="61"></rect></g><g><line x1="72.583984375" y1="64" x2="84.583984375" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="81.583984375" y="61"></rect></g><g><g><rect width="32.296875" height="30" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="40.287109375" y="49"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="45.287109375" y="71.1015625"><tspan dy="0" x="45.287109375">+1</tspan></text></g><rect width="16.287109375" height="18" x="12" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="69.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="84.583984375" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="89.583984375" y="69.826171875"><tspan dy="0" x="89.583984375">y</tspan></text></g></g></svg>
 </div>
 </div>
@@ -1657,14 +2071,14 @@
 </code></pre></div></td></tr></table></div>
 <details class="dfhdl">
 <summary>Runnable example</summary>
-<pre class="scastie"><code>import dfhdl.* 
+<pre class="scastie" data-main="top_Plus2"><code>import dfhdl.* 
 
 class Plus1 extends DFDesign:
   val x = UInt(8) &lt;&gt; IN
   val y = UInt(8) &lt;&gt; OUT
   y &lt;&gt; x + 1
 
-@top class Plus2 extends DFDesign:
+class Plus2 extends DFDesign:
   val x = UInt(8) &lt;&gt; IN
   val y = UInt(8) &lt;&gt; OUT
   val p1A = Plus1()
@@ -2271,10 +2685,10 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

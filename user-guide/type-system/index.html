@@ -18,14 +18,14 @@
         <link rel="prev" href="../design-hierarchy/">
       
       
-        <link rel="next" href="../conditionals/">
+        <link rel="next" href="../connectivity/">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.0">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.618322db.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -401,6 +401,26 @@
   
   
   User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../transitioning/from-verilog/" class="md-tabs__link">
+          
+  
+  
+  Transitioning
 
         </a>
       </li>
@@ -2627,6 +2647,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../conditionals/" class="md-nav__link">
         
   
@@ -2635,6 +2683,34 @@
     
   
     Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processes
   
 
     
@@ -2715,7 +2791,7 @@
   <span class="md-ellipsis">
     
   
-    About
+    Transitioning
   
 
     
@@ -2728,6 +2804,95 @@
         
         <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
           <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transitioning/from-verilog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From Verilog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
             <span class="md-nav__icon md-icon"></span>
             
   
@@ -4346,7 +4511,7 @@
 <div class="grid cards">
 <ul>
 <li>
-<p><img alt="🦾" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9be.svg" title=":mechanical_arm:" /> <strong>Strongly-typed</strong></p>
+<p><img alt="🦾" class="twemoji lg middle" src="https://cdn.jsdelivr.net/gh/jdecked/twemoji@16.0.1/assets/svg/1f9be.svg" title=":mechanical_arm:" /> <strong>Strongly-typed</strong></p>
 <hr />
 <p>Most type checks are performed statically, enforcing strict rules that help avoid ambiguity.</p>
 <p><div class="highlight"><pre><span></span><code><span class="c1">//8-bit unsigned input</span>
@@ -4424,7 +4589,7 @@
 <ul>
 <li><a class="autorefs autorefs-internal" href="#DFBitOrBool">DFHDL Bit/Boolean: <code>Bit</code>/<code>Boolean</code></a> </li>
 <li><a class="autorefs autorefs-internal" href="#DFBits">DFHDL Bit Vector: <code>Bits</code></a></li>
-<li><a class="autorefs autorefs-internal" title="UInt/SInt/Int" href="#DFDecimal">DFHDL Integer: <code>UInt</code>/<code>SInt</code>/<code>Int</code></a></li>
+<li><a class="autorefs autorefs-internal" href="#DFDecimal">DFHDL Integer: <code>UInt</code>/<code>SInt</code>/<code>Int</code></a></li>
 <li>
 <blockquote>
 <p>DFHDL Fix-Point (future work)</p>
@@ -4883,12 +5048,12 @@ See the <a class="autorefs autorefs-internal" title="Connectivity" href="../conn
 The candidate produces a constant DFHDL value if the candidate argument is a constant.</p>
 <div class="admonition info">
 <p class="admonition-title">Operation supported values for an argument of DFType <code>T</code></p>
-<div class="d2"><svg data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 831 208" role="img" aria-label="Diagram"><svg class="d2-744a50958c78498887a897f3252a24d0 d2-svg" width="831" height="208" viewBox="-11 -11 831 208"><rect x="-11.000000" y="-11.000000" width="831.000000" height="208.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css">
-.d2-744a50958c78498887a897f3252a24d0 .text-bold {
-	font-family: "d2-744a50958c78498887a897f3252a24d0-font-bold";
+<div class="d2"><svg data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 831 208" role="img" aria-label="Diagram"><svg class="d2-e3656ca0d9ca41ecae1fb88401cbdebf d2-svg" width="831" height="208" viewBox="-11 -11 831 208"><rect x="-11.000000" y="-11.000000" width="831.000000" height="208.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css">
+.d2-e3656ca0d9ca41ecae1fb88401cbdebf .text-bold {
+	font-family: "d2-e3656ca0d9ca41ecae1fb88401cbdebf-font-bold";
 }
 @font-face {
-	font-family: d2-744a50958c78498887a897f3252a24d0-font-bold;
+	font-family: d2-e3656ca0d9ca41ecae1fb88401cbdebf-font-bold;
 	src: url("data:application/font-woff;base64,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");
 }</style><style type="text/css">.shape {
   shape-rendering: geometricPrecision;
@@ -4903,78 +5068,78 @@ The candidate produces a constant DFHDL value if the candidate argument is a con
   opacity: 0.5;
 }
 
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N1{fill:#0A0F25;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N2{fill:#676C7E;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N3{fill:#9499AB;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N4{fill:#CFD2DD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N5{fill:#DEE1EB;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N6{fill:#EEF1F8;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-N7{fill:#FFFFFF;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B1{fill:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B2{fill:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B3{fill:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B4{fill:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B5{fill:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-B6{fill:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-AA2{fill:#4A6FF3;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-AA4{fill:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-AA5{fill:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-AB4{fill:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .fill-AB5{fill:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N1{stroke:#0A0F25;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N2{stroke:#676C7E;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N3{stroke:#9499AB;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N4{stroke:#CFD2DD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N5{stroke:#DEE1EB;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N6{stroke:#EEF1F8;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-N7{stroke:#FFFFFF;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B1{stroke:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B2{stroke:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B3{stroke:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B4{stroke:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B5{stroke:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-B6{stroke:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA2{stroke:#4A6FF3;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA4{stroke:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-AA5{stroke:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-AB4{stroke:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .stroke-AB5{stroke:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N1{background-color:#0A0F25;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N2{background-color:#676C7E;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N3{background-color:#9499AB;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N4{background-color:#CFD2DD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N5{background-color:#DEE1EB;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N6{background-color:#EEF1F8;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-N7{background-color:#FFFFFF;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B1{background-color:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B2{background-color:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B3{background-color:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B4{background-color:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B5{background-color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-B6{background-color:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA2{background-color:#4A6FF3;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA4{background-color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-AA5{background-color:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-AB4{background-color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .background-color-AB5{background-color:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N1{color:#0A0F25;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N2{color:#676C7E;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N3{color:#9499AB;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N4{color:#CFD2DD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N5{color:#DEE1EB;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N6{color:#EEF1F8;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-N7{color:#FFFFFF;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B1{color:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B2{color:#0D32B2;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B3{color:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B4{color:#E3E9FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B5{color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-B6{color:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-AA2{color:#4A6FF3;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-AA4{color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-AA5{color:#F7F8FE;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-AB4{color:#EDF0FD;}
-		.d2-744a50958c78498887a897f3252a24d0 .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-744a50958c78498887a897f3252a24d0);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}</style><g class="VENhbmQ="><g class="shape"><rect x="220.000000" y="0.000000" width="118.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="279.000000" y="38.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="279.000000" dy="0.000000">`T`</tspan><tspan x="279.000000" dy="18.500000">Candidate</tspan></text></g><g class="VFZhbA=="><g class="shape"><rect x="724.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="766.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="766.500000" dy="0.000000">`T`</tspan><tspan x="766.500000" dy="18.500000">Value</tspan></text></g><g class="QW55"><g class="shape"><rect x="0.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="42.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="42.500000" dy="0.000000">Any</tspan><tspan x="42.500000" dy="18.500000">Value</tspan></text></g><g class="T3BDYW5k"><g class="shape"><rect x="473.000000" y="88.000000" width="118.000000" height="98.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="532.000000" y="126.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="532.000000" dy="0.000000">`T`</tspan><tspan x="532.000000" dy="17.666667">Operation</tspan><tspan x="532.000000" dy="17.666667">Candidate</tspan></text></g><g class="KFRDYW5kIC0mZ3Q7IFRWYWwpWzBd is!"><marker id="mk-d2-744a50958c78498887a897f3252a24d0-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 339.486301 33.516317 C 391.899994 27.350000 430.799988 25.750000 468.750000 25.750000 C 506.700012 25.750000 670.900024 33.150002 720.998452 60.816309" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="514.000000" y="14.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="534.500000" y="33.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBUQ2FuZClbMF0= is?"><path d="M 86.349344 68.238471 C 138.899994 46.598999 166.100006 41.000000 216.500000 41.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="129.000000" y="31.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="150.500000" y="50.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KFRDYW5kIC0mZ3Q7IE9wQ2FuZClbMF0= is?"><path d="M 339.358833 64.488066 C 391.899994 85.349998 419.100006 95.550003 469.728039 113.418720" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="384.000000" y="77.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="405.500000" y="96.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KE9wQ2FuZCAtJmd0OyBUVmFsKVswXQ== is!"><path d="M 592.500000 136.500000 C 644.099976 136.500000 670.900024 130.500000 720.849262 108.134660" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="640.000000" y="119.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="660.500000" y="138.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBPcENhbmQpWzBd is?"><path d="M 86.223868 112.764040 C 138.899994 143.750000 177.800003 151.750000 215.750000 151.750000 C 253.699997 151.750000 419.100006 150.149994 469.527398 144.217365" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-744a50958c78498887a897f3252a24d0-3488378134)" mask="url(#d2-744a50958c78498887a897f3252a24d0)" /><rect x="253.000000" y="138.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="274.500000" y="157.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><mask id="d2-744a50958c78498887a897f3252a24d0" maskUnits="userSpaceOnUse" x="-11" y="-11" width="831" height="208">
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N1{fill:#0A0F25;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N2{fill:#676C7E;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N3{fill:#9499AB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N4{fill:#CFD2DD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N5{fill:#DEE1EB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N6{fill:#EEF1F8;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-N7{fill:#FFFFFF;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B1{fill:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B2{fill:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B3{fill:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B4{fill:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B5{fill:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-B6{fill:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-AA2{fill:#4A6FF3;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-AA4{fill:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-AA5{fill:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-AB4{fill:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .fill-AB5{fill:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N1{stroke:#0A0F25;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N2{stroke:#676C7E;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N3{stroke:#9499AB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N4{stroke:#CFD2DD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N5{stroke:#DEE1EB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N6{stroke:#EEF1F8;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-N7{stroke:#FFFFFF;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B1{stroke:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B2{stroke:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B3{stroke:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B4{stroke:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B5{stroke:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-B6{stroke:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-AA2{stroke:#4A6FF3;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-AA4{stroke:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-AA5{stroke:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-AB4{stroke:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .stroke-AB5{stroke:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N1{background-color:#0A0F25;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N2{background-color:#676C7E;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N3{background-color:#9499AB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N4{background-color:#CFD2DD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N5{background-color:#DEE1EB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N6{background-color:#EEF1F8;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-N7{background-color:#FFFFFF;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B1{background-color:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B2{background-color:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B3{background-color:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B4{background-color:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B5{background-color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-B6{background-color:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-AA2{background-color:#4A6FF3;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-AA4{background-color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-AA5{background-color:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-AB4{background-color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .background-color-AB5{background-color:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N1{color:#0A0F25;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N2{color:#676C7E;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N3{color:#9499AB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N4{color:#CFD2DD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N5{color:#DEE1EB;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N6{color:#EEF1F8;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-N7{color:#FFFFFF;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B1{color:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B2{color:#0D32B2;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B3{color:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B4{color:#E3E9FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B5{color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-B6{color:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-AA2{color:#4A6FF3;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-AA4{color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-AA5{color:#F7F8FE;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-AB4{color:#EDF0FD;}
+		.d2-e3656ca0d9ca41ecae1fb88401cbdebf .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-e3656ca0d9ca41ecae1fb88401cbdebf);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}</style><g class="VENhbmQ="><g class="shape"><rect x="220.000000" y="0.000000" width="118.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="279.000000" y="38.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="279.000000" dy="0.000000">`T`</tspan><tspan x="279.000000" dy="18.500000">Candidate</tspan></text></g><g class="VFZhbA=="><g class="shape"><rect x="724.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="766.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="766.500000" dy="0.000000">`T`</tspan><tspan x="766.500000" dy="18.500000">Value</tspan></text></g><g class="QW55"><g class="shape"><rect x="0.000000" y="46.000000" width="85.000000" height="82.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="42.500000" y="84.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="42.500000" dy="0.000000">Any</tspan><tspan x="42.500000" dy="18.500000">Value</tspan></text></g><g class="T3BDYW5k"><g class="shape"><rect x="473.000000" y="88.000000" width="118.000000" height="98.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="532.000000" y="126.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px"><tspan x="532.000000" dy="0.000000">`T`</tspan><tspan x="532.000000" dy="17.666667">Operation</tspan><tspan x="532.000000" dy="17.666667">Candidate</tspan></text></g><g class="KFRDYW5kIC0mZ3Q7IFRWYWwpWzBd is!"><marker id="mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 339.486301 33.516317 C 391.899994 27.350000 430.799988 25.750000 468.750000 25.750000 C 506.700012 25.750000 670.900024 33.150002 720.998452 60.816309" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134)" mask="url(#d2-e3656ca0d9ca41ecae1fb88401cbdebf)" /><rect x="514.000000" y="14.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="534.500000" y="33.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBUQ2FuZClbMF0= is?"><path d="M 86.349344 68.238471 C 138.899994 46.598999 166.100006 41.000000 216.500000 41.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134)" mask="url(#d2-e3656ca0d9ca41ecae1fb88401cbdebf)" /><rect x="129.000000" y="31.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="150.500000" y="50.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KFRDYW5kIC0mZ3Q7IE9wQ2FuZClbMF0= is?"><path d="M 339.358833 64.488066 C 391.899994 85.349998 419.100006 95.550003 469.728039 113.418720" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134)" mask="url(#d2-e3656ca0d9ca41ecae1fb88401cbdebf)" /><rect x="384.000000" y="77.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="405.500000" y="96.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><g class="KE9wQ2FuZCAtJmd0OyBUVmFsKVswXQ== is!"><path d="M 592.500000 136.500000 C 644.099976 136.500000 670.900024 130.500000 720.849262 108.134660" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134)" mask="url(#d2-e3656ca0d9ca41ecae1fb88401cbdebf)" /><rect x="640.000000" y="119.000000" width="41.000000" height="27.000000" rx="10.000000" fill="black" /><text x="660.500000" y="138.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is! .</text></g><g class="KEFueSAtJmd0OyBPcENhbmQpWzBd is?"><path d="M 86.223868 112.764040 C 138.899994 143.750000 177.800003 151.750000 215.750000 151.750000 C 253.699997 151.750000 419.100006 150.149994 469.527398 144.217365" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-e3656ca0d9ca41ecae1fb88401cbdebf-3488378134)" mask="url(#d2-e3656ca0d9ca41ecae1fb88401cbdebf)" /><rect x="253.000000" y="138.000000" width="43.000000" height="27.000000" rx="10.000000" fill="black" /><text x="274.500000" y="157.000000" fill="white" class="text-bold" style="text-anchor:middle;font-size:16px">. is? .</text></g><mask id="d2-e3656ca0d9ca41ecae1fb88401cbdebf" maskUnits="userSpaceOnUse" x="-11" y="-11" width="831" height="208">
 <rect x="-11" y="-11" width="831" height="208" fill="white" />
 <rect x="516.000000" y="17.000000" width="37" height="21" fill="black" />
 <rect x="131.000000" y="34.000000" width="39" height="21" fill="black" />
@@ -5325,7 +5490,7 @@ vector of <code>Bits</code> have overlapping equivalent APIs. </p>
   are added at the left of the sequence or the sequence is truncated based on the <code>width</code>. 
   Truncation only occurs if the MSBits being removed are zeros; otherwise, it triggers a
   compilation error.</li>
-<li><code>width</code> can be an interpolated argument of either Scala <code>Int</code> or a <a class="autorefs autorefs-internal" title="UInt/SInt/Int" href="#DFDecimal">Constant DFHDL <code>Int</code></a> value.</li>
+<li><code>width</code> can be an interpolated argument of either Scala <code>Int</code> or a <a class="autorefs autorefs-internal" href="#DFDecimal">Constant DFHDL <code>Int</code></a> value.</li>
 <li>Returns: A constant DFHDL <code>Bits</code> value with the inferred or set width.</li>
 </ul>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Binary Bits string-interpolation examples</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -5378,7 +5543,7 @@ vector of <code>Bits</code> have overlapping equivalent APIs. </p>
   are added or the sequence is truncated based on the <code>width</code>. Truncation only occurs if
   the most significant bits being removed are zeros or bubbles; otherwise, it triggers a
   compilation error.</li>
-<li><code>width</code> can be an interpolated argument of either Scala <code>Int</code> or a <a class="autorefs autorefs-internal" title="UInt/SInt/Int" href="#DFDecimal">Constant DFHDL <code>Int</code></a> value.</li>
+<li><code>width</code> can be an interpolated argument of either Scala <code>Int</code> or a <a class="autorefs autorefs-internal" href="#DFDecimal">Constant DFHDL <code>Int</code></a> value.</li>
 <li>Returns: A constant DFHDL <code>Bits</code> value with the inferred or set width.</li>
 </ul>
 <div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Hexadecimal Bits string-interpolation examples</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -5520,7 +5685,7 @@ given options.ElaborationOptions.PrintDFHDLCode = true
 //set mode to elaborate only
 given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 
-@top class Foo extends DFDesign:
+class Foo extends DFDesign:
   val i4 = Bits(4) &lt;&gt; IN
   val b2 = Bits(2) &lt;&gt; OUT
   val b3 = Bits(3) &lt;&gt; OUT
@@ -5532,7 +5697,7 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <ul>
 <li><code>UInt</code> - Unsigned bit-accurate integer values</li>
 <li><code>SInt</code> - Signed bit-accurate integer values  </li>
-<li><code>Int</code> - 32-bit integer values (used mainly for parameters). In operations with <code>UInt</code> or <code>SInt</code>, both Scala <code>Int</code> and DFHDL <code>Int</code> act as <a class="autorefs autorefs-internal" title="Wildcard Int Values" href="#wildcard-ops">wildcards</a> that adapt to the bit-accurate value's sign and width.</li>
+<li><code>Int</code> - 32-bit integer values (used mainly for parameters). In operations with <code>UInt</code> or <code>SInt</code>, both Scala <code>Int</code> and DFHDL <code>Int</code> act as <a class="autorefs autorefs-internal" title="Wildcard " href="#wildcard-ops">wildcards</a> that adapt to the bit-accurate value's sign and width.</li>
 </ul>
 <h4 id="dftype-constructors_2">DFType Constructors<a class="headerlink" href="#dftype-constructors_2" title="Permanent link"></a></h4>
 <div class="operations">
@@ -6356,7 +6521,7 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 </code></pre></div></td></tr></table></div>
 <div class="admonition tip">
 <p class="admonition-title">Dynamic bit indexing</p>
-<p>You can index into a bit-vector value using a <code>UInt</code> variable, not just integer literals. The index must be a <code>UInt</code> whose width equals <code>clog2(bits_width)</code>. For example, indexing into <code>Bits(8)</code> requires a <code>UInt(3)</code> index. If the width does not match, the compiler will report an error and suggest using <code>.truncate</code> (to narrow) or <code>.extend</code> (to widen).</p>
+<p>You can index into a bit-vector value using a <code>UInt</code> variable, not just integer literals. The index must be a <code>UInt</code> whose width equals <code>clog2(bits_width)</code>. For example, indexing into <code>Bits(8)</code> requires a <code>UInt(3)</code> index. If the width does not match, the compiler will report an error and suggest using <code>.resize</code> to automatically adjust the width.</p>
 <p>Dynamic indexing works for both reads and writes:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -6374,20 +6539,19 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
 <span class="w">    </span><span class="n">data</span><span class="p">(</span><span class="n">pos</span><span class="p">)</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">din</span><span class="w">        </span><span class="c1">// dynamic write</span>
 </code></pre></div></td></tr></table></div></p>
-<p>When the index variable is wider than needed, use <code>.truncate</code> to automatically narrow it to the required width:
+<p>When the index variable is wider or narrower than needed, use <code>.resize</code> to automatically adjust it to the required width:
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">pos</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1">// 4-bit, but Bits(8) needs UInt(3)</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">bit_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">pos</span><span class="p">.</span><span class="n">truncate</span><span class="p">)</span><span class="w">     </span><span class="c1">// .truncate narrows to UInt(3) automatically</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">bit_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="n">pos</span><span class="p">.</span><span class="n">resize</span><span class="p">)</span><span class="w">       </span><span class="c1">// .resize adjusts to UInt(3) automatically</span>
 </code></pre></div></td></tr></table></div></p>
 </div>
 <h3 id="width-adjustment">Width Adjustment<a class="headerlink" href="#width-adjustment" title="Permanent link"></a></h3>
 <p>Applies to: <code>Bits</code>, <code>UInt</code>, <code>SInt</code></p>
 <ul>
 <li><code>.resize(N)</code> sets the width to exactly <code>N</code> bits. For <code>UInt</code> and <code>Bits</code>, widening zero-extends; for <code>SInt</code>, widening sign-extends. Narrowing truncates the most-significant bits.</li>
-<li><code>.truncate</code> automatically narrows to the width expected by the assignment or operation context.</li>
-<li><code>.extend</code> automatically widens to the width expected by the context.</li>
+<li><code>.resize</code> (no argument) automatically adjusts the width to match the assignment or operation context; narrowing or widening as needed.</li>
 </ul>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -6404,33 +6568,19 @@ given options.AppOptions.AppMode = options.AppOptions.AppMode.elaborate
 <span class="normal">13</span>
 <span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">b4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="n">b4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="c1">// truncate to 4 bits</span>
-<span class="n">b8</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b4</span><span class="p">.</span><span class="n">extend</span><span class="w">       </span><span class="c1">// auto-widen to match b8&#39;s width</span>
+<span class="n">b4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="c1">// explicit narrow to 4 bits</span>
+<span class="n">b8</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b4</span><span class="p">.</span><span class="n">resize</span><span class="w">       </span><span class="c1">// auto-widen to match b8&#39;s width</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">u6</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">6</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="n">u6</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">u8</span><span class="p">.</span><span class="n">truncate</span><span class="w">     </span><span class="c1">// auto-narrow to match u6&#39;s width</span>
+<span class="n">u6</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">u8</span><span class="p">.</span><span class="n">resize</span><span class="w">       </span><span class="c1">// auto-narrow to match u6&#39;s width</span>
 <span class="n">u8</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">u6</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w">    </span><span class="c1">// explicit zero-extend to 8 bits</span>
 
 <span class="kd">val</span><span class="w"> </span><span class="n">s8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">s4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="n">s8</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">s4</span><span class="p">.</span><span class="n">extend</span><span class="w">       </span><span class="c1">// sign-extend to match s8&#39;s width</span>
-<span class="n">s4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">s8</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="c1">// truncate to 4 bits</span>
+<span class="n">s8</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">s4</span><span class="p">.</span><span class="n">resize</span><span class="w">       </span><span class="c1">// sign-extend to match s8&#39;s width</span>
+<span class="n">s4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">s8</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="c1">// explicit narrow to 4 bits</span>
 </code></pre></div></td></tr></table></div>
-<div class="admonition warning">
-<p class="admonition-title"><code>.truncate</code> is not <code>.resize(N)</code> -- do not pass an argument to <code>.truncate</code></p>
-<p><code>.truncate</code> (no argument) narrows the width to match the assignment context. There is no <code>.truncate(N)</code> method. Writing <code>expr.truncate(N)</code> is parsed by Scala as <code>expr.truncate</code> followed by <code>(N)</code>, which applies bit selection on the truncated result -- selecting a single bit at index <code>N</code>. This causes confusing errors like "argument must be smaller than the upper-bound". To keep the lowest <code>N</code> bits, use <code>.resize(N)</code>:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">b4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="n">b4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">truncate</span><span class="w">     </span><span class="c1">// OK: auto-narrow from 8 to 4 bits</span>
-<span class="n">b4</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">    </span><span class="c1">// OK: explicit narrow to 4 bits</span>
-<span class="c1">// b8.truncate(4)     // MISLEADING: this is b8.truncate followed by bit-select (4)</span>
-</code></pre></div></td></tr></table></div>
-</div>
 <h3 id="bit-concat">Bit Concatenation<a class="headerlink" href="#bit-concat" title="Permanent link"></a></h3>
 <p>Applies to: <code>Bits</code>, <code>UInt</code>, <code>SInt</code></p>
 <p>Multiple bit-vector values can be concatenated using Scala tuple syntax with <code>.toBits</code>:</p>
@@ -7146,7 +7296,7 @@ An anonymous expression assigned to a wider target contains both an implicit <co
 <span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span>
 
 <span class="c1">// Fix 1: use carry addition to prevent intermediate overflow</span>
-<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">truncate</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">resize</span>
 
 <span class="c1">// Fix 2: use an explicit bit-accurate literal to accept DFHDL</span>
 <span class="c1">// overflow semantics and silence the warning</span>
@@ -7349,7 +7499,7 @@ An anonymous expression assigned to a wider target contains both an implicit <co
 <span class="c1">// An explicit conversion must be applied.</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">e1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">s8</span>
 <span class="c1">// error: Cannot apply this operation between a value of</span>
-<span class="c1">// 8 bits width (LHS) to a value of 4 bits width (RHS).</span>
+<span class="c1">// 8 bits width (LHS) and a value of 4 bits width (RHS).</span>
 <span class="c1">// An explicit conversion must be applied.</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">e2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u8</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">u4</span>
 <span class="c1">// error: Cannot compare a DFHDL value (width = 8) with a</span>
@@ -7668,7 +7818,7 @@ Instead, use the <code>.until</code> or <code>.to</code> constructors which hand
 <span class="kd">val</span><span class="w"> </span><span class="n">addr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="nc">DEPTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">   </span><span class="c1">// width = clog2(DEPTH)</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">mask</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="nc">SIZE</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">    </span><span class="c1">// width = clog2(SIZE)</span>
 </code></pre></div></td></tr></table></div>
-See the <a class="autorefs autorefs-internal" title="UInt/SInt/Int" href="#DFDecimal">DFType Constructors</a> and <a class="autorefs autorefs-internal" href="#DFBits">Bits constructors</a> sections for details on <code>.until</code> and <code>.to</code>.</p>
+See the <a class="autorefs autorefs-internal" href="#DFDecimal">DFType Constructors</a> and <a class="autorefs autorefs-internal" href="#DFBits">Bits constructors</a> sections for details on <code>.until</code> and <code>.to</code>.</p>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Non-constant DFHDL <code>Int</code> values</p>
@@ -7999,10 +8149,10 @@ the <code>if</code> is completely removed and either the block inside the <code>
     
       
       
-      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.7a47a382.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.e71a0d61.min.js"></script>
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       
