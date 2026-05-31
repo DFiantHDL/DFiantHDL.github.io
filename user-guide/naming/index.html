@@ -1500,22 +1500,33 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#reserved-names" class="md-nav__link">
+  <a href="#name-collisions-shadowing" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Reserved Names
+        Name Collisions &amp; Shadowing
       
     </span>
   </a>
   
-    <nav class="md-nav" aria-label="Reserved Names">
+    <nav class="md-nav" aria-label="Name Collisions &amp; Shadowing">
       <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#general-recommendation-capitalize-design-class-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        General recommendation: Capitalize design-class names
+      
+    </span>
+  </a>
+  
+</li>
         
           <li class="md-nav__item">
   <a href="#scala-reserved-keywords" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Scala Reserved Keywords
+        Scala reserved keywords
       
     </span>
   </a>
@@ -1526,7 +1537,18 @@
   <a href="#dfhdl-built-in-names" class="md-nav__link">
     <span class="md-ellipsis">
       
-        DFHDL Built-in Names
+        DFHDL built-in names
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#design-class-name-colliding-with-a-value-name" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design-class name colliding with a value name
       
     </span>
   </a>
@@ -1554,7 +1576,7 @@
   <a href="#backtick-escaping" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Backtick Escaping
+        Backtick escaping
       
     </span>
   </a>
@@ -1565,7 +1587,7 @@
   <a href="#targetname-annotation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        @targetName Annotation
+        @targetName annotation
       
     </span>
   </a>
@@ -1576,7 +1598,7 @@
   <a href="#type-alias-for-class-name-conflicts" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Type Alias for Class Name Conflicts
+        Type alias for class-name conflicts
       
     </span>
   </a>
@@ -1609,10 +1631,37 @@
 
 
 <h1 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link"></a></h1>
-<h2 id="reserved-names">Reserved Names<a class="headerlink" href="#reserved-names" title="Permanent link"></a></h2>
-<p>When translating from Verilog, signal and module names may conflict with names already in scope from Scala or DFHDL. There are two categories of conflicts:</p>
-<h3 id="scala-reserved-keywords">Scala Reserved Keywords<a class="headerlink" href="#scala-reserved-keywords" title="Permanent link"></a></h3>
-<p>Scala keywords cannot be used directly as identifiers. Use backtick escaping:</p>
+<h2 id="name-collisions-shadowing">Name Collisions &amp; Shadowing<a class="headerlink" href="#name-collisions-shadowing" title="Permanent link"></a></h2>
+<p>When translating from Verilog/VHDL, signal, port, and module names may collide with names already in scope — Scala keywords, DFHDL built-ins, or your own design classes. This section is the single place that covers how to detect and resolve all such collisions.</p>
+<h3 id="general-recommendation-capitalize-design-class-names">General recommendation: Capitalize design-class names<a class="headerlink" href="#general-recommendation-capitalize-design-class-names" title="Permanent link"></a></h3>
+<p>The simplest way to avoid the entire class of collisions between a <strong>design class</strong> and a <strong>value</strong> (port/variable) is a naming convention:</p>
+<ul>
+<li>Name <strong>design classes</strong> with a <code>Capitalized</code> (PascalCase) name.</li>
+<li>Name <strong>ports and variables</strong> with <code>camelCase</code> names.</li>
+</ul>
+<p>Because the two casings can never be identical, a design class and a value will never shadow each other. This is the <strong>preferred convention</strong> for new designs.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Adder</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="c1">// In a parent design, the Capitalized class name never collides with camelCase values:</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">adder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Adder</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">Caveat: direct Verilog/VHDL translation that preserves original names</p>
+<p>When you translate an existing Verilog/VHDL design and deliberately <strong>preserve the original names</strong> (so the generated <abbr title="Hardware Description Language">HDL</abbr> matches the source), you cannot always apply the Capitalized convention — the original names may already collide. These cases need the targeted resolutions below.</p>
+</div>
+<h3 id="scala-reserved-keywords">Scala reserved keywords<a class="headerlink" href="#scala-reserved-keywords" title="Permanent link"></a></h3>
+<p>Scala keywords cannot be used directly as identifiers. Escape them with backticks:</p>
 <p><code>val</code>, <code>var</code>, <code>def</code>, <code>type</code>, <code>class</code>, <code>object</code>, <code>trait</code>, <code>enum</code>, <code>match</code>, <code>case</code>, <code>if</code>, <code>else</code>, <code>for</code>, <code>while</code>, <code>do</code>, <code>return</code>, <code>throw</code>, <code>try</code>, <code>catch</code>, <code>finally</code>, <code>yield</code>, <code>import</code>, <code>export</code>, <code>new</code>, <code>this</code>, <code>super</code>, <code>true</code>, <code>false</code>, <code>null</code>, <code>then</code>, <code>end</code>, <code>given</code>, <code>using</code>, <code>extension</code>, <code>with</code>, <code>abstract</code>, <code>final</code>, <code>override</code>, <code>sealed</code>, <code>lazy</code>, <code>private</code>, <code>protected</code></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1620,8 +1669,8 @@
 <span class="kd">val</span><span class="w"> </span><span class="n">`val`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="n">`val`</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="dfhdl-built-in-names">DFHDL Built-in Names<a class="headerlink" href="#dfhdl-built-in-names" title="Permanent link"></a></h3>
-<p><code>import dfhdl.*</code> brings DFHDL built-in functions and types into scope. If a user-defined class has the same name as a built-in, the built-in shadows the class. Known built-ins that commonly conflict with Verilog module names:</p>
+<h3 id="dfhdl-built-in-names">DFHDL built-in names<a class="headerlink" href="#dfhdl-built-in-names" title="Permanent link"></a></h3>
+<p><code>import dfhdl.*</code> brings DFHDL built-in functions and types into scope. If a user-defined class has the same name as a built-in, the built-in shadows the class. Built-ins that commonly collide with Verilog module names:</p>
 <p><code>abs</code>, <code>clog2</code>, <code>max</code>, <code>min</code>, <code>all</code>, <code>Bit</code>, <code>Bits</code>, <code>UInt</code>, <code>SInt</code></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1634,23 +1683,47 @@
 <span class="k">class</span><span class="w"> </span><span class="nc">abs</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">DATA_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="c1">// ...</span>
 
-<span class="c1">// In the parent design, `abs(...)` resolves to the built-in function.</span>
+<span class="c1">// In the parent design, `abs(...)` resolves to the built-in function, not the class.</span>
 <span class="c1">// Fix: create a type alias before instantiation</span>
 <span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">AbsModule</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
+<h3 id="design-class-name-colliding-with-a-value-name">Design-class name colliding with a value name<a class="headerlink" href="#design-class-name-colliding-with-a-value-name" title="Permanent link"></a></h3>
+<p>A common translation collision is a <strong>design class</strong> whose name is the same as a port or variable in scope (or a built-in). When the bare name <code>design_class_name(...)</code> resolves to the value instead of the class, use one of these two fixes:</p>
+<p><strong>1. Explicitly instantiate with <code>new</code>.</strong> The <code>new</code> keyword forces resolution to the class constructor, sidestepping the shadowing value:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// `design_class_name` the value is in scope and shadows the class</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">design_class_name</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>2. Use a Capitalized class name plus <code>@targetName</code> to preserve the emitted name.</strong> Rename the Scala class to a Capitalized identifier (which can no longer collide with a camelCase value) and pin the original lowercase name onto the generated <abbr title="Hardware Description Language">HDL</abbr> with <code>@targetName</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
+
+<span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;design_class_name&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">DATA_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="c1">// No collision with values; generated HDL module is still named &quot;design_class_name&quot;</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
 <h2 id="resolution-patterns">Resolution Patterns<a class="headerlink" href="#resolution-patterns" title="Permanent link"></a></h2>
-<h3 id="backtick-escaping">Backtick Escaping<a class="headerlink" href="#backtick-escaping" title="Permanent link"></a></h3>
+<h3 id="backtick-escaping">Backtick escaping<a class="headerlink" href="#backtick-escaping" title="Permanent link"></a></h3>
 <p>For Scala keywords used as signal names:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">`type`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">`match`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="targetname-annotation"><code>@targetName</code> Annotation<a class="headerlink" href="#targetname-annotation" title="Permanent link"></a></h3>
+<h3 id="targetname-annotation"><code>@targetName</code> annotation<a class="headerlink" href="#targetname-annotation" title="Permanent link"></a></h3>
 <p>When a Scala-side name must differ from the generated <abbr title="Hardware Description Language">HDL</abbr> name, use <code>@targetName</code> to set the hardware name explicitly. This is useful when:</p>
 <ul>
-<li>A port name conflicts with a sub-module class name in the same design</li>
-<li>You want to rename a Scala identifier but preserve the original Verilog port name</li>
+<li>A port name conflicts with a sub-module class name in the same design.</li>
+<li>You want to rename a Scala identifier but preserve the original Verilog port/module name (see <a href="#design-class-name-colliding-with-a-value-name">Design-class name colliding with a value name</a>).</li>
 </ul>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -1670,7 +1743,7 @@
 <span class="c1">// The class &quot;kernel&quot; remains available for instantiation</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">u_kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernel</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="type-alias-for-class-name-conflicts">Type Alias for Class Name Conflicts<a class="headerlink" href="#type-alias-for-class-name-conflicts" title="Permanent link"></a></h3>
+<h3 id="type-alias-for-class-name-conflicts">Type alias for class-name conflicts<a class="headerlink" href="#type-alias-for-class-name-conflicts" title="Permanent link"></a></h3>
 <p>When a class name conflicts with a DFHDL built-in function:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span><span class="w">   </span><span class="c1">// alias resolves the class, not the function</span>
@@ -1776,8 +1849,6 @@
       
         <script src="../../javascripts/config.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
       
         <script src="https://scastie.scala-lang.org/embedded.js"></script>
@@ -1786,7 +1857,7 @@
       
         <script src="../../javascripts/d3.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.9.3/lib/elk.bundled.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.11.1/lib/elk.bundled.js"></script>
       
         <script src="../../javascripts/d3-hwschematic.js"></script>
       

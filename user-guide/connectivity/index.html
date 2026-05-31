@@ -1241,10 +1241,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dataflow-value-connections" class="md-nav__link">
+  <a href="#connectable-value-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataflow Value Connections
+        Connectable Value Connections
       
     </span>
   </a>
@@ -1252,10 +1252,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dataflow-input-port-assignment-rule" class="md-nav__link">
+  <a href="#partial-selection-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataflow Input Port Assignment := Rule
+        Partial Selection Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-port-assignment-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Port Assignment := Rule
       
     </span>
   </a>
@@ -1318,32 +1329,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#connection-and-initial-conditions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Connection and Initial Conditions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#connectivity-open-ports" class="md-nav__link">
     <span class="md-ellipsis">
       
         Open (Unconnected) Ports
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#initial-condition-cyclic-loop-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial Condition Cyclic Loop Errors
       
     </span>
   </a>
@@ -1794,10 +1783,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dataflow-value-connections" class="md-nav__link">
+  <a href="#connectable-value-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataflow Value Connections
+        Connectable Value Connections
       
     </span>
   </a>
@@ -1805,10 +1794,21 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#dataflow-input-port-assignment-rule" class="md-nav__link">
+  <a href="#partial-selection-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Dataflow Input Port Assignment := Rule
+        Partial Selection Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#input-port-assignment-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Input Port Assignment := Rule
       
     </span>
   </a>
@@ -1871,32 +1871,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#connection-and-initial-conditions" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Connection and Initial Conditions
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
   <a href="#connectivity-open-ports" class="md-nav__link">
     <span class="md-ellipsis">
       
         Open (Unconnected) Ports
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#initial-condition-cyclic-loop-errors" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Initial Condition Cyclic Loop Errors
       
     </span>
   </a>
@@ -1963,6 +1941,12 @@
 
 <p><a href="" id="connectivity"></a></p>
 <h1 id="connectivity_1">Connectivity<a class="headerlink" href="#connectivity_1" title="Permanent link"></a></h1>
+<p>DFHDL wires designs together with two kinds of operators:</p>
+<ul>
+<li>The connection operator <code>&lt;&gt;</code>.</li>
+<li>The assignment operators <code>:=</code> (blocking) and <code>:==</code> (non-blocking).</li>
+</ul>
+<p>This section focuses on the <code>&lt;&gt;</code> connection operator and how it relates to the assignment operators.</p>
 <h2 id="key-differences-between-and">Key Differences Between <code>&lt;&gt;</code> and <code>:=</code>/<code>:==</code><a class="headerlink" href="#key-differences-between-and" title="Permanent link"></a></h2>
 <table>
 <thead>
@@ -1975,24 +1959,24 @@
 <tbody>
 <tr>
 <td>Directionality &amp;<br />Commutativity</td>
-<td style="text-align: left;">The operator is commutative, meaning <code>a &lt;&gt; b</code> is equivalent to b <code>b &lt;&gt; a</code>.  One argument is the <em>producer</em>, while the other <em>consumer</em>. The dataflow direction is sensitive to the context in which the operator is applied.</td>
-<td style="text-align: left;">The operator is non-commutative, meaning <code>a := b</code> determines that <code>b</code> is the <em>producer</em>, transferring data to the <em>consumer</em> <code>a</code>.</td>
+<td style="text-align: left;">Commutative: <code>a &lt;&gt; b</code> is equivalent to <code>b &lt;&gt; a</code>. One side is the <em>producer</em> and the other the <em>consumer</em>; the dataflow direction is inferred from the operands and the context in which the operator is applied.</td>
+<td style="text-align: left;">Non-commutative: <code>a := b</code> makes <code>b</code> the <em>producer</em>, transferring data to the <em>consumer</em> <code>a</code>.</td>
 </tr>
 <tr>
 <td>Mutation</td>
-<td style="text-align: left;">A consumer can only be connected once.</td>
-<td style="text-align: left;">Consumer assignments are unlimited.</td>
+<td style="text-align: left;">Each consumer bit can be connected at most once. A consumer may still receive several connections, as long as they target disjoint bit ranges (e.g. <code>y(3, 0) &lt;&gt; a</code> and <code>y(7, 4) &lt;&gt; b</code>).</td>
+<td style="text-align: left;">A consumer bit can be assigned any number of times; the last assignment in program order wins.</td>
 </tr>
 <tr>
 <td>Statement Order</td>
-<td style="text-align: left;">Connections statements can be placed in any order.</td>
-<td style="text-align: left;">Assignment statements</td>
+<td style="text-align: left;">Connection statements can be placed in any order.</td>
+<td style="text-align: left;">Assignment statements are order-sensitive.</td>
 </tr>
 </tbody>
 </table>
 <h2 id="connection-rules">Connection <code>&lt;&gt;</code> Rules<a class="headerlink" href="#connection-rules" title="Permanent link"></a></h2>
 <h3 id="port-direct-connections">Port Direct Connections<a class="headerlink" href="#port-direct-connections" title="Permanent link"></a></h3>
-<p>The onnection operator <code>&lt;&gt;</code> is generally used to connect parent designs to their child designs (components) and connect between sibling designs (children of the same parent). Opposed to VHDL/Verilog, there is no need to go through 'signals' to connect sibling design ports, e.g.:</p>
+<p>The connection operator <code>&lt;&gt;</code> is generally used to connect parent designs to their child designs (components) and to connect between sibling designs (children of the same parent). Unlike VHDL/Verilog, there is no need to go through intermediate 'signals' to connect sibling design ports, e.g.:</p>
 <div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2020,7 +2004,7 @@
 <span class="w">  </span><span class="n">p1A</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">x</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B</span><span class="p">.</span><span class="n">y</span>
 </code></pre></div></td></tr></table></div>
-<div class="hdelk-diagram" id="hdelk-diagram-1560255233352517095" style="width: 98%;">
+<div class="hdelk-diagram" id="hdelk-diagram-0512d696fb8ff47da14e66c4b0203d37" style="width: 98%;">
     <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 253.423828125 218"><g><g><rect width="253.423828125" height="218" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="197.08984375" height="95" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="28.287109375" y="111"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="104.69140625" y="133.1015625"><tspan dy="0" x="104.69140625">Plus2</tspan></text><g><line x1="28.287109375" y1="171" x2="40.287109375" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="37.287109375" y="168"></rect></g><g><line x1="116.83203125" y1="171" x2="136.83203125" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="133.83203125" y="168"></rect></g><g><line x1="213.376953125" y1="171" x2="225.376953125" y2="171" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="222.376953125" y="168"></rect></g><g><g><rect width="44.2109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="56.57421875" y="148"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="62.140625" y="170.1015625"><tspan dy="0" x="62.140625">p1A</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="61.57421875" y="185.826171875"><tspan dy="0" x="61.57421875">Plus1</tspan></text><rect width="16.287109375" height="18" x="40.287109375" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="45.287109375" y="176.826171875"><tspan dy="0" x="45.287109375">x</tspan></text><rect width="16.046875" height="18" x="100.78515625" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="105.78515625" y="176.826171875"><tspan dy="0" x="105.78515625">y</tspan></text></g><g><g><rect width="44.2109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="153.119140625" y="148"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="158.564453125" y="170.1015625"><tspan dy="0" x="158.564453125">p1B</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="158.119140625" y="185.826171875"><tspan dy="0" x="158.119140625">Plus1</tspan></text><rect width="16.287109375" height="18" x="136.83203125" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="141.83203125" y="176.826171875"><tspan dy="0" x="141.83203125">x</tspan></text><rect width="16.046875" height="18" x="197.330078125" y="162" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="202.330078125" y="176.826171875"><tspan dy="0" x="202.330078125">y</tspan></text></g><rect width="16.287109375" height="18" x="12" y="162" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="176.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="225.376953125" y="162" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="230.376953125" y="176.826171875"><tspan dy="0" x="230.376953125">y</tspan></text></g><g><g><rect width="56.296875" height="79" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="28.287109375" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="34.294921875" y="34.1015625"><tspan dy="0" x="34.294921875">Plus1</tspan></text><g><line x1="28.287109375" y1="64" x2="40.287109375" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="37.287109375" y="61"></rect></g><g><line x1="72.583984375" y1="64" x2="84.583984375" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="81.583984375" y="61"></rect></g><g><g><rect width="32.296875" height="30" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="40.287109375" y="49"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="45.287109375" y="71.1015625"><tspan dy="0" x="45.287109375">+1</tspan></text></g><rect width="16.287109375" height="18" x="12" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="69.826171875"><tspan dy="0" x="17">x</tspan></text><rect width="16.046875" height="18" x="84.583984375" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="89.583984375" y="69.826171875"><tspan dy="0" x="89.583984375">y</tspan></text></g></g></svg>
 </div>
 </div>
@@ -2064,14 +2048,14 @@
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">p1B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Plus1</span><span class="p">():</span>
 <span class="w">    </span><span class="bp">this</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B_x</span>
 <span class="w">    </span><span class="bp">this</span><span class="p">.</span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B_y</span>
-<span class="w">  </span><span class="n">p1A_x</span><span class="w">    </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span>
-<span class="w">  </span><span class="n">p1B_x</span><span class="w">    </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1A_y</span>
-<span class="w">  </span><span class="n">y</span><span class="w">        </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B_y</span>
+<span class="w">  </span><span class="n">p1A_x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">p1B_x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1A_y</span>
+<span class="w">  </span><span class="n">y</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">p1B_y</span>
 <span class="k">end</span><span class="w"> </span><span class="nc">Plus2</span>
 </code></pre></div></td></tr></table></div>
 <details class="dfhdl">
 <summary>Runnable example</summary>
-<pre class="scastie" data-main="top_Plus2"><code>import dfhdl.* 
+<pre class="scastie" data-main="top_Plus2"><code>import dfhdl.*
 
 class Plus1 extends DFDesign:
   val x = UInt(8) &lt;&gt; IN
@@ -2090,170 +2074,136 @@ class Plus2 extends DFDesign:
 given options.CompilerOptions.PrintBackendCode = false
 given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 </details>
-<h3 id="dataflow-value-connections">Dataflow Value Connections<a class="headerlink" href="#dataflow-value-connections" title="Permanent link"></a></h3>
-<p>At least one of the connected sides must be a dataflow port (cannot connect two dataflow values together), e.g.:</p>
+<h3 id="connectable-value-connections">Connectable Value Connections<a class="headerlink" href="#connectable-value-connections" title="Permanent link"></a></h3>
+<p>At least one side of a connection must be a <em>connectable</em> DFHDL value — a variable (<code>VAR</code>) or a port (<code>IN</code>/<code>OUT</code>/<code>INOUT</code>). Connecting two immutable values (e.g. two constants or two read-only aliases) is not allowed, e.g.:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Conn1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">port</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="n">port</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="c1">// OK: a port connected to a variable</span>
+<span class="w">  </span><span class="n">temp1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="c1">// OK: both sides are connectable variables</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="partial-selection-connections">Partial Selection Connections<a class="headerlink" href="#partial-selection-connections" title="Permanent link"></a></h3>
+<p>A partial selection of a connectable value is itself connectable. This includes bit selection and bit-range selection of <code>Bits</code>/<code>UInt</code>/<code>SInt</code> values, as well as struct field and tuple element selection. This lets you drive a single port or variable from several sources, as long as each bit is driven exactly once (see <a href="#multiple-connections">Multiple Connections</a>):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Split</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">hi</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">hi</span><span class="p">.</span><span class="n">bits</span>
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">lo</span><span class="p">.</span><span class="n">bits</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="input-port-assignment-rule">Input Port Assignment <code>:=</code> Rule<a class="headerlink" href="#input-port-assignment-rule" title="Permanent link"></a></h3>
+<p>An input port cannot be assigned to. A connection must be used to drive data into an input port, e.g.:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IO</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="c1">// OK: an output port can be assigned internally</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Assign1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IO</span><span class="p">()</span>
+<span class="w">  </span><span class="c1">// io.in := 1  // Bad assignment! An input port cannot be assigned to</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">in</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="c1">// OK: use a connection instead</span>
+<span class="w">  </span><span class="c1">// io.out := 1 // Bad assignment! An output port can only be assigned internally</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="immutable-value-connections">Immutable Value Connections<a class="headerlink" href="#immutable-value-connections" title="Permanent link"></a></h3>
+<p>When connecting a port to an immutable value (such as a constant), the port must be the consumer. This means the connection is done internally to an output port or externally to an input port, e.g.:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IO</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="c1">// OK: `o` (output) is the consumer of the constant `1`</span>
+<span class="w">  </span><span class="c1">// i &lt;&gt; 1  // Bad connection! `i` is a producer internally; a constant cannot drive into it</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">IOUser</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IO</span><span class="p">()</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">    </span><span class="c1">// OK: `io.i` is a consumer externally</span>
+<span class="w">  </span><span class="c1">// io.o &lt;&gt; 1 // Bad connection! `io.o` is a producer externally</span>
+</code></pre></div></td></tr></table></div>
+<h3 id="different-type-connections">Different Type Connections<a class="headerlink" href="#different-type-connections" title="Permanent link"></a></h3>
+<p>Connecting between different types requires the types to match, possibly through an explicit cast. Different widths are considered different types and require an explicit cast/resize. A casted/converted dataflow value is immutable for the purposes of the connection (see <a href="#immutable-value-connections">above</a>), so it can only be used as a producer. Here are some examples:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DifferentTypesConn</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ob9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b8</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b9</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="n">o</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">uint</span><span class="w">  </span><span class="c1">// OK: an explicit Bits-to-UInt cast is applied</span>
+<span class="w">  </span><span class="n">ob9</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b9</span><span class="w">       </span><span class="c1">// OK: matching 9-bit Bits widths</span>
+<span class="w">  </span><span class="c1">// o   &lt;&gt; b8    // Bad connection! There is no automatic casting between Bits and UInt</span>
+<span class="w">  </span><span class="c1">// ob9 &lt;&gt; b8    // Bad connection! Bit vectors are NOT automatically extended (8 vs 9)</span>
+<span class="w">  </span><span class="c1">// o.bits &lt;&gt; b8 // Bad connection! `.bits` is a type-cast alias (immutable) of the output port</span>
+</code></pre></div></td></tr></table></div>
+<p>In contrast to type casts, <em>bit and bit-range selections</em> of a port (e.g. <code>o(3, 0)</code>) are connectable, as shown in <a href="#partial-selection-connections">Partial Selection Connections</a>.</p>
+<h3 id="multiple-connections">Multiple Connections<a class="headerlink" href="#multiple-connections" title="Permanent link"></a></h3>
+<p>A given consumer bit can be connected at most once. A single producer, however, can be connected to more than one consumer. Connecting two producers to the <em>same</em> consumer bit is an error:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Conn1</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="n">port</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">temp1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="c1">//Bad connection! At least one connection side must be a port</span>
-<span class="p">}</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Conn2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in1</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in2</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="n">temp1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">in1</span><span class="w">   </span><span class="c1">// OK</span>
+<span class="w">  </span><span class="n">out</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">in1</span><span class="w">   </span><span class="c1">// Also OK! The same producer can connect to more than one consumer</span>
+<span class="w">  </span><span class="c1">// temp1 &lt;&gt; in2 // Bad connection! A second producer drives the same bits of `temp1`</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="dataflow-input-port-assignment-rule">Dataflow Input Port Assignment <code>:=</code> Rule<a class="headerlink" href="#dataflow-input-port-assignment-rule" title="Permanent link"></a></h3>
-<p>An input port cannot be assigned to. A connection must be used to transfer data to an input port, e.g.:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IO</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="c1">//OK! Can assign internally to an output port</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">Assign1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IO</span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">in</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Bad assignment! Must use a connection annotation</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">in</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Bad assignment! Output ports can only be assigned internally</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="immutable-value-connections">Immutable Value Connections<a class="headerlink" href="#immutable-value-connections" title="Permanent link"></a></h3>
-<p>When connecting a port to an immutable value, the port must be a consumer, meaning the connection is done internally to an output port or externally to an input port, e.g.:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IO</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="c1">//For brevity, we consider every connection/assignment in this example separately.</span>
-<span class="w">  </span><span class="c1">//We ignore multiple connection issues that should arise.</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Bad connection! 1 is immutable (constant)</span>
-<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="p">.</span><span class="n">prev</span><span class="w"> </span><span class="c1">//Bad connection! o.prev is immutable</span>
-<span class="w">  </span><span class="n">i</span><span class="p">.</span><span class="n">prev</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">IOUser</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IO</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Bad connection! 1 is immutable</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<div style="page-break-after: always;"></div>
-<h3 id="different-type-connections">Different Type Connections<a class="headerlink" href="#different-type-connections" title="Permanent link"></a></h3>
-<p>Connecting between different types is possible, but depends on the specific type: if it enables automatic conversion for the connection to succeed. Different port widths are considered different types and casting is required. An alias/casted/converted dataflow value is considered immutable for the connection (see above). Here are some examples:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">DifferentTypesConn</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ob9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFBits</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">u7</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">u9</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFBits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-
-<span class="w">  </span><span class="c1">//For brevity, we consider every connection/assignment in this example separately.</span>
-<span class="w">  </span><span class="c1">//We ignore multiple connection issues that should arise.</span>
-<span class="w">  </span><span class="n">u7</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="c1">//OK! u7 is automatically extended to connect to </span>
-<span class="w">  </span><span class="n">u7</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="c1">//Bad connection! u7 is considered immutable when extended to 8 bits</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="c1">//Bad connection! There is not automatic casting between bits and uint</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b8</span><span class="p">.</span><span class="n">uint</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">o</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="c1">//Bad connection! An alias of output port cannot be connected to</span>
-<span class="w">               </span><span class="c1">//This may change in the future.</span>
-<span class="w">  </span><span class="n">o</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">u9</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="c1">//OK! In this example u9 is the consumer</span>
-<span class="w">  </span><span class="n">ob9</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="c1">//Bad connection! Bit vectors are NOT automatically extended.</span>
-<span class="w">  </span><span class="n">ob9</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b8</span><span class="w"> </span><span class="c1">//Bad assignment! Bit vectors are NOT automatically extended.</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<div style="page-break-after: always;"></div>
-<h3 id="multiple-connections">Multiple Connections<a class="headerlink" href="#multiple-connections" title="Permanent link"></a></h3>
-<p>Two or more dataflow producers cannot be connected to the same consumer (a single producer can be connected to more than one consumer), e.g.:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">2</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">Conn2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">in2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="n">temp1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">in1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">out</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">in1</span><span class="w"> </span><span class="c1">//Also OK! (Same producer can connect to more than one cosumer)</span>
-<span class="w">  </span><span class="n">temp1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">in2</span><span class="w"> </span><span class="c1">//Bad connection! Second producer connection to temp1</span>
-
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">gen</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">temp3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="n">gen</span><span class="p">.</span><span class="n">out1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">gen</span><span class="p">.</span><span class="n">out1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp3</span><span class="w"> </span><span class="c1">//Also OK! (Same producer can connect to more than one cosumer)</span>
-<span class="w">  </span><span class="n">gen</span><span class="p">.</span><span class="n">out2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">temp2</span><span class="w"> </span><span class="c1">//Bad connection! Second producer connection to temp2</span>
-<span class="p">}</span><span class="w"> </span>
+<p>Because a partial selection is connectable, the same consumer may be driven by several connections that cover <em>disjoint</em> bit ranges:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Conn3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">out</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="c1">// OK: drives bits 3..0</span>
+<span class="w">  </span><span class="n">out</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">bits</span><span class="w"> </span><span class="c1">// OK: drives bits 7..4 (disjoint from the above)</span>
+<span class="w">  </span><span class="c1">// out(0) &lt;&gt; a(0)    // Bad connection! bit 0 is already driven above</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="mixing-assignments-and-connections">Mixing Assignments and Connections<a class="headerlink" href="#mixing-assignments-and-connections" title="Permanent link"></a></h3>
-<p>The same consumer cannot be both assigned to and connected to as the consumer, e.g.:</p>
+<p>The same consumer bit cannot be both assigned to (<code>:=</code>/<code>:==</code>) and connected to (<code>&lt;&gt;</code>), e.g.:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2265,65 +2215,40 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Conn3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">out1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">out1</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Bad assignment! Cannot assign to a connected dataflow variable</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Conn4</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">out1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">// OK</span>
+<span class="w">  </span><span class="c1">// out1 := 1 // Bad assignment! Cannot assign to a connected value</span>
 
-<span class="w">  </span><span class="n">out2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">out2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">//Bad connection! Cannot connect to an assigned dataflow variable</span>
+<span class="w">  </span><span class="n">out2</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="w">   </span><span class="c1">// OK</span>
+<span class="w">  </span><span class="c1">// out2 &lt;&gt; 2 // Bad connection! Cannot connect to an assigned value</span>
 
-<span class="w">  </span><span class="n">out3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">out3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="c1">//Also OK! (Multiple assignments are accepted)</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">out3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w">   </span><span class="c1">// OK</span>
+<span class="w">  </span><span class="n">out3</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span><span class="w">   </span><span class="c1">// Also OK! Multiple assignments to the same bits are accepted</span>
+</code></pre></div></td></tr></table></div>
+<p>Different bits of the same value may be split between an assignment and a connection, as long as the bit ranges are disjoint:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Conn5</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// OK: connection drives bits 3..0</span>
+<span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="c1">// OK: assignment drives bits 7..4 (disjoint from the above)</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="connection-statement-order">Connection Statement Order<a class="headerlink" href="#connection-statement-order" title="Permanent link"></a></h3>
-<p>The connection <code>&lt;&gt;</code> statement ordering does not matter.</p>
-<div style="page-break-after: always;"></div>
-<h3 id="connection-and-initial-conditions">Connection and Initial Conditions<a class="headerlink" href="#connection-and-initial-conditions" title="Permanent link"></a></h3>
-<p>A connection <code>&lt;&gt;</code> transfers initial conditions to the consumer, but if the consumer is already initialized then the consumer keeps its existing initial conditions. Here is an example:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IOInit</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w">        </span><span class="c1">//init = (11, 12) Overriden from TopInit connection</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c1">//init = (5)      Not overridden due to assignment</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">prev</span><span class="w">          </span><span class="c1">//init = (12)     Prev moves down the init queue</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">ip</span><span class="w"> </span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">TopInit</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span><span class="p">.</span><span class="n">init</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">//init = (1, 2)   The top-level initial conditions</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="c1">//init = (1)      Keeps its initializaion</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">iPlus10</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">10</span><span class="w">               </span><span class="c1">//init = (11, 12) Arithmetics affect init</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IOInit</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">inPlus10</span><span class="w">                                          </span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w">                                         </span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="1541618117728" src="1541618117728.png" /></p>
-<p>We learn from the above that port initial conditions are often overridden due to connections. So why should we apply initial conditions to a port? Answer: If we want to define what happens when a port is open (unconnected). Read the next two sections for more information.</p>
-<div style="page-break-after: always;"></div>
+<p>The order of <code>&lt;&gt;</code> connection statements does not matter.</p>
 <h3 id="connectivity-open-ports">Open (Unconnected) Ports<a class="headerlink" href="#connectivity-open-ports" title="Permanent link"></a></h3>
-<p>Ports have two connection sides: a consumer side and a producer side. Typically ports have both sides connected, except for top-level ports. When either port side is unconnected, we refer to it as <em>open</em>, and expect the following behavior:</p>
+<p>Ports have two connection sides: a consumer side and a producer side. Typically both sides are connected, except for top-level ports. When either side is unconnected, the port is <em>open</em>, with the following behavior:</p>
 <ul>
 <li>
-<p>When the port consumer side is open, the port produces tokens according to its initial condition. Uninitialized open-consumer ports generate bubble tokens.</p>
+<p>When the port consumer side is open, the port produces its initial value. An uninitialized open-consumer port produces a bubble (undefined) value.</p>
 </li>
 <li>
-<p>When the port producer side is open (unless it is a top-level output port), the port is considered as not used, and is pruned during compilation. All dataflow streams that are only used by this port will be pruned as well.</p>
+<p>When the port producer side is open (unless it is a top-level output port), the port is considered unused and is pruned during compilation, along with any logic used only to drive it.</p>
 </li>
 </ul>
 <p>To explicitly mark a port as unconnected, use the <code>OPEN</code> keyword with the <code>&lt;&gt;</code> connection operator:</p>
@@ -2353,164 +2278,84 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sensor_inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Sensor</span><span class="p">()</span>
 <span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">din</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span>
 <span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">dout</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">dout</span>
-<span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">debug</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OPEN</span><span class="w">  </span><span class="c1">// explicitly unconnected</span>
+<span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">debug</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OPEN</span><span class="w"> </span><span class="c1">// explicitly unconnected</span>
 </code></pre></div></td></tr></table></div>
-<p><strong>Note</strong>: <code>OPEN</code> can only be used with the <code>&lt;&gt;</code> connection operator. Using it with <code>:=</code> assignment will result in a compile error.</p>
-<div style="page-break-after: always;"></div>
-<h3 id="initial-condition-cyclic-loop-errors">Initial Condition Cyclic Loop Errors<a class="headerlink" href="#initial-condition-cyclic-loop-errors" title="Permanent link"></a></h3>
-<p>Connections enable dataflow feedbacks and even dataflow dependency loops. There is no problem in dependency loops, other than pipelining limitations (see chapter TBD for more information). However, if we only apply connections and references that transfer initial conditions, we end up with a cyclic dependency for initial condition which is illegal. Therefore to enable dependency loops, at least one link in the loop must be an assignment, which has an implicit state and does not affect initial conditions. Consider the following examples:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span>
-<span class="normal">18</span>
-<span class="normal">19</span>
-<span class="normal">20</span>
-<span class="normal">21</span>
-<span class="normal">22</span>
-<span class="normal">23</span>
-<span class="normal">24</span>
-<span class="normal">25</span>
-<span class="normal">26</span>
-<span class="normal">27</span>
-<span class="normal">28</span>
-<span class="normal">29</span>
-<span class="normal">30</span>
-<span class="normal">31</span>
-<span class="normal">32</span>
-<span class="normal">33</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IO1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="c1">//Connection transfers initial conditions from i to o</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">BadConnLoop1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IO1</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="c1">//Bad connection! An initial conditions cyclic loop</span>
-<span class="w">  </span><span class="n">o</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">IO2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span><span class="p">.</span><span class="n">prev</span><span class="w"> </span><span class="c1">//prev transfers initial conditions</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">BadConnLoop2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IO2</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="c1">//Bad connection! An initial conditions cyclic loop</span>
-<span class="w">  </span><span class="n">o</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">IO3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="c1">//Assignment does not affect initial conditions and therefore breaks the loop</span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">OKConnLoop</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IO3</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="c1">//OK!</span>
-<span class="w">  </span><span class="n">o</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="1541525350659" src="1541603175175.png" /></p>
-<p><strong>Note</strong>: when following the drawing convention within this document, we want to avoid a double-lined loop in order to avoid a cyclic initial conditions dependency.</p>
-<div style="page-break-after: always;"></div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p><code>OPEN</code> can only be used with the <code>&lt;&gt;</code> connection operator. Using it with <code>:=</code> assignment results in a compile error.</p>
+</div>
 <h2 id="valid-connection-and-assignment-examples">Valid Connection and Assignment Examples<a class="headerlink" href="#valid-connection-and-assignment-examples" title="Permanent link"></a></h2>
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IODesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IODesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span>
-<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531312715988" src="1541501963343.png" /></p>
+<div class="hdelk-diagram" id="hdelk-diagram-95081cc633f815e6e06fa1db253c5c83" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 156.111328125 86"><g><g><rect width="156.111328125" height="86" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="81.828125" height="52" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="35.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="40.03515625" y="34.1015625"><tspan dy="0" x="40.03515625">IODesign</tspan></text><g><line x1="28.517578125" y1="55" x2="125.4873046875" y2="55" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="122.4873046875" y="52"></rect></g><rect width="13.03515625" height="18" x="22" y="46" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="27" y="60.826171875"><tspan dy="0" x="27">i</tspan></text><rect width="17.248046875" height="18" x="116.86328125" y="46" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="121.86328125" y="60.826171875"><tspan dy="0" x="121.86328125">o</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IODesign1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IODesign1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
 <span class="w">  </span><span class="n">tmp</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i</span>
-<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">tmp</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">o</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">tmp</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531313031884" src="1541502005694.png" /></p>
+<div class="hdelk-diagram" id="hdelk-diagram-68933a1148b99b7f01069c8d769a7f68" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 145.259765625 103"><g><g><rect width="145.259765625" height="103" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="90.9765625" height="79" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="25.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="30.03515625" y="34.1015625"><tspan dy="0" x="30.03515625">IODesign1</tspan></text><g><line x1="25.03515625" y1="64" x2="37.03515625" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="34.03515625" y="61"></rect></g><g><line x1="81.37109375" y1="64" x2="116.01171875" y2="64" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="113.01171875" y="61"></rect></g><g><g><rect width="44.3359375" height="30" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="37.03515625" y="49"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="42.03515625" y="71.1015625"><tspan dy="0" x="42.03515625">tmp</tspan></text></g><rect width="13.03515625" height="18" x="12" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="69.826171875"><tspan dy="0" x="17">i</tspan></text><rect width="17.248046875" height="18" x="116.01171875" y="55" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="121.01171875" y="69.826171875"><tspan dy="0" x="121.01171875">o</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">IODesign2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">IODesign2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">o1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i1</span>
 <span class="w">  </span><span class="n">o2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i2</span>
-<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531313204197" src="1541501792059.png" /></p>
+<div class="hdelk-diagram" id="hdelk-diagram-6cdfb10246983969467a30493bfd4ec2" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 178.982421875 118"><g><g><rect width="178.982421875" height="118" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="90.9765625" height="74" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="41.896484375" y="22"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="46.896484375" y="44.1015625"><tspan dy="0" x="46.896484375">IODesign2</tspan></text><g><line x1="31.9482421875" y1="87" x2="144.927734375" y2="87" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="141.927734375" y="84"></rect></g><g><line x1="31.9482421875" y1="65" x2="144.927734375" y2="65" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="141.927734375" y="62"></rect></g><rect width="19.896484375" height="18" x="22" y="56" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="27" y="70.826171875"><tspan dy="0" x="27">i2</tspan></text><rect width="19.896484375" height="18" x="22" y="78" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="27" y="92.826171875"><tspan dy="0" x="27">i1</tspan></text><rect width="24.109375" height="18" x="132.873046875" y="78" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="137.873046875" y="92.826171875"><tspan dy="0" x="137.873046875">o1</tspan></text><rect width="24.109375" height="18" x="132.873046875" y="56" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="137.873046875" y="70.826171875"><tspan dy="0" x="137.873046875">o2</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Container</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IODesign</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">i</span><span class="w">    </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w">    </span><span class="c1">//Connecting between child output and owner output</span>
-<span class="p">}</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IODesign</span><span class="p">()</span>
+<span class="w">  </span><span class="n">i</span><span class="w">    </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">// connecting owner input to child input</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w">    </span><span class="c1">// connecting child output to owner output</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531313619621" src="1541502049075.png" /></p>
+<div class="hdelk-diagram" id="hdelk-diagram-4aa906751c8c6c23eebe18fb08950f84" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 173.4375 119"><g><g><rect width="173.4375" height="119" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="119.154296875" height="95" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="25.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="45.8623046875" y="34.1015625"><tspan dy="0" x="45.8623046875">Container</tspan></text><g><line x1="25.03515625" y1="72" x2="37.03515625" y2="72" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="34.03515625" y="69"></rect></g><g><line x1="132.189453125" y1="72" x2="144.189453125" y2="72" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="141.189453125" y="69"></rect></g><g><g><rect width="64.87109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="50.0703125" y="49"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="73.650390625" y="71.1015625"><tspan dy="0" x="73.650390625">io</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="55.0703125" y="86.826171875"><tspan dy="0" x="55.0703125">IODesign</tspan></text><rect width="13.03515625" height="18" x="37.03515625" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="42.03515625" y="77.826171875"><tspan dy="0" x="42.03515625">i</tspan></text><rect width="17.248046875" height="18" x="114.94140625" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="119.94140625" y="77.826171875"><tspan dy="0" x="119.94140625">o</tspan></text></g><rect width="13.03515625" height="18" x="12" y="63" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="77.826171875"><tspan dy="0" x="17">i</tspan></text><rect width="17.248046875" height="18" x="144.189453125" y="63" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="149.189453125" y="77.826171875"><tspan dy="0" x="149.189453125">o</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Container2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IODesign</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IODesign</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">i</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io1</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
-<span class="w">  </span><span class="n">io1</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io2</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">//Connecting between siblings (output &lt;&gt; input)</span>
-<span class="w">  </span><span class="n">io2</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w">     </span><span class="c1">//Connecting between child output and owner output</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="1531314589019" src="1541502098181.png" /></p>
-<hr />
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -2518,78 +2363,65 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Container3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IODesign2</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i1</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
-<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i2</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IODesign</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IODesign</span><span class="p">()</span>
+<span class="w">  </span><span class="n">i</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io1</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">// connecting owner input to child input</span>
+<span class="w">  </span><span class="n">io1</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io2</span><span class="p">.</span><span class="n">i</span><span class="w"> </span><span class="c1">// connecting between siblings (output &lt;&gt; input)</span>
+<span class="w">  </span><span class="n">io2</span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">o</span><span class="w">     </span><span class="c1">// connecting child output to owner output</span>
+</code></pre></div></td></tr></table></div>
+<div class="hdelk-diagram" id="hdelk-diagram-7b9180a8237607222b612c013c101c2b" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 288.591796875 119"><g><g><rect width="288.591796875" height="119" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="234.30859375" height="95" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="25.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="98.865234375" y="34.1015625"><tspan dy="0" x="98.865234375">Container2</tspan></text><g><line x1="25.03515625" y1="72" x2="37.03515625" y2="72" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="34.03515625" y="69"></rect></g><g><line x1="132.189453125" y1="72" x2="152.189453125" y2="72" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="149.189453125" y="69"></rect></g><g><line x1="247.34375" y1="72" x2="259.34375" y2="72" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="256.34375" y="69"></rect></g><g><g><rect width="64.87109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="50.0703125" y="49"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="69.076171875" y="71.1015625"><tspan dy="0" x="69.076171875">io1</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="55.0703125" y="86.826171875"><tspan dy="0" x="55.0703125">IODesign</tspan></text><rect width="13.03515625" height="18" x="37.03515625" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="42.03515625" y="77.826171875"><tspan dy="0" x="42.03515625">i</tspan></text><rect width="17.248046875" height="18" x="114.94140625" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="119.94140625" y="77.826171875"><tspan dy="0" x="119.94140625">o</tspan></text></g><g><g><rect width="64.87109375" height="46" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="165.224609375" y="49"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="184.23046875" y="71.1015625"><tspan dy="0" x="184.23046875">io2</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="170.224609375" y="86.826171875"><tspan dy="0" x="170.224609375">IODesign</tspan></text><rect width="13.03515625" height="18" x="152.189453125" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="157.189453125" y="77.826171875"><tspan dy="0" x="157.189453125">i</tspan></text><rect width="17.248046875" height="18" x="230.095703125" y="63" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="235.095703125" y="77.826171875"><tspan dy="0" x="235.095703125">o</tspan></text></g><rect width="13.03515625" height="18" x="12" y="63" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="77.826171875"><tspan dy="0" x="17">i</tspan></text><rect width="17.248046875" height="18" x="259.34375" y="63" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="264.34375" y="77.826171875"><tspan dy="0" x="264.34375">o</tspan></text></g></g></svg>
+</div>
+</div>
+<hr />
+<div class="grid">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container3</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IODesign2</span><span class="p">()</span>
+<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i1</span><span class="w"> </span><span class="c1">// connecting owner input to child input</span>
+<span class="w">  </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i2</span><span class="w"> </span><span class="c1">// connecting owner input to child input</span>
 <span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">o1</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o2</span><span class="p">)</span>
-<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531322811065" src="1541502127823.png" /></p>
+<div class="hdelk-diagram" id="hdelk-diagram-177c2c59e46f7016b262af6a931e49e4" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 257.169921875 121"><g><g><rect width="257.169921875" height="121" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="202.88671875" height="97" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="25.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="83.154296875" y="34.1015625"><tspan dy="0" x="83.154296875">Container3</tspan></text><g><line x1="25.03515625" y1="62" x2="57.03515625" y2="62" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="54.03515625" y="59"></rect></g><g><polyline points="25.03515625,62 47.03515625,62 47.03515625,84 57.03515625,84" fill="none" stroke-width="1" stroke="var(--edge-color)"></polyline><rect width="6" height="6" fill="var(--edge-color)" x="54.03515625" y="81"></rect></g><g><polyline points="172.7734375,84 182.7734375,84 182.7734375,72 192.7734375,72" fill="none" stroke-width="1" stroke="var(--edge-color)"></polyline><rect width="6" height="6" fill="var(--edge-color)" x="189.7734375" y="69"></rect></g><g><line x1="172.7734375" y1="62" x2="192.7734375" y2="62" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="189.7734375" y="59"></rect></g><g><line x1="215.921875" y1="67" x2="227.921875" y2="67" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="224.921875" y="64"></rect></g><g><g><rect width="71.732421875" height="48" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="76.931640625" y="49"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="103.9423828125" y="72.1015625"><tspan dy="0" x="103.9423828125">io</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="81.931640625" y="87.826171875"><tspan dy="0" x="81.931640625">IODesign2</tspan></text><rect width="19.896484375" height="18" x="57.03515625" y="75" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="62.03515625" y="89.826171875"><tspan dy="0" x="62.03515625">i2</tspan></text><rect width="19.896484375" height="18" x="57.03515625" y="53" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="62.03515625" y="67.826171875"><tspan dy="0" x="62.03515625">i1</tspan></text><rect width="24.109375" height="18" x="148.6640625" y="75" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="153.6640625" y="89.826171875"><tspan dy="0" x="153.6640625">o1</tspan></text><rect width="24.109375" height="18" x="148.6640625" y="53" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="153.6640625" y="67.826171875"><tspan dy="0" x="153.6640625">o2</tspan></text></g><g><g><rect width="23.1484375" height="30" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="192.7734375" y="52"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="197.7734375" y="74.1015625"><tspan dy="0" x="197.7734375">+</tspan></text></g><rect width="13.03515625" height="18" x="12" y="53" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="67.826171875"><tspan dy="0" x="17">i</tspan></text><rect width="17.248046875" height="18" x="227.921875" y="58" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="232.921875" y="72.826171875"><tspan dy="0" x="232.921875">o</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
+<div class="grid">
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Container4</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IODesign2</span><span class="w"> </span><span class="p">{}</span>
-<span class="w">  </span><span class="n">i</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i1</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w">     </span><span class="c1">//Connecting between constant value and child input</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Container4</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IODesign2</span><span class="p">()</span>
+<span class="w">  </span><span class="n">i</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i1</span><span class="w"> </span><span class="c1">// connecting owner input to child input</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">5</span><span class="w">     </span><span class="c1">// connecting a constant value to a child input</span>
 <span class="w">  </span><span class="n">o</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o2</span>
-<span class="p">}</span>
 </code></pre></div></td></tr></table></div>
-<p><img alt="1531344446287" src="1541502151965.png" /></p>
-<hr />
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
-<span class="normal"> 2</span>
-<span class="normal"> 3</span>
-<span class="normal"> 4</span>
-<span class="normal"> 5</span>
-<span class="normal"> 6</span>
-<span class="normal"> 7</span>
-<span class="normal"> 8</span>
-<span class="normal"> 9</span>
-<span class="normal">10</span>
-<span class="normal">11</span>
-<span class="normal">12</span>
-<span class="normal">13</span>
-<span class="normal">14</span>
-<span class="normal">15</span>
-<span class="normal">16</span>
-<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">trait</span><span class="w"> </span><span class="nc">Blank2</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w">    </span>
-<span class="p">}</span>
-<span class="k">trait</span><span class="w"> </span><span class="nc">Container5</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">DFDesign</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DFUInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Blank2</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">o1</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i1</span><span class="w"> </span><span class="c1">//Assignment</span>
-<span class="w">    </span><span class="n">o2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">i2</span><span class="w"> </span><span class="c1">//Internal connection   </span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">i</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">i1</span><span class="w"> </span><span class="c1">//Connecting between owner input and child input</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">i2</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o1</span><span class="w"> </span><span class="c1">//External connection between child input/output creates a feeback</span>
-<span class="w">  </span><span class="n">o</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">o2</span>
-<span class="p">}</span>
-</code></pre></div></td></tr></table></div>
-<p><img alt="1531345077704" src="1541609861696.png" /></p>
-<p>Note: although there is a feedback in this design, there is no circular initial conditions dependency.</p>
+<div class="hdelk-diagram" id="hdelk-diagram-85a112158c766eed03aa80061f3253d3" style="width: 100%;">
+    <svg xmlns="http://www.w3.org/2000/svg" version="1.1" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%" viewBox="0 0 237.169921875 123"><g><g><rect width="237.169921875" height="123" fill="var(--node-fill-color)" stroke-width="0" stroke="var(--port-fill-color)" x="0" y="0"></rect></g><g><g><rect width="182.88671875" height="99" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)" x="25.03515625" y="12"></rect></g><text font-size="16" fill="var(--node-name-text-color)" x="73.154296875" y="34.1015625"><tspan dy="0" x="73.154296875">Container4</tspan></text><g><polyline points="25.03515625,58 70.18359375,58 70.18359375,62 80.18359375,62" fill="none" stroke-width="1" stroke="var(--edge-color)"></polyline><rect width="6" height="6" fill="var(--edge-color)" x="77.18359375" y="59"></rect></g><g><line x1="60.18359375" y1="84" x2="80.18359375" y2="84" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="77.18359375" y="81"></rect></g><g><line x1="195.921875" y1="84" x2="207.921875" y2="84" stroke-width="1" stroke="var(--edge-color)"></line><rect width="6" height="6" fill="var(--edge-color)" x="204.921875" y="81"></rect></g><g><g><polygon points="37.03515625,69 50.18359375,69 60.18359375,79 60.18359375,99 37.03515625,99" fill="var(--node-fill-color)" stroke-width="1" stroke="var(--port-fill-color)"></polygon></g><text font-size="16" fill="var(--node-name-text-color)" x="42.03515625" y="91.1015625"><tspan dy="0" x="42.03515625">5</tspan></text></g><g><g><rect width="71.732421875" height="48" fill="var(--node-highlight-fill-color-2)" stroke-width="2" stroke="var(--port-highlight-fill-color-2)" x="100.080078125" y="49"></rect></g><text font-size="16" fill="var(--node-highlight-name-text-color-2)" x="127.0908203125" y="72.1015625"><tspan dy="0" x="127.0908203125">io</tspan></text><text font-size="12" fill="var(--node-type-text-color)" x="105.080078125" y="87.826171875"><tspan dy="0" x="105.080078125">IODesign2</tspan></text><rect width="19.896484375" height="18" x="80.18359375" y="75" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="85.18359375" y="89.826171875"><tspan dy="0" x="85.18359375">i2</tspan></text><rect width="19.896484375" height="18" x="80.18359375" y="53" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="85.18359375" y="67.826171875"><tspan dy="0" x="85.18359375">i1</tspan></text><rect width="24.109375" height="18" x="171.8125" y="53" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="176.8125" y="67.826171875"><tspan dy="0" x="176.8125">o1</tspan></text><rect width="24.109375" height="18" x="171.8125" y="75" fill="var(--port-highlight-fill-color-2)" stroke-width="0" stroke="var(--port-highlight-fill-color-2)"></rect><text font-size="12" fill="var(--port-text-color)" x="176.8125" y="89.826171875"><tspan dy="0" x="176.8125">o2</tspan></text></g><rect width="13.03515625" height="18" x="12" y="49" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="17" y="63.826171875"><tspan dy="0" x="17">i</tspan></text><rect width="17.248046875" height="18" x="207.921875" y="75" fill="var(--port-fill-color)" stroke-width="0" stroke="var(--port-fill-color)"></rect><text font-size="12" fill="var(--port-text-color)" x="212.921875" y="89.826171875"><tspan dy="0" x="212.921875">o</tspan></text></g></g></svg>
+</div>
+</div>
 <hr />
 <h2 id="magnet-port-connections">Magnet Port Connections<a class="headerlink" href="#magnet-port-connections" title="Permanent link"></a></h2>
 <h2 id="future-work">Future Work<a class="headerlink" href="#future-work" title="Permanent link"></a></h2>
 <ul>
 <li>In the future <code>&lt;&gt;</code> will be used to connect multi-port interfaces.</li>
-<li>We will add support to treat an alias of a port as a port when connection <code>&lt;&gt;</code> rules are enforced.</li>
-<li>Connecting between any ancestor which is not a parent and child. Currently not supported fully.</li>
+<li>Connecting between any ancestor which is not a direct parent and child. Currently not fully supported.</li>
 </ul>
 
 
@@ -2694,8 +2526,6 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
       
         <script src="../../javascripts/config.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
       
         <script src="https://scastie.scala-lang.org/embedded.js"></script>
@@ -2704,7 +2534,7 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
       
         <script src="../../javascripts/d3.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.9.3/lib/elk.bundled.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.11.1/lib/elk.bundled.js"></script>
       
         <script src="../../javascripts/d3-hwschematic.js"></script>
       

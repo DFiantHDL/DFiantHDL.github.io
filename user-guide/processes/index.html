@@ -2172,6 +2172,23 @@
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">The inline single-line <code>process(all): stmt</code> form does not parse</p>
+<p>A process body must be a <strong>block</strong>, not an inline statement on the same line as the <code>process(...)</code> colon. Writing the body inline like <code>process(all): y := a + b</code> does <strong>not</strong> parse. Use one of these two accepted forms instead:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// 1. Braces around the body (body may be on the same line)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="p">}</span>
+
+<span class="c1">// 2. Colon with the body on the next, indented line</span>
+<span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
+</code></pre></div></td></tr></table></div>
+<p>This applies to every process form (<code>process(sig)</code>, <code>process(all)</code>, <code>process(clk)</code>, etc.).</p>
+</div>
 <h3 id="forever-process-processforever-process">Forever process: <code>process.forever</code> / <code>process</code><a class="headerlink" href="#forever-process-processforever-process" title="Permanent link"></a></h3>
 <p>A process with no sensitivity list runs continuously. It is allowed in <abbr title="Register-Transfer">RT</abbr> and <abbr title="Event-Driven">ED</abbr>, but <strong>not</strong> in <abbr title="Dataflow">DF</abbr>. The shorthand <code>process:</code> (no arguments) is rewritten by the compiler to <code>process.forever</code>.</p>
 <ul>
@@ -2217,6 +2234,63 @@
 <span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
 <span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
 </code></pre></div></td></tr></table></div>
+<p>For the <strong>Verilog-style async reset</strong> pattern, put the edges in the sensitivity list and branch on reset only:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title"><abbr title="Event-Driven">ED</abbr> is a faithful mirror of Verilog/VHDL — write synthesizable patterns</p>
+<p>The <abbr title="Event-Driven">ED</abbr> domain is intentionally a low-level, faithful mapping to Verilog <code>always</code> blocks / VHDL <code>process</code> blocks. <strong>DFHDL does not enforce synthesizability in the <abbr title="Event-Driven">ED</abbr> domain.</strong> If you describe a non-synthesizable process pattern, the generated Verilog/VHDL will faithfully reflect that pattern — and downstream synthesis (or even a parser like Yosys) may reject it.</p>
+<p>It is your responsibility to write process bodies that match a synthesizable template. In particular, when an edge is <strong>already in the sensitivity list</strong>, do not re-check that edge inside the body — the body has already been triggered by it.</p>
+<p><strong>Non-synthesizable</strong> (clock edge appears both in sensitivity list and as a nested <code>else if</code>):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// BAD: emits `else if (posedge clk)` inside an always_ff — not valid Verilog</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span><span class="w">   </span><span class="c1">// redundant — body already runs on rising clk</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>Synthesizable</strong> equivalents — pick the style that matches the intent:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Verilog-style async reset: edges in the sensitivity list, branch on reset only</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="c1">// VHDL-style: list the signals, branch on reset, then on the clock edge</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+<p>The rule of thumb: an edge qualifier (<code>.rising</code> / <code>.falling</code>) belongs in <strong>either</strong> the sensitivity list <strong>or</strong> an <code>if</code> inside the body — not both for the same signal.</p>
+</div>
 <h2 id="assignments-inside-processes">Assignments inside processes<a class="headerlink" href="#assignments-inside-processes" title="Permanent link"></a></h2>
 <h3 id="blocking-assignment">Blocking assignment <code>:=</code><a class="headerlink" href="#blocking-assignment" title="Permanent link"></a></h3>
 <p>Takes effect immediately within the process. Use for combinational logic and for intermediate values that are read later in the same process.</p>
@@ -2416,8 +2490,6 @@
       
         <script src="../../javascripts/config.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
       
         <script src="https://scastie.scala-lang.org/embedded.js"></script>
@@ -2426,7 +2498,7 @@
       
         <script src="../../javascripts/d3.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.9.3/lib/elk.bundled.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.11.1/lib/elk.bundled.js"></script>
       
         <script src="../../javascripts/d3-hwschematic.js"></script>
       

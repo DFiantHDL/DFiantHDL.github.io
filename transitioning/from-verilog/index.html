@@ -2166,8 +2166,8 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <p>There is no <code>&gt;&gt;&gt;</code> operator in DFHDL. The type of the <abbr title="Left-hand Side">LHS</abbr> determines the shift semantics: <code>&gt;&gt;</code> on <code>UInt</code>/<code>Bits</code> zero-fills, <code>&gt;&gt;</code> on <code>SInt</code> sign-extends. See <a class="autorefs autorefs-internal" title="Shift Operations (" href="../../user-guide/type-system/#shift-ops">Shift Operations</a> for details.</p>
 </div>
 <div class="admonition verilog">
-<p class="admonition-title">Bit/Boolean Operators: <code>|</code>/<code>&amp;</code> and <code>||</code>/<code>&amp;&amp;</code></p>
-<p>In DFHDL, <code>||</code>/<code>&amp;&amp;</code> and <code>|</code>/<code>&amp;</code> are interchangeable on <code>Bit</code> and <code>Boolean</code> types. The generated Verilog operator depends on the <abbr title="Left-hand Side">LHS</abbr> type: <code>Bit</code> produces bitwise <code>|</code>/<code>&amp;</code>, <code>Boolean</code> produces logical <code>||</code>/<code>&amp;&amp;</code>.</p>
+<p class="admonition-title">Bit/Boolean Operators: <code>|</code>/<code>&amp;</code>/<code>~</code> and <code>||</code>/<code>&amp;&amp;</code>/<code>!</code></p>
+<p>In DFHDL, <code>||</code>/<code>&amp;&amp;</code>/<code>!</code> and <code>|</code>/<code>&amp;</code>/<code>~</code> are interchangeable on <code>Bit</code> and <code>Boolean</code> types. The generated Verilog operator depends on the <abbr title="Left-hand Side">LHS</abbr> type: <code>Bit</code> produces bitwise <code>|</code>/<code>&amp;</code>/<code>~</code>, <code>Boolean</code> produces logical <code>||</code>/<code>&amp;&amp;</code>/<code>!</code>.</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
 <span class="k">output</span><span class="w"> </span><span class="n">o1</span><span class="p">,</span><span class="w"> </span><span class="n">o2</span><span class="p">,</span><span class="w"> </span><span class="n">o3</span><span class="p">;</span>
@@ -2302,7 +2302,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span><span class="c1">// single bit</span>
 </code></pre></div>
 </div>
-<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax. Slicing preserves the source type:</p>
+<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code> and <code>.lsbits(W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result — <code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>:</p>
 <table>
 <thead>
 <tr>
@@ -2321,17 +2321,21 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </tr>
 <tr>
 <td><code>SInt[N]</code></td>
-<td><code>SInt</code></td>
+<td><code>UInt</code> (chain <code>.bits.sint</code> to re-interpret as signed)</td>
 </tr>
 </tbody>
 </table>
-<p>You do <strong>not</strong> need to convert <code>SInt</code> to <code>Bits</code> before slicing — the result is already <code>SInt</code>:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
-<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">top8</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">  </span><span class="c1">// 8-bit SInt slice</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">sign</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w">     </span><span class="c1">// single bit access</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top8U</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">             </span><span class="c1">// UInt[8]: raw upper byte</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top8M</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w">          </span><span class="c1">// UInt[8]: same as prod(15, 8)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top8S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">).</span><span class="n">bits</span><span class="p">.</span><span class="n">sint</span><span class="w">   </span><span class="c1">// SInt[8]: sign-preserving truncation</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">sign</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w">                </span><span class="c1">// single-bit access (Bit)</span>
 </code></pre></div></td></tr></table></div>
+<p>To recover signed semantics on a slice, chain <code>.bits.sint</code> (re-interpret the bits as signed, same width). Do <strong>not</strong> use <code>.signed</code> for this — <code>.signed</code> is a numeric conversion that widens by one zero-extension bit, which is not what slice migration wants.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Arithmetic with Signed Values and Constants</p>
@@ -2449,7 +2453,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <div class="admonition verilog">
 <p class="admonition-title">Integer Literal Width and Silent Overflow</p>
 <p>In Verilog, unsized integer literals are 32-bit. When combined with narrower signals, the wider literal causes the entire expression to evaluate at 32-bit width via context-dependent propagation. This prevents intermediate overflow in expressions like <code>(a + b + c + d) / 4</code>.</p>
-<p>In DFHDL, Scala <code>Int</code> literals are implicitly converted to minimum-width bit-accurate types (e.g., <code>4</code> becomes <code>UInt[3]</code>). Each arithmetic operation independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate results can overflow before reaching a division or shift.</p>
+<p>In DFHDL, Scala <code>Int</code> literals are implicitly converted to minimum-width bit-accurate types (e.g., <code>4</code> becomes <code>UInt[3]</code>). Each arithmetic operation independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate results can overflow before reaching a division, shift, comparison, or wider-target assignment.</p>
 <p>DFHDL detects this pattern at elaboration and issues a warning. See <a class="autorefs autorefs-internal" title="Arithmetic Operations (" href="../../user-guide/type-system/#arithmetic-ops">Implicit Scala <code>Int</code> and Verilog-semantics mismatch</a> for the full list of warning triggers.</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
@@ -2708,8 +2712,6 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
       
         <script src="../../javascripts/config.js"></script>
       
-        <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
-      
         <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
       
         <script src="https://scastie.scala-lang.org/embedded.js"></script>
@@ -2718,7 +2720,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
       
         <script src="../../javascripts/d3.js"></script>
       
-        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.9.3/lib/elk.bundled.js"></script>
+        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.11.1/lib/elk.bundled.js"></script>
       
         <script src="../../javascripts/d3-hwschematic.js"></script>
       
