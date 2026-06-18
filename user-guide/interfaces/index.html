@@ -25,7 +25,7 @@
     
     
       
-        <title>Interfaces [WIP] - DFiant HDL (DFHDL)</title>
+        <title>Index - DFiant HDL (DFHDL)</title>
       
     
     
@@ -102,7 +102,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#interfaces" class="md-skip">
+        <a href="#interfaces_1" class="md-skip">
           Skip to content
         </a>
       
@@ -177,7 +177,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Interfaces [WIP]
+              Index
             
           </span>
         </div>
@@ -1521,6 +1521,275 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#what-interfaces-are-for" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What Interfaces Are For
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#declaring-an-interface" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Declaring an Interface
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Declaring an Interface">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#interface-dcl-syntax" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Syntax
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#protected-rule" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Ports and Parameters Must Be protected
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#stream-example" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Example: a parameterized handshake
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Views
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Views">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#defining-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Defining views
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#direction-perspective" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Direction perspective
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#flip" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        flip: the converse view
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#generic-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The generic view
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#anchored-ports" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anchored-Direction Ports
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anchored-Direction Ports">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#anchored-connections" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How anchored ports affect connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#using-an-interface-in-a-design" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Using an Interface in a Design
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Using an Interface in a Design">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#instantiation" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Instantiation
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#projecting-a-view" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projecting a view: instance.view.ASIS
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Projecting a view: instance.view.ASIS">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#projection-terminals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Projection terminals
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#connecting-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Connecting views with &lt;&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#nested-interfaces" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Nested Interfaces
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#vector-views" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Vector Views
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#generated-hdl" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        How Interfaces Map to Generated HDL
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#restrictions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Restrictions Summary
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1539,13 +1808,427 @@
   
 
 
-<h1 id="interfaces">Interfaces [WIP]<a class="headerlink" href="#interfaces" title="Permanent link"></a></h1>
+<p><a href="" id="interfaces"></a></p>
+<h1 id="interfaces_1">Interfaces<a class="headerlink" href="#interfaces_1" title="Permanent link"></a></h1>
+<p>An <em>interface</em> groups a set of related ports (and the parameters that shape them) into
+a single, reusable bundle, and describes, through one or more <em>views</em>, how that bundle
+is driven from each side of a connection. Interfaces let you declare a protocol such as a
+streaming handshake or an AXI bus <em>once</em>, then wire it between designs with a single <code>&lt;&gt;</code>
+connection instead of dozens of per-port connections.</p>
+<div class="grid">
+<div class="admonition quote">
+<p class="admonition-title">Terminology</p>
+<ul>
+<li><em>interface</em> - A Scala class extending <code>Interface</code> that bundles related ports and
+  parameters. It is purely structural: it carries ports and views but no behavior (no
+  processes, connections, or assignments).</li>
+<li><em>port</em> - A value declared inside an interface (e.g. <code>Bits(8) &lt;&gt; VAR</code>). Ports are
+  internal to the interface and are exposed only through a view.</li>
+<li><em>flippable port</em> - A <code>&lt;&gt; VAR</code> port: undirected at declaration, given a <em>relative</em>
+  direction by each view (opposite on the two ends of a connection). This is the default.</li>
+<li><em>anchored-direction port</em> - A <code>&lt;&gt; IN</code> or <code>&lt;&gt; OUT</code> port: its direction is <em>absolute</em> (the
+  same for every side, never reversed by <code>flip</code>), like a clock or reset.</li>
+<li><em>view</em> - A named, directional projection of an interface's ports. A view assigns each
+  port a direction (<code>in</code>/<code>out</code>) <em>from the point of view of the design that uses it</em>. An
+  interface may declare several views over the same ports.</li>
+<li><em>flip</em> - The converse of a view: every flippable <code>in</code> becomes <code>out</code> and every <code>out</code> becomes
+  <code>in</code>. Used to derive the opposite side of a protocol (e.g. <code>subordinate = manager.flip</code>).</li>
+<li><em>interface instance</em> - An interface class instantiated inside a design, exactly like a
+  child design instance.</li>
+</ul>
+</div>
+<div class="highlight"><span class="filename">A streaming handshake interface, used by two designs</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">ready</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="c1">// the producer drives data+valid and reads ready</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">valid</span><span class="p">).</span><span class="n">in</span><span class="p">(</span><span class="n">ready</span><span class="p">)</span>
+<span class="w">  </span><span class="c1">// the consumer side is simply the converse</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sink</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">flip</span>
+</code></pre></div>
+</div>
+<h2 id="what-interfaces-are-for">What Interfaces Are For<a class="headerlink" href="#what-interfaces-are-for" title="Permanent link"></a></h2>
+<p>Hardware protocols rarely consist of a single wire. A handshake carries <code>data</code>, <code>valid</code>,
+and <code>ready</code>; an AXI channel carries a dozen signals that always travel together and always
+have a fixed relative direction. Declaring and connecting those signals individually is
+verbose and error-prone; a single flipped direction or forgotten port is a connectivity
+bug.</p>
+<p>Interfaces solve this by letting you:</p>
+<ul>
+<li><strong>Bundle related ports</strong> into one named, parameterized unit that can be instantiated
+  anywhere a child design can.</li>
+<li><strong>Declare directionality once</strong> with a <em>view</em>, and obtain the opposite side for free with
+  <code>flip</code> (so a <code>manager</code>/<code>subordinate</code> or <code>source</code>/<code>sink</code> pair is always consistent).</li>
+<li><strong>Connect an entire protocol with one <code>&lt;&gt;</code></strong>, with the connection checked port-by-port
+  through the whole (possibly nested) hierarchy.</li>
+<li><strong>Map to native target constructs</strong> (SystemVerilog <code>interface</code>/<code>modport</code> and VHDL-2019
+  mode views) while remaining portable to every tool through an automatic flattening
+  fallback (see <a href="#generated-hdl">Generated <abbr title="Hardware Description Language">HDL</abbr></a>).</li>
+</ul>
+<p>Interfaces are the DFHDL analog of a SystemVerilog <code>interface</code> with <code>modport</code>s, or a
+VHDL-2019 record with mode <code>view</code>s.</p>
+<h2 id="declaring-an-interface">Declaring an Interface<a class="headerlink" href="#declaring-an-interface" title="Permanent link"></a></h2>
+<h3 id="interface-dcl-syntax">Syntax<a class="headerlink" href="#interface-dcl-syntax" title="Permanent link"></a></h3>
+<p>An interface declaration follows standard <a href="https://docs.scala-lang.org/tour/classes.html" target="_blank">Scala class</a>
+syntax and extends the <code>Interface</code> base class:</p>
+<div class="highlight"><span class="filename">Interface declaration syntax</span><pre><span></span><code><span class="cm">/** _documentation_ */</span>
+<span class="p">[</span><span class="n">_modifiers_</span><span class="p">]</span><span class="w"> </span><span class="k">class</span><span class="w"> </span><span class="nc">_name_</span><span class="p">(</span><span class="n">_params_</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">_port_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_type_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">   </span><span class="c1">// one or more ports</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">_view_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">_dir_</span><span class="p">(</span><span class="n">_ports_</span><span class="p">)...</span><span class="w">    </span><span class="c1">// one or more views</span>
+<span class="k">end</span><span class="w"> </span><span class="nn">_name_</span><span class="w"> </span><span class="c1">//optional `end` marker</span>
+</code></pre></div>
+<ul>
+<li>
+<p><strong><code>_name_</code></strong> - The Scala class name for the interface. As with designs, this name is
+  preserved by the DFHDL compiler and used in generated artifacts (the SystemVerilog
+  <code>interface</code> name / VHDL record name) and in error messages. See <a class="autorefs autorefs-internal" title="Naming" href="../naming/#naming">naming</a>.</p>
+</li>
+<li>
+<p><strong><code>(_params_)</code></strong> - An optional parameter block, identical to a
+  <a class="autorefs autorefs-internal" title="Parameter Block Syntax" href="../design-hierarchy/#design-params-syntax">design parameter block</a>. DFHDL parameters (<code>_type_ &lt;&gt; CONST</code>) are
+  preserved through compilation and may shape port widths; pure Scala parameters are
+  inlined during elaboration. Interface parameters must be <code>protected</code> (see below).</p>
+</li>
+<li>
+<p><strong><code>_port_</code></strong> - An interface port, declared just like a design <a class="autorefs autorefs-internal" title="Variable and Port Declarations" href="../type-system/#Dcl">variable/port</a>. A
+  <code>&lt;&gt; VAR</code> port is <em>flippable</em>: undirected at declaration, with a view assigning its direction.
+  A <code>&lt;&gt; IN</code> or <code>&lt;&gt; OUT</code> port is <em>anchored</em>: its direction is fixed at declaration and never
+  reversed by a view or by <code>flip</code> (see <a href="#anchored-ports">Anchored-Direction Ports</a>). Ports
+  must be <code>protected</code>.</p>
+</li>
+<li>
+<p><strong><code>_view_</code></strong> - A named view built with the <code>view</code> builder (see <a href="#views">Views</a>).</p>
+</li>
+</ul>
+<p>Unlike a design, an interface is <strong>domain-neutral</strong>: there is a single <code>Interface</code> base
+class rather than <code>DF</code>/<code>RT</code>/<code>ED</code> variants, and the same interface can be instantiated
+inside a design of any <a class="autorefs autorefs-internal" title="Design Domains" href="../design-domains/#design-domains">domain</a>.</p>
+<h3 id="protected-rule">Ports and Parameters Must Be <code>protected</code><a class="headerlink" href="#protected-rule" title="Permanent link"></a></h3>
+<p>Every port and DFHDL parameter of an interface must be declared <code>protected</code> (or
+<code>private</code>). This is enforced by the DFHDL compiler plugin:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">BadIfc</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">   </span><span class="c1">// error: interface ports must be `protected`</span>
+</code></pre></div>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GoodIfc</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">  </span><span class="c1">// OK</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">mon</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="n">data</span><span class="p">)</span><span class="w">             </span><span class="c1">// views stay public; they are the public surface</span>
+</code></pre></div>
+<div class="admonition note">
+<p class="admonition-title">Why ports are protected</p>
+<p>A view, not a raw port, is the public surface of an interface. Ports are the internal
+wiring, reachable only through a view's <code>.ASIS</code> projection. Marking them <code>protected</code> means
+Scala's own access control (enforced by the typechecker) blocks any <code>ifc.data</code> selection
+from outside the interface, and the ports are hidden from IDE autocomplete. This keeps every
+connection going through a <em>directed</em> view, so the compiler can check directionality. The
+rule applies transitively: ports declared in a subclass of an interface must be <code>protected</code>
+too.</p>
+</div>
+<h3 id="stream-example">Example: a parameterized handshake<a class="headerlink" href="#stream-example" title="Permanent link"></a></h3>
+<div class="admonition example">
+<p class="admonition-title">A reusable streaming handshake interface</p>
+<p>The <code>Stream</code> interface below bundles a <code>data</code> bus with a <code>valid</code>/<code>ready</code> handshake. The
+<code>width</code> of the data bus is a DFHDL parameter, so it is preserved in the generated backend
+code. Two views describe the two sides of the protocol: <code>source</code> (the producer) drives
+<code>data</code> and <code>valid</code> and reads <code>ready</code>; <code>sink</code> (the consumer) is simply its converse.</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">ready</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">valid</span><span class="p">).</span><span class="n">in</span><span class="p">(</span><span class="n">ready</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sink</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">flip</span>
+</code></pre></div>
+</div>
+<h2 id="views">Views<a class="headerlink" href="#views" title="Permanent link"></a></h2>
+<p>A <em>view</em> is a named, directional projection of an interface's ports. Each port that
+participates in a view is given a direction with <code>view.in(...)</code> or <code>view.out(...)</code>, and an
+interface may declare any number of views over the same ports (e.g. a producer view, a
+consumer view, and a monitor view).</p>
+<h3 id="defining-views">Defining views<a class="headerlink" href="#defining-views" title="Permanent link"></a></h3>
+<p>Views are created with the <code>view</code> builder inside the interface body. Calls can be chained
+to mix directions:</p>
+<div class="highlight"><span class="filename">View builder forms</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">v1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span><span class="w">          </span><span class="c1">// a, b are outputs of the using design</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">v2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">in</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">)</span><span class="w">        </span><span class="c1">// a, b, c are inputs of the using design</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">v3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">in</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">).</span><span class="n">out</span><span class="p">(</span><span class="n">c</span><span class="p">)</span><span class="w">    </span><span class="c1">// mixed: a, b inputs; c output</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">v4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">in</span><span class="p">(</span><span class="n">a</span><span class="p">).</span><span class="n">inout</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w">     </span><span class="c1">// b is bidirectional</span>
+</code></pre></div>
+<p>The ports passed to <code>view.in</code>/<code>view.out</code>/<code>view.inout</code> must be ports declared in <em>this</em>
+interface; the builder reads them by reference. A view is itself a public <code>val</code>; it is the
+member you reach through from outside the interface. A port given <code>inout</code> keeps that direction
+under <code>flip</code> (<code>inout</code> is its own converse).</p>
+<h3 id="direction-perspective">Direction perspective<a class="headerlink" href="#direction-perspective" title="Permanent link"></a></h3>
+<p>A view's directions are written <strong>from the point of view of the design that uses the
+view</strong>:</p>
+<ul>
+<li><code>view.out(p)</code>: port <code>p</code> is an <strong>output</strong> of the using design (the design <em>drives</em> <code>p</code>).</li>
+<li><code>view.in(p)</code>: port <code>p</code> is an <strong>input</strong> to the using design (the design <em>reads</em> <code>p</code>).</li>
+</ul>
+<p>This is the same convention as a SystemVerilog <code>modport</code> (directions are from the consuming
+module's viewpoint). It follows that the two ends of a connection must use <em>opposite</em>
+directions for each shared port, which is exactly what <code>flip</code> produces.</p>
+<h3 id="flip"><code>flip</code>: the converse view<a class="headerlink" href="#flip" title="Permanent link"></a></h3>
+<p><code>flip</code> returns the converse of a view: every <code>in</code> becomes <code>out</code> and every <code>out</code> becomes
+<code>in</code>. It is the idiomatic way to declare the opposite side of a protocol without repeating
+(and risking inconsistency in) the direction list:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">source</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">valid</span><span class="p">).</span><span class="n">in</span><span class="p">(</span><span class="n">ready</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">sink</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">source</span><span class="p">.</span><span class="n">flip</span><span class="w">   </span><span class="c1">// in(data, valid).out(ready)</span>
+</code></pre></div>
+<p><code>flip</code> is involutive (<code>source.flip.flip</code> is <code>source</code>) and maps directly onto the target
+languages: a VHDL-2019 <code>'converse</code> alias, or an inverted SystemVerilog <code>modport</code>.</p>
+<h3 id="generic-view">The generic view<a class="headerlink" href="#generic-view" title="Permanent link"></a></h3>
+<p>Every interface instance also exposes a generic, undirected view through <code>.ASIS</code> directly
+on the instance (without naming a declared view). The generic view carries all ports with
+no enforced direction and is useful for internal wiring where directionality is not being
+checked. Prefer a named, directed view for design boundaries. A generic projection also
+supports the <code>.MONITOR</code> and <code>.DRIVER</code> terminals (see <a href="#projection-terminals">Projection terminals</a>);
+it has no <code>.FLIP</code>/<code>.FLIPALL</code>, because its ports carry no direction to flip.</p>
+<h2 id="anchored-ports">Anchored-Direction Ports<a class="headerlink" href="#anchored-ports" title="Permanent link"></a></h2>
+<p>Most interface ports are <em>flippable</em> (<code>&lt;&gt; VAR</code>): they have no direction of their own, and each
+view gives them a <em>relative</em> direction that <code>flip</code> reverses. Some signals, though, have an
+<em>absolute</em> direction that is the same for every side and must never be reversed. The canonical
+example is a clock or reset: it enters an interface one way and is observed identically by
+everyone connected to it.</p>
+<p>For these, declare the port with an <em>anchored</em> direction, <code>&lt;&gt; IN</code>, <code>&lt;&gt; OUT</code>, or <code>&lt;&gt; INOUT</code>,
+instead of <code>&lt;&gt; VAR</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Bus</span><span class="p">(</span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span><span class="w">    </span><span class="c1">// anchored: always an input</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="n">width</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">   </span><span class="c1">// flippable</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">valid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w">   </span><span class="c1">// flippable</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">manager</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">in</span><span class="p">(</span><span class="n">clk</span><span class="p">).</span><span class="n">out</span><span class="p">(</span><span class="n">data</span><span class="p">,</span><span class="w"> </span><span class="n">valid</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">subordinate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">flip</span><span class="w">             </span><span class="c1">// data/valid flip; clk stays `in`</span>
+</code></pre></div>
+<p>An anchored port is the DFHDL counterpart of a SystemVerilog interface <em>header port</em> (the
+<code>(input clk, ...)</code> list): the direction belongs to the signal itself, not to the view.</p>
+<p>Anchored ports follow two rules:</p>
+<ul>
+<li><strong>A view may use an anchored port only in its declared direction.</strong> Adding a <code>&lt;&gt; OUT</code> port
+  with <code>view.in(...)</code> (or a <code>&lt;&gt; IN</code> port with <code>view.out(...)</code>) is a compile error. Flippable
+  ports, by contrast, take whichever direction the view assigns.</li>
+<li><strong><code>flip</code> leaves anchored ports untouched.</strong> It reverses only the flippable ports of a view
+  (recursing through nested views), so an anchored <code>clk : in</code> stays <code>in</code> on both the <code>manager</code>
+  and the <code>subordinate</code> side.</li>
+</ul>
+<p>A bidirectional <code>&lt;&gt; INOUT</code> port is a special case: <code>inout</code> is its own converse, so <code>flip</code> (and
+<code>flipAll</code>) leave it <code>inout</code> on both sides. It maps directly to a SystemVerilog <code>inout</code> modport
+entry and a VHDL mode-view <code>inout</code> element (whose <code>'converse</code> is also <code>inout</code>).</p>
+<h3 id="anchored-connections">How anchored ports affect connections<a class="headerlink" href="#anchored-connections" title="Permanent link"></a></h3>
+<p>Because an anchored port keeps its direction on both sides, what a <code>&lt;&gt;</code> connection wires up
+depends on where the connection is made:</p>
+<ul>
+<li><strong>Between sibling designs</strong> (a view connected to its <code>flip</code>): only the <em>flippable</em> ports are
+  connected. Anchored ports are left for you to wire separately, since both ends see the same
+  direction (two <code>clk : in</code> ports cannot drive each other); a shared clock is typically routed
+  from a common source.</li>
+<li><strong>From a parent design down into a child</strong> (a view connected to the same-orientation view, no
+  <code>flip</code>): <em>all</em> ports are connected, flippable and anchored alike, so the parent passes its
+  anchored inputs (such as <code>clk</code>/<code>rst</code>) down into the child.</li>
+</ul>
+<h2 id="using-an-interface-in-a-design">Using an Interface in a Design<a class="headerlink" href="#using-an-interface-in-a-design" title="Permanent link"></a></h2>
+<h3 id="instantiation">Instantiation<a class="headerlink" href="#instantiation" title="Permanent link"></a></h3>
+<p>An interface is instantiated inside a design exactly like a child design, by calling its
+constructor. Empty parentheses are required even when there are no parameters:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Producer</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">   </span><span class="c1">// an interface instance</span>
+<span class="w">  </span><span class="c1">// ...</span>
+</code></pre></div>
+<h3 id="projecting-a-view">Projecting a view: <code>instance.view.ASIS</code><a class="headerlink" href="#projecting-a-view" title="Permanent link"></a></h3>
+<p>To obtain a connectable value, select a declared view on the instance and call <code>.ASIS</code>.
+This <em>projects</em> the view onto that specific instance:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">source</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">   </span><span class="c1">// the producer side of `io`</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">snk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">sink</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">     </span><span class="c1">// the consumer side of `io`</span>
+</code></pre></div>
+<p>Because the interface ports are <code>protected</code>, <code>io.data</code> is rejected by the compiler; all
+access goes through a view's projection terminal.</p>
+<h4 id="projection-terminals">Projection terminals<a class="headerlink" href="#projection-terminals" title="Permanent link"></a></h4>
+<p><code>.ASIS</code> is one of a small family of <em>projection terminals</em>. Each one projects the view onto the
+instance and bakes in a directionality, so you choose the terminal instead of transforming the
+view first. On a named view:</p>
+<table>
+<thead>
+<tr>
+<th>Terminal</th>
+<th>Projects the view...</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.ASIS</code></td>
+<td>as declared</td>
+</tr>
+<tr>
+<td><code>.FLIP</code></td>
+<td>flipped, anchored ports respected (the same as projecting <code>view.flip</code>)</td>
+</tr>
+<tr>
+<td><code>.FLIPALL</code></td>
+<td>flipped, anchored ports inverted too</td>
+</tr>
+<tr>
+<td><code>.MONITOR</code></td>
+<td>with <em>every</em> port forced to an input (observe everything)</td>
+</tr>
+<tr>
+<td><code>.DRIVER</code></td>
+<td>with <em>every</em> port forced to an output (drive everything)</td>
+</tr>
+</tbody>
+</table>
+<p><code>.FLIP</code> is the safe, anchor-respecting flip. <code>.FLIPALL</code>, <code>.MONITOR</code>, and <code>.DRIVER</code> are
+<em>overrides</em>: they ignore the anchored/flippable distinction, so reach for them deliberately
+(for example, a <code>.MONITOR</code> tap that observes a whole bus, or a <code>.DRIVER</code> stimulus block).
+Unlike <code>flip</code>, these overrides exist <em>only</em> as projection terminals: there is no reusable
+"forced" view, so an override is always visible at the connection site and can never be hidden
+inside a shared named view.</p>
+<p>On the <a href="#generic-view">generic projection</a> only <code>.ASIS</code>, <code>.MONITOR</code>, and <code>.DRIVER</code> are
+available: the flip terminals need declared relative directions to act on, and a generic
+projection's ports carry none, so there is nothing for <code>.FLIP</code>/<code>.FLIPALL</code> to reverse.</p>
+<h3 id="connecting-views">Connecting views with <code>&lt;&gt;</code><a class="headerlink" href="#connecting-views" title="Permanent link"></a></h3>
+<p>Two views are connected with the <a class="autorefs autorefs-internal" title="Connectivity" href="../connectivity/#connectivity_1"><code>&lt;&gt;</code> connection operator</a>, just like
+scalar ports. The connection is checked <strong>port-by-port through the entire (possibly nested)
+hierarchy</strong>: each shared port must have complementary directions on the two sides. Pairing
+a view with its <code>flip</code> is therefore always a legal connection:</p>
+<div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Link</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Producer</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Consumer</span><span class="p">()</span>
+<span class="w">  </span><span class="n">prod</span><span class="p">.</span><span class="n">out</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">source</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">   </span><span class="c1">// producer drives the source side</span>
+<span class="w">  </span><span class="n">cons</span><span class="p">.</span><span class="n">in</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">sink</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">     </span><span class="c1">// consumer reads the sink side</span>
+</code></pre></div>
+<p>A single <code>&lt;&gt;</code> here replaces one connection per port (<code>data</code>, <code>valid</code>, <code>ready</code>), and the
+direction of every wire is guaranteed consistent by construction.</p>
+<p>If the interface has <a href="#anchored-connections">anchored-direction ports</a>, what a <code>&lt;&gt;</code> connects
+depends on the connection site: a sibling-to-sibling connection wires only the flippable ports,
+while a parent-to-child connection wires all ports, including the anchored ones.</p>
+<div class="admonition note">
+<p class="admonition-title">Interfaces are purely structural</p>
+<p>An interface body may contain only ports and views. Processes, <code>&lt;&gt;</code> connections, and <code>:=</code>
+/<code>:==</code> assignments are <strong>not</strong> allowed inside an interface; these belong in designs.
+Additionally, an interface must be a <em>named</em> class: anonymous instances such as
+<code>new Stream() {}</code> are rejected by the compiler, because each interface needs a stable
+identity to be emitted as a named SystemVerilog <code>interface</code> / VHDL record.</p>
+</div>
+<h2 id="nested-interfaces">Nested Interfaces<a class="headerlink" href="#nested-interfaces" title="Permanent link"></a></h2>
+<p>An interface may instantiate other interfaces and compose their views into a higher-level
+view. This is how multi-channel protocols such as AXI are modeled: one interface per
+channel, then a top interface that nests them and composes their per-channel views with the
+<code>view(...)</code> apply form (which takes already-directed sub-views).</p>
+<div class="admonition example">
+<p class="admonition-title">AXI4-Lite: a nested, multi-channel interface</p>
+<p>Each AXI4-Lite channel is its own interface with a <code>manager</code> view (directions written from
+the manager/master point of view) and a <code>subordinate = manager.flip</code>. The top <code>Axi4Lite</code>
+interface nests the five channels and composes their <code>manager</code> views into a single
+<code>manager</code> view; <code>subordinate</code> flips recursively through every nested channel.</p>
+<div class="highlight"><pre><span></span><code><span class="c1">// One interface per AXI4-Lite channel (write-address channel shown).</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Axi4LiteAW</span><span class="p">(</span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">addrWidth</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nc">AWADDR</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="n">addrWidth</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nc">AWPROT</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">3</span><span class="p">)</span><span class="w">         </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nc">AWVALID</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">             </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="nc">AWREADY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">             </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">manager</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">.</span><span class="n">out</span><span class="p">(</span><span class="nc">AWADDR</span><span class="p">,</span><span class="w"> </span><span class="nc">AWPROT</span><span class="p">,</span><span class="w"> </span><span class="nc">AWVALID</span><span class="p">).</span><span class="n">in</span><span class="p">(</span><span class="nc">AWREADY</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">subordinate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">flip</span>
+<span class="c1">// ... Axi4LiteW, Axi4LiteB, Axi4LiteAR, Axi4LiteR similarly ...</span>
+
+<span class="c1">// Top interface nesting the five channels and composing their views.</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Axi4Lite</span><span class="p">(</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">addrWidth</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">,</span>
+<span class="w">    </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">dataWidth</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Interface</span><span class="p">:</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">aw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4LiteAW</span><span class="p">(</span><span class="n">addrWidth</span><span class="p">)</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">w</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4LiteW</span><span class="p">(</span><span class="n">dataWidth</span><span class="p">)</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4LiteB</span><span class="p">()</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">ar</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4LiteAR</span><span class="p">(</span><span class="n">addrWidth</span><span class="p">)</span>
+<span class="w">  </span><span class="k">protected</span><span class="w"> </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4LiteR</span><span class="p">(</span><span class="n">dataWidth</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">manager</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">view</span><span class="p">(</span><span class="n">aw</span><span class="p">.</span><span class="n">manager</span><span class="p">,</span><span class="w"> </span><span class="n">w</span><span class="p">.</span><span class="n">manager</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">manager</span><span class="p">,</span><span class="w"> </span><span class="n">ar</span><span class="p">.</span><span class="n">manager</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">manager</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">subordinate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">manager</span><span class="p">.</span><span class="n">flip</span><span class="w">   </span><span class="c1">// flips recursively through every nested channel</span>
+</code></pre></div>
+<p>A manager and a subordinate side then connect with a single <code>&lt;&gt;</code>:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4Lite</span><span class="p">(</span><span class="n">addrWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">mgr</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">manager</span><span class="p">.</span><span class="nc">ASIS</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">subordinate</span><span class="p">.</span><span class="nc">ASIS</span>
+<span class="n">mgr</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">sub</span><span class="w">   </span><span class="c1">// legal: matches port-per-port through all five nested channels</span>
+</code></pre></div>
+</div>
+<h2 id="vector-views">Vector Views<a class="headerlink" href="#vector-views" title="Permanent link"></a></h2>
+<p>A view can be replicated into a vector with the <code>X</code> operator, mirroring DFHDL
+<a class="autorefs autorefs-internal" title="Type System" href="../type-system/#type-system">vector construction</a>. This is useful for interconnects, for example a
+1-to-N crossbar that exposes N manager-side buses. Individual elements are selected by
+index:</p>
+<div class="highlight"><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">managers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Axi4Lite</span><span class="p">(</span><span class="mi">32</span><span class="p">,</span><span class="w"> </span><span class="mi">32</span><span class="p">).</span><span class="n">manager</span><span class="p">.</span><span class="nc">ASIS</span><span class="w"> </span><span class="nc">X</span><span class="w"> </span><span class="mi">4</span><span class="w">   </span><span class="c1">// a vector of 4 manager-side views</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">m0</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">managers</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w">                               </span><span class="c1">// select element 0</span>
+</code></pre></div>
+<h2 id="generated-hdl">How Interfaces Map to Generated <abbr title="Hardware Description Language">HDL</abbr><a class="headerlink" href="#generated-hdl" title="Permanent link"></a></h2>
+<p>DFHDL emits interfaces in one of two ways, depending on the target dialect.</p>
+<p><strong>Portable default (flattening).</strong> By default, the compiler <em>flattens</em> interfaces and views
+into plain scalar ports and per-port connections before backend emission. This produces
+valid, synthesizable <abbr title="Hardware Description Language">HDL</abbr> on <strong>every</strong> supported tool, with no reliance on
+<code>interface</code>/<code>modport</code> or mode-view support. Nested interfaces are expanded with prefixed
+signal names (<code>aw_AWADDR</code>, …). The top-level design boundary is <em>always</em> flattened to scalar
+ports, regardless of dialect.</p>
+<p><strong>Native emission (opt-in).</strong> For dialects that support them, interfaces can be emitted
+natively, preserving the structure:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">SystemVerilog (SV2017/SV2019)</label><label for="__tabbed_1_2">VHDL-2019</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p>A DFHDL interface becomes a SystemVerilog <code>interface</code>, each view becomes a <code>modport</code>, and
+<code>flip</code> becomes a <code>modport</code> with inverted directions:</p>
+<div class="highlight"><pre><span></span><code><span class="k">interface</span><span class="w"> </span><span class="n">Axi4LiteAW</span><span class="w"> </span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="n">ADDR_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">)</span><span class="w"> </span><span class="p">();</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">ADDR_WIDTH</span><span class="o">-</span><span class="mi">1</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">AWADDR</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">2</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">            </span><span class="n">AWPROT</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w">                  </span><span class="n">AWVALID</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w">                  </span><span class="n">AWREADY</span><span class="p">;</span>
+<span class="w">  </span><span class="k">modport</span><span class="w"> </span><span class="n">manager</span><span class="w">     </span><span class="p">(</span><span class="k">output</span><span class="w"> </span><span class="n">AWADDR</span><span class="p">,</span><span class="w"> </span><span class="n">AWPROT</span><span class="p">,</span><span class="w"> </span><span class="n">AWVALID</span><span class="p">,</span><span class="w"> </span><span class="k">input</span><span class="w">  </span><span class="n">AWREADY</span><span class="p">);</span>
+<span class="w">  </span><span class="k">modport</span><span class="w"> </span><span class="n">subordinate</span><span class="w"> </span><span class="p">(</span><span class="k">input</span><span class="w">  </span><span class="n">AWADDR</span><span class="p">,</span><span class="w"> </span><span class="n">AWPROT</span><span class="p">,</span><span class="w"> </span><span class="n">AWVALID</span><span class="p">,</span><span class="w"> </span><span class="k">output</span><span class="w"> </span><span class="n">AWREADY</span><span class="p">);</span>
+<span class="k">endinterface</span>
+</code></pre></div>
+<blockquote>
+<p>Nested interfaces are not portable for synthesis (e.g. Vivado does not support them), so
+they are flattened unless the target is known to accept them.</p>
+</blockquote>
+</div>
+<div class="tabbed-block">
+<p>A DFHDL interface becomes a <code>record</code> type, each view becomes a mode <code>view</code>, and <code>flip</code>
+becomes a <code>'converse</code> alias:</p>
+<div class="highlight"><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="n">axi4lite_aw_t</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="k">record</span>
+<span class="w">  </span><span class="n">AWADDR</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AWPROT</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">2</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">AWVALID</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AWREADY</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="k">record</span><span class="p">;</span>
+
+<span class="n">view</span><span class="w"> </span><span class="n">axi4lite_aw_manager</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="n">axi4lite_aw_t</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="n">AWADDR</span><span class="p">,</span><span class="w"> </span><span class="n">AWPROT</span><span class="p">,</span><span class="w"> </span><span class="n">AWVALID</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="p">;</span>
+<span class="w">  </span><span class="n">AWREADY</span><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">view</span><span class="p">;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">axi4lite_aw_subordinate</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">axi4lite_aw_manager</span><span class="na">&#39;converse</span><span class="p">;</span>
+</code></pre></div>
+<blockquote>
+<p>VHDL-2019 mode views are currently supported mainly by NVC. The portable default
+therefore stays flattened for VHDL; native mode-view emission is opt-in.</p>
+</blockquote>
+</div>
+</div>
+</div>
+<h2 id="restrictions">Restrictions Summary<a class="headerlink" href="#restrictions" title="Permanent link"></a></h2>
+<ul>
+<li>Interface ports and DFHDL parameters must be <code>protected</code> (or <code>private</code>).</li>
+<li>An interface body may contain only ports and views: no processes, connections, or
+  assignments.</li>
+<li>Ports cannot be initialized (<code>init</code>/<code>initFile</code>) inside an interface; an interface is purely
+  structural and carries no initial values.</li>
+<li>An anchored-direction port (<code>&lt;&gt; IN</code>/<code>&lt;&gt; OUT</code>) may be added to a view only in its declared
+  direction, and <code>flip</code> never reverses it.</li>
+<li>Interfaces must be named classes; anonymous instances (<code>new Ifc() {}</code>) are rejected.</li>
+<li>External access to ports is only through a view's projection terminal (<code>.ASIS</code>, <code>.FLIP</code>,
+  <code>.MONITOR</code>, etc.).</li>
+</ul>
 
 
 
 
 
 
+
+  
+  
 
 
 

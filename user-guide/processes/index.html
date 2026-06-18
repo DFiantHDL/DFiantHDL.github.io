@@ -1264,10 +1264,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#syntax-process-processforever" class="md-nav__link">
+  <a href="#syntax-process" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Syntax: process / process.forever
+        Syntax: process:
       
     </span>
   </a>
@@ -1380,10 +1380,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#forever-process-processforever-process" class="md-nav__link">
+  <a href="#forever-process-process" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Forever process: process.forever / process
+        Forever process: process:
       
     </span>
   </a>
@@ -1823,10 +1823,10 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#syntax-process-processforever" class="md-nav__link">
+  <a href="#syntax-process" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Syntax: process / process.forever
+        Syntax: process:
       
     </span>
   </a>
@@ -1939,10 +1939,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#forever-process-processforever-process" class="md-nav__link">
+  <a href="#forever-process-process" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Forever process: process.forever / process
+        Forever process: process:
       
     </span>
   </a>
@@ -2066,8 +2066,8 @@
 <p>Processes are not available in the dataflow (<abbr title="Dataflow">DF</abbr>) domain. Processes cannot be nested inside another process.</p>
 <h2 id="rt-domain-clock-bound-fsm-process"><abbr title="Register-Transfer">RT</abbr> domain: clock-bound FSM process<a class="headerlink" href="#rt-domain-clock-bound-fsm-process" title="Permanent link"></a></h2>
 <p>In an <a href="../design-domains/"><abbr title="Register-Transfer">RT</abbr> design</a>, a process is used to describe a finite-state machine that is <strong>clock-bound</strong>: it advances on the domain clock and is compiled to a state register plus combinational next-state and output logic.</p>
-<h3 id="syntax-process-processforever">Syntax: <code>process</code> / <code>process.forever</code><a class="headerlink" href="#syntax-process-processforever" title="Permanent link"></a></h3>
-<p>Use the shorthand <code>process:</code> (or <code>process.forever</code>) inside an <code>RTDesign</code> or <code>RTDomain</code>. The block contains either plain combinational logic (assignments, no steps) or step definitions that form an FSM.</p>
+<h3 id="syntax-process">Syntax: <code>process:</code><a class="headerlink" href="#syntax-process" title="Permanent link"></a></h3>
+<p>Use the argument-less <code>process:</code> inside an <code>RTDesign</code> or <code>RTDomain</code>. The block contains either plain combinational logic (assignments, no steps) or step definitions that form an FSM.</p>
 <h3 id="step-based-fsm">Step-based FSM<a class="headerlink" href="#step-based-fsm" title="Permanent link"></a></h3>
 <p>Define states as <code>def Name: Step = ...</code> and control flow with:</p>
 <ul>
@@ -2217,8 +2217,8 @@
 </code></pre></div></td></tr></table></div>
 <p>This applies to every process form (<code>process(sig)</code>, <code>process(all)</code>, <code>process(clk)</code>, etc.).</p>
 </div>
-<h3 id="forever-process-processforever-process">Forever process: <code>process.forever</code> / <code>process</code><a class="headerlink" href="#forever-process-processforever-process" title="Permanent link"></a></h3>
-<p>A process with no sensitivity list runs continuously. It is allowed in <abbr title="Register-Transfer">RT</abbr> and <abbr title="Event-Driven">ED</abbr>, but <strong>not</strong> in <abbr title="Dataflow">DF</abbr>. The shorthand <code>process:</code> (no arguments) is rewritten by the compiler to <code>process.forever</code>.</p>
+<h3 id="forever-process-process">Forever process: <code>process:</code><a class="headerlink" href="#forever-process-process" title="Permanent link"></a></h3>
+<p>A process with no sensitivity list runs continuously. It is allowed in <abbr title="Register-Transfer">RT</abbr> and <abbr title="Event-Driven">ED</abbr>, but <strong>not</strong> in <abbr title="Dataflow">DF</abbr>. </p>
 <ul>
 <li><strong>In <abbr title="Register-Transfer">RT</abbr></strong>: <code>process:</code> is the <a href="#rt-domain-clock-bound-fsm-process">clock-bound FSM process</a> described above (steps, waits, etc.).</li>
 <li><strong>In <abbr title="Event-Driven">ED</abbr></strong>: Use it for testbenches or clock generation (e.g. toggling a clock with <code>wait</code>).</li>
@@ -2229,7 +2229,7 @@
 <span class="normal">4</span>
 <span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Testbench</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="w">  </span><span class="n">process</span><span class="p">.</span><span class="n">forever</span><span class="p">:</span>
+<span class="w">  </span><span class="n">process</span><span class="p">:</span>
 <span class="w">    </span><span class="n">clk</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="o">!</span><span class="n">clk</span>
 <span class="w">    </span><span class="mi">5</span><span class="p">.</span><span class="n">ns</span><span class="p">.</span><span class="n">wait</span>
 </code></pre></div></td></tr></table></div>
@@ -2402,11 +2402,11 @@
 </tr>
 <tr>
 <td><strong><abbr title="Register-Transfer">RT</abbr></strong></td>
-<td><strong>Clock-bound FSM process</strong>: <code>process:</code> (or <code>process.forever</code>) with optional step definitions (<code>def Name: Step = ...</code>), <code>onEntry</code>/<code>onExit</code>, and waits. Compiled to a state register and match logic. Plain <abbr title="Register-Transfer">RT</abbr> register code (no process) is also lowered to <abbr title="Event-Driven">ED</abbr> processes by the compiler.</td>
+<td><strong>Clock-bound FSM process</strong>: <code>process:</code> with optional step definitions (<code>def Name: Step = ...</code>), <code>onEntry</code>/<code>onExit</code>, and waits. Compiled to a state register and match logic. Plain <abbr title="Register-Transfer">RT</abbr> register code (no process) is also lowered to <abbr title="Event-Driven">ED</abbr> processes by the compiler.</td>
 </tr>
 <tr>
 <td><strong><abbr title="Event-Driven">ED</abbr></strong></td>
-<td><strong>Sensitivity-driven</strong>: <code>process(sig1, sig2, ...)</code>, <code>process(all)</code>, and <code>process.forever</code> / <code>process</code>. Full control over sensitivity and blocking vs non-blocking assignment.</td>
+<td><strong>Sensitivity-driven</strong>: <code>process(sig1, sig2, ...)</code>, <code>process(all)</code>, and <code>process</code>. Full control over sensitivity and blocking vs non-blocking assignment.</td>
 </tr>
 </tbody>
 </table>
