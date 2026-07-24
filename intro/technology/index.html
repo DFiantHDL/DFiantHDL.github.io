@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1244,6 +1244,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../user-guide/methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../user-guide/conditionals/" class="md-nav__link">
         
   
@@ -1699,10 +1727,10 @@
 <p>In <abbr title="Register-Transfer Level">RTL</abbr> design, designers are tasked with specifying the exact operations that occur in each clock cycle, closely aligning the design with the physical timing of the hardware. Dataflow abstraction, on the other hand, focuses on the sequence of operations based on data dependencies, without mandating when each operation should start or finish within the clock cycles. This distinction allows operations in the dataflow model to be free from the rigid timing of clock cycles, granting compilers in the toolchain greater flexibility to schedule operations and effectively pipeline the design.</p>
 <p>Moreover, <abbr title="Register-Transfer Level">RTL</abbr> design often requires the strategic placement of registers for various functions, anchoring the design to specific timing requirements. We categorize register use in <abbr title="Register-Transfer Level">RTL</abbr> into three primary functions: backend synchronization, interface synchronization, and intrinsic design functionality, such as state management. The figure above illustrates the diverse applications of registers within <abbr title="Register-Transfer Level">RTL</abbr> designs. Unlike <abbr title="Register-Transfer Level">RTL</abbr>, where registers are uniformly represented, dataflow abstraction introduces unique language constructs or constraints for each register type. This differentiation enables the DFHDL compiler to distinguish between registers integral to the function and those necessary for implementation, providing subsequent design stages valuable insights for optimization. In contrast, <abbr title="Register-Transfer Level">RTL</abbr> often relies on comments within the code to convey this information, if it is documented at all.</p>
 <h2 id="three-design-domain-abstractions-within-a-single-hdl">Three Design Domain Abstractions within a Single <abbr title="Hardware Description Language">HDL</abbr><a class="headerlink" href="#three-design-domain-abstractions-within-a-single-hdl" title="Permanent link"></a></h2>
-<p>DFHDL stands out by offering a comprehensive integration of three key domain abstractions—dataflow (<abbr title="Dataflow">DF</abbr>), register-transfer (<abbr title="Register-Transfer">RT</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>)—all within a single <abbr title="Hardware Description Language">HDL</abbr>, as illustrated in Figure 4. This unique capability allows developers to employ a cohesive syntax to seamlessly blend these abstractions: <abbr title="Dataflow">DF</abbr>, <abbr title="Register-Transfer">RT</abbr>, and <abbr title="Event-Driven">ED</abbr>. Each abstraction brings its own set of advantages in terms of control, synthesizability, simulation speed, and functional correctness.</p>
+<p>DFHDL stands out by offering a comprehensive integration of three key domain abstractions, dataflow (<abbr title="Dataflow">DF</abbr>), register-transfer (<abbr title="Register-Transfer">RT</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>), all within a single <abbr title="Hardware Description Language">HDL</abbr>, as illustrated in Figure 4. This unique capability allows developers to employ a cohesive syntax to seamlessly blend these abstractions: <abbr title="Dataflow">DF</abbr>, <abbr title="Register-Transfer">RT</abbr>, and <abbr title="Event-Driven">ED</abbr>. Each abstraction brings its own set of advantages in terms of control, synthesizability, simulation speed, and functional correctness.</p>
 <p><img alt="design-domains" src="design-domains-light.png#only-light" />
 <img alt="design-domains" src="design-domains-dark.png#only-dark" /></p>
-<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through a carefully constructed compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect—whether VHDL 93/2008 or Verilog/SystemVerilog—determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
+<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through a carefully constructed compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect (VHDL 93/2008 or Verilog/SystemVerilog) determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
 <p>A standout feature of DFHDL is its ability to regenerate the code in DFHDL syntax at any point in the compilation process, including intermediate stages. This transparency offers developers valuable insights into each step of the optimization or compilation, a stark contrast to many <abbr title="High-Level Synthesis">HLS</abbr> tools that produce hard-to-interpret code, leaving developers to decipher the underlying processes in case of issues.</p>
 <h2 id="more-details">More Details<a class="headerlink" href="#more-details" title="Permanent link"></a></h2>
 <p>For more details on motivation, you can read <a href="https://capra.cs.cornell.edu/latte21/paper/4.pdf">this position paper</a>.</p>
@@ -1800,7 +1828,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

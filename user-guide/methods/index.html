@@ -15,21 +15,25 @@
         <link rel="canonical" href="https://dfianthdl.github.io/user-guide/methods/">
       
       
+        <link rel="prev" href="../connectivity/">
+      
+      
+        <link rel="next" href="../conditionals/">
       
       
         
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
-        <title>Functions / Methods - DFiant HDL (DFHDL)</title>
+        <title>Methods - DFiant HDL (DFHDL)</title>
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -102,7 +106,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#DesignDef" class="md-skip">
+        <a href="#Methods" class="md-skip">
           Skip to content
         </a>
       
@@ -177,7 +181,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Functions / Methods
+              Methods
             
           </span>
         </div>
@@ -386,10 +390,12 @@
   
   
   
+    
+  
   
     
     
-      <li class="md-tabs__item">
+      <li class="md-tabs__item md-tabs__item--active">
         <a href="../design-hierarchy/" class="md-tabs__link">
           
   
@@ -1014,28 +1020,31 @@
       
   
   
+    
   
   
+  
     
     
     
     
+      
+        
+        
       
       
         
       
     
     
-    <li class="md-nav__item md-nav__item--nested">
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
       
         
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
         
           
-        
-        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_5" >
-        
-          
-          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="0">
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
             
   
   
@@ -1053,7 +1062,7 @@
             <span class="md-nav__icon md-icon"></span>
           </label>
         
-        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="false">
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
           <label class="md-nav__title" for="__nav_5">
             <span class="md-nav__icon md-icon"></span>
             
@@ -1143,6 +1152,192 @@
   
 
       </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-ways-a-method-compiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways a method compiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ed-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ED methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ed-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ed-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED procedures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capturing-outer-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing outer values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-functions-at-global-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static functions at global scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-method-body-may-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a method body may contain
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
     </li>
   
 
@@ -1521,6 +1716,125 @@
     
   
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#two-ways-a-method-compiles" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Two ways a method compiles
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ed-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="ED methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#ed-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED functions
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#ed-procedures" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        ED procedures
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#capturing-outer-values" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Capturing outer values
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#static-functions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static functions
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#global-methods" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Global methods
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Global methods">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#static-functions-at-global-scope" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Static functions at global scope
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#what-a-method-body-may-contain" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        What a method body may contain
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
 </nav>
                   </div>
                 </div>
@@ -1539,7 +1853,510 @@
   
 
 
-<h1 id="DesignDef">Functions / Methods<a class="headerlink" href="#DesignDef" title="Permanent link"></a></h1>
+<h1 id="Methods">Methods<a class="headerlink" href="#Methods" title="Permanent link"></a></h1>
+<p>A DFHDL <strong>method</strong> is a Scala <code>def</code> declared inside a design. Methods factor repeated or parameterized logic into named, reusable pieces, much like <a class="autorefs autorefs-internal" title="Design Hierarchy" href="../design-hierarchy/#design-hierarchy">design hierarchy</a> factors it into sub-designs, but with lightweight call-site syntax instead of explicit port wiring.</p>
+<p>The return-type marker on a method selects both its domain and how a call to it compiles:</p>
+<table>
+<thead>
+<tr>
+<th>Return marker</th>
+<th>Domain</th>
+<th>A call compiles to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;&gt; DFRET</code></td>
+<td>Dataflow (<abbr title="Dataflow">DF</abbr>)</td>
+<td>a design instance (a <em>method design</em>)</td>
+</tr>
+<tr>
+<td><code>&lt;&gt; RTRET</code></td>
+<td>Register-Transfer (<abbr title="Register-Transfer">RT</abbr>)</td>
+<td>reserved for future use</td>
+</tr>
+<tr>
+<td><code>&lt;&gt; EDRET</code></td>
+<td>Event-Driven (<abbr title="Event-Driven">ED</abbr>)</td>
+<td>a Verilog function or task, a VHDL function or procedure</td>
+</tr>
+<tr>
+<td><code>&lt;&gt; CONSTRET</code></td>
+<td>Static</td>
+<td>a Verilog <code>function automatic</code>, a VHDL <code>pure function</code></td>
+</tr>
+</tbody>
+</table>
+<p>Method arguments are marked <code>&lt;&gt; VAL</code> (see the <a class="autorefs autorefs-internal" href="../type-system/#type-system">Type System</a>). A method that returns a value is a <strong>function</strong>; a method that returns <code>Unit</code> is a <strong>procedure</strong>.</p>
+<h2 id="two-ways-a-method-compiles">Two ways a method compiles<a class="headerlink" href="#two-ways-a-method-compiles" title="Permanent link"></a></h2>
+<p>DFHDL methods fall into two families, distinguished by what a call becomes in the generated code:</p>
+<ul>
+<li>
+<p><strong><abbr title="Dataflow">DF</abbr> methods</strong> (<code>&lt;&gt; DFRET</code>) each elaborate into a <strong>design of their own</strong>, and every call becomes an instance of that design. The method is the abstraction you write; the design it elaborates into is called a <strong>method design</strong>, and in the output it is an ordinary sub-design, indistinguishable from one declared as a class. This mechanism is <a class="autorefs autorefs-internal" title="Functional Composition" href="../design-hierarchy/#functional-composition">functional composition</a>, covered under Design Hierarchy.</p>
+</li>
+<li>
+<p><strong><abbr title="Event-Driven">ED</abbr> methods and static functions</strong> (<code>&lt;&gt; EDRET</code> / <code>&lt;&gt; CONSTRET</code>) stay methods in the output: they compile to <abbr title="Hardware Description Language">HDL</abbr> subprograms (Verilog functions and tasks, VHDL functions and procedures) that are called in place. The rest of this page covers these.</p>
+</li>
+</ul>
+<p>The <code>&lt;&gt; RTRET</code> marker is reserved for future <abbr title="Register-Transfer">RT</abbr> methods; it does not currently behave like a <abbr title="Dataflow">DF</abbr> method.</p>
+<div class="admonition info">
+<p class="admonition-title">Method vs. method design</p>
+<p>A <strong>method</strong> is the source-level abstraction (the <code>def</code>). A <strong>method design</strong> is the elaborated design block that a <abbr title="Dataflow">DF</abbr> method turns into. A <abbr title="Dataflow">DF</abbr> method call therefore appears in the generated <abbr title="Hardware Description Language">HDL</abbr> as a module/entity instance, whereas an <abbr title="Event-Driven">ED</abbr> or static method call appears as a function, task, or procedure call. Only <abbr title="Dataflow">DF</abbr> methods produce method designs; <abbr title="Event-Driven">ED</abbr> and static methods do not.</p>
+</div>
+<h2 id="ed-methods"><abbr title="Event-Driven">ED</abbr> methods<a class="headerlink" href="#ed-methods" title="Permanent link"></a></h2>
+<p>An <abbr title="Event-Driven">ED</abbr> method is declared inside an <code>EDDesign</code> (or an <abbr title="Event-Driven">ED</abbr> domain). A value-returning <abbr title="Event-Driven">ED</abbr> method (<code>&lt;&gt; EDRET</code>) compiles to a function; a <code>Unit</code>-returning <abbr title="Event-Driven">ED</abbr> method compiles to a task (Verilog) or a procedure (VHDL). <abbr title="Event-Driven">ED</abbr> methods may be called from <code>process</code> blocks and from concurrent assignments.</p>
+<h3 id="ed-functions"><abbr title="Event-Driven">ED</abbr> functions<a class="headerlink" href="#ed-functions" title="Permanent link"></a></h3>
+<div class="admonition example">
+<p class="admonition-title">Two <abbr title="Event-Driven">ED</abbr> functions, one pure and one capturing outer values</p>
+<p><code>add</code> is a plain function of its two arguments. <code>addBK</code> additionally reads the outer signal <code>b</code> and the outer constant <code>k</code>; those are <em>captured</em> automatically (see <a href="#capturing-outer-values">Capturing outer values</a> below) rather than passed as arguments.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EDFunc</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">    </span><span class="n">tmp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span>
+<span class="w">    </span><span class="n">tmp</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">k</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w">                        </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">addBK</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">EDFunc</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">EDFunc</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">z</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="mi">&#39;d5</span><span class="p">;</span>
+<span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">r</span><span class="p">);</span>
+<span class="w">    </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">tmp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">    </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endfunction</span>
+
+<span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">addBK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endfunction</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+Both methods emit as <code>function automatic</code>. A local <code>VAR</code> in the body (<code>tmp</code>) becomes a function-local variable, and the return value is assigned to the function name. The captured constant <code>k</code> is emitted once as a <code>localparam</code>, and the captured signal <code>b</code> is read directly inside the function body.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">architecture</span><span class="w"> </span><span class="nc">EDFunc_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">EDFunc</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">constant</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;5&quot;</span><span class="p">;</span>
+<span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="k">is</span>
+<span class="w">    </span><span class="k">variable</span><span class="w"> </span><span class="n">tmp</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">tmp</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">tmp</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">impure</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">EDFunc_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+In VHDL the pure <code>add</code> is a plain <code>function</code>, while <code>addBK</code> becomes an <code>impure function</code> because it reads the outer signal <code>b</code>. A captured constant such as <code>k</code> is emitted as an architecture <code>constant</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="ed-procedures"><abbr title="Event-Driven">ED</abbr> procedures<a class="headerlink" href="#ed-procedures" title="Permanent link"></a></h3>
+<p>A <code>Unit</code>-returning <abbr title="Event-Driven">ED</abbr> method is a procedure. It performs statements (assignments, <code>report</code>, <code>wait</code>) for their effect and returns nothing, so it must be called from statement position inside a <code>process</code>.</p>
+<div class="admonition example">
+<p class="admonition-title">An <abbr title="Event-Driven">ED</abbr> procedure that reports and waits</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">EDTask</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span><span class="p">):</span><span class="w"> </span><span class="nc">Unit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">report</span><span class="p">(</span><span class="s">s&quot;value is </span><span class="si">$</span><span class="n">l</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="n">ns</span><span class="p">)</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">pause</span><span class="p">():</span><span class="w"> </span><span class="nc">Unit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">    </span><span class="n">wait</span><span class="p">(</span><span class="mi">2</span><span class="p">.</span><span class="n">ns</span><span class="p">)</span>
+<span class="w">  </span><span class="n">process</span><span class="p">:</span>
+<span class="w">    </span><span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">    </span><span class="n">pause</span><span class="p">()</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">EDTask</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Generated Verilog</label><label for="__tabbed_2_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">EDTask</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">task</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="n">show</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">$info</span><span class="p">(</span><span class="s">&quot;value is %d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">    </span><span class="p">#</span><span class="mh">1</span><span class="n">ns</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endtask</span>
+
+<span class="w">  </span><span class="k">task</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="n">pause</span><span class="p">;</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="p">#</span><span class="mh">2</span><span class="n">ns</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endtask</span>
+<span class="w">  </span><span class="k">always</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pause</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+A <code>Unit</code>-returning method emits as a <code>task automatic</code>. A parameterless task (<code>pause</code>) is declared and called without parentheses.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">architecture</span><span class="w"> </span><span class="nc">EDTask_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">EDTask</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="n">show</span><span class="p">(</span><span class="n">l</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">report</span><span class="w"> </span><span class="s">&quot;value is &quot;</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="n">to_string</span><span class="p">(</span><span class="n">l</span><span class="p">)</span><span class="w"> </span><span class="o">&amp;</span><span class="w"> </span><span class="s">&quot;&quot;</span><span class="w"> </span><span class="k">severity</span><span class="w"> </span><span class="n">NOTE</span><span class="p">;</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="n">ns</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">procedure</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">procedure</span><span class="w"> </span><span class="n">pause</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">wait</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="mi">2</span><span class="w"> </span><span class="n">ns</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">procedure</span><span class="p">;</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">process</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="w">    </span><span class="n">pause</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">EDTask_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+In VHDL a <code>Unit</code>-returning method emits as a <code>procedure</code>.</p>
+</div>
+</div>
+</div>
+</div>
+<h3 id="capturing-outer-values">Capturing outer values<a class="headerlink" href="#capturing-outer-values" title="Permanent link"></a></h3>
+<p>An <abbr title="Event-Driven">ED</abbr> method may reference values declared outside it (ports, variables, or constants of the enclosing design), as <code>addBK</code> does with <code>b</code> and <code>k</code> in the <a href="#ed-functions"><abbr title="Event-Driven">ED</abbr> functions</a> example above. Such values are <strong>captured</strong> automatically: they do not appear in the method's argument list or at the call site, and the method body refers to them by name. In the generated code:</p>
+<ul>
+<li>A captured <strong>constant</strong> is emitted once at design scope (a Verilog <code>localparam</code>, a VHDL <code>constant</code>).</li>
+<li>A captured <strong>signal</strong> is read directly inside the subprogram body. In VHDL this makes the function <code>impure</code>; a function that captures no signal stays a plain <code>function</code>.</li>
+</ul>
+<h2 id="static-functions">Static functions<a class="headerlink" href="#static-functions" title="Permanent link"></a></h2>
+<p>A static function is declared with <code>&lt;&gt; CONSTRET</code>. All of its arguments must be constants (<code>&lt;&gt; CONST</code>), and it always returns a value, so it is always a function (there are no static procedures). Static functions are pure by definition and may be called from any domain, including to compute a design parameter.</p>
+<div class="admonition example">
+<p class="admonition-title">A static function</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">StaticFn</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">twice</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONSTRET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;8&#39;3&quot;</span><span class="p">)</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">StaticFn</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="3:2"><input checked="checked" id="__tabbed_3_1" name="__tabbed_3" type="radio" /><input id="__tabbed_3_2" name="__tabbed_3" type="radio" /><div class="tabbed-labels"><label for="__tabbed_3_1">Generated Verilog</label><label for="__tabbed_3_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">StaticFn</span><span class="p">(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">twice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endfunction</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="mh">8</span><span class="mi">&#39;d3</span><span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">architecture</span><span class="w"> </span><span class="nc">StaticFn_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">StaticFn</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">pure</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;3&quot;</span><span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">StaticFn_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+A static function always emits as a VHDL <code>pure function</code> (and a Verilog <code>function automatic</code>), because it is guaranteed to have no side effects.</p>
+</div>
+</div>
+</div>
+</div>
+<p>The compiler also generates static functions on its own: under the VHDL backend, a multi-statement <a class="autorefs autorefs-internal" title="Initial blocks" href="../processes/#initial-blocks"><code>initial</code> block</a> (e.g. a loop initializing a vector) is lowered into a generated static function whose call becomes the declaration's default value, since VHDL has no <code>initial</code> construct.</p>
+<p>Because a static function is constant-valued, its result can feed a design parameter. Calling <code>twice</code> to parameterize a sub-design compiles to an ordinary parameter binding at the instantiation site:</p>
+<div class="admonition example">
+<p class="admonition-title">A static function computing a sub-design parameter</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Inner</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">k</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;0&quot;</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">k</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">StaticParamTop</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">twice</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONSTRET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">inner</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Inner</span><span class="p">(</span><span class="n">twice</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;8&#39;3&quot;</span><span class="p">))</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">inner</span><span class="p">.</span><span class="n">o</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">StaticParamTop</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="4:2"><input checked="checked" id="__tabbed_4_1" name="__tabbed_4" type="radio" /><input id="__tabbed_4_2" name="__tabbed_4" type="radio" /><div class="tabbed-labels"><label for="__tabbed_4_1">Generated Verilog</label><label for="__tabbed_4_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">StaticParamTop</span><span class="p">(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">inner_o</span><span class="p">;</span>
+<span class="w">  </span><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">twice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">endfunction</span>
+<span class="w">  </span><span class="n">Inner</span><span class="w"> </span><span class="p">#(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">k</span><span class="w"> </span><span class="p">(</span><span class="n">twice</span><span class="p">(</span><span class="mh">8</span><span class="mi">&#39;d3</span><span class="p">))</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="n">inner</span><span class="p">(</span>
+<span class="w">    </span><span class="p">.</span><span class="n">o</span><span class="w"> </span><span class="cm">/*--&gt;*/</span><span class="w"> </span><span class="p">(</span><span class="n">inner_o</span><span class="p">)</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">inner_o</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+The call <code>twice(d"8'3")</code> becomes the parameter binding <code>.k (twice(8'd3))</code> on the <code>Inner</code> instance.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">StaticParamTop</span><span class="w"> </span><span class="k">is</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">StaticParamTop</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">StaticParamTop_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">StaticParamTop</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">inner_o</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">pure</span><span class="w"> </span><span class="k">function</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="n">n</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">unsigned</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">function</span><span class="p">;</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">inner</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">entity</span><span class="w"> </span><span class="nc">work</span><span class="p">.</span><span class="n">Inner</span><span class="p">(</span><span class="n">Inner_arch</span><span class="p">)</span><span class="w"> </span><span class="k">generic</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">k</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;3&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="p">)</span><span class="w"> </span><span class="k">port</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span>
+<span class="w">    </span><span class="n">o</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">inner_o</span>
+<span class="w">  </span><span class="p">);</span>
+<span class="w">  </span><span class="n">o</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">inner_o</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">StaticParamTop_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+The call <code>twice(d"8'3")</code> becomes the generic binding <code>k =&gt; twice(8d"3")</code> on the <code>Inner</code> instance.</p>
+</div>
+</div>
+</div>
+</div>
+<h2 id="global-methods">Global methods<a class="headerlink" href="#global-methods" title="Permanent link"></a></h2>
+<p>An <abbr title="Event-Driven">ED</abbr> method or static function is normally emitted <em>inside</em> the design that uses it (a VHDL function in the architecture, a Verilog function in the module). When the <strong>same</strong> method is used by <strong>more than one design</strong>, or is called from <strong>global scope</strong>, DFHDL emits it <strong>once</strong> in the shared globals area instead of duplicating it in each design, the same way a named type or a global constant is shared. This happens automatically; there is no separate keyword.</p>
+<ul>
+<li><strong>VHDL</strong>: the method is declared in a package (a prototype in the package declaration and its body in the package body), and each using architecture pulls it in with <code>use work.&lt;pkg&gt;.all;</code>.</li>
+<li><strong>Verilog / SystemVerilog</strong>: the method is written once in the generated defs header (<code>.svh</code> / <code>.vh</code>) and included by each using module.</li>
+</ul>
+<p>A method qualifies for this shared emission only when it captures nothing from a single design: its body must reference only its own arguments, global constants, and other global methods. A method that captures a design-local signal or constant stays inside each using design, since a shared package has no access to a single design's members.</p>
+<div class="admonition info">
+<p class="admonition-title">Declaring a method at the top level</p>
+<p>The most direct way to share a method across designs is to declare it at the top level (outside any design), just like a global constant. It is then available to every design, and it is emitted once in the globals area as soon as two or more designs call it. A top-level method used by only one design is still emitted locally inside that design.</p>
+</div>
+<h3 id="static-functions-at-global-scope">Static functions at global scope<a class="headerlink" href="#static-functions-at-global-scope" title="Permanent link"></a></h3>
+<p>Because a static function is constant-valued, it can also be <strong>called at global scope</strong> to compute a global constant or a design parameter's default, keeping the generated <abbr title="Hardware Description Language">HDL</abbr> parametric rather than folding to a literal:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">clog2</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONSTRET</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="cm">/* ... */</span>
+<span class="kd">val</span><span class="w"> </span><span class="nc">ADDR_W</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clog2</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;8&#39;200&quot;</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p><code>clog2</code> is emitted once in the globals area, and the global constant is emitted there as its call, <code>clog2(...)</code>. A static function called this way is never elaboration-cached (it is re-elaborated per call), which does not affect the generated <abbr title="Hardware Description Language">HDL</abbr>. (<abbr title="Event-Driven">ED</abbr> methods have no global-scope form: an <abbr title="Event-Driven">ED</abbr> method can only be called inside an event-driven domain.)</p>
+<h2 id="what-a-method-body-may-contain">What a method body may contain<a class="headerlink" href="#what-a-method-body-may-contain" title="Permanent link"></a></h2>
+<p>Because <abbr title="Event-Driven">ED</abbr> methods and static functions become <abbr title="Hardware Description Language">HDL</abbr> subprograms rather than designs, their bodies are restricted to what a subprogram can express. A method body may <strong>not</strong> contain a design instance, a <code>process</code>, a domain block, or a recursive call to itself. Static functions are further restricted to be pure: they may not perform text output or <code>wait</code>, take non-constant arguments, capture non-constant values, return <code>Unit</code>, or call an <abbr title="Event-Driven">ED</abbr> method. These rules are checked at compile time, and a violation is reported as an error.</p>
+<p><abbr title="Dataflow">DF</abbr> methods have their own model: they become <a href="#two-ways-a-method-compiles">method designs</a>, so their bodies follow the rules of the <abbr title="Dataflow">DF</abbr> domain. See <a class="autorefs autorefs-internal" href="../design-hierarchy/#functional-composition">Functional Composition</a> for that path.</p>
 
 
 
@@ -1634,7 +2451,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

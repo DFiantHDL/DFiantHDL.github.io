@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1161,6 +1161,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../../user-guide/methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../../user-guide/conditionals/" class="md-nav__link">
         
   
@@ -1430,6 +1458,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#functions-and-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions and Tasks
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#operations" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1687,6 +1726,17 @@
     <span class="md-ellipsis">
       
         Processes and Sequential Logic
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functions-and-tasks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Functions and Tasks
       
     </span>
   </a>
@@ -1985,7 +2035,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 </div>
-<p><code>.width</code> works on any DFHDL value (a port, variable, or constant — anything declared with <code>&lt;&gt;</code>; see <a href="#logicregwire">logic/reg/wire</a> above). Use it to derive widths from existing declarations:</p>
+<p><code>.width</code> works on any DFHDL value (a port, variable, or constant: anything declared with <code>&lt;&gt;</code>; see <a href="#logicregwire">logic/reg/wire</a> above). Use it to derive widths from existing declarations:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">.</span><span class="n">until</span><span class="p">(</span><span class="nc">MAX</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
@@ -2167,6 +2217,80 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </div>
 <p>Integer literal pattern matching works with <code>UInt</code> and <code>SInt</code> selectors. Guard conditions (<code>case _ if sel == N</code>) also work but are less idiomatic. See <a class="autorefs autorefs-internal" href="../../user-guide/conditionals/#match-expressions">Match Expressions</a> for full details.</p>
 </div>
+<h2 id="functions-and-tasks">Functions and Tasks<a class="headerlink" href="#functions-and-tasks" title="Permanent link"></a></h2>
+<p>Verilog <code>function</code>s and <code>task</code>s map to DFHDL <a class="autorefs autorefs-internal" title="Methods" href="../../user-guide/methods/#Methods">methods</a>: Scala <code>def</code>s declared inside the design. A value-returning method is a function (<code>&lt;&gt; EDRET</code>); a <code>Unit</code>-returning method is a procedure, which emits as a Verilog <code>task</code>. The method's Scala name becomes the generated subprogram name. See the <a class="autorefs autorefs-internal" href="../../user-guide/methods/#Methods">Methods</a> page for the full reference, including static (<code>&lt;&gt; CONSTRET</code>) functions and VHDL output.</p>
+<div class="admonition verilog">
+<p class="admonition-title">Function</p>
+<p>Arguments are marked <code>&lt;&gt; VAL</code>; the return type is <code>&lt;&gt; EDRET</code>. The method is called in an assignment or inside a process, exactly like a Verilog function.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">add</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">,</span><span class="w"> </span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">r</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="n">add</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="k">endfunction</span>
+
+<span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">);</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">add</span><span class="p">(</span>
+<span class="w">  </span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span><span class="p">,</span><span class="w"> </span><span class="n">r</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span>
+<span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">r</span>
+<span class="k">end</span><span class="w"> </span><span class="nn">add</span><span class="w"> </span><span class="c1">//optional</span>
+
+<span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">)</span>
+</code></pre></div>
+</div>
+<p>A function that reads module-level signals or parameters directly maps naturally: reference the outer port/constant in the body and it is captured automatically, with no extra argument at the call site.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">localparam</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8&#39;d5</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">addBK</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">  </span><span class="n">addBK</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="p">;</span><span class="w">   </span><span class="c1">// b, k read directly</span>
+<span class="k">endfunction</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">k</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">addBK</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAL</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="n">l</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">k</span><span class="w">   </span><span class="c1">// b, k captured automatically</span>
+<span class="k">end</span><span class="w"> </span><span class="nn">addBK</span><span class="w"> </span><span class="c1">//optional</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Task</p>
+<p>A <code>Unit</code>-returning method is a procedure and emits as a Verilog <code>task</code>. It is called from statement position inside a <code>process</code>.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">task</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="n">show</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">  </span><span class="p">$</span><span class="n">display</span><span class="p">(</span><span class="s">&quot;value is %0d&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">l</span><span class="p">);</span>
+<span class="w">  </span><span class="p">#</span><span class="mi">1</span><span class="p">;</span>
+<span class="k">endtask</span>
+
+<span class="k">always</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">  </span><span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">);</span>
+<span class="k">end</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">show</span><span class="p">(</span><span class="n">l</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span><span class="p">):</span><span class="w"> </span><span class="nc">Unit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">EDRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="n">report</span><span class="p">(</span><span class="s">s&quot;value is </span><span class="si">$</span><span class="n">l</span><span class="s">&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="n">wait</span><span class="p">(</span><span class="mi">1</span><span class="p">.</span><span class="n">ns</span><span class="p">)</span>
+<span class="k">end</span><span class="w"> </span><span class="nn">show</span><span class="w"> </span><span class="c1">//optional</span>
+
+<span class="n">process</span><span class="p">:</span>
+<span class="w">  </span><span class="n">show</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+</code></pre></div>
+</div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Pure constant helpers</p>
+<p>A side-effect-free helper whose arguments are all constants can be a <strong>static function</strong> (<code>&lt;&gt; CONSTRET</code>). It emits as a Verilog <code>function automatic</code> and, unlike an ordinary <abbr title="Event-Driven">ED</abbr> function, may also be evaluated to compute a design parameter.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">function</span><span class="w"> </span><span class="k">automatic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">twice</span><span class="p">(</span><span class="k">input</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">n</span><span class="p">);</span>
+<span class="w">  </span><span class="n">twice</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span><span class="p">;</span>
+<span class="k">endfunction</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">def</span><span class="w"> </span><span class="nf">twice</span><span class="p">(</span><span class="n">n</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">):</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONSTRET</span><span class="w"> </span><span class="o">=</span>
+<span class="w">  </span><span class="n">n</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">n</span>
+<span class="k">end</span><span class="w"> </span><span class="nn">twice</span><span class="w"> </span><span class="c1">//optional</span>
+</code></pre></div>
+</div>
+</div>
 <h2 id="operations">Operations<a class="headerlink" href="#operations" title="Permanent link"></a></h2>
 <div class="admonition verilog">
 <p class="admonition-title">Shift Operators</p>
@@ -2330,7 +2454,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span><span class="c1">// single bit</span>
 </code></pre></div>
 </div>
-<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code> and <code>.lsbits(W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result — <code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>:</p>
+<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code> and <code>.lsbits(W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result (<code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>):</p>
 <table>
 <thead>
 <tr>
@@ -2363,7 +2487,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="kd">val</span><span class="w"> </span><span class="n">top8S</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">).</span><span class="n">bits</span><span class="p">.</span><span class="n">sint</span><span class="w">   </span><span class="c1">// SInt[8]: sign-preserving truncation</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">sign</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">prod</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span><span class="w">                </span><span class="c1">// single-bit access (Bit)</span>
 </code></pre></div></td></tr></table></div>
-<p>To recover signed semantics on a slice, chain <code>.bits.sint</code> (re-interpret the bits as signed, same width). Do <strong>not</strong> use <code>.signed</code> for this — <code>.signed</code> is a numeric conversion that widens by one zero-extension bit, which is not what slice migration wants.</p>
+<p>To recover signed semantics on a slice, chain <code>.bits.sint</code> (re-interpret the bits as signed, same width). Do <strong>not</strong> use <code>.signed</code> for this: <code>.signed</code> is a numeric conversion that widens by one zero-extension bit, which is not what slice migration wants.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Arithmetic with Signed Values and Constants</p>
@@ -2488,7 +2612,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">result</span><span class="p">;</span>
 
 <span class="c1">// 4 is 32-bit, so (a+b+c+d) evaluates</span>
-<span class="c1">// at 32-bit width — no overflow</span>
+<span class="c1">// at 32-bit width, no overflow</span>
 <span class="k">assign</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">;</span>
 </code></pre></div>
 <div class="highlight"><span class="filename">DFHDL (with carry ops)</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
@@ -2734,7 +2858,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

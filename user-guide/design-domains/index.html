@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1164,6 +1164,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../conditionals/" class="md-nav__link">
         
   
@@ -2260,8 +2288,8 @@
 
 
 <h1 id="design-domains">Design Domains<a class="headerlink" href="#design-domains" title="Permanent link"></a></h1>
-<p>DFHDL offers three key domain abstractions—dataflow (<abbr title="Dataflow">DF</abbr>), register-transfer (<abbr title="Register-Transfer">RT</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>)—all within a single <abbr title="Hardware Description Language">HDL</abbr>, as illustrated in the following figure. This unique capability allows developers to employ a cohesive syntax to seamlessly blend these abstractions: <abbr title="Dataflow">DF</abbr>, <abbr title="Register-Transfer">RT</abbr>, and <abbr title="Event-Driven">ED</abbr>. Each abstraction brings its own set of advantages in terms of control, synthesizability, simulation speed, and functional correctness.</p>
-<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through an intelligent compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect—whether VHDL 93/2008 or Verilog/SystemVerilog—determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
+<p>DFHDL offers three key domain abstractions, dataflow (<abbr title="Dataflow">DF</abbr>), register-transfer (<abbr title="Register-Transfer">RT</abbr>), and event-driven (<abbr title="Event-Driven">ED</abbr>), all within a single <abbr title="Hardware Description Language">HDL</abbr>, as illustrated in the following figure. This unique capability allows developers to employ a cohesive syntax to seamlessly blend these abstractions: <abbr title="Dataflow">DF</abbr>, <abbr title="Register-Transfer">RT</abbr>, and <abbr title="Event-Driven">ED</abbr>. Each abstraction brings its own set of advantages in terms of control, synthesizability, simulation speed, and functional correctness.</p>
+<p>The <abbr title="Register-Transfer">RT</abbr> abstraction mirrors the capabilities found in languages like Chisel and Amaranth, while the <abbr title="Event-Driven">ED</abbr> abstraction aligns with the functionalities of VHDL and Verilog. Through an intelligent compilation process, the DFHDL compiler transitions from the higher-level <abbr title="Dataflow">DF</abbr> abstraction through <abbr title="Register-Transfer">RT</abbr> and ultimately to <abbr title="Event-Driven">ED</abbr>. The choice of compilation dialect (VHDL 93/2008 or Verilog/SystemVerilog) determines the final <abbr title="Event-Driven">ED</abbr> code representation.</p>
 <p><img alt="design-domains" src="design-domains-light.png#only-light" />
 <img alt="design-domains" src="design-domains-dark.png#only-dark" /></p>
 <h2 id="dataflow-df-domain">Dataflow (<abbr title="Dataflow">DF</abbr>) Domain<a class="headerlink" href="#dataflow-df-domain" title="Permanent link"></a></h2>
@@ -2327,7 +2355,7 @@ filled in from the global <code>ElaborationOptions</code> defaults at compile ti
 <span class="k">class</span><span class="w"> </span><span class="nc">MyDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="p">...</span>
 </code></pre></div></td></tr></table></div>
-<p>Annotations may be partial — <code>@timing.clock(rate = 100.MHz)</code> overrides only the clock rate
+<p>Annotations may be partial: <code>@timing.clock(rate = 100.MHz)</code> overrides only the clock rate
 and inherits the rest from the elaboration defaults. The empty form <code>@timing.clock()</code> /
 <code>@timing.reset()</code> forces the slot to appear (e.g. on a combinational or blackbox owner) while
 still deriving every field from the defaults.</p>
@@ -2398,6 +2426,25 @@ omits the clock/reset ports for the related domain and reuses the target's.</p>
 <span class="w">  </span><span class="nd">@timing</span><span class="p">.</span><span class="n">related</span><span class="p">(</span><span class="n">base</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">designRelated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">:</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">from_top_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div></td></tr></table></div>
+<p>By default a related domain also shares the target's reset. Passing <code>includeReset = false</code>
+keeps the shared clock but drops the reset: the domain's registers and memories are not driven
+from a reset-initialization block and instead rely on their initial values (<code>init</code>) alone.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">NoResetRelatedDomain</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="n">base</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">base_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="w">  </span><span class="c1">// Shares base domain&#39;s clock, but not its reset</span>
+<span class="w">  </span><span class="nd">@timing</span><span class="p">.</span><span class="n">related</span><span class="p">(</span><span class="n">base</span><span class="p">,</span><span class="w"> </span><span class="n">includeReset</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">relatedDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">related_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1">// relies on its init value, no reset</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="register-types-and-initialization">Register Types and Initialization<a class="headerlink" href="#register-types-and-initialization" title="Permanent link"></a></h3>
 <h4 id="register-declarations-vs-aliases">Register Declarations vs Aliases<a class="headerlink" href="#register-declarations-vs-aliases" title="Permanent link"></a></h4>
@@ -2825,7 +2872,7 @@ omits the clock/reset ports for the related domain and reuses the target's.</p>
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       

@@ -25,7 +25,7 @@
       
       
       <link rel="icon" href="../../assets/images/favicon.png">
-      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.6">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
     
     
       
@@ -33,7 +33,7 @@
       
     
     
-      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
       
         
         <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
@@ -1164,6 +1164,34 @@
   
   
     <li class="md-nav__item">
+      <a href="../methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
       <a href="../conditionals/" class="md-nav__link">
         
   
@@ -1827,7 +1855,7 @@
 
 <h1 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link"></a></h1>
 <h2 id="name-collisions-shadowing">Name Collisions &amp; Shadowing<a class="headerlink" href="#name-collisions-shadowing" title="Permanent link"></a></h2>
-<p>When translating from Verilog/VHDL, signal, port, and module names may collide with names already in scope — Scala keywords, DFHDL built-ins, or your own design classes. This section is the single place that covers how to detect and resolve all such collisions.</p>
+<p>When translating from Verilog/VHDL, signal, port, and module names may collide with names already in scope: Scala keywords, DFHDL built-ins, or your own design classes. This section is the single place that covers how to detect and resolve all such collisions.</p>
 <h3 id="general-recommendation-capitalize-design-class-names">General recommendation: Capitalize design-class names<a class="headerlink" href="#general-recommendation-capitalize-design-class-names" title="Permanent link"></a></h3>
 <p>The simplest way to avoid the entire class of collisions between a <strong>design class</strong> and a <strong>value</strong> (port/variable) is a naming convention:</p>
 <ul>
@@ -1853,7 +1881,7 @@
 </code></pre></div></td></tr></table></div>
 <div class="admonition warning">
 <p class="admonition-title">Caveat: direct Verilog/VHDL translation that preserves original names</p>
-<p>When you translate an existing Verilog/VHDL design and deliberately <strong>preserve the original names</strong> (so the generated <abbr title="Hardware Description Language">HDL</abbr> matches the source), you cannot always apply the Capitalized convention — the original names may already collide. These cases need the targeted resolutions below.</p>
+<p>When you translate an existing Verilog/VHDL design and deliberately <strong>preserve the original names</strong> (so the generated <abbr title="Hardware Description Language">HDL</abbr> matches the source), you cannot always apply the Capitalized convention, since the original names may already collide. These cases need the targeted resolutions below.</p>
 </div>
 <h3 id="scala-reserved-keywords">Scala reserved keywords<a class="headerlink" href="#scala-reserved-keywords" title="Permanent link"></a></h3>
 <p>Scala keywords cannot be used directly as identifiers. Escape them with backticks:</p>
@@ -2038,7 +2066,7 @@
       <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
     
     
-      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
       
         <script src="../../javascripts/nav-workaround.js"></script>
       
