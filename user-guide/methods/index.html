@@ -1324,6 +1324,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inline-method-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inline method generators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-a-method-body-may-contain" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1823,6 +1834,17 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#inline-method-generators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Inline method generators
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#what-a-method-body-may-contain" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1888,6 +1910,7 @@
 </tbody>
 </table>
 <p>Method arguments are marked <code>&lt;&gt; VAL</code> (see the <a class="autorefs autorefs-internal" href="../type-system/#type-system">Type System</a>). A method that returns a value is a <strong>function</strong>; a method that returns <code>Unit</code> is a <strong>procedure</strong>.</p>
+<p>A design-body <code>def</code> with <strong>no</strong> return marker is not a DFHDL method at all: it is plain Scala that runs during elaboration and inlines the hardware it describes at each call site. See <a href="#inline-method-generators">Inline method generators</a>.</p>
 <h2 id="two-ways-a-method-compiles">Two ways a method compiles<a class="headerlink" href="#two-ways-a-method-compiles" title="Permanent link"></a></h2>
 <p>DFHDL methods fall into two families, distinguished by what a call becomes in the generated code:</p>
 <ul>
@@ -2354,6 +2377,97 @@ The call <code>twice(d"8'3")</code> becomes the generic binding <code>k =&gt; tw
 <span class="kd">val</span><span class="w"> </span><span class="nc">ADDR_W</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">8</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">clog2</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;8&#39;200&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <p><code>clog2</code> is emitted once in the globals area, and the global constant is emitted there as its call, <code>clog2(...)</code>. A static function called this way is never elaboration-cached (it is re-elaborated per call), which does not affect the generated <abbr title="Hardware Description Language">HDL</abbr>. (<abbr title="Event-Driven">ED</abbr> methods have no global-scope form: an <abbr title="Event-Driven">ED</abbr> method can only be called inside an event-driven domain.)</p>
+<h2 id="inline-method-generators">Inline method generators<a class="headerlink" href="#inline-method-generators" title="Permanent link"></a></h2>
+<p>A <code>def</code> declared inside a design <strong>without</strong> a return-type marker is not a DFHDL method. It is ordinary Scala code that runs during elaboration, so each call <strong>inlines</strong> the hardware its body describes directly at the call site, exactly as if the body's statements were written there by hand. No function, task, procedure, or design instance appears in the generated code; the def itself leaves no trace.</p>
+<p>Such a def is an <strong>inline method generator</strong>: its arguments are plain Scala values (<code>Int</code>, <code>Boolean</code>, collections, and so on), which makes it a compile-time recipe for constructing hardware. Its body may reference the enclosing design's ports, variables, constants, and parameters directly; since the body is inlined where it is called, no capturing is involved. The return value, in contrast to the arguments, is typically a DFHDL value.</p>
+<div class="admonition example">
+<p class="admonition-title">An inline generator slicing a packed vector</p>
+<p><code>slice</code> has no return marker and takes a plain Scala <code>Int</code>, so each call inlines a parametric part-select of <code>vec</code> at the call site. The generated code contains only the two selections and the addition.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SliceSum</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">W</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">N</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">vec</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">W</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">N</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="nc">W</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">slice</span><span class="p">(</span><span class="n">i</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">vec</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">W</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">W</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">W</span><span class="p">).</span><span class="n">uint</span>
+<span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">slice</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">slice</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">SliceSum</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="5:2"><input checked="checked" id="__tabbed_5_1" name="__tabbed_5" type="radio" /><input id="__tabbed_5_2" name="__tabbed_5" type="radio" /><div class="tabbed-labels"><label for="__tabbed_5_1">Generated Verilog</label><label for="__tabbed_5_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">SliceSum</span><span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">W</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">,</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">N</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span>
+<span class="p">)(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[(</span><span class="n">W</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">vec</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">W</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">vec</span><span class="p">[</span><span class="n">W</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">])</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="n">vec</span><span class="p">[(</span><span class="n">W</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">W</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="n">W</span><span class="p">]);</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+Each <code>slice(i)</code> call inlined into a part-select of <code>vec</code>, with the index arithmetic kept in terms of the parameter <code>W</code> (folded per call: <code>slice(0)</code> to <code>[W - 1:0]</code>, <code>slice(1)</code> to <code>[(W + W) - 1:W]</code>). Nothing named <code>slice</code> exists in the output.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">SliceSum</span><span class="w"> </span><span class="k">is</span>
+<span class="k">generic</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">W</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">8</span><span class="p">;</span>
+<span class="w">  </span><span class="n">N</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">2</span>
+<span class="p">);</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">vec</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">((</span><span class="n">W</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">N</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">W</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">SliceSum</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">SliceSum_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">SliceSum</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">sum</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">vec</span><span class="p">(</span><span class="n">W</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">))</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="n">vec</span><span class="p">((</span><span class="n">W</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">W</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="n">W</span><span class="p">));</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">SliceSum_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+Each <code>slice(i)</code> call inlined into a slice of <code>vec</code> in terms of the generic <code>W</code>. Nothing named <code>slice</code> exists in the output.</p>
+</div>
+</div>
+</div>
+</div>
+<p>Choosing between an inline generator and a DFHDL method:</p>
+<ul>
+<li>An <strong>inline generator</strong> duplicates its body's hardware at every call. It shines when the calls are genuinely different hardware, parameterized by elaboration-time Scala values (an index, a width, a configuration), as in Scala-loop-driven wiring or the per-index slicing above.</li>
+<li>A <strong>DFHDL method</strong> produces a single named artifact in the output (an <abbr title="Hardware Description Language">HDL</abbr> subprogram, or a method design for <code>&lt;&gt; DFRET</code>) that every call reuses. Prefer it when the calls share one body and the output should say so.</li>
+</ul>
+<p>Because an inline generator's arguments are elaboration-time Scala values, a <code>def</code> that takes DFHDL <strong>values</strong> as arguments must be a DFHDL method with a return marker; declaring such a def without one is a compile-time error.</p>
 <h2 id="what-a-method-body-may-contain">What a method body may contain<a class="headerlink" href="#what-a-method-body-may-contain" title="Permanent link"></a></h2>
 <p>Because <abbr title="Event-Driven">ED</abbr> methods and static functions become <abbr title="Hardware Description Language">HDL</abbr> subprograms rather than designs, their bodies are restricted to what a subprogram can express. A method body may <strong>not</strong> contain a design instance, a <code>process</code>, a domain block, or a recursive call to itself. Static functions are further restricted to be pure: they may not perform text output or <code>wait</code>, take non-constant arguments, capture non-constant values, return <code>Unit</code>, or call an <abbr title="Event-Driven">ED</abbr> method. These rules are checked at compile time, and a violation is reported as an error.</p>
 <p><abbr title="Dataflow">DF</abbr> methods have their own model: they become <a href="#two-ways-a-method-compiles">method designs</a>, so their bodies follow the rules of the <abbr title="Dataflow">DF</abbr> domain. See <a class="autorefs autorefs-internal" href="../design-hierarchy/#functional-composition">Functional Composition</a> for that path.</p>

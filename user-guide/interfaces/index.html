@@ -2052,8 +2052,8 @@ depends on where the connection is made:</p>
 </ul>
 <h2 id="using-an-interface-in-a-design">Using an Interface in a Design<a class="headerlink" href="#using-an-interface-in-a-design" title="Permanent link"></a></h2>
 <h3 id="instantiation">Instantiation<a class="headerlink" href="#instantiation" title="Permanent link"></a></h3>
-<p>An interface is instantiated inside a design exactly like a child design, by calling its
-constructor. Empty parentheses are required even when there are no parameters:</p>
+<p>An interface is instantiated inside a design by calling its constructor. Empty parentheses are
+required even when there are no parameters:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Producer</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w">   </span><span class="c1">// an interface instance</span>
 <span class="w">  </span><span class="c1">// ...</span>
@@ -2116,8 +2116,8 @@ hierarchy</strong>: each shared port must have complementary directions on the t
 a view with its <code>flip</code> is therefore always a legal connection:</p>
 <div class="highlight"><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Link</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">Stream</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Producer</span><span class="p">()</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Consumer</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">prod</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Producer</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">cons</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Consumer</span><span class="p">()</span>
 <span class="w">  </span><span class="n">prod</span><span class="p">.</span><span class="n">out</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">source</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">   </span><span class="c1">// producer drives the source side</span>
 <span class="w">  </span><span class="n">cons</span><span class="p">.</span><span class="n">in</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">io</span><span class="p">.</span><span class="n">sink</span><span class="p">.</span><span class="nc">ASIS</span><span class="w">     </span><span class="c1">// consumer reads the sink side</span>
 </code></pre></div>

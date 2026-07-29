@@ -3482,7 +3482,7 @@ class LRShiftFlat(
 <h4 id="syntax">Syntax<a class="headerlink" href="#syntax" title="Permanent link"></a></h4>
 <p>The syntax for direct composition follows standard Scala class instantiation, with port connections made via the <code>&lt;&gt;</code> operator:</p>
 <div class="highlight"><span class="filename">Direct composition syntax</span><pre><span></span><code><span class="c1">//instantiate a child design</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">_childDesignName_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_designClass_</span><span class="p">(</span><span class="n">_params_</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">_childDesignName_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">_designClass_</span><span class="p">(</span><span class="n">_params_</span><span class="p">)</span>
 <span class="c1">//port connection (repeat for each child port)</span>
 <span class="n">_childDesignName_</span><span class="p">.</span><span class="n">_childPort_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">_connectedValue_</span><span class="w"> </span>
 </code></pre></div>
@@ -3492,13 +3492,13 @@ class LRShiftFlat(
 <p><code>_childDesignName_</code> - The instance name for the child design. This name is preserved by the DFHDL compiler and used in error messages and generated artifacts. See the <a class="autorefs autorefs-internal" title="Naming" href="../naming/#naming">naming</a> section for details.</p>
 </li>
 <li>
-<p><code>_designClass_</code> - The design class to instantiate.</p>
+<p><code>_designClass_</code> - The design class to instantiate. Always instantiate it with <code>new</code>, which resolves to the class constructor and can therefore never be shadowed by a value, a port, or a DFHDL built-in function of the same name. See the <a class="autorefs autorefs-internal" title="Naming" href="../naming/#naming">naming</a> section for the collisions this avoids.</p>
 </li>
 <li>
-<p><code>_params_</code> - Parameters for the child design. Empty parentheses <code>()</code> are required even if no parameters are needed. Parameters can be specified:</p>
+<p><code>_params_</code> - Parameters for the child design. With the <code>new</code> form, empty parentheses are optional when the design has no parameters, so <code>new Counter()</code> and <code>new Counter</code> are equivalent. Parameters can be specified:</p>
 <ul>
-<li>As ordered values (e.g., <code>Counter(8, Up)</code>)</li>
-<li>As named parameters (e.g., <code>Counter(width = 8, dir = Up)</code>) </li>
+<li>As ordered values (e.g., <code>new Counter(8, Up)</code>)</li>
+<li>As named parameters (e.g., <code>new Counter(width = 8, dir = Up)</code>) </li>
 <li>Parameters with default values can be omitted</li>
 </ul>
 </li>
@@ -3624,8 +3624,8 @@ For complex designs, however, splitting functionality into sub-components promot
 <span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">ShiftGen</span><span class="p">:</span>
 <span class="w">  </span><span class="cm">/** direction of shift */</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dir</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">ShiftDir</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lshifter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">LeftShiftGen</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">rshifter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">RightShiftGen</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lshifter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">LeftShiftGen</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">rshifter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RightShiftGen</span><span class="p">(</span><span class="n">width</span><span class="p">)</span>
 <span class="w">  </span><span class="n">lshifter</span><span class="p">.</span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">iBits</span>
 <span class="w">  </span><span class="n">lshifter</span><span class="p">.</span><span class="n">shift</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">shift</span>
 <span class="w">  </span><span class="n">rshifter</span><span class="p">.</span><span class="n">iBits</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">iBits</span>
@@ -4322,8 +4322,8 @@ class LRShiftDirect(
 ) extends ShiftGen:
   /** direction of shift */
   val dir   = ShiftDir &lt;&gt; IN
-  val lshifter = LeftShiftGen(width)
-  val rshifter = RightShiftGen(width)
+  val lshifter = new LeftShiftGen(width)
+  val rshifter = new RightShiftGen(width)
   lshifter.iBits &lt;&gt; iBits
   lshifter.shift &lt;&gt; shift
   rshifter.iBits &lt;&gt; iBits
@@ -4348,7 +4348,7 @@ In the following example, the <code>debug</code> output port of <code>Sensor</co
 <span class="k">class</span><span class="w"> </span><span class="nc">Top</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sensor_inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Sensor</span><span class="p">()</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sensor_inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Sensor</span><span class="p">()</span>
 <span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">din</span><span class="w">   </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span>
 <span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">dout</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">dout</span>
 <span class="w">  </span><span class="n">sensor_inst</span><span class="p">.</span><span class="n">debug</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OPEN</span><span class="w">  </span><span class="c1">// explicitly unconnected</span>
@@ -4591,8 +4591,8 @@ class LRShiftDirect(
 ) extends ShiftGen:
   /** direction of shift */
   val dir   = ShiftDir &lt;&gt; IN
-  val lshifter = LeftShiftGen(width)
-  val rshifter = RightShiftGen(width)
+  val lshifter = new LeftShiftGen(width)
+  val rshifter = new RightShiftGen(width)
   lshifter.iBits &lt;&gt; iBits
   lshifter.shift &lt;&gt; shift
   rshifter.iBits &lt;&gt; iBits

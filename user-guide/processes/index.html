@@ -2348,7 +2348,7 @@ Loops are time-consuming constructs: each executed iteration of a <code>for</cod
 <span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span>
 <span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">j</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">10</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">   </span><span class="c1">// 100 cycles: one per innermost iteration</span>
 </code></pre></div></td></tr></table></div>
-<p>A loop that runs zero iterations (its guard is false on entry) still consumes its one-cycle minimum, unless it is marked <code>FALL_THROUGH</code> (see <a href="#loops">Loops</a>):</p>
+<p>A loop that runs zero iterations (its guard is false on entry) still consumes its one-cycle minimum, unless it is wrapped with <code>FALL_THROUGH</code> (see <a href="#loops">Loops</a>):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2359,16 +2359,22 @@ Loops are time-consuming constructs: each executed iteration of a <code>for</cod
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
 <span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span><span class="w">                 </span><span class="c1">// one cycle to enter and skip each loop</span>
 <span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 <span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 <span class="w">  </span><span class="n">finish</span><span class="p">()</span><span class="w">                         </span><span class="c1">// fires within the third cycle (fused into the last skip)</span>
 
 <span class="n">process</span><span class="p">:</span>
-<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nc">FALL_THROUGH</span><span class="w"> </span><span class="p">}</span><span class="w">   </span><span class="c1">// each loop is skipped with zero cycles</span>
-<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nc">FALL_THROUGH</span><span class="w"> </span><span class="p">}</span>
-<span class="w">  </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nc">FALL_THROUGH</span><span class="w"> </span><span class="p">}</span>
+<span class="w">  </span><span class="nc">FALL_THROUGH</span><span class="p">:</span><span class="w">                    </span><span class="c1">// each wrapped loop is skipped with zero cycles</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="nc">FALL_THROUGH</span><span class="p">:</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
+<span class="w">  </span><span class="nc">FALL_THROUGH</span><span class="p">:</span>
+<span class="w">    </span><span class="k">while</span><span class="w"> </span><span class="p">(</span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="p">{}</span>
 <span class="w">  </span><span class="n">finish</span><span class="p">()</span><span class="w">                         </span><span class="c1">// fires within the first cycle</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Rule 3: control flow fuses into the first time-consuming construct it reaches.</strong>
@@ -2518,8 +2524,10 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="w">    </span><span class="mi">1</span><span class="p">.</span><span class="n">cy</span><span class="p">.</span><span class="n">wait</span><span class="w">          </span><span class="c1">// one cycle per element: 8 cycles total</span>
 </code></pre></div></td></tr></table></div>
 <p>A <code>while</code> loop with a body that consumes no cycles samples its guard once per cycle (one cycle per iteration), which is exactly the behavior of <code>waitUntil</code>/<code>waitWhile</code>.</p>
-<p>Inside an <abbr title="Register-Transfer">RT</abbr> loop, the <strong><code>FALL_THROUGH</code></strong> statement marks the loop to fall through to the next step without consuming any cycles when its guard is false on entry.</p>
-<p>For elaboration-time (unrolled) loops outside processes, see <a href="../loops/">Loops</a>.</p>
+<p>Wrapping an <abbr title="Register-Transfer">RT</abbr> loop with a <strong><code>FALL_THROUGH</code></strong> block marks the loop to fall through to the next step without consuming any cycles when its guard is false on entry.</p>
+<p>Wrapping an <abbr title="Register-Transfer">RT</abbr> loop with a <strong><code>COMB_LOOP</code></strong> block marks it combinational: the whole loop executes within a single cycle and generates no steps (so its body must not consume cycles).</p>
+<p>Both annotations are allowed under <abbr title="Register-Transfer">RT</abbr> domains only; applying them elsewhere is a compile-time error.</p>
+<p>For elaboration-time (unrolled) loops outside processes, and for hardware loops at <abbr title="Register-Transfer">RT</abbr> design scope, see <a href="../loops/">Loops</a>.</p>
 <h3 id="fallthrough">fallThrough<a class="headerlink" href="#fallthrough" title="Permanent link"></a></h3>
 <p>A step can define <strong><code>def fallThrough = cond</code></strong> where <code>cond</code> is a Boolean/Bit expression. When the condition holds, the step advances to the next step in the same cycle (conditional advancement); when it does not, the FSM stays in the current step.</p>
 <h3 id="onentry-and-onexit">onEntry and onExit<a class="headerlink" href="#onentry-and-onexit" title="Permanent link"></a></h3>
@@ -2833,7 +2841,7 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="w">    </span><span class="n">z</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span>
 <span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">z</span>
 </code></pre></div></td></tr></table></div>
-<p>You can also use plain Scala <code>val</code> declarations (without <code>&lt;&gt; VAR</code> or <code>&lt;&gt; CONST</code>) inside process blocks to name intermediate sub-expressions. These are DFHDL values created inline -- they do not declare new ports or variables but serve as readable names for parts of a computation:</p>
+<p>You can also use plain Scala <code>val</code> declarations (without <code>&lt;&gt; VAR</code> or <code>&lt;&gt; CONST</code>) inside process blocks to name intermediate sub-expressions. These are DFHDL values created inline; they do not declare new ports or variables but serve as readable names for parts of a computation:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
@@ -2846,7 +2854,7 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">overflow</span><span class="p">)</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">max_val</span>
 <span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">sum</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
-<p>Do not use <code>&lt;&gt; CONST</code> or <code>&lt;&gt; VAR</code> modifiers inside processes for these intermediates -- plain <code>val name = expr</code> is sufficient.</p>
+<p>Do not use <code>&lt;&gt; CONST</code> or <code>&lt;&gt; VAR</code> modifiers inside processes for these intermediates; plain <code>val name = expr</code> is sufficient.</p>
 <div class="admonition warning">
 <p class="admonition-title">Local <code>VAR</code> in clocked processes become registers</p>
 <p>Local <code>VAR</code> declared inside a clocked <code>process(clk):</code> block are synthesized as <strong>flip-flop registers</strong> in the generated Verilog, not combinational wires. This is because the DFHDL compiler treats any variable written inside a clocked process as sequential storage.</p>

@@ -1348,10 +1348,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#general-recommendation-capitalize-design-class-names" class="md-nav__link">
+  <a href="#general-recommendation-instantiate-designs-with-new" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General recommendation: Capitalize design-class names
+        General recommendation: Instantiate designs with new
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-recommendation-capitalize-design-class-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional recommendation: Capitalize design-class names
       
     </span>
   </a>
@@ -1424,17 +1435,6 @@
     <span class="md-ellipsis">
       
         @targetName annotation
-      
-    </span>
-  </a>
-  
-</li>
-        
-          <li class="md-nav__item">
-  <a href="#type-alias-for-class-name-conflicts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type alias for class-name conflicts
       
     </span>
   </a>
@@ -1735,10 +1735,21 @@
       <ul class="md-nav__list">
         
           <li class="md-nav__item">
-  <a href="#general-recommendation-capitalize-design-class-names" class="md-nav__link">
+  <a href="#general-recommendation-instantiate-designs-with-new" class="md-nav__link">
     <span class="md-ellipsis">
       
-        General recommendation: Capitalize design-class names
+        General recommendation: Instantiate designs with new
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#additional-recommendation-capitalize-design-class-names" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Additional recommendation: Capitalize design-class names
       
     </span>
   </a>
@@ -1817,17 +1828,6 @@
   
 </li>
         
-          <li class="md-nav__item">
-  <a href="#type-alias-for-class-name-conflicts" class="md-nav__link">
-    <span class="md-ellipsis">
-      
-        Type alias for class-name conflicts
-      
-    </span>
-  </a>
-  
-</li>
-        
       </ul>
     </nav>
   
@@ -1856,8 +1856,13 @@
 <h1 id="naming">Naming<a class="headerlink" href="#naming" title="Permanent link"></a></h1>
 <h2 id="name-collisions-shadowing">Name Collisions &amp; Shadowing<a class="headerlink" href="#name-collisions-shadowing" title="Permanent link"></a></h2>
 <p>When translating from Verilog/VHDL, signal, port, and module names may collide with names already in scope: Scala keywords, DFHDL built-ins, or your own design classes. This section is the single place that covers how to detect and resolve all such collisions.</p>
-<h3 id="general-recommendation-capitalize-design-class-names">General recommendation: Capitalize design-class names<a class="headerlink" href="#general-recommendation-capitalize-design-class-names" title="Permanent link"></a></h3>
-<p>The simplest way to avoid the entire class of collisions between a <strong>design class</strong> and a <strong>value</strong> (port/variable) is a naming convention:</p>
+<h3 id="general-recommendation-instantiate-designs-with-new">General recommendation: Instantiate designs with <code>new</code><a class="headerlink" href="#general-recommendation-instantiate-designs-with-new" title="Permanent link"></a></h3>
+<p>Always instantiate a child design with <code>new DesignName(...)</code>:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">adder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Adder</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<p>The <code>new</code> keyword forces resolution to the <strong>class constructor</strong>, so the instantiation can never be captured by a value, a port, or a DFHDL built-in function that happens to share the name. Writing <code>Adder(WIDTH = 16)</code> relies on Scala 3 universal apply methods, which resolve by name and can therefore be shadowed. Using <code>new</code> everywhere removes the entire class of instantiation collisions before it appears, so it is the recommended form throughout this documentation.</p>
+<h3 id="additional-recommendation-capitalize-design-class-names">Additional recommendation: Capitalize design-class names<a class="headerlink" href="#additional-recommendation-capitalize-design-class-names" title="Permanent link"></a></h3>
+<p>On top of <code>new</code>, a naming convention keeps the two namespaces visually distinct:</p>
 <ul>
 <li>Name <strong>design classes</strong> with a <code>Capitalized</code> (PascalCase) name.</li>
 <li>Name <strong>ports and variables</strong> with <code>camelCase</code> names.</li>
@@ -1877,7 +1882,7 @@
 <span class="w">  </span><span class="c1">// ...</span>
 
 <span class="c1">// In a parent design, the Capitalized class name never collides with camelCase values:</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">adder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Adder</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">adder</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Adder</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <div class="admonition warning">
 <p class="admonition-title">Caveat: direct Verilog/VHDL translation that preserves original names</p>
@@ -1901,19 +1906,18 @@
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Module named &quot;abs&quot; conflicts with dfhdl.abs</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Module named &quot;abs&quot; conflicts with dfhdl.abs</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">abs</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">DATA_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
 <span class="w">  </span><span class="c1">// ...</span>
 
 <span class="c1">// In the parent design, `abs(...)` resolves to the built-in function, not the class.</span>
-<span class="c1">// Fix: create a type alias before instantiation</span>
-<span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">AbsModule</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="c1">// Fix: instantiate with `new`, which always resolves to the class constructor</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
+<p>This is the <a href="#general-recommendation-instantiate-designs-with-new">general <code>new</code> recommendation</a> applied to a built-in collision. Following it from the start makes this collision a non-issue.</p>
 <h3 id="design-class-name-colliding-with-a-value-name">Design-class name colliding with a value name<a class="headerlink" href="#design-class-name-colliding-with-a-value-name" title="Permanent link"></a></h3>
 <p>A common translation collision is a <strong>design class</strong> whose name is the same as a port or variable in scope (or a built-in). When the bare name <code>design_class_name(...)</code> resolves to the value instead of the class, use one of these two fixes:</p>
-<p><strong>1. Explicitly instantiate with <code>new</code>.</strong> The <code>new</code> keyword forces resolution to the class constructor, sidestepping the shadowing value:</p>
+<p><strong>1. Explicitly instantiate with <code>new</code></strong> (the recommended default form). The <code>new</code> keyword forces resolution to the class constructor, sidestepping the shadowing value:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// `design_class_name` the value is in scope and shadows the class</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">design_class_name</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
@@ -1933,7 +1937,7 @@
 <span class="w">  </span><span class="c1">// ...</span>
 
 <span class="c1">// No collision with values; generated HDL module is still named &quot;design_class_name&quot;</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <h2 id="resolution-patterns">Resolution Patterns<a class="headerlink" href="#resolution-patterns" title="Permanent link"></a></h2>
 <h3 id="backtick-escaping">Backtick escaping<a class="headerlink" href="#backtick-escaping" title="Permanent link"></a></h3>
@@ -1964,13 +1968,7 @@
 <span class="c1">// Generated HDL port is still named &quot;kernel&quot;</span>
 
 <span class="c1">// The class &quot;kernel&quot; remains available for instantiation</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kernel</span><span class="p">()</span>
-</code></pre></div></td></tr></table></div>
-<h3 id="type-alias-for-class-name-conflicts">Type alias for class-name conflicts<a class="headerlink" href="#type-alias-for-class-name-conflicts" title="Permanent link"></a></h3>
-<p>When a class name conflicts with a DFHDL built-in function:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">type</span><span class="w"> </span><span class="nc">AbsModule</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">abs</span><span class="w">   </span><span class="c1">// alias resolves the class, not the function</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">AbsModule</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u_kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">kernel</span><span class="p">()</span>
 </code></pre></div></td></tr></table></div>
 
 

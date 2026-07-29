@@ -1603,6 +1603,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="RT Domain Loops">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#combinational-loops-comb_loop" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Combinational Loops (COMB_LOOP)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
     </ul>
@@ -1628,7 +1645,7 @@
 <h1 id="loops">Loops<a class="headerlink" href="#loops" title="Permanent link"></a></h1>
 <p>DFHDL supports loops in several contexts with different semantics depending on the domain and placement.</p>
 <h2 id="elaboration-time-loops-generate-loops">Elaboration-Time Loops (Generate Loops)<a class="headerlink" href="#elaboration-time-loops-generate-loops" title="Permanent link"></a></h2>
-<p>Scala <code>for</code> loops at design scope (outside processes) run at elaboration time. They unroll into repeated hardware -- equivalent to Verilog <code>generate for</code>. The generated <abbr title="Hardware Description Language">HDL</abbr> contains no loop; each iteration produces distinct instances.</p>
+<p>By default, <code>for</code> loops in a concurrent scope (a design or domain body, not within a function, procedure, or process) run at elaboration time: their range is an ordinary Scala range, even when the range arguments are DFHDL <code>Int</code> values (such as <code>Int &lt;&gt; CONST</code> parameters, whose values are read during elaboration). The loop unrolls into repeated hardware, equivalent to Verilog <code>generate for</code>, so the generated <abbr title="Hardware Description Language">HDL</abbr> contains no loop; each iteration produces distinct instances.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -1640,18 +1657,26 @@
 <span class="normal"> 9</span>
 <span class="normal">10</span>
 <span class="normal">11</span>
-<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Pipeline</span><span class="p">(</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">STAGES</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
-<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// A design that adds 1 to its input</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Plus1</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
-<span class="w">  </span><span class="c1">// Elaboration-time loop: unrolls into STAGES instances</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">STAGES</span><span class="p">.</span><span class="n">toScalaInt</span><span class="w"> </span><span class="k">yield</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Stage</span><span class="p">(</span><span class="nc">IDX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="p">)</span>
-<span class="w">    </span><span class="n">s</span>
-<span class="w">  </span><span class="c1">// Connect chain...</span>
-<span class="k">end</span><span class="w"> </span><span class="nc">Pipeline</span>
+<span class="c1">// Chains four `Plus1` instances with an elaboration-time loop</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Plus4</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">plus1s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">List</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">4</span><span class="p">)(</span><span class="nc">Plus1</span><span class="p">())</span>
+<span class="w">  </span><span class="n">plus1s</span><span class="p">.</span><span class="n">head</span><span class="p">.</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span>
+<span class="w">    </span><span class="n">plus1s</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="p">).</span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">plus1s</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">y</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">plus1s</span><span class="p">.</span><span class="n">last</span><span class="p">.</span><span class="n">y</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Plus4</span>
 </code></pre></div></td></tr></table></div>
 <p>When a design containing an elaboration-time loop is instantiated with different parameter values, DFHDL creates distinct elaborated designs (with enumerated names), each with a different number of unrolled instances.</p>
 <h3 id="elaboration-time-conditionals">Elaboration-Time Conditionals<a class="headerlink" href="#elaboration-time-conditionals" title="Permanent link"></a></h3>
@@ -1682,6 +1707,25 @@
 <p>In <abbr title="Event-Driven">ED</abbr> designs, <code>for</code> and <code>while</code> loops inside processes produce combinational or sequential logic depending on the process type. These loops are unrolled by the compiler.</p>
 <h2 id="rt-domain-loops"><abbr title="Register-Transfer">RT</abbr> Domain Loops<a class="headerlink" href="#rt-domain-loops" title="Permanent link"></a></h2>
 <p>In <abbr title="Register-Transfer">RT</abbr> designs, <code>for</code> and <code>while</code> loops inside processes create synthesizable procedural FSMs. The compiler transforms the loop body into state machine transitions. Loop iterators become registers, and the loop boundaries (entry, exit, and loop-back) consume zero extra cycles: each executed iteration costs exactly the cycles its body consumes, so a flat wait, a loop of waits, and nested loops of waits with the same total time are cycle-identical. See <a href="../processes/">Processes</a> for the full <abbr title="Register-Transfer">RT</abbr> cycle semantics.</p>
+<h3 id="combinational-loops-comb_loop">Combinational Loops (<code>COMB_LOOP</code>)<a class="headerlink" href="#combinational-loops-comb_loop" title="Permanent link"></a></h3>
+<p>Wrapping a loop with a <strong><code>COMB_LOOP</code></strong> block marks it combinational: the whole loop executes within a single cycle. At <abbr title="Register-Transfer">RT</abbr> design scope (outside processes), the wrapper also keeps the <code>for</code> range as a hardware range, so the loop is emitted as a single procedural loop in the generated <abbr title="Hardware Description Language">HDL</abbr> instead of unrolling at elaboration time. Like <code>FALL_THROUGH</code>, this annotation is allowed under <abbr title="Register-Transfer">RT</abbr> domains only; applying it elsewhere is a compile-time error.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">PORT_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">5</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">PORT_WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="nc">COMB_LOOP</span><span class="p">:</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">PORT_WIDTH</span><span class="p">)</span>
+<span class="w">      </span><span class="n">r</span><span class="p">(</span><span class="n">i</span><span class="p">).</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Foo</span>
+</code></pre></div></td></tr></table></div>
+<p>Inside an <abbr title="Register-Transfer">RT</abbr> process, where loops are sequential (multi-cycle) by default, the same wrapper keeps a loop combinational; its body must not consume cycles.</p>
 
 
 

@@ -1296,6 +1296,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#elaboration-time-conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaboration-Time Conditionals
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -1939,6 +1950,17 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#elaboration-time-conditionals" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Elaboration-Time Conditionals
+      
+    </span>
+  </a>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2250,8 +2272,78 @@
 <li><strong>Type Consistency</strong>: Both branches must produce compatible types if used as an expression</li>
 <li><strong>Scope</strong>: Variables declared inside if blocks are only visible within that block</li>
 <li><strong>Hardware Generation</strong>: Each branch generates hardware - both paths exist in parallel</li>
-<li><strong>Constant Conditions</strong>: If conditions are constant, unused branches may be optimized out during elaboration</li>
+<li><strong>Constant Conditions</strong>: At a concurrent scope (a design or domain body, outside any process), an <code>if</code> whose condition is a DFHDL constant is resolved at <strong>elaboration time</strong>; only the taken branch generates hardware. See <a href="#elaboration-time-conditionals">Elaboration-Time Conditionals</a> below.</li>
 </ol>
+<h3 id="elaboration-time-conditionals">Elaboration-Time Conditionals<a class="headerlink" href="#elaboration-time-conditionals" title="Permanent link"></a></h3>
+<p>In a <strong>concurrent scope</strong> (a design or domain body, outside any process), an <code>if</code> whose condition is a <strong>DFHDL constant</strong> is resolved at <strong>elaboration time</strong>, exactly like a Verilog <code>generate if</code> (VHDL <code>if ... generate</code>). Only the taken branch is elaborated into hardware; the untaken branch produces none:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Gate</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">INVERT</span><span class="p">:</span><span class="w"> </span><span class="nc">Boolean</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kc">false</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">INVERT</span><span class="p">)</span><span class="w">          </span><span class="c1">// constant condition: resolved during elaboration</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="o">~</span><span class="n">x</span><span class="w">            </span><span class="c1">// elaborated only when INVERT is true</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="w">             </span><span class="c1">// elaborated only when INVERT is false</span>
+</code></pre></div></td></tr></table></div>
+<p>With the default <code>INVERT = false</code>, only the <code>else</code> branch survives elaboration: the generated <abbr title="Hardware Description Language">HDL</abbr> contains no conditional, just the pass-through.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Gate</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="n">INVERT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">)(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">Gate</span><span class="w"> </span><span class="k">is</span>
+<span class="k">generic</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">INVERT</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">boolean</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">false</span>
+<span class="p">);</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Gate</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">Gate_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">Gate</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Gate_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<p>Because the selected branch depends on the constant's value, instantiating the design with different parameter values yields distinct elaborated designs (with enumerated names). The <code>INVERT</code> parameter still appears in the generated interface, but the body is fixed to the branch chosen at elaboration.</p>
+<p>As in Verilog and VHDL, scope decides what an <code>if</code> means: at concurrent (design/architecture) scope it is a generate/elaboration conditional, while inside a process it is an ordinary hardware conditional (a multiplexer or enable). A constant condition does not change that: an <code>if</code> inside a process stays a hardware conditional even when its condition is constant, exactly as a procedural <code>if</code> inside a Verilog <code>always</code> or VHDL <code>process</code> block is never a generate conditional.</p>
+<p>The one genuine difference from Verilog <code>generate if</code> / VHDL <code>if ... generate</code> is that <strong>DFHDL type-checks both branches</strong>: even though only the taken branch is elaborated, DFHDL (via Scala) compiles both, so both must be valid for every parameter value. See <a href="../loops/">Loops</a> for the analogous elaboration-time loop behavior and workarounds.</p>
 <h2 id="match-expressions">Match Expressions<a class="headerlink" href="#match-expressions" title="Permanent link"></a></h2>
 <p>Match expressions provide pattern matching capabilities similar to Scala's match expressions but optimized for hardware description.</p>
 <h3 id="basic-syntax_1">Basic Syntax<a class="headerlink" href="#basic-syntax_1" title="Permanent link"></a></h3>
