@@ -1311,6 +1311,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/command-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1605,20 +1633,24 @@ class FullAdder1 extends EDDesign:
   c_out &lt;&gt; a &amp;&amp; b || b &amp;&amp; c_in || c_in &amp;&amp; a
 
 class FullAdderN(val n: Int = 4) extends EDDesign:
-  val a, b  = Bits(n) &lt;&gt; IN
-  val c_in  = Bit     &lt;&gt; IN
-  val sum   = Bits(n) &lt;&gt; OUT
-  val c_out = Bit     &lt;&gt; OUT
+  val a, b        = Bits(n) &lt;&gt; IN
+  val c_in        = Bit     &lt;&gt; IN
+  val sum         = Bits(n) &lt;&gt; OUT
+  val c_out       = Bit     &lt;&gt; OUT
+  val adder_c_in  = Bits(n) &lt;&gt; VAR
+  val adder_c_out = Bits(n) &lt;&gt; VAR
 
-  val adder = List.fill(n)(FullAdder1())
+  adder_c_in(0) &lt;&gt; c_in
   for (i &lt;- 0 until n)
-    adder(i).a   &lt;&gt; a(i)
-    adder(i).b   &lt;&gt; b(i)
-    adder(i).sum &lt;&gt; sum(i)
+    val adder = new FullAdder1()
+    adder.a     &lt;&gt; a(i)
+    adder.b     &lt;&gt; b(i)
+    adder.sum   &lt;&gt; sum(i)
+    adder.c_in  &lt;&gt; adder_c_in(i)
+    adder.c_out &lt;&gt; adder_c_out(i)
     if (i &lt; n - 1)
-      adder(i).c_out &lt;&gt; adder(i + 1).c_in
-  adder.head.c_in  &lt;&gt; c_in
-  adder.last.c_out &lt;&gt; c_out
+      adder_c_in(i + 1) &lt;&gt; adder_c_out(i)
+  c_out &lt;&gt; adder_c_out(n - 1)
 end FullAdderN
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

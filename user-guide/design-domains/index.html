@@ -1482,10 +1482,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-register-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Register Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#register-access-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       
         Register Access Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#din-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Register Input
       
     </span>
   </a>
@@ -1659,6 +1681,34 @@
     
   
     Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
   
 
     
@@ -2114,10 +2164,32 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#the-register-model" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Register Model
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#register-access-patterns" class="md-nav__link">
     <span class="md-ellipsis">
       
         Register Access Patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#din-read" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Reading the Register Input
       
     </span>
   </a>
@@ -2468,6 +2540,17 @@ from a reset-initialization block and instead rely on their initial values (<cod
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">delayed</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="w">      </span><span class="c1">// One cycle delay of x</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">delayed2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">.</span><span class="n">reg</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Two cycle delay of x</span>
 </code></pre></div></td></tr></table></div>
+<h4 id="the-register-model">The Register Model<a class="headerlink" href="#the-register-model" title="Permanent link"></a></h4>
+<p>A register declared with <code>VAR.REG</code> or <code>OUT.REG</code> has two sides:</p>
+<ul>
+<li>The <strong>output</strong> is the declaration name itself (<code>reg</code>). Reading it yields the value the register has
+  held since the last clock edge. That value is stable for the whole cycle, no matter what the design
+  body assigns, and it is immutable: you cannot assign to it.</li>
+<li>The <strong>input</strong> is <code>reg.din</code>. It is what the register will hold after the next clock edge, and it is
+  the only assignable side.</li>
+</ul>
+<p>The clock edge is what moves the input to the output. Everything the design body does within a cycle
+happens to the input side.</p>
 <h4 id="register-access-patterns">Register Access Patterns<a class="headerlink" href="#register-access-patterns" title="Permanent link"></a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
@@ -2497,10 +2580,188 @@ from a reset-initialization block and instead rely on their initial values (<cod
 <span class="w">  </span><span class="n">reg</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w">               </span><span class="c1">// Error: Can&#39;t write to register output</span>
 <span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">reg</span><span class="w">            </span><span class="c1">// Error: Can&#39;t write to register output</span>
 
-<span class="w">  </span><span class="c1">// Reading from registers (always reads output)</span>
+<span class="w">  </span><span class="c1">// Reading a register without `.din` reads its output</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">reg</span><span class="w">        </span><span class="c1">// Reads register output</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">outValue</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w">     </span><span class="c1">// Reads output register value</span>
 </code></pre></div></td></tr></table></div>
+<h4 id="din-read">Reading the Register Input<a class="headerlink" href="#din-read" title="Permanent link"></a></h4>
+<p><code>reg.din</code> can also be read. It yields the register's <strong>pending</strong> value: whatever has been assigned to
+it so far in the current cycle, or the register's output when nothing has been assigned yet. This
+lets a register be built up in steps:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">SteppedCounter</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="c1">// each statement builds on the pending value, so `r` advances by 2 every cycle</span>
+<span class="w">  </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span>
+</code></pre></div></td></tr></table></div>
+<p>The compiler gives the register a shadow variable holding its pending value, seeds it from the
+register at the top of the cycle, applies the assignments in order, and registers the result on the
+clock edge:</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">SteppedCounter</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="n">rst</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">r_din</span><span class="p">;</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">r_din</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r_din</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_din</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">8</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r_din</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r_din</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">8</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">always_ff</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">)</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">8</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">else</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">r_din</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+The shadow <code>r_din</code> is a module-level <code>logic</code> assigned with <strong>blocking</strong> assignments inside
+<code>always_comb</code>, so each statement sees the value left by the previous one.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">SteppedCounter</span><span class="w"> </span><span class="k">is</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">clk</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
+<span class="w">  </span><span class="n">rst</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="kt">std_logic</span><span class="p">;</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">SteppedCounter</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">SteppedCounter_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">SteppedCounter</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">r_din</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">    </span><span class="k">variable</span><span class="w"> </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;1&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r_din_v</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;1&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="n">r_din</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">r_din_v</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="n">rising_edge</span><span class="p">(</span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">then</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">rst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="sc">&#39;1&#39;</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">8</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">else</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">r_din</span><span class="p">;</span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">r</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">SteppedCounter_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+VHDL signal assignment evaluates every right-hand side against the value the signal had when the
+process started, so a shadow <strong>signal</strong> would increment only once here. The shadow is therefore a
+process <strong>variable</strong> (<code>r_din_v</code>), which does carry the value forward between statements, and it is
+published to the <code>r_din</code> signal at the end of the process for the clocked process to register.</p>
+</div>
+</div>
+</div>
+<p>A <code>.din</code> read reflects the assignments <strong>above it</strong>, not the register's final input value. Reading it
+before any assignment yields the register output, which is why the model above stays consistent:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DinOrdering</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">a</span><span class="w">     </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w">   </span><span class="c1">// nothing assigned yet, so this reads the register output</span>
+<span class="w">  </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+<span class="w">  </span><span class="n">b</span><span class="w">     </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w">   </span><span class="c1">// reads x</span>
+</code></pre></div></td></tr></table></div>
+<p>As with assignment, a partial selection comes before <code>.din</code>, not after:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">DinPartial</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">r</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">5</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">).</span><span class="n">din</span><span class="w">   </span><span class="c1">// the pending value of the lower nibble</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title">A <code>.din</code> read cannot be given a name</p>
+<p>Binding a <code>.din</code> read to a Scala <code>val</code> is rejected at elaboration:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w">   </span><span class="c1">// error: Cannot name a register DIN read.</span>
+</code></pre></div></td></tr></table></div>
+<p>The reason is that such a binding looks like a snapshot but behaves as a live view: <code>d</code> would keep
+reporting the pending value at whatever point it is later read, so <code>r.din := 5</code> between the binding
+and its use would change what <code>d</code> yields. Apply <code>.din</code> directly where it is read instead, which
+reads the same and leaves no room for the confusion:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</code></pre></div></td></tr></table></div>
+</div>
 <h4 id="register-composition">Register Composition<a class="headerlink" href="#register-composition" title="Permanent link"></a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>

@@ -1,0 +1,2765 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="DFiant Hardware Description Language (DFHDL) Documentation">
+      
+      
+        <meta name="author" content="Oron Port">
+      
+      
+        <link rel="canonical" href="https://dfianthdl.github.io/user-guide/command-line/">
+      
+      
+        <link rel="prev" href="../naming/">
+      
+      
+        <link rel="next" href="../../transitioning/from-verilog/">
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-ProperDocs 1.6.7, mkdocs-material-9.7.7">
+    
+    
+      
+        <title>Command Line - DFiant HDL (DFHDL)</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.ec1eaa64.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+      <link rel="stylesheet" href="../../css/scastie.css">
+    
+      <link rel="stylesheet" href="../../css/vs.css">
+    
+      <link rel="stylesheet" href="../../css/user-guide.css">
+    
+      <link rel="stylesheet" href="../../css/hdelk.css">
+    
+      <link rel="stylesheet" href="../../css/lhs-permalink.css">
+    
+      <link rel="stylesheet" href="../../css/dfhdl-admonition.css">
+    
+      <link rel="stylesheet" href="../../css/verilog-admonition.css">
+    
+      <link rel="stylesheet" href="../../css/vhdl-admonition.css">
+    
+      <link rel="stylesheet" href="../../css/d2.css">
+    
+      <link rel="stylesheet" href="../../css/schemdraw.css">
+    
+      <link rel="stylesheet" href="../../css/operation-tables.css">
+    
+      <link rel="stylesheet" href="../../css/d3-hwschematic.css">
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/mkdocs_d2_plugin.css">
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+      
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#cli" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      <!--
+  Copyright (c) 2016-2024 Martin Donath <martin.donath@squidfunk.com>
+
+  Permission is hereby granted, free of charge, to any person obtaining a copy
+  of this software and associated documentation files (the "Software"), to
+  deal in the Software without restriction, including without limitation the
+  rights to use, copy, modify, merge, publish, distribute, sublicense, and/or
+  sell copies of the Software, and to permit persons to whom the Software is
+  furnished to do so, subject to the following conditions:
+
+  The above copyright notice and this permission notice shall be included in
+  all copies or substantial portions of the Software.
+
+  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+  FITNESS FOR A PARTICULAR PURPOSE AND NON-INFRINGEMENT. IN NO EVENT SHALL THE
+  AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+  FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS
+  IN THE SOFTWARE.
+-->
+
+<!-- Determine classes -->
+
+
+  
+
+
+<!-- Header -->
+<header class="md-header md-header--shadow md-header--lifted" data-md-component="header">
+  <nav
+    class="md-header__inner md-grid"
+    aria-label="Header"
+  >
+
+    <!-- Link to home -->
+    <a
+      href="../.."
+      title="DFiant HDL (DFHDL)"
+      class="md-header__button md-logo"
+      aria-label="DFiant HDL (DFHDL)"
+      data-md-component="logo"
+    >
+      
+  <img src="../../images/DF-logo-dark.png" alt="logo">
+
+    </a>
+
+    <!-- Button to open drawer -->
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+
+    <!-- Header title -->
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            DFiant HDL (DFHDL)
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Command Line
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+    <button id="language-toggle-button" class="md-icon-button" aria-label="Toggle Language" title="Select Verilog/VHDL for default code generation">
+      <span id="current-language"></span>
+    </button>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        var currentLang = document.getElementById('current-language');
+        var savedLanguage = localStorage.getItem('preferredLanguage');
+    
+        if (savedLanguage) {
+          currentLang.textContent = savedLanguage;
+        } else {
+          currentLang.textContent = "Verilog";
+        }
+      });
+    </script>
+    
+    <!-- Color palette toggle -->
+    
+      
+        <form class="md-header__option" data-md-component="palette">
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="default" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to dark mode"  type="radio" name="__palette" id="__palette_0">
+    
+      <label class="md-header__button md-icon" title="Switch to dark mode" for="__palette_1" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a4 4 0 0 0-4 4 4 4 0 0 0 4 4 4 4 0 0 0 4-4 4 4 0 0 0-4-4m0 10a6 6 0 0 1-6-6 6 6 0 0 1 6-6 6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+    
+    
+    
+    <input class="md-option" data-md-color-media="" data-md-color-scheme="slate" data-md-color-primary="indigo" data-md-color-accent="indigo"  aria-label="Switch to light mode"  type="radio" name="__palette" id="__palette_1">
+    
+      <label class="md-header__button md-icon" title="Switch to light mode" for="__palette_0" hidden>
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 18c-.89 0-1.74-.2-2.5-.55C11.56 16.5 13 14.42 13 12s-1.44-4.5-3.5-5.45C10.26 6.2 11.11 6 12 6a6 6 0 0 1 6 6 6 6 0 0 1-6 6m8-9.31V4h-4.69L12 .69 8.69 4H4v4.69L.69 12 4 15.31V20h4.69L12 23.31 15.31 20H20v-4.69L23.31 12z"/></svg>
+      </label>
+    
+  
+</form>
+      
+    
+
+    <!-- User preference: color palette -->
+    
+      <script>var palette=__md_get("__palette");if(palette&&palette.color){if("(prefers-color-scheme)"===palette.color.media){var media=matchMedia("(prefers-color-scheme: light)"),input=document.querySelector(media.matches?"[data-md-color-media='(prefers-color-scheme: light)']":"[data-md-color-media='(prefers-color-scheme: dark)']");palette.color.media=input.getAttribute("data-md-color-media"),palette.color.scheme=input.getAttribute("data-md-color-scheme"),palette.color.primary=input.getAttribute("data-md-color-primary"),palette.color.accent=input.getAttribute("data-md-color-accent")}for(var[key,value]of Object.entries(palette.color))document.body.setAttribute("data-md-color-"+key,value)}</script>
+    
+
+    <!-- Site language selector -->
+    
+
+    <!-- Button to open search modal -->
+    
+      <label class="md-header__button md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+      </label>
+
+      <!-- Search interface -->
+      <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    <!-- Repository information -->
+    
+      <div class="md-header__source">
+        <a href="https://github.com/DFiantHDL/DFHDL" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DFiantHDL/DFHDL
+  </div>
+</a>
+      </div>
+    
+  </nav>
+
+  <!-- Navigation tabs (sticky) -->
+  
+    
+      
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../intro/technology/" class="md-tabs__link">
+          
+  
+  
+  Introduction
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../getting-started/initial-setup/" class="md-tabs__link">
+          
+  
+  
+  Getting Started
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../in-browser/1-bit-full-adder/" class="md-tabs__link">
+          
+  
+  
+  Run In Browser
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../design-hierarchy/" class="md-tabs__link">
+          
+  
+  
+  User Guide
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../transitioning/from-verilog/" class="md-tabs__link">
+          
+  
+  
+  Transitioning
+
+        </a>
+      </li>
+    
+  
+
+      
+        
+  
+  
+  
+  
+    
+    
+      <li class="md-tabs__item">
+        <a href="../../about/contributing/" class="md-tabs__link">
+          
+  
+  
+  About
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+    
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+<nav class="md-nav md-nav--primary md-nav--lifted" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="DFiant HDL (DFHDL)" class="md-nav__button md-logo" aria-label="DFiant HDL (DFHDL)" data-md-component="logo">
+      
+  <img src="../../images/DF-logo-dark.png" alt="logo">
+
+    </a>
+    DFiant HDL (DFHDL)
+  </label>
+  
+    <div class="md-nav__source">
+      <a href="https://github.com/DFiantHDL/DFHDL" title="Go to repository" class="md-source" data-md-component="source">
+  <div class="md-source__icon md-icon">
+    
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M439.6 236.1 244 40.5c-5.4-5.5-12.8-8.5-20.4-8.5s-15 3-20.4 8.4L162.5 81l51.5 51.5c27.1-9.1 52.7 16.8 43.4 43.7l49.7 49.7c34.2-11.8 61.2 31 35.5 56.7-26.5 26.5-70.2-2.9-56-37.3L240.3 199v121.9c25.3 12.5 22.3 41.8 9.1 55-6.4 6.4-15.2 10.1-24.3 10.1s-17.8-3.6-24.3-10.1c-17.6-17.6-11.1-46.9 11.2-56v-123c-20.8-8.5-24.6-30.7-18.6-45L142.6 101 8.5 235.1C3 240.6 0 247.9 0 255.5s3 15 8.5 20.4l195.6 195.7c5.4 5.4 12.7 8.4 20.4 8.4s15-3 20.4-8.4l194.7-194.7c5.4-5.4 8.4-12.8 8.4-20.4s-3-15-8.4-20.4"/></svg>
+  </div>
+  <div class="md-source__repository">
+    DFiantHDL/DFHDL
+  </div>
+</a>
+    </div>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_2" >
+        
+          
+          <label class="md-nav__link" for="__nav_2" id="__nav_2_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Introduction
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_2_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_2">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Introduction
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../intro/technology/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Technology
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_3" >
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Getting Started
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Getting Started
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/initial-setup/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Initial Setup
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../getting-started/hello-world/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Hello Hardware World
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_4" >
+        
+          
+          <label class="md-nav__link" for="__nav_4" id="__nav_4_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Run In Browser
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_4_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_4">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Run In Browser
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/1-bit-full-adder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    1-Bit Full Adder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/n-bit-full-adder/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    N-Bit Full Adder
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/counter/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Counter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/led-blinker/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    LED Blinker
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/alu/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    ALU
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/reg-file/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Register File
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/uart-tx/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    UART Transmitter
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../in-browser/true-dpr/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    True Dual-Port RAM
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_5" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_5" id="__nav_5_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    User Guide
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_5_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_5">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    User Guide
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-hierarchy/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Design Hierarchy
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../type-system/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Type System
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../connectivity/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Connectivity
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../methods/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Methods
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../conditionals/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Conditionals
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../processes/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Processes
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../design-domains/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Domain Abstractions
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../naming/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Naming
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-a-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anatomy of a Command Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of a Command Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running It
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Default Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-design-args" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-app-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="App Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-cache-nocache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --cache / --nocache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-log-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --log &lt;level&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-mode-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elaborate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        elaborate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-tool-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External tool modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-vs-given" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Command Line and given Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warnings and Exit Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_6" >
+        
+          
+          <label class="md-nav__link" for="__nav_6" id="__nav_6_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Transitioning
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_6_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_6">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    Transitioning
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../transitioning/from-verilog/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    From Verilog
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    
+    
+    
+    
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--nested">
+      
+        
+        
+          
+        
+        <input class="md-nav__toggle md-toggle md-toggle--indeterminate" type="checkbox" id="__nav_7" >
+        
+          
+          <label class="md-nav__link" for="__nav_7" id="__nav_7_label" tabindex="0">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    About
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_7_label" aria-expanded="false">
+          <label class="md-nav__title" for="__nav_7">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    About
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/contributing/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Contributing
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/LICENSE/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    License
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../about/acknowledgements/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Acknowledgements
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#anatomy-of-a-command-line" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Anatomy of a Command Line
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Anatomy of a Command Line">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#running-it" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Running It
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-help" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Getting Help
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Modes
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Modes">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-default-mode" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Default Mode
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-design-args" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Design Arguments
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-app-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        App Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="App Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#-cache-nocache" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --cache / --nocache
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#-log-level" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        --log &lt;level&gt;
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-mode-options" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Mode Options
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Mode Options">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#elaborate" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        elaborate
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#compile" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        compile
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#commit" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        commit
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#external-tool-modes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        External tool modes
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-vs-given" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Command Line and given Options
+      
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#cli-exit-codes" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Warnings and Exit Codes
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+  
+  
+
+
+<h1 id="cli">Command-Line Interface<a class="headerlink" href="#cli" title="Permanent link"></a></h1>
+<p>Every top-level DFHDL design is also a runnable program, and that program has a full command-line interface. Running it with no arguments elaborates and compiles the design with the defaults declared in your source. Every one of those defaults can be overridden for a single run from the command line, without touching the code.</p>
+<h2 id="anatomy-of-a-command-line">Anatomy of a Command Line<a class="headerlink" href="#anatomy-of-a-command-line" title="Permanent link"></a></h2>
+<div class="highlight"><pre><span></span><code><span class="go">&lt;your program&gt; [design-args] [app-options] &lt;mode&gt; [mode-options]</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Group</th>
+<th>What it sets</th>
+<th>Examples</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Design arguments</td>
+<td>The design's own parameters</td>
+<td><code>--width 12</code></td>
+</tr>
+<tr>
+<td>App options</td>
+<td>Behavior that applies to the whole run</td>
+<td><code>--nocache</code>, <code>--log info</code></td>
+</tr>
+<tr>
+<td>Mode</td>
+<td>How far down the pipeline to go</td>
+<td><code>commit</code>, <code>simulate</code></td>
+</tr>
+<tr>
+<td>Mode options</td>
+<td>Settings specific to that mode</td>
+<td><code>-b vhdl</code>, <code>-t questa</code></td>
+</tr>
+</tbody>
+</table>
+<div class="admonition warning">
+<p class="admonition-title">Order matters</p>
+<p>Design arguments and app options belong <strong>before</strong> the mode; mode options belong <strong>after</strong> it. This is a plain subcommand structure, so an option placed on the wrong side of the mode is reported as unknown:</p>
+<div class="highlight"><pre><span></span><code><span class="go">[scallop] Error: Unknown option &#39;log&#39;</span>
+</code></pre></div>
+</div>
+<h3 id="running-it">Running It<a class="headerlink" href="#running-it" title="Permanent link"></a></h3>
+<p>The program is a normal Scala entry point, so how you launch it depends on how you build your project. The usage line at the top of the <a href="#cli-help">help output</a> always shows the exact form for the environment you are currently in.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><input id="__tabbed_1_3" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Scala <abbr title="Command-line Interface">CLI</abbr></label><label for="__tabbed_1_2">sbt</label><label for="__tabbed_1_3">Packaged program</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="copy highlight"><pre><span></span><code><span class="go">scala run . -M Counter -- --width 12 commit -b vhdl</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<p>From your shell:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">sbt &quot;runMain Counter --width 12 commit -b vhdl&quot;</span>
+</code></pre></div>
+<p>Or from inside the sbt shell:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">runMain Counter --width 12 commit -b vhdl</span>
+</code></pre></div>
+</div>
+<div class="tabbed-block">
+<div class="copy highlight"><pre><span></span><code><span class="go">./counter --width 12 commit -b vhdl</span>
+</code></pre></div>
+</div>
+</div>
+</div>
+<h2 id="cli-help">Getting Help<a class="headerlink" href="#cli-help" title="Permanent link"></a></h2>
+<p><code>help</code> is a mode of its own, and <code>-h</code> / <code>--help</code> prints the same text. The help screen lists the design name, the usage line, the design arguments, the app options, and every mode with its options. It is generated from your design and your source-level options, so the <code>(default = ...)</code> next to each option is always the value that a run would actually use.</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">&lt;your program&gt; help</span>
+</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">help output (truncated)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span></pre></div></td><td class="code"><div><pre><span></span><code>Design Name: Counter
+Usage: runMain Counter [design-args] &lt;mode&gt; [options]
+ Design arguments:
+      --width  &lt;Int&gt;   (default = 8)
+
+      --cache          Enable caching
+      --nocache        Disable caching
+      --log  &lt;level&gt;   Set the log level of the compilation and app progress
+                       messages Choices: off, error, warn, info, debug, trace,
+                       all (default = warn)
+  -h, --help           Show help message
+
+Mode: elaborate - Elaboration only (no compilation)
+...
+Mode: commit - Committing to disk (after elaboration and compilation) [default]
+...
+</code></pre></div></td></tr></table></div>
+<p>The mode marked <code>[default]</code> is the one that runs when you give no mode at all.</p>
+<p>Three sub-modes list the choices that are too long to inline into the main screen:</p>
+<table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Lists</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>help backend</code></td>
+<td>Every backend language and dialect</td>
+</tr>
+<tr>
+<td><code>help lint-tool</code></td>
+<td>Every integrated linter</td>
+</tr>
+<tr>
+<td><code>help simulate-tool</code></td>
+<td>Every integrated simulator</td>
+</tr>
+</tbody>
+</table>
+<p>Add <code>-s</code> / <code>--scan</code> to the two tool listings to also probe your system for each tool and report the version it found:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">&lt;your program&gt; help simulate-tool --scan</span>
+</code></pre></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">help simulate-tool --scan output (truncated)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code>Selectable Verilog/SystemVerilog simulation tools:
+verilator            - Verilator (default) Found version 5.049
+iverilog             - Icarus Verilog      Found version 14.0
+vlog|questa|modelsim - QuestaSim/ModelSim  Found version 2023.3
+xvlog|vivado|xsim    - Vivado Simulator    Not found on your system
+</code></pre></div></td></tr></table></div>
+<h2 id="cli-modes">Modes<a class="headerlink" href="#cli-modes" title="Permanent link"></a></h2>
+<p>The modes are stages of one pipeline. Selecting a mode runs it and everything it depends on, so <code>simulate</code> also elaborates, compiles, and commits.</p>
+<div class="d2"><svg data-d2-version="v0.7.1" preserveAspectRatio="xMinYMin meet" viewBox="0 0 950 340" role="img" aria-label="Diagram"><svg class="d2-f8426bdd50c54ad98c3f1796c76a5f4c d2-svg" width="950" height="340" viewBox="-11 -11 950 340"><rect x="-11.000000" y="-11.000000" width="950.000000" height="340.000000" rx="0.000000" fill="#FFFFFF" class=" fill-N7" stroke-width="0" /><style type="text/css">
+.d2-f8426bdd50c54ad98c3f1796c76a5f4c .text-bold {
+	font-family: "d2-f8426bdd50c54ad98c3f1796c76a5f4c-font-bold";
+}
+@font-face {
+	font-family: d2-f8426bdd50c54ad98c3f1796c76a5f4c-font-bold;
+	src: url("data:application/font-woff;base64,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");
+}</style><style type="text/css">.shape {
+  shape-rendering: geometricPrecision;
+  stroke-linejoin: round;
+}
+.connection {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+.blend {
+  mix-blend-mode: multiply;
+  opacity: 0.5;
+}
+
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N1{fill:#0A0F25;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N2{fill:#676C7E;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N3{fill:#9499AB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N4{fill:#CFD2DD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N5{fill:#DEE1EB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N6{fill:#EEF1F8;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-N7{fill:#FFFFFF;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B1{fill:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B2{fill:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B3{fill:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B4{fill:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B5{fill:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-B6{fill:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-AA2{fill:#4A6FF3;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-AA4{fill:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-AA5{fill:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-AB4{fill:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .fill-AB5{fill:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N1{stroke:#0A0F25;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N2{stroke:#676C7E;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N3{stroke:#9499AB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N4{stroke:#CFD2DD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N5{stroke:#DEE1EB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N6{stroke:#EEF1F8;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-N7{stroke:#FFFFFF;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B1{stroke:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B2{stroke:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B3{stroke:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B4{stroke:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B5{stroke:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-B6{stroke:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-AA2{stroke:#4A6FF3;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-AA4{stroke:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-AA5{stroke:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-AB4{stroke:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .stroke-AB5{stroke:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N1{background-color:#0A0F25;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N2{background-color:#676C7E;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N3{background-color:#9499AB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N4{background-color:#CFD2DD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N5{background-color:#DEE1EB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N6{background-color:#EEF1F8;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-N7{background-color:#FFFFFF;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B1{background-color:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B2{background-color:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B3{background-color:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B4{background-color:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B5{background-color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-B6{background-color:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-AA2{background-color:#4A6FF3;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-AA4{background-color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-AA5{background-color:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-AB4{background-color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .background-color-AB5{background-color:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N1{color:#0A0F25;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N2{color:#676C7E;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N3{color:#9499AB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N4{color:#CFD2DD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N5{color:#DEE1EB;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N6{color:#EEF1F8;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-N7{color:#FFFFFF;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B1{color:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B2{color:#0D32B2;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B3{color:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B4{color:#E3E9FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B5{color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-B6{color:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-AA2{color:#4A6FF3;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-AA4{color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-AA5{color:#F7F8FE;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-AB4{color:#EDF0FD;}
+		.d2-f8426bdd50c54ad98c3f1796c76a5f4c .color-AB5{color:#F7F8FE;}.appendix text.text{fill:#0A0F25}.md{--color-fg-default:#0A0F25;--color-fg-muted:#676C7E;--color-fg-subtle:#9499AB;--color-canvas-default:#FFFFFF;--color-canvas-subtle:#EEF1F8;--color-border-default:#0D32B2;--color-border-muted:#0D32B2;--color-neutral-muted:#EEF1F8;--color-accent-fg:#0D32B2;--color-accent-emphasis:#0D32B2;--color-attention-subtle:#676C7E;--color-danger-fg:red;}.sketch-overlay-B1{fill:url(#streaks-darker-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:lighten}.sketch-overlay-B2{fill:url(#streaks-darker-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:lighten}.sketch-overlay-B3{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-B4{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-B5{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-B6{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-AA2{fill:url(#streaks-dark-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:overlay}.sketch-overlay-AA4{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-AA5{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-AB4{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-AB5{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-N1{fill:url(#streaks-darker-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:lighten}.sketch-overlay-N2{fill:url(#streaks-dark-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:overlay}.sketch-overlay-N3{fill:url(#streaks-normal-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:color-burn}.sketch-overlay-N4{fill:url(#streaks-normal-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:color-burn}.sketch-overlay-N5{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-N6{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.sketch-overlay-N7{fill:url(#streaks-bright-d2-f8426bdd50c54ad98c3f1796c76a5f4c);mix-blend-mode:darken}.light-code{display: block}.dark-code{display: none}</style><g class="ZWxhYm9yYXRl"><g class="shape"><rect x="0.000000" y="126.000000" width="114.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="57.000000" y="164.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">elaborate</text></g><g class="Y29tcGlsZQ=="><g class="shape"><rect x="214.000000" y="126.000000" width="102.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="265.000000" y="164.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">compile</text></g><g class="Y29tbWl0"><g class="shape"><rect x="416.000000" y="126.000000" width="100.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="466.000000" y="164.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">commit</text></g><g class="bGludA=="><g class="shape"><rect x="635.000000" y="0.000000" width="69.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="669.500000" y="38.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">lint</text></g><g class="c2ltdWxhdGU="><g class="shape"><rect x="616.000000" y="126.000000" width="107.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="669.500000" y="164.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">simulate</text></g><g class="YnVpbGQ="><g class="shape"><rect x="629.000000" y="252.000000" width="81.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="669.500000" y="290.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">build</text></g><g class="cHJvZ3JhbQ=="><g class="shape"><rect x="823.000000" y="252.000000" width="105.000000" height="66.000000" stroke="#0D32B2" fill="#F7F8FE" class=" stroke-B1 fill-B6" style="stroke-width:2;" /></g><text x="875.500000" y="290.500000" fill="#0A0F25" class="text-bold fill-N1" style="text-anchor:middle;font-size:16px">program</text></g><g class="KGVsYWJvcmF0ZSAtJmd0OyBjb21waWxlKVswXQ=="><marker id="mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134" markerWidth="10.000000" markerHeight="12.000000" refX="7.000000" refY="6.000000" viewBox="0.000000 0.000000 10.000000 12.000000" orient="auto" markerUnits="userSpaceOnUse"> <polygon points="0.000000,0.000000 10.000000,6.000000 0.000000,12.000000" fill="#0D32B2" class="connection fill-B1" stroke-width="2" /> </marker><path d="M 116.000000 159.000000 C 154.000000 159.000000 174.000000 159.000000 210.000000 159.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><g class="KGNvbXBpbGUgLSZndDsgY29tbWl0KVswXQ=="><path d="M 318.000000 159.000000 C 356.000000 159.000000 376.000000 159.000000 412.000000 159.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><g class="KGNvbW1pdCAtJmd0OyBsaW50KVswXQ=="><path d="M 493.245271 124.434976 C 551.200012 51.598999 579.799988 33.000000 631.000000 33.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><g class="KGNvbW1pdCAtJmd0OyBzaW11bGF0ZSlbMF0="><path d="M 518.000000 159.000000 C 556.000000 159.000000 576.000000 159.000000 612.000000 159.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><g class="KGNvbW1pdCAtJmd0OyBidWlsZClbMF0="><path d="M 493.245282 193.565016 C 551.200012 266.399994 578.599976 285.000000 625.000000 285.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><g class="KGJ1aWxkIC0mZ3Q7IHByb2dyYW0pWzBd"><path d="M 712.000000 285.000000 C 760.400024 285.000000 783.000000 285.000000 819.000000 285.000000" stroke="#0D32B2" fill="none" class="connection stroke-B1" style="stroke-width:2;" marker-end="url(#mk-d2-f8426bdd50c54ad98c3f1796c76a5f4c-3488378134)" mask="url(#d2-f8426bdd50c54ad98c3f1796c76a5f4c)" /></g><mask id="d2-f8426bdd50c54ad98c3f1796c76a5f4c" maskUnits="userSpaceOnUse" x="-11" y="-11" width="950" height="340">
+<rect x="-11" y="-11" width="950" height="340" fill="white" />
+
+</mask></svg></svg></div>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>elaborate</code></td>
+<td>Elaborates the Scala design into the DFHDL representation</td>
+</tr>
+<tr>
+<td><code>compile</code></td>
+<td>Compiles it down to the backend language, in memory only</td>
+</tr>
+<tr>
+<td><code>commit</code></td>
+<td>Writes the generated backend files to disk</td>
+</tr>
+<tr>
+<td><code>lint</code></td>
+<td>Runs an external linter over the committed files</td>
+</tr>
+<tr>
+<td><code>simulate</code></td>
+<td>Builds and runs an external simulation of the committed files</td>
+</tr>
+<tr>
+<td><code>build</code></td>
+<td>Runs an external FPGA build (synthesis, place and route, bitstream)</td>
+</tr>
+<tr>
+<td><code>program</code></td>
+<td>Programs the FPGA, or its flash device, with the built bitstream</td>
+</tr>
+<tr>
+<td><code>help</code></td>
+<td>Prints the usage text and exits</td>
+</tr>
+</tbody>
+</table>
+<p>Committed files are written under <code>sandbox/&lt;TopName&gt;/</code>. The location is controlled by the <code class="highlight"><span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">CommitFolder</span></code> and <code class="highlight"><span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">NewFolderForTop</span></code> declarations.</p>
+<h3 id="the-default-mode">The Default Mode<a class="headerlink" href="#the-default-mode" title="Permanent link"></a></h3>
+<p>When you give no mode, DFHDL picks one that fits the design:</p>
+<table>
+<thead>
+<tr>
+<th>The design</th>
+<th>Default mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Runs in the browser (Scastie)</td>
+<td><code>compile</code></td>
+</tr>
+<tr>
+<td>Has no ports, so it is a testbench or a self-contained design</td>
+<td><code>simulate</code></td>
+</tr>
+<tr>
+<td>Declares board resources, so it targets a physical device</td>
+<td><code>program</code></td>
+</tr>
+<tr>
+<td>Anything else</td>
+<td><code>commit</code></td>
+</tr>
+</tbody>
+</table>
+<p>Declare a mode in your source to override that choice:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">AppOptions</span><span class="p">.</span><span class="nc">AppMode</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">AppOptions</span><span class="p">.</span><span class="nc">AppMode</span><span class="p">.</span><span class="n">lint</span>
+</code></pre></div></td></tr></table></div>
+<h2 id="cli-design-args">Design Arguments<a class="headerlink" href="#cli-design-args" title="Permanent link"></a></h2>
+<p>Every design parameter that DFHDL can represent is exposed as an option named after the parameter. Parameters of other Scala types (a custom class, for instance) are not exposed. See <a class="autorefs autorefs-internal" title="Parameter Block Syntax" href="../design-hierarchy/#design-params-syntax">Design Hierarchy</a> for how parameters are declared.</p>
+<table>
+<thead>
+<tr>
+<th>Declared type</th>
+<th>Pass it as</th>
+<th>Example</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Int</code></td>
+<td>A plain integer</td>
+<td><code>--width 12</code></td>
+</tr>
+<tr>
+<td><code>Double</code></td>
+<td>A plain double</td>
+<td><code>--rate 3.14</code></td>
+</tr>
+<tr>
+<td><code>String</code></td>
+<td>Plain text</td>
+<td><code>--name hello</code></td>
+</tr>
+<tr>
+<td><code>Boolean &lt;&gt; CONST</code></td>
+<td><code>true</code> or <code>false</code></td>
+<td><code>--enable false</code></td>
+</tr>
+<tr>
+<td><code>Bit &lt;&gt; CONST</code></td>
+<td><code>0</code> or <code>1</code></td>
+<td><code>--sel 1</code></td>
+</tr>
+<tr>
+<td><code>Bits[W] &lt;&gt; CONST</code></td>
+<td>A DFHDL bits literal</td>
+<td><code>--mask h"5a"</code></td>
+</tr>
+<tr>
+<td><code>UInt[W] &lt;&gt; CONST</code></td>
+<td>A DFHDL unsigned literal</td>
+<td><code>--limit d"16'100"</code></td>
+</tr>
+<tr>
+<td><code>SInt[W] &lt;&gt; CONST</code></td>
+<td>A DFHDL signed literal</td>
+<td><code>--offset sd"32'-42"</code></td>
+</tr>
+</tbody>
+</table>
+<p>There is no implicit toggle for <code>Boolean</code> or <code>Bit</code>: the value is always explicit, so <code>--enable</code> on its own is not a way to turn a <code>Boolean</code> parameter on.</p>
+<div class="admonition tip">
+<p class="admonition-title">Quoting bit-accurate literals</p>
+<p>The <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> literals contain double quotes, which your shell will strip unless you protect them. Quote or escape the whole argument the way your shell requires, for example <code>--mask 'h"5a"'</code> in a POSIX shell.</p>
+</div>
+<h2 id="cli-app-options">App Options<a class="headerlink" href="#cli-app-options" title="Permanent link"></a></h2>
+<p>These apply to the whole run, whichever mode you select, and are given before the mode.</p>
+<h3 id="-cache-nocache"><code>--cache</code> / <code>--nocache</code><a class="headerlink" href="#-cache-nocache" title="Permanent link"></a></h3>
+<p>Caching is on by default, and the flag covers both of the caches a run may consult:</p>
+<ul>
+<li>Each pipeline step stores its result under <code>sandbox/&lt;TopName&gt;/cache</code> and reuses it when nothing it depends on has changed, including your design's own code.</li>
+<li>During elaboration, a sub-design whose code and arguments are unchanged is adopted from the sub-design cache instead of having its body elaborated again.</li>
+</ul>
+<p>Pass <code>--nocache</code> to force everything to run afresh:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">&lt;your program&gt; --nocache commit</span>
+</code></pre></div>
+<h3 id="-log-level"><code>--log &lt;level&gt;</code><a class="headerlink" href="#-log-level" title="Permanent link"></a></h3>
+<p>Sets how much the run reports:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">&lt;your program&gt; --log info commit</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Level</th>
+<th>What you see</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>off</code></td>
+<td>Nothing</td>
+</tr>
+<tr>
+<td><code>error</code></td>
+<td>Errors only</td>
+</tr>
+<tr>
+<td><code>warn</code></td>
+<td>Errors and warnings, the compiler's default</td>
+</tr>
+<tr>
+<td><code>info</code></td>
+<td>Adds a progress line per compilation stage</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td>Adds a consistency check of the design after every stage</td>
+</tr>
+<tr>
+<td><code>trace</code></td>
+<td>Adds a printout of the DFHDL code after every stage that changed the design</td>
+</tr>
+<tr>
+<td><code>all</code></td>
+<td>The most permissive level</td>
+</tr>
+</tbody>
+</table>
+<p>The level applies to both the compilation messages and the program's own progress messages (<code>Elaborating design...</code>, <code>Compiling design...</code>). The default shown in the help screen, <code>warn</code>, is the compilation one. The progress messages have their own, louder default, so a run without <code>--log</code> still reports its progress, while <code>--log off</code> silences the run completely.</p>
+<div class="admonition tip">
+<p class="admonition-title">A cached step logs nothing</p>
+<p><code>--log trace</code> on a fully cached run prints very little, because no stage actually runs. Combine it with <code>--nocache</code> when you want to watch the compilation itself.</p>
+</div>
+<h2 id="cli-mode-options">Mode Options<a class="headerlink" href="#cli-mode-options" title="Permanent link"></a></h2>
+<p>Each mode adds the options of the modes it depends on, so <code>commit</code> accepts everything <code>compile</code> and <code>elaborate</code> accept.</p>
+<h3 id="elaborate"><code>elaborate</code><a class="headerlink" href="#elaborate" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--print-elaborate</code></td>
+<td>off</td>
+<td>Print the DFHDL design after elaboration</td>
+</tr>
+<tr>
+<td><code>--Werror</code> / <code>--noWerror</code></td>
+<td><code>--noWerror</code></td>
+<td>Make elaboration warnings fatal and exit with a non-zero code</td>
+</tr>
+</tbody>
+</table>
+<h3 id="compile"><code>compile</code><a class="headerlink" href="#compile" title="Permanent link"></a></h3>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-b</code>, <code>--backend &lt;lang[.dialect]&gt;</code></td>
+<td><code>verilog.sv2009</code></td>
+<td>Target language and dialect, see <code>help backend</code></td>
+</tr>
+<tr>
+<td><code>--print-compile</code></td>
+<td>off</td>
+<td>Print the DFHDL design after compilation</td>
+</tr>
+<tr>
+<td><code>--print-backend</code></td>
+<td>off, on in the browser</td>
+<td>Print the generated backend code</td>
+</tr>
+<tr>
+<td><code>--global-defs-name &lt;name&gt;</code></td>
+<td>none</td>
+<td>Override the name of the global definitions file, without its suffix</td>
+</tr>
+</tbody>
+</table>
+<p>The backend takes a language and an optional dialect. <code>-b vhdl</code> selects VHDL with its default dialect, <code>-b verilog.v2001</code> pins Verilog 2001:</p>
+<table>
+<thead>
+<tr>
+<th>Language</th>
+<th>Dialects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>verilog</code></td>
+<td><code>v95</code>, <code>v2001</code>, <code>sv2005</code>, <code>sv2009</code> (default), <code>sv2012</code>, <code>sv2017</code></td>
+</tr>
+<tr>
+<td><code>vhdl</code></td>
+<td><code>v93</code>, <code>v2008</code> (default), <code>v2019</code></td>
+</tr>
+</tbody>
+</table>
+<h3 id="commit"><code>commit</code><a class="headerlink" href="#commit" title="Permanent link"></a></h3>
+<p>No options of its own beyond those of <code>compile</code>.</p>
+<h3 id="external-tool-modes">External tool modes<a class="headerlink" href="#external-tool-modes" title="Permanent link"></a></h3>
+<p><code>lint</code>, <code>simulate</code>, <code>build</code>, and <code>program</code> all invoke an external tool, and share these options:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--tools-location &lt;location&gt;</code></td>
+<td><code>dftools</code></td>
+<td><code>dftools</code> runs the tools from the pinned DFTools image, <code>local</code> uses the tools found on your <code>PATH</code></td>
+</tr>
+<tr>
+<td><code>--Werror-tool</code> / <code>--noWerror-tool</code></td>
+<td><code>--noWerror-tool</code></td>
+<td>Make tool warnings fatal and exit with a non-zero code</td>
+</tr>
+</tbody>
+</table>
+<p><code>lint</code> and <code>simulate</code> select their tool per language, and you may give one side or both, separated by <code>/</code>:</p>
+<div class="copy highlight"><pre><span></span><code><span class="go">&lt;your program&gt; simulate -t questa</span>
+<span class="go">&lt;your program&gt; simulate -t iverilog/ghdl</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code>, <code>--tool &lt;[verilog][/][vhdl]&gt;</code></td>
+<td><code>verilator/ghdl</code></td>
+<td>Verilog and VHDL tool selection, see <code>help lint-tool</code> or <code>help simulate-tool</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>build</code> and <code>program</code> select a tool family instead:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-t</code>, <code>--tool &lt;family&gt;</code></td>
+<td><code>vendor</code></td>
+<td><code>foss</code> for free and open source tools, <code>vendor</code> for the device vendor's tools</td>
+</tr>
+<tr>
+<td><code>--flash</code> / <code>--noflash</code></td>
+<td><code>--noflash</code></td>
+<td>Target the on-board flash device rather than the FPGA alone</td>
+</tr>
+<tr>
+<td><code>--compress</code> / <code>--nocompress</code> (<code>build</code> only)</td>
+<td><code>--compress</code></td>
+<td>Compress the bitstream file</td>
+</tr>
+</tbody>
+</table>
+<p>Because <code>program</code> depends on <code>build</code>, <code>program -t foss</code> both builds and programs with the open source flow, and <code>program --flash</code> builds a flash image as well.</p>
+<h2 id="cli-vs-given">The Command Line and <code>given</code> Options<a class="headerlink" href="#cli-vs-given" title="Permanent link"></a></h2>
+<p>The <code class="highlight"><span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="o">*</span></code> declarations in your source are the defaults, and the command line overrides them for one run. The two describe the same settings:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">in your source</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">given</span><span class="w"> </span><span class="n">options</span><span class="p">.</span><span class="nc">CompilerOptions</span><span class="p">.</span><span class="nc">Backend</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_</span><span class="p">.</span><span class="n">vhdl</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><span class="filename">for a single run</span><pre><span></span><code><span class="go">&lt;your program&gt; compile -b verilog</span>
+</code></pre></div>
+<p>Use a <code>given</code> for what your project always wants, such as the target language of a design that only makes sense in VHDL, and the command line for what varies between runs, such as which simulator you happen to have installed today. Since the help screen reads its defaults from the givens, <code>help</code> is also the quickest way to confirm what your source-level options actually resolved to.</p>
+<h2 id="cli-exit-codes">Warnings and Exit Codes<a class="headerlink" href="#cli-exit-codes" title="Permanent link"></a></h2>
+<p>A run that fails exits with a non-zero code, which is what a CI job checks. Warnings are not failures by default, and two options promote them:</p>
+<ul>
+<li><code>--Werror</code> makes DFHDL's own elaboration warnings fatal.</li>
+<li><code>--Werror-tool</code> makes the warnings reported by an external linter, simulator, builder, or programmer fatal.</li>
+</ul>
+<div class="copy highlight"><span class="filename">a strict CI invocation</span><pre><span></span><code><span class="go">&lt;your program&gt; --nocache lint --Werror --Werror-tool -t verilator</span>
+</code></pre></div>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+    <div class="md-copyright__highlight">
+      Copyright &copy; 2021 <a href="https://www.dfiant.works">DFiant Inc.</a>
+    </div>
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+        
+<div class="md-social">
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://www.github.com/DFiantWorks/" target="_blank" rel="noopener" title="www.github.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M202.1 328.7c0 20.9-10.9 55.1-36.7 55.1s-36.7-34.2-36.7-55.1 10.9-55.1 36.7-55.1 36.7 34.2 36.7 55.1M496 278.2c0 31.9-3.2 65.7-17.5 95-37.9 76.6-142.1 74.8-216.7 74.8-75.8 0-186.2 2.7-225.6-74.8-14.6-29-20.2-63.1-20.2-95 0-41.9 13.9-81.5 41.5-113.6-5.2-15.8-7.7-32.4-7.7-48.8 0-21.5 4.9-32.3 14.6-51.8 45.3 0 74.3 9 108.8 36 29-6.9 58.8-10 88.7-10 27 0 54.2 2.9 80.4 9.2 34-26.7 63-35.2 107.8-35.2 9.8 19.5 14.6 30.3 14.6 51.8 0 16.4-2.6 32.7-7.7 48.2 27.5 32.4 39 72.3 39 114.2m-64.3 50.5c0-43.9-26.7-82.6-73.5-82.6-18.9 0-37 3.4-56 6-14.9 2.3-29.8 3.2-45.1 3.2-15.2 0-30.1-.9-45.1-3.2-18.7-2.6-37-6-56-6-46.8 0-73.5 38.7-73.5 82.6 0 87.8 80.4 101.3 150.4 101.3h48.2c70.3 0 150.6-13.4 150.6-101.3m-82.6-55.1c-25.8 0-36.7 34.2-36.7 55.1s10.9 55.1 36.7 55.1 36.7-34.2 36.7-55.1-10.9-55.1-36.7-55.1"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://linkedin.com/company/dfiant" target="_blank" rel="noopener" title="linkedin.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M416 32H31.9C14.3 32 0 46.5 0 64.3v383.4C0 465.5 14.3 480 31.9 480H416c17.6 0 32-14.5 32-32.3V64.3c0-17.8-14.4-32.3-32-32.3M135.4 416H69V202.2h66.5V416zM102.2 96a38.5 38.5 0 1 1 0 77 38.5 38.5 0 1 1 0-77m282.1 320h-66.4V312c0-24.8-.5-56.7-34.5-56.7-34.6 0-39.9 27-39.9 54.9V416h-66.4V202.2h63.7v29.2h.9c8.9-16.8 30.6-34.5 62.9-34.5 67.2 0 79.7 44.3 79.7 101.9z"/></svg>
+    </a>
+  
+    
+    
+    
+    
+      
+      
+    
+    <a href="https://twitter.com/DFiantWorks" target="_blank" rel="noopener" title="twitter.com" class="md-social__link">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--! Font Awesome Free 7.1.0 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free (Icons: CC BY 4.0, Fonts: SIL OFL 1.1, Code: MIT License) Copyright 2025 Fonticons, Inc.--><path d="M459.4 151.7c.3 4.5.3 9.1.3 13.6 0 138.7-105.6 298.6-298.6 298.6-59.5 0-114.7-17.2-161.1-47.1 8.4 1 16.6 1.3 25.3 1.3 49.1 0 94.2-16.6 130.3-44.8-46.1-1-84.8-31.2-98.1-72.8 6.5 1 13 1.6 19.8 1.6 9.4 0 18.8-1.3 27.6-3.6-48.1-9.7-84.1-52-84.1-103v-1.3c14 7.8 30.2 12.7 47.4 13.3-28.3-18.8-46.8-51-46.8-87.4 0-19.5 5.2-37.4 14.3-53C87.4 130.8 165 172.4 252.1 176.9c-1.6-7.8-2.6-15.9-2.6-24C249.5 95.1 296.3 48 354.4 48c30.2 0 57.5 12.7 76.7 33.1 23.7-4.5 46.5-13.3 66.6-25.3-7.8 24.4-24.4 44.8-46.1 57.8 21.1-2.3 41.6-8.1 60.4-16.2-14.3 20.8-32.2 39.3-52.6 54.3"/></svg>
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.tabs.sticky", "navigation.sections", "navigation.expand"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.d7400e89.min.js"></script>
+      
+        <script src="../../javascripts/nav-workaround.js"></script>
+      
+        <script src="../../javascripts/config.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+      
+        <script src="https://scastie.scala-lang.org/embedded.js"></script>
+      
+        <script src="../../javascripts/scastie.js"></script>
+      
+        <script src="../../javascripts/d3.js"></script>
+      
+        <script src="https://cdn.jsdelivr.net/gh/kieler/elkjs@0.11.1/lib/elk.bundled.js"></script>
+      
+        <script src="../../javascripts/d3-hwschematic.js"></script>
+      
+        <script src="../../javascripts/d3-hwschematic-embed.js"></script>
+      
+    
+  </body>
+</html>

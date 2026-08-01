@@ -833,6 +833,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#choosing-what-the-program-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing What the Program Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#recommended-scala-formatting-for-dfhdl" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1427,6 +1438,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/command-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -1762,6 +1801,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#choosing-what-the-program-does" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Choosing What the Program Does
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#recommended-scala-formatting-for-dfhdl" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2054,6 +2104,16 @@ given options.CompilerOptions.PrintBackendCode = true
 <span class="go">sbt run</span>
 </code></pre></div>
 <p>For more information, please consult the <a href="https://www.scala-sbt.org/1.x/docs/" target="_blank">sbt documentation</a>.</p>
+<h3 id="choosing-what-the-program-does">Choosing What the Program Does<a class="headerlink" href="#choosing-what-the-program-does" title="Permanent link"></a></h3>
+<p>Whichever way you launch it, the program you just ran is a full command-line application. Running it with no arguments uses the defaults declared in the source, and every one of those defaults can be overridden for a single run. Ask it what it accepts:</p>
+<div class="copy highlight"><span class="filename">Run in your terminal</span><pre><span></span><code><span class="go">scala run . -M Counter8 -- help</span>
+</code></pre></div>
+<p>A few things you can do without editing a line of code:</p>
+<div class="highlight"><pre><span></span><code><span class="go">scala run . -M Counter8 -- compile -b vhdl        # generate VHDL instead of Verilog</span>
+<span class="go">scala run . -M Counter8 -- simulate -t iverilog   # simulate with Icarus Verilog</span>
+<span class="go">scala run . -M Counter8 -- --log info commit      # report each compilation stage</span>
+</code></pre></div>
+<p>For the modes, the design parameters, and the full option list, see the <a class="autorefs autorefs-internal" title="Command-Line Interface" href="../../user-guide/command-line/#cli">command-line interface</a> guide.</p>
 <h3 id="recommended-scala-formatting-for-dfhdl">Recommended Scala Formatting for DFHDL<a class="headerlink" href="#recommended-scala-formatting-for-dfhdl" title="Permanent link"></a></h3>
 <p>We recommend actively using <a href="https://scalameta.org/scalafmt/" target="_blank">Scalafmt</a>, a code formatter for Scala that integrates well with your toolchain. The following setting is recommended for DFHDL designs:</p>
 <details class="dfhdl">

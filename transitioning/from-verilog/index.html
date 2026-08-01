@@ -15,7 +15,7 @@
         <link rel="canonical" href="https://dfianthdl.github.io/transitioning/from-verilog/">
       
       
-        <link rel="prev" href="../../user-guide/naming/">
+        <link rel="prev" href="../../user-guide/command-line/">
       
       
         <link rel="next" href="../../about/contributing/">
@@ -1294,6 +1294,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../user-guide/command-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2337,6 +2365,37 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <p>See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#logical-ops">Logical Operations</a> for the full reference and Verilog/VHDL mapping tables.</p>
 </div>
 <div class="admonition verilog">
+<p class="admonition-title">Bitwise NOT and Unary Negation (<code>~x</code>, <code>-x</code>)</p>
+<p>DFHDL's <code>~</code> is Verilog's bitwise NOT: it applies to <code>Bits</code> and <code>UInt</code> vector values and returns the same type as its argument.</p>
+<p>Unary negation <code>-x</code> differs from Verilog. In Verilog, <code>-x</code> is evaluated at the context-determined width, so assigning it to a same-width signal wraps modulo <code>2**W</code> (two's complement). In DFHDL, <code>-x</code> on a <code>UInt[W]</code> or <code>Bits[W]</code> value implicitly converts the value to <code>SInt[W + 1]</code> and returns <code>SInt[W + 1]</code>, preserving the exact negated value; <code>SInt</code> values keep their type and width. To reproduce Verilog's same-width wrap-around negation, reinterpret the value as signed (same width), negate, and reinterpret back: <code>(-x.sint).bits</code> for a <code>Bits</code> value, or <code>(-x.bits.sint).bits.uint</code> for a <code>UInt</code> value.</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Negate</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">        </span><span class="n">x</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">        </span><span class="n">inv</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">        </span><span class="n">neg</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="p">[</span><span class="mi">8</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">negw</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">inv</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">~</span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">// bitwise NOT</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">neg</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">// wraps modulo 2**8</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">negw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="p">;</span><span class="w">  </span><span class="c1">// widened by context</span>
+<span class="k">endmodule</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Negate</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">inv</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">neg</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">negw</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">9</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="w">  </span><span class="n">inv</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="o">~</span><span class="n">x</span><span class="w">              </span><span class="c1">// bitwise NOT, Bits[8]</span>
+<span class="w">  </span><span class="n">neg</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">.</span><span class="n">sint</span><span class="p">).</span><span class="n">bits</span><span class="w">  </span><span class="c1">// same-width wrap-around</span>
+<span class="w">  </span><span class="n">negw</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="o">-</span><span class="n">x</span><span class="w">              </span><span class="c1">// SInt[9]: exact negated value</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Negate</span>
+</code></pre></div>
+</div>
+<p>This wrap-around conversion may appear cumbersome, and that is intentional: it hints at a code smell. It usually means one of two things: either the base type was chosen badly (a value that is conceptually a signed number should be declared as <code>SInt</code>, where <code>-x</code> preserves the type directly), or the importance of the preserved sign bit in the widened <code>SInt[W + 1]</code> result is not understood (discarding it silently corrupts the value; e.g., same-width negation of <code>d"8'128"</code> yields 128 again, not -128).</p>
+<p>See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#logical-ops">Logical Operations</a> for the bitwise NOT and <a class="autorefs autorefs-internal" title="Arithmetic Operations (" href="../../user-guide/type-system/#arithmetic-ops">Arithmetic Operations</a> for the unary negation type rules.</p>
+</div>
+<div class="admonition verilog">
 <p class="admonition-title">Reduction Operators (<code>&amp;v</code>, <code>|v</code>, <code>^v</code>)</p>
 <p>Verilog's unary reduction operators have direct DFHDL equivalents using postfix <code>.&amp;</code>, <code>.|</code>, <code>.^</code> on <code>Bits</code> values:</p>
 <div class="grid">
@@ -2405,7 +2464,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Part-Select Notation (<code>-:</code> and <code>+:</code>)</p>
-<p>Verilog's descending and ascending part-select notation maps to DFHDL's <code>(hi, lo)</code> range slice, or use the convenience methods <code>.msbits(n)</code> and <code>.lsbits(n)</code>:</p>
+<p>Verilog's descending and ascending part-select notation maps directly to DFHDL's anchored slice methods <code>.msbitsAt(base, W)</code> and <code>.lsbitsAt(base, W)</code>, to the <code>(hi, lo)</code> range slice, or to the convenience methods <code>.msbits(W)</code> and <code>.lsbits(W)</code> for the top/bottom cases:</p>
 <table>
 <thead>
 <tr>
@@ -2417,13 +2476,13 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <tbody>
 <tr>
 <td><code>sig[base -: W]</code></td>
-<td><code>sig(base, base - W + 1)</code></td>
-<td>Descending slice from <code>base</code>, <code>W</code> bits</td>
+<td><code>sig.msbitsAt(base, W)</code> or <code>sig(base, base - W + 1)</code></td>
+<td>Descending part-select: <code>W</code> bits, MSB anchored at <code>base</code></td>
 </tr>
 <tr>
 <td><code>sig[base +: W]</code></td>
-<td><code>sig(base + W - 1, base)</code></td>
-<td>Ascending slice from <code>base</code>, <code>W</code> bits</td>
+<td><code>sig.lsbitsAt(base, W)</code> or <code>sig(base + W - 1, base)</code></td>
+<td>Ascending part-select: <code>W</code> bits, LSB anchored at <code>base</code></td>
 </tr>
 <tr>
 <td><code>sig[N-1 -: W]</code></td>
@@ -2443,18 +2502,29 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </tbody>
 </table>
 <div class="grid">
-<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">data</span><span class="p">;</span>
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">        </span><span class="n">data</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w">        </span><span class="n">addr</span><span class="p">;</span>
+<span class="kt">logic</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">sdata</span><span class="p">;</span>
 <span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">top4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">15</span><span class="w"> </span><span class="o">-:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
 <span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">bot4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">0</span><span class="w">  </span><span class="o">+:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">mid4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">4</span><span class="w">  </span><span class="o">+:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">amid4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addr</span><span class="p">[</span><span class="mi">4</span><span class="w">  </span><span class="o">+:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
+<span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">smid4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sdata</span><span class="p">[</span><span class="mi">4</span><span class="w"> </span><span class="o">+:</span><span class="w"> </span><span class="mi">4</span><span class="p">];</span>
 <span class="kt">logic</span><span class="w">       </span><span class="n">bit5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">[</span><span class="mi">5</span><span class="p">];</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">top4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// top 4 bits</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">bot4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">lsbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// bottom 4 bits</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">         </span><span class="c1">// single bit</span>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">addr</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">sdata</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">top4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">        </span><span class="c1">// Bits[4]: top 4 bits</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">bot4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">lsbits</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w">        </span><span class="c1">// Bits[4]: bottom 4 bits</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">mid4</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">   </span><span class="c1">// Bits[4]: data[4 +: 4]</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">amid4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">addr</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">   </span><span class="c1">// UInt[4]: addr[4 +: 4]</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">smid4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sdata</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w">  </span><span class="c1">// UInt[4]: unsigned slice</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">               </span><span class="c1">// single bit</span>
 </code></pre></div>
 </div>
-<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code> and <code>.lsbits(W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result (<code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>):</p>
+<p>The part-select base index and width must be elaboration-time constants (Scala <code>Int</code> values or <code>Int &lt;&gt; CONST</code> parameters), as in a Verilog constant part-select.</p>
+<p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code>/<code>.lsbits(W)</code> and <code>.msbitsAt(base, W)</code>/<code>.lsbitsAt(base, W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result (<code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>):</p>
 <table>
 <thead>
 <tr>
@@ -2694,7 +2764,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="k">end</span><span class="w"> </span><span class="nn">inc_bank</span>
 </code></pre></div>
 </div>
-<p>At design (concurrent) scope the loop runs at elaboration time and unrolls, so <code>N</code> may be an <code>Int &lt;&gt; CONST</code> parameter directly; its value is read during elaboration and no explicit <code>.toScalaInt</code> conversion is needed. See <a class="autorefs autorefs-internal" href="../../user-guide/loops/#loops">Loops</a> for the full elaboration-time loop semantics.</p>
+<p>At design (concurrent) scope the loop runs at elaboration time and unrolls, so <code>N</code> may be an <code>Int &lt;&gt; CONST</code> parameter directly; its value is read during elaboration and no explicit <code>.toScalaInt</code> conversion is needed. See <a class="autorefs autorefs-internal" href="../../user-guide/loops/#loops">Loops</a> for the full elaboration-time loop semantics, and <a class="autorefs autorefs-internal" title="Reading a Constant into Scala" href="../../user-guide/type-system/#toScala">reading a constant into Scala</a> for the contexts that do need the explicit conversion.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title"><code>generate if</code> Conditionals</p>

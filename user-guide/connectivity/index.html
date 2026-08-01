@@ -1526,6 +1526,34 @@
 
               
             
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../command-line/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Command Line
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
           </ul>
         </nav>
       
@@ -2296,7 +2324,7 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 <span class="w">  </span><span class="n">y</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">a</span><span class="p">(</span><span class="mi">7</span><span class="p">,</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="c1">// OK: assignment drives bits 7..4 (disjoint from the above)</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="connection-statement-order">Connection Statement Order<a class="headerlink" href="#connection-statement-order" title="Permanent link"></a></h3>
-<p>The order of <code>&lt;&gt;</code> connection statements does not matter.</p>
+<p>The order of <code>&lt;&gt;</code> connection statements does not matter. The only ordering constraint is on <em>declarations</em>: every value a connection references must already be declared above it. See <a class="autorefs autorefs-internal" title="DFHDL Value Statement Order & Referencing" href="../type-system/#statement-order">statement order and referencing</a>, and in particular <a class="autorefs autorefs-internal" title="Forward References" href="../type-system/#forward-references">forward references</a>, which are a common source of elaboration errors.</p>
 <h3 id="connectivity-open-ports">Open (Unconnected) Ports<a class="headerlink" href="#connectivity-open-ports" title="Permanent link"></a></h3>
 <p>Ports have two connection sides: a consumer side and a producer side. Typically both sides are connected, except for top-level ports. When either side is unconnected, the port is <em>open</em>, with the following behavior:</p>
 <ul>
