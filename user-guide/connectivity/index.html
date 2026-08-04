@@ -1274,6 +1274,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#output-to-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output-to-Output Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#immutable-value-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -1900,6 +1911,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#output-to-output" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Output-to-Output Connections
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#immutable-value-connections" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2043,7 +2065,7 @@
 <tbody>
 <tr>
 <td>Directionality &amp;<br />Commutativity</td>
-<td style="text-align: left;">Commutative: <code>a &lt;&gt; b</code> is equivalent to <code>b &lt;&gt; a</code>. One side is the <em>producer</em> and the other the <em>consumer</em>; the dataflow direction is inferred from the operands and the context in which the operator is applied.</td>
+<td style="text-align: left;">Commutative: <code>a &lt;&gt; b</code> is equivalent to <code>b &lt;&gt; a</code>. One side is the <em>producer</em> and the other the <em>consumer</em>; the dataflow direction is inferred from the operands and the context in which the operator is applied. The sole exception is a connection between two of the design's own output ports, where both sides could be the consumer and the <abbr title="Left-hand Side">LHS</abbr> wins (see <a href="#output-to-output">output-to-output connections</a>).</td>
 <td style="text-align: left;">Non-commutative: <code>a := b</code> makes <code>b</code> the <em>producer</em>, transferring data to the <em>consumer</em> <code>a</code>.</td>
 </tr>
 <tr>
@@ -2208,6 +2230,20 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 <span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">in</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">1</span><span class="w">     </span><span class="c1">// OK: use a connection instead</span>
 <span class="w">  </span><span class="c1">// io.out := 1 // Bad assignment! An output port can only be assigned internally</span>
 </code></pre></div></td></tr></table></div>
+<h3 id="output-to-output">Output-to-Output Connections<a class="headerlink" href="#output-to-output" title="Permanent link"></a></h3>
+<p>A design's own output port can be driven inside the design and read there as well, so a connection between two of them is the one case where the direction cannot be inferred: either side could be the consumer. Here, and only here, <code>&lt;&gt;</code> is not commutative. The <strong>left-hand side is the consumer</strong>, which makes the connection read like an assignment:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">x</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">x</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// `y` is the consumer, driven by bit 0 of `x`</span>
+</code></pre></div></td></tr></table></div>
+<p>Written the other way around, <code>x(0) &lt;&gt; y</code> makes <code>x(0)</code> the consumer, which in this example collides with the <code>x &lt;&gt; all(0)</code> connection and is reported as a <a href="#multiple-connections">multiple connection</a> error.</p>
+<p>A <a class="autorefs autorefs-internal" title="Design Domains" href="../design-domains/#design-domains">domain</a>'s output port is promoted to a port of the enclosing design, so it counts here too: <code>o &lt;&gt; dmn.d</code> drives the design's <code>o</code> from the domain's <code>d</code>.</p>
 <h3 id="immutable-value-connections">Immutable Value Connections<a class="headerlink" href="#immutable-value-connections" title="Permanent link"></a></h3>
 <p>When connecting a port to an immutable value (such as a constant), the port must be the consumer. This means the connection is done internally to an output port or externally to an input port, e.g.:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
@@ -2366,7 +2402,7 @@ given options.CompilerOptions.PrintDFHDLCode = true</code></pre>
 </code></pre></div></td></tr></table></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>OPEN</code> can only be used with the <code>&lt;&gt;</code> connection operator. Using it with <code>:=</code> assignment results in a compile error.</p>
+<p><code>OPEN</code> is valid only on an entire output port of a design instance, and only with the <code>&lt;&gt;</code> connection operator. An input port of a design instance must always be driven, so <code>OPEN</code> on one is an elaboration error, and using <code>OPEN</code> with the <code>:=</code> assignment operator is a compile error. See <a class="autorefs autorefs-internal" href="../design-hierarchy/#open-ports">Open (Unconnected) Ports</a> for the full rules.</p>
 </div>
 <h2 id="valid-connection-and-assignment-examples">Valid Connection and Assignment Examples<a class="headerlink" href="#valid-connection-and-assignment-examples" title="Permanent link"></a></h2>
 <div class="grid">

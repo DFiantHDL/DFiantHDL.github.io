@@ -4383,7 +4383,12 @@ In the following example, the <code>debug</code> output port of <code>Sensor</co
 </code></pre></div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p><code>OPEN</code> can only be used with the <code>&lt;&gt;</code> connection operator. Using it with <code>:=</code> assignment will result in a compile error.</p>
+<p><code>OPEN</code> is valid only on an <em>entire output port</em> of a design instance, and only with the <code>&lt;&gt;</code> connection operator:</p>
+<ul>
+<li>An input port of a design instance must always be driven, so <code>OPEN</code> on one is an elaboration error. This differs from Verilog, where an empty port connection (<code>.data()</code>) is also accepted on an input and simply leaves it floating.</li>
+<li>A partially open output port (<code>sensor_inst.debug(3, 0) &lt;&gt; OPEN</code>) has no <abbr title="Hardware Description Language">HDL</abbr> equivalent. To leave only some bits of an output port unused, just do not connect those bits.</li>
+<li>Using <code>OPEN</code> with the <code>:=</code> assignment operator is a compile error.</li>
+</ul>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Verilog Equivalent</p>

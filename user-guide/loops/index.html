@@ -1620,6 +1620,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="ED Domain Loops">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#loop-accumulators" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Loops Accumulation Example
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1734,6 +1751,131 @@
 </code></pre></div></td></tr></table></div>
 <h2 id="ed-domain-loops"><abbr title="Event-Driven">ED</abbr> Domain Loops<a class="headerlink" href="#ed-domain-loops" title="Permanent link"></a></h2>
 <p>In <abbr title="Event-Driven">ED</abbr> designs, <code>for</code> and <code>while</code> loops inside processes produce combinational or sequential logic depending on the process type. These loops are unrolled by the compiler.</p>
+<h3 id="loop-accumulators">Loops Accumulation Example<a class="headerlink" href="#loop-accumulators" title="Permanent link"></a></h3>
+<p>A loop that stays a hardware loop is elaborated once, not once per iteration, so a Scala <code class="highlight"><span class="kd">var</span></code> cannot accumulate across it. Reassigning the <code>var</code> in the body only rebinds the Scala name to a value built inside the loop, and reading it after the loop reaches the loop's own iterator, which does not exist outside it. Declaring a <code class="highlight"><span class="kd">var</span></code> in a process is a compile error for this reason, and the elaboration rejects the shape as a scope error wherever it is laundered in through a helper <code class="highlight"><span class="k">def</span></code>. See <a class="autorefs autorefs-internal" href="../type-system/#scala-var">Scala <code>var</code> with DFHDL values</a> for the full permission list.</p>
+<p>Accumulate into a DFHDL variable instead, driven with <code>:=</code> inside the loop:</p>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Accumulating in hardware</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/** Counts the set bits of an 8-bit input */</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">OnesCount</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="cm">/** the bits to count */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">bits</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="cm">/** how many of them are set */</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="c1">//the running total, declared before the loop so</span>
+<span class="w">    </span><span class="c1">//that it exists both inside it and after it</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bits</span><span class="p">(</span><span class="n">i</span><span class="p">))</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">OnesCount</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">OnesCount</span><span class="p">(</span>
+<span class="w">  </span><span class="cm">/* the bits to count */</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">bits</span><span class="p">,</span>
+<span class="w">  </span><span class="cm">/* how many of them are set */</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">count</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">3</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">sum</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">4</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">bits</span><span class="p">[</span><span class="n">i</span><span class="p">])</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">4</span><span class="mi">&#39;d1</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+The loop survives into the generated code as a real <code>for</code> loop, and <code>sum</code> is hoisted to a module-scope <code>logic</code>, since Verilog has no notion of a declaration local to an <code>always</code> block. DFHDL's <code>:=</code> becomes Verilog's blocking <code>=</code>, which is what makes the accumulation work: each iteration reads the value the previous one wrote.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">OnesCount</span><span class="w"> </span><span class="k">is</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="c1">-- the bits to count</span>
+<span class="w">  </span><span class="n">bits</span><span class="w">  </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="w">  </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="c1">-- how many of them are set</span>
+<span class="w">  </span><span class="n">count</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">OnesCount</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">OnesCount_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">OnesCount</span><span class="w"> </span><span class="k">is</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">    </span><span class="k">variable</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unsigned</span><span class="p">(</span><span class="mi">3</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">sum</span><span class="w">   </span><span class="o">:=</span><span class="w"> </span><span class="mi">4</span><span class="n">d</span><span class="s">&quot;0&quot;</span><span class="p">;</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="mi">8</span><span class="o">-</span><span class="mi">1</span><span class="w"> </span><span class="k">loop</span>
+<span class="w">      </span><span class="k">if</span><span class="w"> </span><span class="n">bits</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="w"> </span><span class="k">then</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">4</span><span class="n">d</span><span class="s">&quot;1&quot;</span><span class="p">;</span>
+<span class="w">      </span><span class="k">end</span><span class="w"> </span><span class="k">if</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">loop</span><span class="p">;</span>
+<span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">sum</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">OnesCount_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+VHDL keeps the accumulator inside the process, as a <code>variable</code> rather than a <code>signal</code>. That distinction is not cosmetic: a signal assignment is scheduled and would not take effect until the process suspended, so every iteration would read the same stale value. A variable assignment (<code>:=</code>) takes effect immediately, which is the semantics DFHDL's <code>:=</code> carries. The output port stays a signal, so the final <code>count &lt;= sum</code> is a signal assignment.</p>
+<p>Declaring the accumulator in the <strong>design body</strong> rather than inside the process would make it a VHDL <code>signal</code>, and the accumulation would then be wrong. Keep a loop accumulator local to its process.</p>
+</div>
+</div>
+</div>
+<p>Contrast this with the <a class="autorefs autorefs-internal" title="Scala " href="../type-system/#scala-var">elaboration-time accumulation</a> a Scala <code class="highlight"><span class="kd">var</span></code> is for, where the loop is a Scala loop and nothing of it survives into the generated code.</p>
 <h2 id="rt-domain-loops"><abbr title="Register-Transfer">RT</abbr> Domain Loops<a class="headerlink" href="#rt-domain-loops" title="Permanent link"></a></h2>
 <p>In <abbr title="Register-Transfer">RT</abbr> designs, <code>for</code> and <code>while</code> loops inside processes create synthesizable procedural FSMs. The compiler transforms the loop body into state machine transitions. Loop iterators become registers, and the loop boundaries (entry, exit, and loop-back) consume zero extra cycles: each executed iteration costs exactly the cycles its body consumes, so a flat wait, a loop of waits, and nested loops of waits with the same total time are cycle-identical. See <a href="../processes/">Processes</a> for the full <abbr title="Register-Transfer">RT</abbr> cycle semantics.</p>
 <h3 id="combinational-loops-comb_loop">Combinational Loops (<code>COMB_LOOP</code>)<a class="headerlink" href="#combinational-loops-comb_loop" title="Permanent link"></a></h3>

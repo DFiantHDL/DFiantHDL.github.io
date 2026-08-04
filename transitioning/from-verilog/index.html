@@ -1930,7 +1930,7 @@
 <span class="n">child_inst</span><span class="p">.</span><span class="n">dout</span><span class="w">  </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">dout</span>
 </code></pre></div>
 </div>
-<p>Use <code>OPEN</code> to explicitly mark an output port as unconnected. This is equivalent to Verilog’s empty port connection (<code>.port()</code>). See <a class="autorefs autorefs-internal" href="../../user-guide/design-hierarchy/#open-ports">Open (Unconnected) Ports</a> for more details.</p>
+<p>Use <code>OPEN</code> to explicitly mark an output port as unconnected. This is equivalent to Verilog’s empty port connection (<code>.port()</code>), but only for outputs: Verilog also accepts an empty connection on an <em>input</em> port and leaves it floating, whereas DFHDL requires every input port of a design instance to be driven. Give such a port an explicit value (<code>child_inst.din &lt;&gt; all(0)</code>) when porting. See <a class="autorefs autorefs-internal" href="../../user-guide/design-hierarchy/#open-ports">Open (Unconnected) Ports</a> for more details.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">logic/reg/wire</p>
