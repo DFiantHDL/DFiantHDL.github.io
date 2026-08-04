@@ -1637,9 +1637,9 @@ class TrueDPR(
     val q    = Bits(DATA_WIDTH) &lt;&gt; OUT.REG
     val we   = Bit              &lt;&gt; IN
 
+    q.din := ram(addr)
     if (we)
       ram(addr) := data
-    q.din       := ram(addr)
 end TrueDPR
 
 ////////////////////////////////////////////////////////////////////////////////////////////////

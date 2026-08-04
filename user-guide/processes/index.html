@@ -1454,6 +1454,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Edge sensitivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthesizable-sequential-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesizable sequential patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2124,6 +2141,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Edge sensitivity">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#synthesizable-sequential-patterns" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Synthesizable sequential patterns
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -2483,7 +2517,7 @@ Control flow on its own never consumes cycles. Between one time-consuming constr
 <li><strong>Forever wrap-around</strong>: each time the process completes its last step and implicitly (through a <code>NextStep</code> jump) wraps back to the first step.</li>
 </ol>
 <p>The leading statements do <strong>not</strong> re-run on an explicit jump to the first step (<code>FirstStep</code> or the first step's name), nor on a <code>ThisStep</code> self-transition. The first step's <code>onEntry</code> is an ordinary entry hook on top of that: it runs on <em>every</em> entry into the first step from a different step, explicit jumps included (but not on a self-transition).</p>
-<p>This holds whether or not the prologue is initial-convertible. When it is not (see <a href="#cycle-semantics">Cycle semantics</a>), the compiler gives the prologue a state of its own to run it, and the wrap-around passes through that state. <code>FirstStep</code> does not: it jumps to the process's first step — the first step <em>you</em> wrote, or the one a leading wait or loop yielded — paying neither the prologue nor that state's cycle. <code>FirstStep</code> and naming the first step are therefore always the same jump, and are always distinct from a wrap-around.</p>
+<p>This holds whether or not the prologue is initial-convertible. When it is not (see <a href="#cycle-semantics">Cycle semantics</a>), the compiler gives the prologue a state of its own to run it, and the wrap-around passes through that state. <code>FirstStep</code> does not: it jumps to the process's first step (the first step <em>you</em> wrote, or the one a leading wait or loop yielded), paying neither the prologue nor that state's cycle. <code>FirstStep</code> and naming the first step are therefore always the same jump, and are always distinct from a wrap-around.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2675,12 +2709,12 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">x</span><span class="p">):</span>
 <span class="w">    </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 
-<span class="w">  </span><span class="c1">// Sequential logic, Verilog style: runs on clock (and optionally reset) events</span>
+<span class="w">  </span><span class="c1">// Sequential logic, edge style (as in Verilog): runs on clock (and optionally reset) events</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
 <span class="w">    </span><span class="n">r1</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span>
 
-<span class="w">  </span><span class="c1">// Sequential logic, VHDL style: runs on clock (and optionally reset) events</span>
+<span class="w">  </span><span class="c1">// Sequential logic, guard style (as in VHDL): runs on clock (and optionally reset) events</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">r2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
@@ -2749,9 +2783,9 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 </code></pre></div></td></tr></table></div>
 <p>It compiles to <code>wait;</code> in VHDL and <code>wait(0);</code> in Verilog.</p>
 <h2 id="edge-sensitivity">Edge sensitivity<a class="headerlink" href="#edge-sensitivity" title="Permanent link"></a></h2>
-<p>For sequential (clocked) logic you typically want the process to run only on a specific clock edge. You can either:</p>
+<p>For sequential (clocked) logic you typically want the process to run only on a specific clock edge. DFHDL supports both classic <abbr title="Hardware Description Language">HDL</abbr> styles, and they are interchangeable:</p>
 <ol>
-<li><strong>List the clock and check the edge inside the block</strong> (VHDL-style):</li>
+<li><strong>Guard style</strong> (as in VHDL): list the signals and check the edge inside the block:</li>
 </ol>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2760,52 +2794,33 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="w">    </span><span class="n">reg</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
 </code></pre></div></td></tr></table></div>
 <ol>
-<li><strong>Put the edge in the sensitivity list</strong> (Verilog-style; compiler may normalize to this):</li>
+<li><strong>Edge style</strong> (as in Verilog): put the edge in the sensitivity list:</li>
 </ol>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
 <span class="w">  </span><span class="n">reg</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
 </code></pre></div></td></tr></table></div>
-<p>Edge options are <code>.rising</code> and <code>.falling</code> on clock (or bit) signals. When reset is used, list both clock and reset and branch on reset then clock edge:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
-</code></pre></div></td></tr></table></div>
-<p>For the <strong>Verilog-style async reset</strong> pattern, put the edges in the sensitivity list and branch on reset only:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span>
-<span class="normal">3</span>
-<span class="normal">4</span>
-<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">else</span>
-<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
-</code></pre></div></td></tr></table></div>
-<div class="admonition warning">
-<p class="admonition-title"><abbr title="Event-Driven">ED</abbr> is a faithful mirror of Verilog/VHDL, so write synthesizable patterns</p>
-<p>The <abbr title="Event-Driven">ED</abbr> domain is intentionally a low-level, faithful mapping to Verilog <code>always</code> blocks / VHDL <code>process</code> blocks. <strong>DFHDL does not enforce synthesizability in the <abbr title="Event-Driven">ED</abbr> domain.</strong> If you describe a non-synthesizable process pattern, the generated Verilog/VHDL will faithfully reflect that pattern, and downstream synthesis (or even a parser like Yosys) may reject it.</p>
-<p>It is your responsibility to write process bodies that match a synthesizable template. In particular, when an edge is <strong>already in the sensitivity list</strong>, do not re-check that edge inside the body: the body has already been triggered by it.</p>
-<p><strong>Non-synthesizable</strong> (clock edge appears both in sensitivity list and as a nested <code>else if</code>):</p>
+<p>Edge qualifiers are <code>.rising</code> and <code>.falling</code> on clock (or bit) signals. A VHDL sensitivity list may only contain signal names, and Verilog cannot test an edge inside a process body, so neither style can be printed as-is for both backends. Instead, the compiler recognizes the synthesizable patterns below and converts each process to the form the target backend requires: guard style for VHDL, edge style for Verilog. Write whichever style you prefer; the generated code is correct for both backends.</p>
+<h3 id="synthesizable-sequential-patterns">Synthesizable sequential patterns<a class="headerlink" href="#synthesizable-sequential-patterns" title="Permanent link"></a></h3>
+<p>Each pattern is shown in both styles. The two spellings are equivalent, and the compiler translates between them according to the target backend.</p>
+<p><strong>Clock only:</strong></p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
 <span class="normal">5</span>
-<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// BAD: emits `else if (posedge clk)` inside an always_ff, which is not valid Verilog</span>
-<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span><span class="w">   </span><span class="c1">// redundant: body already runs on rising clk</span>
-<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// guard style (VHDL)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+
+<span class="c1">// edge style (Verilog)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
 </code></pre></div></td></tr></table></div>
-<p><strong>Synthesizable</strong> equivalents, pick the style that matches the intent:</p>
+<p><strong>Async reset, if-reset-else-clock:</strong> the reset condition takes priority over the clocked assignments. In the edge style the reset is edge-qualified too, with the edge matching the active level (<code>.rising</code> for an active-high reset, <code>.falling</code> for an active-low reset):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2818,21 +2833,99 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <span class="normal">10</span>
 <span class="normal">11</span>
 <span class="normal">12</span>
-<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Verilog-style async reset: edges in the sensitivity list, branch on reset only</span>
+<span class="normal">13</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// guard style (VHDL)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+
+<span class="c1">// edge style (Verilog)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<p>The reset condition can be any of the simple active forms: <code>rst</code>, <code>!rst</code>, <code>rst == 1</code>, or <code>rst == 0</code>.</p>
+<p><strong>Async reset at the end of the process:</strong> the reset condition is a separate <code>if</code> statement placed <em>last</em> in the process, overriding the clocked assignments made above it:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// guard style (VHDL)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+
+<span class="c1">// edge style (Verilog)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+</code></pre></div></td></tr></table></div>
+<p>Since the reset override relies on last-assignment-wins, every register that requires a reset must be assigned inside the final reset <code>if</code>.</p>
+<p><strong>Sync reset:</strong> the reset signal is not part of the sensitivity at all; it is simply the first condition checked under the clock event. This needs no special recognition, since it is the clock-only pattern with a reset conditional as its body:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// guard style (VHDL)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">      </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">else</span>
+<span class="w">      </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+
+<span class="c1">// edge style (Verilog)</span>
+<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">out</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">nextVal</span>
+</code></pre></div></td></tr></table></div>
+<div class="admonition warning">
+<p class="admonition-title"><abbr title="Event-Driven">ED</abbr> is a faithful mirror of Verilog/VHDL, so stick to the recognized patterns</p>
+<p>The <abbr title="Event-Driven">ED</abbr> domain is intentionally a low-level, faithful mapping to Verilog <code>always</code> blocks / VHDL <code>process</code> blocks. <strong>DFHDL does not enforce synthesizability in the <abbr title="Event-Driven">ED</abbr> domain.</strong> If you describe a non-synthesizable process pattern, the generated Verilog/VHDL will faithfully reflect that pattern, and downstream synthesis (or even a parser like Yosys) may reject it.</p>
+<p>The style conversion described above applies only to the recognized patterns. A sequential process that matches none of them is printed as-is, which is illegal <abbr title="Hardware Description Language">HDL</abbr> whenever the style does not match the backend:</p>
+<ul>
+<li>Under the VHDL backend, an unrecognized edge-style process keeps the edge function in its sensitivity list, and <code>process (rising_edge(clk))</code> is illegal VHDL.</li>
+<li>Under the Verilog backend, an unrecognized guard-style process keeps the edge test in its body, and <code>if (posedge clk)</code> is illegal Verilog.</li>
+</ul>
+<p>In particular, do not re-check an edge that is <strong>already in the sensitivity list</strong>: the body has already been triggered by it, and the redundant guard breaks the pattern recognition.</p>
+<p><strong>Non-synthesizable</strong> (clock edge appears both in the sensitivity list and as a nested <code>else if</code>):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// BAD: emits `else if (posedge clk)` inside an always_ff, which is not valid Verilog</span>
 <span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
 <span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">else</span>
-<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
-
-<span class="c1">// VHDL-style: list the signals, branch on reset, then on the clock edge</span>
-<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">,</span><span class="w"> </span><span class="n">rst</span><span class="p">):</span>
-<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="p">)</span>
-<span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="mi">0</span>
-<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span>
+<span class="w">  </span><span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">)</span><span class="w">   </span><span class="c1">// redundant: body already runs on rising clk</span>
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
 </code></pre></div></td></tr></table></div>
-<p>The rule of thumb: an edge qualifier (<code>.rising</code> / <code>.falling</code>) belongs in <strong>either</strong> the sensitivity list <strong>or</strong> an <code>if</code> inside the body, not both for the same signal.</p>
+<p>Pick one of the async reset patterns above instead. The rule of thumb: an edge qualifier (<code>.rising</code> / <code>.falling</code>) belongs in <strong>either</strong> the sensitivity list <strong>or</strong> an <code>if</code> inside the body, not both for the same signal.</p>
 </div>
 <h2 id="initial-blocks">Initial blocks<a class="headerlink" href="#initial-blocks" title="Permanent link"></a></h2>
 <p>An <strong><code>initial</code> block</strong> describes <strong>once-only initialization</strong>, available in the <abbr title="Register-Transfer">RT</abbr> and <abbr title="Event-Driven">ED</abbr> domains (in the <abbr title="Dataflow">DF</abbr> domain, initialization is expressed with declaration <code>init</code> only). It is written at the design (or domain) level: an <code>initial</code> block cannot be placed inside a process, cannot be nested inside another <code>initial</code> block, and cannot contain processes, steps, or waits.</p>
@@ -2986,6 +3079,7 @@ When the prologue is <em>initial-convertible</em>, meaning it consists only of b
 <li><strong><code>initial</code> blocks</strong>: once-only initialization in <abbr title="Register-Transfer">RT</abbr> (constants only; re-applied on reset) and <abbr title="Event-Driven">ED</abbr> (power-on; may include simulation output). A variable is initialized by declaration <code>init</code> or by one <code>initial</code> block, never both.</li>
 <li>A bare <strong><code>wait</code></strong> halts a process forever (terminal FSM state in <abbr title="Register-Transfer">RT</abbr>; <code>wait;</code> / <code>wait(0);</code> in <abbr title="Event-Driven">ED</abbr> output).</li>
 <li><strong><abbr title="Event-Driven">ED</abbr></strong>: Use <strong><code>process(sig1, sig2, ...)</code></strong> or <strong><code>process(all)</code></strong> in <strong>EDDesign</strong> / <strong>EDDomain</strong> to define when a block runs; <strong><code>process(all)</code></strong> for combinational logic; <strong><code>process(clk)</code></strong> (and optionally <strong><code>process(clk, rst)</code></strong>) with <strong><code>clk.rising</code></strong> / <strong><code>clk.falling</code></strong> for sequential logic.</li>
+<li><strong><abbr title="Event-Driven">ED</abbr> sequential patterns</strong>: write clocked processes in either the guard style (edge tested inside the body, as in VHDL) or the edge style (edge in the sensitivity list, as in Verilog); the recognized patterns (clock only, async reset in if-reset-else-clock or reset-at-the-end form, sync reset) are converted by the compiler to the form each target backend requires (see <a href="#synthesizable-sequential-patterns">Synthesizable sequential patterns</a>).</li>
 <li>Use <strong><code>:=</code></strong> for immediate (blocking) updates and <strong><code>:==</code></strong> for register (non-blocking) updates in <abbr title="Event-Driven">ED</abbr> processes.</li>
 <li>Processes cannot be nested and are not available in the <abbr title="Dataflow">DF</abbr> domain.</li>
 </ul>
