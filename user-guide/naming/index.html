@@ -1392,10 +1392,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#design-class-name-colliding-with-a-value-name" class="md-nav__link">
+  <a href="#design-class-name-shared-with-a-value-name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design-class name colliding with a value name
+        Design-class name shared with a value name
       
     </span>
   </a>
@@ -1431,10 +1431,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetname-annotation" class="md-nav__link">
+  <a href="#setname-annotation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        @targetName annotation
+        @setName annotation
       
     </span>
   </a>
@@ -1807,10 +1807,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#design-class-name-colliding-with-a-value-name" class="md-nav__link">
+  <a href="#design-class-name-shared-with-a-value-name" class="md-nav__link">
     <span class="md-ellipsis">
       
-        Design-class name colliding with a value name
+        Design-class name shared with a value name
       
     </span>
   </a>
@@ -1846,10 +1846,10 @@
 </li>
         
           <li class="md-nav__item">
-  <a href="#targetname-annotation" class="md-nav__link">
+  <a href="#setname-annotation" class="md-nav__link">
     <span class="md-ellipsis">
       
-        @targetName annotation
+        @setName annotation
       
     </span>
   </a>
@@ -1943,30 +1943,49 @@
 <span class="kd">val</span><span class="w"> </span><span class="n">u_abs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">abs</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
 <p>This is the <a href="#general-recommendation-instantiate-designs-with-new">general <code>new</code> recommendation</a> applied to a built-in collision. Following it from the start makes this collision a non-issue.</p>
-<h3 id="design-class-name-colliding-with-a-value-name">Design-class name colliding with a value name<a class="headerlink" href="#design-class-name-colliding-with-a-value-name" title="Permanent link"></a></h3>
-<p>A common translation collision is a <strong>design class</strong> whose name is the same as a port or variable in scope (or a built-in). When the bare name <code>design_class_name(...)</code> resolves to the value instead of the class, use one of these two fixes:</p>
-<p><strong>1. Explicitly instantiate with <code>new</code></strong> (the recommended default form). The <code>new</code> keyword forces resolution to the class constructor, sidestepping the shadowing value:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
-<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// `design_class_name` the value is in scope and shadows the class</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">design_class_name</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<h3 id="design-class-name-shared-with-a-value-name">Design-class name shared with a value name<a class="headerlink" href="#design-class-name-shared-with-a-value-name" title="Permanent link"></a></h3>
+<p>A <strong>design class</strong> may share its name with a port or variable in scope. This is not a collision that needs resolving: Scala keeps types and terms in separate namespaces, so the class stays reachable and the value keeps its name.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">stage</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">q</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">q</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">d</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">wrapper</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">d</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stage</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="w">     </span><span class="c1">// port sharing the child class&#39;s name</span>
+
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">stage_inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">stage</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w">  </span><span class="c1">// resolves to the class constructor</span>
+<span class="w">  </span><span class="n">stage_inst</span><span class="p">.</span><span class="n">d</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">d</span>
+<span class="w">  </span><span class="n">stage</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">stage_inst</span><span class="p">.</span><span class="n">q</span>
 </code></pre></div></td></tr></table></div>
-<p><strong>2. Use a Capitalized class name plus <code>@targetName</code> to preserve the emitted name.</strong> Rename the Scala class to a Capitalized identifier (which can no longer collide with a camelCase value) and pin the original lowercase name onto the generated <abbr title="Hardware Description Language">HDL</abbr> with <code>@targetName</code>:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Generated Verilog</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
-
-<span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;design_class_name&quot;</span><span class="p">)</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">DATA_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="c1">// ...</span>
-
-<span class="c1">// No collision with values; generated HDL module is still named &quot;design_class_name&quot;</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">DesignClassName</span><span class="p">(</span><span class="nc">DATA_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">wrapper</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">)(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">d</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">stage</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="n">stage</span><span class="w"> </span><span class="p">#(.</span><span class="n">WIDTH</span><span class="w"> </span><span class="p">(</span><span class="n">WIDTH</span><span class="p">))</span><span class="w"> </span><span class="n">stage_inst</span><span class="p">(...);</span>
 </code></pre></div></td></tr></table></div>
+<p>The port keeps the name <code>stage</code> and the child module is still instantiated from the class of the same name. The one form that goes wrong is the bare apply, and only because the value wins the term position:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">stage_inst</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">stage</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w">  </span><span class="c1">// NOT an instantiation: this bit-selects the port</span>
+</code></pre></div></td></tr></table></div>
+<p>It fails in a way worth recognizing, because it usually stays silent until something downstream reads a member off it:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>value q is not a member of Bit &lt;&gt; VAR, but could be made available as an extension method.
+</code></pre></div></td></tr></table></div>
+<p>That is <code>stage(WIDTH)</code> having quietly become a bit-select on the port. Always instantiating with <code>new</code>, per the <a href="#general-recommendation-instantiate-designs-with-new">general recommendation</a>, removes the whole class of problems and needs no renaming and no annotation.</p>
 <h2 id="resolution-patterns">Resolution Patterns<a class="headerlink" href="#resolution-patterns" title="Permanent link"></a></h2>
 <h3 id="backtick-escaping">Backtick escaping<a class="headerlink" href="#backtick-escaping" title="Permanent link"></a></h3>
 <p>For Scala keywords used as signal names:</p>
@@ -1974,30 +1993,37 @@
 <span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">`type`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
 <span class="kd">val</span><span class="w"> </span><span class="n">`match`</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 </code></pre></div></td></tr></table></div>
-<h3 id="targetname-annotation"><code>@targetName</code> annotation<a class="headerlink" href="#targetname-annotation" title="Permanent link"></a></h3>
-<p>When a Scala-side name must differ from the generated <abbr title="Hardware Description Language">HDL</abbr> name, use <code>@targetName</code> to set the hardware name explicitly. This is useful when:</p>
-<ul>
-<li>A port name conflicts with a sub-module class name in the same design.</li>
-<li>You want to rename a Scala identifier but preserve the original Verilog port/module name (see <a href="#design-class-name-colliding-with-a-value-name">Design-class name colliding with a value name</a>).</li>
-</ul>
+<h3 id="setname-annotation"><code>@setName</code> annotation<a class="headerlink" href="#setname-annotation" title="Permanent link"></a></h3>
+<p><code>@hw.annotation.setName</code> applies to a <strong>port, variable, or DFHDL method</strong>, and sets the name that construct carries in the generated <abbr title="Hardware Description Language">HDL</abbr>. Use it when the Scala-side identifier must differ from the <abbr title="Hardware Description Language">HDL</abbr> name you need to emit:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">filter</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="nd">@hw</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;data_out&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dataOut</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">dataOut</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">all</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Generated Verilog</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">filter</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">)(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">data_out</span>
+<span class="p">);</span>
+</code></pre></div></td></tr></table></div>
+<p>The same annotation applies to a <strong>design class</strong>, where it sets the emitted module name. This is what lets a translation follow Scala naming style on the Scala side while still emitting the original Verilog module name. It works on top-level classes too, where Scala's own <code>@targetName</code> is rejected (the DFHDL compiler plugin reads the annotation, not the Scala backend):</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span>
-<span class="normal">5</span>
-<span class="normal">6</span>
-<span class="normal">7</span>
-<span class="normal">8</span>
-<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
-
-<span class="c1">// Port &quot;kernel&quot; conflicts with class &quot;kernel&quot; in scope</span>
-<span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;kernel&quot;</span><span class="p">)</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">kernel_out</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
-<span class="c1">// Generated HDL port is still named &quot;kernel&quot;</span>
-
-<span class="c1">// The class &quot;kernel&quot; remains available for instantiation</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">u_kernel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">kernel</span><span class="p">()</span>
+<span class="normal">5</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@hw</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;data_path&quot;</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">DataPath</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="c1">// ...</span>
+<span class="c1">// Generated HDL module is named &quot;data_path&quot;</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">u_dp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">DataPath</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div>
+<div class="admonition note">
+<p class="admonition-title">Not for names that merely look alike</p>
+<p>A port sharing a name with a design class needs no annotation and no rename, since types and terms live in separate namespaces. See <a href="#design-class-name-shared-with-a-value-name">Design-class name shared with a value name</a>. Reach for <code>@hw.annotation.setName</code> when you need a <strong>different</strong> <abbr title="Hardware Description Language">HDL</abbr> name, not when two Scala names collide.</p>
+</div>
 
 
 

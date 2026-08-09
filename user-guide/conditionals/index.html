@@ -1380,6 +1380,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enum-match-wildcard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enum Matches and the Wildcard case _
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2062,6 +2073,17 @@
 </li>
         
           <li class="md-nav__item">
+  <a href="#enum-match-wildcard" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Enum Matches and the Wildcard case _
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
   <a href="#best-practices" class="md-nav__link">
     <span class="md-ellipsis">
       
@@ -2555,7 +2577,7 @@
 </code></pre></div></td></tr></table></div>
 <h3 id="rules_1">Rules<a class="headerlink" href="#rules_1" title="Permanent link"></a></h3>
 <ol>
-<li><strong>Exhaustiveness</strong>: Match expressions must cover all possible cases</li>
+<li><strong>Exhaustiveness</strong>: Match expressions must cover all possible cases (for an enum selector, listing all declared entries suffices; see <a class="autorefs autorefs-internal" href="#enum-match-wildcard">Enum Matches and the Wildcard <code>case _</code></a> for when to add a wildcard branch anyway)</li>
 <li><strong>Pattern Order</strong>: Patterns are evaluated in order, first match wins</li>
 <li><strong>Type Safety</strong>: All case branches must produce compatible types if used as an expression</li>
 <li><strong>Hardware Implementation</strong>: </li>
@@ -2592,6 +2614,30 @@
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Data</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;5&quot;</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div></p>
 </div>
+<h3 id="enum-match-wildcard">Enum Matches and the Wildcard <code>case _</code><a class="headerlink" href="#enum-match-wildcard" title="Permanent link"></a></h3>
+<p>Listing every entry of an enum makes a <code>match</code> exhaustive, but the register underneath can often hold encodings that no entry names: the 3-entry <code>State</code> enum above occupies 2 bits, leaving <code>b"11"</code> representable but unlisted (one-hot, gray, <code>StartAt</code>, and <code>Manual</code> encodings leave even more). A wildcard branch after all the entries covers exactly those unlisted encodings, and whether to write it depends on the rules below:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">state</span><span class="w"> </span><span class="k">match</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Idle</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// idle logic</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Start</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// start logic</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Data</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// data logic</span>
+<span class="w">  </span><span class="c1">// wildcard branch, reached only on the unlisted b&quot;11&quot; encoding;</span>
+<span class="w">  </span><span class="c1">// optional in a fresh design, mandatory in a translation </span>
+<span class="w">  </span><span class="c1">// from Verilog&#39;s `default:` or VHDL&#39;s `when others =&gt;` </span>
+<span class="w">  </span><span class="c1">// (see rules below)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Idle</span>
+</code></pre></div></td></tr></table></div>
+<ul>
+<li><strong>Fresh designs:</strong> no need to write <code>case _ =&gt;</code> if don't-care behavior on unlisted encodings is acceptable; synthesis exploits the don't-cares for better hardware utilization, and most designs require nothing more. The trade-off: if unstable timing/reset or an environmental effect that randomly flips bits (however unlikely) lands the register on an unlisted encoding, the outcome is unknown, and without a wildcard branch that keeps the current state or jumps to a known initialization state (as above) the chances of recovery are reduced. Only high-reliability designs need it.</li>
+<li><strong>Translations of existing Verilog/VHDL:</strong> translate a <code>default:</code> / <code>when others =&gt;</code> branch as <code>case _ =&gt;</code> too. Omit it only for the default binary encoding with exactly 2^n unique cases, where every encoding is named and the branch is unreachable; for any other encoding or case count, dropping it makes the translation not formally equivalent to the original. See <a class="autorefs autorefs-internal" title="Processes and Sequential Logic" href="../../transitioning/from-verilog/#fsm-state-encoding">FSM State Encoding</a> for a worked translation.</li>
+</ul>
 <h3 id="best-practices">Best Practices<a class="headerlink" href="#best-practices" title="Permanent link"></a></h3>
 <ol>
 <li><strong>Use Match for Multi-Way Branching</strong>: When dealing with multiple cases, match is often clearer than nested if-else</li>
@@ -2643,7 +2689,7 @@
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0001&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0010&quot;</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0100&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0000&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0000&quot;</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="complex-pattern-matching">Complex Pattern Matching<a class="headerlink" href="#complex-pattern-matching" title="Permanent link"></a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
@@ -2660,9 +2706,9 @@
 
 <span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pixel</span><span class="w"> </span><span class="k">match</span>
 <span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">2</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Pixel</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">2</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="usage-modes">Usage Modes<a class="headerlink" href="#usage-modes" title="Permanent link"></a></h3>
 <p>DFHDL conditionals can be used in two ways: as statements and as expressions.</p>
@@ -2684,7 +2730,7 @@
 <span class="c1">// Match statement</span>
 <span class="n">x</span><span class="w"> </span><span class="k">match</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="mi">77</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="mi">11</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">       </span><span class="o">=&gt;</span>
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">3</span>
 <span class="w">    </span><span class="n">x</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">4</span>
 </code></pre></div></td></tr></table></div>

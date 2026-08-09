@@ -1461,6 +1461,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Design Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#localparam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        localparam
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1736,6 +1753,23 @@
     </span>
   </a>
   
+    <nav class="md-nav" aria-label="Design Structure">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#localparam" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        localparam
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
 </li>
       
         <li class="md-nav__item">
@@ -1912,6 +1946,43 @@
 <span class="k">end</span><span class="w"> </span><span class="nc">Concat</span>
 </code></pre></div>
 </div>
+<p>A Verilog parameter whose default references an earlier parameter cannot stay a parameter in DFHDL: Scala does not allow a default value to reference an earlier parameter of the same parameter block, and DFHDL requires all its parameters in a single block (a curried second block is rejected with a clear error). Declare it as a derived value in the design body instead, like <code>midLen</code> and <code>outlen</code> above.</p>
+<h3 id="localparam"><code>localparam</code><a class="headerlink" href="#localparam" title="Permanent link"></a></h3>
+<p>A module-level <code>parameter</code> becomes a design constructor argument, as above. A body-level <strong><code>localparam</code></strong> becomes a <code>val</code> in the design body, but whether it survives into the generated <abbr title="Hardware Description Language">HDL</abbr> depends on whether it is a DFHDL constant:</p>
+<ul>
+<li><code>val X = &lt;scala expr&gt;</code> is a DFHDL constant only if a DFHDL constant appears in its right-hand side. Otherwise it is plain Scala arithmetic, and its value is <strong>inlined away</strong>.</li>
+<li><code>val X: Int &lt;&gt; CONST = &lt;expr&gt;</code> is always a DFHDL constant, and is <strong>emitted as <code>localparam int X</code></strong>.</li>
+</ul>
+<p>This is worth knowing because two adjacent, identically written <code>val</code>s can compile to different things depending only on the types of the operands in their initializers:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">IMAGE_WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">640</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">WINDOW_BLOCKS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">64</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">16</span><span class="w">                    </span><span class="c1">// plain Scala arithmetic</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">ROW_BLOCKS</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="nc">IMAGE_WIDTH</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">16</span><span class="w">           </span><span class="c1">// derives from an Int &lt;&gt; CONST</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">COLUMN_BLOCKS</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">128</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">16</span><span class="w">     </span><span class="c1">// ascription forces a DFHDL constant</span>
+<span class="w">  </span><span class="c1">// ...</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Generated Verilog</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">IMAGE_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">640</span><span class="p">)(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="k">signed</span><span class="w"> </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">o</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">ROW_BLOCKS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">IMAGE_WIDTH</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mh">16</span><span class="p">;</span>
+<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">COLUMN_BLOCKS</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">o</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">32</span><span class="p">&#39;(</span><span class="n">ROW_BLOCKS</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">4</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">COLUMN_BLOCKS</span><span class="p">);</span>
+<span class="k">endmodule</span>
+</code></pre></div></td></tr></table></div>
+<p><code>WINDOW_BLOCKS</code> has vanished into the literal <code>4</code>, while the other two survive. Ascribe <code>: Int &lt;&gt; CONST</code> wherever you want the <code>localparam</code> preserved in the emitted interface; leave it off when the value is only needed during elaboration. Note that the <code>Concat</code> example above deliberately uses the first form, so its <code>midLen</code> and <code>outlen</code> are elaboration-time only and emit nothing.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Unconnected Output Ports</p>
@@ -2152,6 +2223,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </code></pre></div>
 </div>
 </div>
+<p><a href="" id="fsm-state-encoding"></a></p>
 <div class="admonition verilog">
 <p class="admonition-title">FSM State Encoding</p>
 <p>Verilog FSMs typically use <code>parameter</code> constants and <code>case</code>/<code>if</code> chains. In DFHDL, the idiomatic translation uses an <code>enum extends Encoded</code> and <code>match</code>:</p>
@@ -2169,19 +2241,24 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="w">    </span><span class="k">default</span><span class="o">:</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">READY</span><span class="p">;</span>
 <span class="w">  </span><span class="k">endcase</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">:</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="p">,</span><span class="w"> </span><span class="nc">Aim</span><span class="p">,</span><span class="w"> </span><span class="nc">Fire</span>
-<span class="k">import</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="n">*</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="nc">Ready</span>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">gun</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="c1">//declared inside the design, like the</span>
+<span class="w">  </span><span class="c1">//Verilog module-local parameters it replaces</span>
+<span class="w">  </span><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">:</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="p">,</span><span class="w"> </span><span class="nc">Aim</span><span class="p">,</span><span class="w"> </span><span class="nc">Fire</span>
+<span class="w">  </span><span class="k">import</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="n">*</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="nc">Ready</span>
 
-<span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
-<span class="w">  </span><span class="n">state</span><span class="w"> </span><span class="k">match</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Aim</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Aim</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Fire</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="nc">Fire</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">clk</span><span class="p">.</span><span class="n">rising</span><span class="p">):</span>
+<span class="w">    </span><span class="n">state</span><span class="w"> </span><span class="k">match</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Ready</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">go</span><span class="p">)</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Aim</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Aim</span><span class="w">   </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Fire</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="nc">Fire</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
+<span class="w">      </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">     </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:==</span><span class="w"> </span><span class="nc">Ready</span>
 </code></pre></div>
 </div>
+<p>Note that the <code>default:</code> branch is kept as <code>case _ =&gt;</code>: the three states occupy a 2-bit binary encoding, leaving <code>2'b11</code> representable but unlisted, and only the wildcard branch covers it. Translate a <code>default:</code> branch as <code>case _ =&gt;</code> whenever such unlisted encodings exist, i.e. always except for the default binary encoding with exactly 2^n unique cases; dropping it turns them into synthesis don't-cares and the translation is no longer formally equivalent to the original. For fresh (non-translated) FSMs the wildcard is a reliability choice instead; see <a class="autorefs autorefs-internal" href="../../user-guide/conditionals/#enum-match-wildcard">Enum Matches and the Wildcard <code>case _</code></a>.</p>
+<p>A Verilog <code>enum {IDLE, DRAW} state;</code> (or a set of state <code>parameter</code>s) is a <strong>module-local</strong> declaration, so the faithful translation declares the enum inside the design class. That also keeps per-module FSMs independent: several designs may each declare their own <code>State</code> without colliding, whereas two top-level enums of the same name in one compilation unit are a duplicate definition. See <a class="autorefs autorefs-internal" title="Enumeration" href="../../user-guide/type-system/#DFEnum">Declaration Scope</a> for the details and for where the generated typedef ends up.</p>
 <p>If the encoded Verilog state values follow a standard pattern (incremental, gray, one-hot), use the corresponding <code>Encoded</code> variant. For non-standard encodings, use <code>Encoded.Manual</code> with a constructor parameter:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
@@ -2346,7 +2423,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <p>There is no <code>&gt;&gt;&gt;</code> operator in DFHDL. The type of the <abbr title="Left-hand Side">LHS</abbr> determines the shift semantics: <code>&gt;&gt;</code> on <code>UInt</code>/<code>Bits</code> zero-fills, <code>&gt;&gt;</code> on <code>SInt</code> sign-extends. See <a class="autorefs autorefs-internal" title="Shift Operations (" href="../../user-guide/type-system/#shift-ops">Shift Operations</a> for details.</p>
 </div>
 <div class="admonition verilog">
-<p class="admonition-title">Bit/Boolean Operators: <code>|</code>/<code>&amp;</code>/<code>~</code> and <code>||</code>/<code>&amp;&amp;</code>/<code>!</code></p>
+<p class="admonition-title">Bit/Boolean Operators: <code>|</code>/<code>&amp;</code>/<code>^</code>/<code>~</code> and <code>||</code>/<code>&amp;&amp;</code>/<code>!</code></p>
 <p>In DFHDL, <code>||</code>/<code>&amp;&amp;</code>/<code>!</code> and <code>|</code>/<code>&amp;</code>/<code>~</code> are interchangeable on <code>Bit</code> and <code>Boolean</code> types. The generated Verilog operator depends on the <abbr title="Left-hand Side">LHS</abbr> type: <code>Bit</code> produces bitwise <code>|</code>/<code>&amp;</code>/<code>~</code>, <code>Boolean</code> produces logical <code>||</code>/<code>&amp;&amp;</code>/<code>!</code>.</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">;</span>
@@ -2393,7 +2470,7 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </code></pre></div>
 </div>
 <p>This wrap-around conversion may appear cumbersome, and that is intentional: it hints at a code smell. It usually means one of two things: either the base type was chosen badly (a value that is conceptually a signed number should be declared as <code>SInt</code>, where <code>-x</code> preserves the type directly), or the importance of the preserved sign bit in the widened <code>SInt[W + 1]</code> result is not understood (discarding it silently corrupts the value; e.g., same-width negation of <code>d"8'128"</code> yields 128 again, not -128).</p>
-<p>See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#logical-ops">Logical Operations</a> for the bitwise NOT and <a class="autorefs autorefs-internal" title="Arithmetic Operations (" href="../../user-guide/type-system/#arithmetic-ops">Arithmetic Operations</a> for the unary negation type rules.</p>
+<p>See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#bitwise-ops">Bitwise Operations</a> for the bitwise NOT and <a class="autorefs autorefs-internal" title="Arithmetic Operations (" href="../../user-guide/type-system/#arithmetic-ops">Arithmetic Operations</a> for the unary negation type rules.</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title">Reduction Operators (<code>&amp;v</code>, <code>|v</code>, <code>^v</code>)</p>
@@ -2499,6 +2576,11 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <td><code>sig(idx)</code></td>
 <td>Single bit access</td>
 </tr>
+<tr>
+<td><code>sig[k*W +: W]</code> (runtime <code>k</code>)</td>
+<td><code>sig.lsbitsAt(k * W, W)</code> inside an <abbr title="Event-Driven">ED</abbr> <code>process</code> loop</td>
+<td>Variable-base part-select, with <code>k</code> a process-scope <code>for</code> iterator</td>
+</tr>
 </tbody>
 </table>
 <div class="grid">
@@ -2523,7 +2605,43 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 <span class="kd">val</span><span class="w"> </span><span class="n">bit5</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="w">               </span><span class="c1">// single bit</span>
 </code></pre></div>
 </div>
-<p>The part-select base index and width must be elaboration-time constants (Scala <code>Int</code> values or <code>Int &lt;&gt; CONST</code> parameters), as in a Verilog constant part-select.</p>
+<p>The part-select <strong>width</strong> must always be an elaboration-time constant (a Scala <code>Int</code> value or an <code>Int &lt;&gt; CONST</code> parameter). The <strong>base</strong> must be too when the part-select sits at design scope, matching a Verilog constant part-select.</p>
+<p>A Verilog <strong>variable-base</strong> part-select does have a direct equivalent: inside an <abbr title="Event-Driven">ED</abbr> <code>process</code>, a <code>for</code> loop stays a hardware loop, and its iterator is a legal part-select base:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">LANE</span><span class="p">:</span><span class="w">  </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">LANES</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">data</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">LANE</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">LANES</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sum</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">LANES</span><span class="p">)</span>
+<span class="w">      </span><span class="n">sum</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">LANE</span><span class="p">,</span><span class="w"> </span><span class="nc">LANE</span><span class="p">).</span><span class="n">uint</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Generated Verilog</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">always_comb</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">sum</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="mh">16</span><span class="mi">&#39;d0</span><span class="p">;</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">0</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">LANES</span><span class="p">;</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">k</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">1</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mh">16</span><span class="p">&#39;(</span><span class="n">data</span><span class="p">[((</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">LANE</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">LANE</span><span class="p">)</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="n">k</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">LANE</span><span class="p">]);</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">end</span>
+</code></pre></div></td></tr></table></div>
+<p>See <a class="autorefs autorefs-internal" href="../../user-guide/loops/#loops"><abbr title="Event-Driven">ED</abbr> Domain Loops</a> for the limits on that iterator: it is a hardware value, so it cannot be read into Scala or used to index a Scala collection.</p>
 <p>Bit-slicing and single-bit access work on <code>Bits</code>, <code>UInt</code>, and <code>SInt</code> values with the same syntax, including the <code>.msbits(W)</code>/<code>.lsbits(W)</code> and <code>.msbitsAt(base, W)</code>/<code>.lsbitsAt(base, W)</code> convenience methods. As in Verilog, a slice is a bit-level operation and yields an unsigned result (<code>SInt</code> slices return <code>UInt</code>, not <code>SInt</code>):</p>
 <table>
 <thead>
@@ -2623,6 +2741,7 @@ Comparisons (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</co
 <span class="c1">// d&quot;4&#39;5&quot; == 300    // ERROR: 300 exceeds UInt[4] range</span>
 </code></pre></div></td></tr></table></div>
 <p>To compare values of different widths, use <code>.resize(W)</code> to match widths first. To compare values of different signedness, convert explicitly (e.g., <code>.bits.sint</code> or <code>.signed</code>).</p>
+<p>Comparisons are not a numeric-only facility. <code>Bits</code>, <code>Bit</code>, <code>Boolean</code>, <code>Enum</code>, <code>Struct</code>, and <code>Tuple</code> all support <code>==</code>/<code>!=</code> (only the ordering comparisons are restricted to the numeric types), so a Verilog <code>b_edge == 1'b0</code> or a state test translates directly. See <a class="autorefs autorefs-internal" title="Comparison Operations (" href="../../user-guide/type-system/#comparison-ops">Comparison Operations</a> for the operand rules per type.</p>
 <p><strong>UInt-to-SInt conversion methods:</strong></p>
 <ul>
 <li><code>.signed</code> converts <code>UInt[W]</code> to <code>SInt[W+1]</code> by adding a sign bit. The value is preserved (always non-negative).</li>
@@ -2675,7 +2794,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <div class="admonition verilog">
 <p class="admonition-title">Integer Literal Width and Silent Overflow</p>
 <p>In Verilog, unsized integer literals are 32-bit. When combined with narrower signals, the wider literal causes the entire expression to evaluate at 32-bit width via context-dependent propagation. This prevents intermediate overflow in expressions like <code>(a + b + c + d) / 4</code>.</p>
-<p>In DFHDL, Scala <code>Int</code> literals are implicitly converted to minimum-width bit-accurate types (e.g., <code>4</code> becomes <code>UInt[3]</code>). Each arithmetic operation independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate results can overflow before reaching a division, shift, or comparison. (An assignment to a wider target is unaffected: the chain is automatically promoted to evaluate at the target width, matching Verilog.)</p>
+<p>In DFHDL, Scala <code>Int</code> literals are implicitly converted to minimum-width bit-accurate types (e.g., <code>4</code> becomes <code>UInt[3]</code>). Each arithmetic operation independently uses the <abbr title="Left-hand Side">LHS</abbr> width, so intermediate results can overflow before reaching a division, shift, or comparison. (An assignment to a wider target is unaffected: the whole chain is automatically re-evaluated at the target width, matching Verilog.)</p>
 <p>DFHDL detects this pattern at elaboration and issues a warning. See <a class="autorefs autorefs-internal" title="Arithmetic Operations (" href="../../user-guide/type-system/#arithmetic-ops">Implicit Scala <code>Int</code> and Verilog-semantics mismatch</a> for the full list of warning triggers.</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="w"> </span><span class="n">b</span><span class="p">,</span><span class="w"> </span><span class="n">c</span><span class="p">,</span><span class="w"> </span><span class="n">d</span><span class="p">;</span>
@@ -2798,7 +2917,27 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="k">end</span><span class="w"> </span><span class="nn">gate</span>
 </code></pre></div>
 </div>
-<p><strong>Important difference from Verilog:</strong> DFHDL type-checks <strong>both</strong> branches, regardless of the condition's value, so both must be valid for all parameter values. Because the taken branch depends on the constant, instantiating the design with different parameter values produces distinct elaborated designs. See <a class="autorefs autorefs-internal" href="../../user-guide/loops/#loops">Loops</a> for the analogous elaboration-time loop behavior and workarounds.</p>
+<p><strong>Difference from Verilog, and its limit:</strong> Scala type-checks <strong>both</strong> branches, since both are ordinary Scala code. That only constrains you where the Scala type level actually tracks widths, which is when widths are <strong>literal</strong> (bounded): then both branches must be valid for every parameter value. When widths derive from <code>Int &lt;&gt; CONST</code> parameters the types are unbounded (<code>Bits[Int]</code>), Scala checks nothing about them, and the <strong>elaboration-time</strong> width check runs on the taken branch only. So a parameterized <code>generate if</code> whose branches are each valid only for their own parameter value translates directly, with no <code>.toScalaInt</code> and no <code>.resize</code> guard:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">narrow</span><span class="p">(</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">N</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+<span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">N</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">N</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">N</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">  </span><span class="c1">// Bits[2] into Bits[N]: never elaborated, never checked</span>
+</code></pre></div></td></tr></table></div>
+<p>Change <code>Bits(N)</code> to a literal <code>Bits(4)</code> and the same untaken branch is rejected before elaboration ever runs, with <code>The argument width (2) is different than the receiver width (4)</code>.</p>
+<p>Reaching for <code>BLOCK_WIDTH.toScalaInt == 1</code> to force a Scala-level branch is unnecessary here: the plain constant <code>if</code> already resolves during elaboration. Because the taken branch depends on the constant, instantiating the design with different parameter values produces distinct elaborated designs either way. See <a class="autorefs autorefs-internal" href="../../user-guide/loops/#loops">Loops</a> for the analogous elaboration-time loop behavior.</p>
 </div>
 <h2 id="common-pitfalls">Common Pitfalls<a class="headerlink" href="#common-pitfalls" title="Permanent link"></a></h2>
 <div class="admonition verilog">
@@ -2815,7 +2954,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="w">  </span><span class="n">`val`</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
 </code></pre></div>
 </div>
-<p>Alternatively, use a non-keyword name with the Scala <code>@targetName</code> annotation to set the actual <abbr title="Hardware Description Language">HDL</abbr> name:</p>
+<p>Alternatively, use a non-keyword name with the <code>@hw.annotation.setName</code> annotation to set the actual <abbr title="Hardware Description Language">HDL</abbr> name:</p>
 <div class="grid">
 <div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">foo</span><span class="p">(</span>
 <span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="kt">signed</span><span class="w"> </span><span class="p">[</span><span class="mi">15</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">class</span>
@@ -2823,14 +2962,13 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">class</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">16&#39;sd42</span><span class="p">;</span>
 <span class="k">endmodule</span>
 </code></pre></div>
-<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">annotation</span><span class="p">.</span><span class="n">targetName</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
-<span class="w">  </span><span class="nd">@targetName</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">)</span><span class="w"> </span>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="nd">@hw</span><span class="p">.</span><span class="n">annotation</span><span class="p">.</span><span class="n">setName</span><span class="p">(</span><span class="s">&quot;class&quot;</span><span class="p">)</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">class_</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SInt</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 <span class="w">  </span><span class="n">class_</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="mi">42</span>
 </code></pre></div>
 </div>
-<p>Beyond Scala keywords, Verilog module names may also conflict with DFHDL built-in functions brought in by <code>import dfhdl.*</code> (e.g., <code>abs</code>, <code>max</code>, <code>min</code>) or with other class names in the same design hierarchy. See <a class="autorefs autorefs-internal" href="../../user-guide/naming/#naming">Naming</a> for the full list of reserved names and resolution patterns (<code>@targetName</code>, type aliases, backtick escaping).</p>
+<p>Beyond Scala keywords, Verilog module names may also conflict with DFHDL built-in functions brought in by <code>import dfhdl.*</code> (e.g., <code>abs</code>, <code>max</code>, <code>min</code>) or with other class names in the same design hierarchy. See <a class="autorefs autorefs-internal" href="../../user-guide/naming/#naming">Naming</a> for the full list of reserved names and resolution patterns (<code>@hw.annotation.setName</code>, type aliases, backtick escaping).</p>
 </div>
 <div class="admonition verilog">
 <p class="admonition-title"><code>Bits</code> Initialization or Assignment</p>
@@ -2866,7 +3004,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="k">else</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b</span>
 </code></pre></div>
 </div>
-<p>The <code>.sel</code> method compiles directly to Verilog's ternary operator. For complex nested conditions, prefer <code>if</code>/<code>else</code> or <code>match</code> over chaining <code>.sel</code> calls. See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#sel-ops">Selection (.sel)</a> for details.</p>
+<p>The <code>.sel</code> method compiles directly to Verilog's ternary operator, and all three forms are width-faithful to it: Verilog's context-dependent width propagation crosses <code>?:</code>, and DFHDL's target-context widening likewise crosses <code>.sel</code> and <code>if</code>/<code>else</code> (and <code>match</code>) expression branches, so <code>dx := cond.sel(xb - xa, xa - xb)</code> into a wider <code>dx</code> re-evaluates both branches at the target width exactly as the original <code>?:</code> line does. For complex nested conditions, prefer <code>if</code>/<code>else</code> or <code>match</code> over chaining <code>.sel</code> calls. See <a class="autorefs autorefs-internal" href="../../user-guide/type-system/#sel-ops">Selection (.sel)</a> for details.</p>
 <p>When using inline <code>if</code>/<code>else</code> as the <abbr title="Right-hand Side">RHS</abbr> of <code>:=</code> or <code>:==</code>, <strong>parentheses are required</strong>. Without them, Scala 3 parses the <code>if</code> as a statement, not an expression:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>

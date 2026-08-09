@@ -1726,8 +1726,95 @@
 </code></pre></div></td></tr></table></div>
 <p>When a design containing an elaboration-time loop is instantiated with different parameter values, DFHDL creates distinct elaborated designs (with enumerated names), each with a different number of unrolled instances.</p>
 <h3 id="elaboration-time-conditionals">Elaboration-Time Conditionals<a class="headerlink" href="#elaboration-time-conditionals" title="Permanent link"></a></h3>
-<p>Unlike Verilog <code>generate if</code>, DFHDL type-checks <strong>both</strong> branches of an <code>if</code> expression at elaboration time, regardless of the parameter value. This means both branches must be type-correct for all possible parameter values:</p>
-<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<p>An <code>if</code> whose condition is a <strong>constant</strong> resolves during elaboration, so only the taken branch produces hardware. Both branches are still ordinary Scala code, though, so Scala type-checks both. Whether that rejects an untaken branch depends on whether the widths involved are <strong>literal</strong> or <strong>parameterized</strong>.</p>
+<div class="admonition note">
+<p class="admonition-title">Which <code>if</code> you get depends on the domain</p>
+<p>In an <strong><abbr title="Event-Driven">ED</abbr></strong> design body, an implicit <code>.toScalaBoolean</code> is applied to a constant condition, so the <code>if</code> is a Scala <code>if</code> and resolves at elaboration.</p>
+<p>In an <strong><abbr title="Register-Transfer">RT</abbr></strong> or <strong><abbr title="Dataflow">DF</abbr></strong> design body, an <code>if</code> is a DFHDL (hardware) <code>if</code> unless its condition is a Scala <code>Boolean</code>. Force that with <code>.toScalaBoolean</code> when you want the elaboration-time behavior:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">toScalaBoolean</span><span class="p">)</span><span class="w">  </span><span class="c1">// a Scala `if` in an RT/DF body</span>
+</code></pre></div></td></tr></table></div>
+<p>A DFHDL <code>if</code> elaborates <strong>both</strong> branches, so a width that is invalid in either one is an error regardless of which is taken:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span></pre></div></td><td class="code"><div><pre><span></span><code>The argument width (((WIDTH - 1) - (WIDTH - 2)) + 1) is different than the receiver width (WIDTH).
+</code></pre></div></td></tr></table></div>
+</div>
+<p>What decides the Scala-level check is the <strong>type ascription</strong> on the width, not the value. These two declarations look almost identical and behave differently:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">                  </span><span class="c1">// a plain Scala Int: a literal the Scala type level tracks</span>
+<span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">    </span><span class="c1">// a DFHDL constant: unbounded at the Scala type level</span>
+</code></pre></div></td></tr></table></div>
+<p><strong>A plain Scala <code>Int</code></strong> gives <code>Bits(4)</code> the bounded type <code>Bits[4]</code>, so Scala tracks the width and rejects an invalid untaken branch at compile time:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">narrow_lit</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">                 </span><span class="c1">// plain Scala Int</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">       </span><span class="c1">// rejected even though this branch is never taken</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>The argument width (2) is different than the receiver width (4).
+Consider applying `.resize` to resolve this issue.
+</code></pre></div></td></tr></table></div>
+<p><strong>An <code>Int &lt;&gt; CONST</code></strong> gives <code>Bits(WIDTH)</code> the unbounded type <code>Bits[Int]</code>, which the Scala type level does not track, so there is nothing for it to reject. The width check moves to elaboration, and elaboration only ever visits the taken branch:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">narrow_const</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">WIDTH</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span><span class="w">   </span><span class="c1">// same value, ascribed as a DFHDL constant</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">din</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">4</span><span class="p">)</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span>
+<span class="w">  </span><span class="k">else</span>
+<span class="w">    </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">din</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="mi">2</span><span class="p">)</span><span class="w">       </span><span class="c1">// never elaborated, so never checked</span>
+</code></pre></div></td></tr></table></div>
+<p>The same holds for a width that arrives as a design parameter (<code>class narrow(val WIDTH: Int &lt;&gt; CONST = 4)</code>), which is the usual case when translating a Verilog <code>parameter</code>. This is why a <code>generate if</code> whose branches are each valid only for their own parameter value translates directly, with no <code>.resize</code> guard and no <code>.toScalaInt</code>. If you do need both branches valid at the Scala level, use <code>.resize</code> or guard the index computations, as in the plain-<code>Int</code> example above.</p>
+<p>The ascription has a second, visible consequence: an <code>Int &lt;&gt; CONST</code> survives into the generated <abbr title="Hardware Description Language">HDL</abbr> as a <code>localparam</code>, while a plain Scala <code>Int</code> is inlined away. See <a class="autorefs autorefs-internal" href="../../transitioning/from-verilog/#localparam"><code>localparam</code></a> for that side of the same distinction.</p>
+<h2 id="ed-domain-loops"><abbr title="Event-Driven">ED</abbr> Domain Loops<a class="headerlink" href="#ed-domain-loops" title="Permanent link"></a></h2>
+<p>In <abbr title="Event-Driven">ED</abbr> designs, <code>for</code> and <code>while</code> loops inside processes produce combinational or sequential logic depending on the process type. Unlike a design-scope loop, a loop inside a process <strong>stays a loop</strong>: it is elaborated once and emitted as a real <code>for</code> in the generated <abbr title="Hardware Description Language">HDL</abbr>, as the <code>OnesCount</code> example below shows.</p>
+<p>That difference decides what its iterator is. A design-scope iterator is an ordinary Scala <code>Int</code>, so it can index Scala collections and be used anywhere Scala needs a number. A <strong>process-scope iterator is a hardware value</strong>, and cannot be read out into Scala at all, <code>.toScalaInt</code> included:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">lanes</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">List</span><span class="p">.</span><span class="n">fill</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="k">new</span><span class="w"> </span><span class="n">lane</span><span class="p">)</span><span class="w">  </span><span class="c1">// a Scala collection, built at design scope</span>
+<span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">LANES</span><span class="p">)</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">lanes</span><span class="p">(</span><span class="n">i</span><span class="p">.</span><span class="n">toScalaInt</span><span class="p">).</span><span class="n">q</span><span class="w">  </span><span class="c1">// error</span>
+</code></pre></div></td></tr></table></div>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span></pre></div></td><td class="code"><div><pre><span></span><code>Scala value access error!
+Message:   Cannot fetch a Scala value from a non-constant DFHDL value.
+</code></pre></div></td></tr></table></div>
+<p>The reported position is the <code>i</code> in the <code>for</code> binding rather than the use that actually needs a Scala value, so read the message as "something in this loop body wanted a Scala <code>Int</code>" and look at the uses, not the range.</p>
+<p>To write per-index slices of a packed bus, do the work in a <strong>design-scope</strong> loop and give each iteration its own small process. The <code>i</code> is then a Scala value captured by closure, and no loop exists inside a process:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="nc">LANES</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">out_bus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">3</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="nc">LANES</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">lane</span>
+<span class="w">    </span><span class="n">process</span><span class="p">(</span><span class="n">all</span><span class="p">):</span>
+<span class="w">      </span><span class="n">out_bus</span><span class="p">.</span><span class="n">lsbitsAt</span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">u</span><span class="p">.</span><span class="n">q</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
 <span class="normal"> 4</span>
@@ -1737,20 +1824,109 @@
 <span class="normal"> 8</span>
 <span class="normal"> 9</span>
 <span class="normal">10</span>
-<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// PROBLEM: when DEPTH == 1, the else branch has an invalid slice</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">DEPTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span>
-<span class="k">else</span>
-<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="nc">ELEM_WIDTH</span><span class="p">))</span><span class="w">  </span><span class="c1">// invalid range when DEPTH=1</span>
-
-<span class="c1">// SOLUTION: use .resize or guard index computations</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nc">DEPTH</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">1</span><span class="p">)</span>
-<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">in</span><span class="p">.</span><span class="n">resize</span><span class="p">(</span><span class="nc">WIDTH</span><span class="p">)</span>
-<span class="k">else</span>
-<span class="w">  </span><span class="n">out</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="p">(</span><span class="n">in</span><span class="p">,</span><span class="w"> </span><span class="n">data</span><span class="p">.</span><span class="n">msbits</span><span class="p">(</span><span class="nc">WIDTH</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="nc">ELEM_WIDTH</span><span class="p">))</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LANES</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">3</span><span class="p">)(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">23</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">out_bus</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">u_0_q</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">u_1_q</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">u_2_q</span><span class="p">;</span>
+<span class="w">  </span><span class="n">lane</span><span class="w"> </span><span class="n">u_0</span><span class="p">(.</span><span class="n">q</span><span class="w"> </span><span class="cm">/*--&gt;*/</span><span class="w"> </span><span class="p">(</span><span class="n">u_0_q</span><span class="p">));</span>
+<span class="w">  </span><span class="n">lane</span><span class="w"> </span><span class="n">u_1</span><span class="p">(.</span><span class="n">q</span><span class="w"> </span><span class="cm">/*--&gt;*/</span><span class="w"> </span><span class="p">(</span><span class="n">u_1_q</span><span class="p">));</span>
+<span class="w">  </span><span class="n">lane</span><span class="w"> </span><span class="n">u_2</span><span class="p">(.</span><span class="n">q</span><span class="w"> </span><span class="cm">/*--&gt;*/</span><span class="w"> </span><span class="p">(</span><span class="n">u_2_q</span><span class="p">));</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">u_0_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">8</span><span class="p">]</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">u_1_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">always_comb</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">[</span><span class="mh">23</span><span class="o">:</span><span class="mh">16</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">u_2_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
 </code></pre></div></td></tr></table></div>
-<h2 id="ed-domain-loops"><abbr title="Event-Driven">ED</abbr> Domain Loops<a class="headerlink" href="#ed-domain-loops" title="Permanent link"></a></h2>
-<p>In <abbr title="Event-Driven">ED</abbr> designs, <code>for</code> and <code>while</code> loops inside processes produce combinational or sequential logic depending on the process type. These loops are unrolled by the compiler.</p>
+The design-scope loop unrolls: three <code>lane</code> instances and three separate <code>always_comb</code> blocks, each writing one static slice. No loop remains.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span>
+<span class="normal">21</span>
+<span class="normal">22</span>
+<span class="normal">23</span>
+<span class="normal">24</span>
+<span class="normal">25</span>
+<span class="normal">26</span>
+<span class="normal">27</span>
+<span class="normal">28</span>
+<span class="normal">29</span>
+<span class="normal">30</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">entity</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">is</span>
+<span class="k">generic</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">LANES</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">integer</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">3</span>
+<span class="p">);</span>
+<span class="k">port</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">out_bus</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="p">);</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Foo</span><span class="p">;</span>
+
+<span class="k">architecture</span><span class="w"> </span><span class="nc">Foo_arch</span><span class="w"> </span><span class="k">of</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">is</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">u_0_q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">u_1_q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="w">  </span><span class="k">signal</span><span class="w"> </span><span class="n">u_2_q</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">);</span>
+<span class="k">begin</span>
+<span class="w">  </span><span class="n">u_0</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">entity</span><span class="w"> </span><span class="nc">work</span><span class="p">.</span><span class="n">lane</span><span class="p">(</span><span class="n">lane_arch</span><span class="p">)</span><span class="w"> </span><span class="k">port</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">u_0_q</span><span class="p">);</span>
+<span class="w">  </span><span class="n">u_1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">entity</span><span class="w"> </span><span class="nc">work</span><span class="p">.</span><span class="n">lane</span><span class="p">(</span><span class="n">lane_arch</span><span class="p">)</span><span class="w"> </span><span class="k">port</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">u_1_q</span><span class="p">);</span>
+<span class="w">  </span><span class="n">u_2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">entity</span><span class="w"> </span><span class="nc">work</span><span class="p">.</span><span class="n">lane</span><span class="p">(</span><span class="n">lane_arch</span><span class="p">)</span><span class="w"> </span><span class="k">port</span><span class="w"> </span><span class="k">map</span><span class="w"> </span><span class="p">(</span><span class="n">q</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">u_2_q</span><span class="p">);</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">(</span><span class="mi">7</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">u_0_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">(</span><span class="mi">15</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">u_1_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="w">  </span><span class="k">process</span><span class="w"> </span><span class="p">(</span><span class="k">all</span><span class="p">)</span>
+<span class="w">  </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">out_bus</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="k">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">u_2_q</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span><span class="w"> </span><span class="k">process</span><span class="p">;</span>
+<span class="k">end</span><span class="w"> </span><span class="nc">Foo_arch</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+Same unrolling: three component instantiations and three processes, each driving one slice of <code>out_bus</code>.</p>
+</div>
+</div>
+</div>
+<p>Contrast this with the <code>OnesCount</code> example above, where the loop is <strong>inside</strong> the process and survives into the generated <abbr title="Hardware Description Language">HDL</abbr> as a real <code>for</code>.</p>
+<p>Arithmetic on the iterator that stays inside DFHDL is fine either way: a process-scope <code>i</code> is a valid part-select base (see <a class="autorefs autorefs-internal" href="../type-system/#common-bit-vector-ops">Bit Selection and Slicing</a>), and emits a variable-base part-select.</p>
 <h3 id="loop-accumulators">Loops Accumulation Example<a class="headerlink" href="#loop-accumulators" title="Permanent link"></a></h3>
 <p>A loop that stays a hardware loop is elaborated once, not once per iteration, so a Scala <code class="highlight"><span class="kd">var</span></code> cannot accumulate across it. Reassigning the <code>var</code> in the body only rebinds the Scala name to a value built inside the loop, and reading it after the loop reaches the loop's own iterator, which does not exist outside it. Declaring a <code class="highlight"><span class="kd">var</span></code> in a process is a compile error for this reason, and the elaboration rejects the shape as a scope error wherever it is laundered in through a helper <code class="highlight"><span class="k">def</span></code>. See <a class="autorefs autorefs-internal" href="../type-system/#scala-var">Scala <code>var</code> with DFHDL values</a> for the full permission list.</p>
 <p>Accumulate into a DFHDL variable instead, driven with <code>:=</code> inside the loop:</p>
@@ -1784,7 +1960,7 @@
 <span class="w">    </span><span class="n">count</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sum</span>
 <span class="k">end</span><span class="w"> </span><span class="nc">OnesCount</span>
 </code></pre></div></td></tr></table></div>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Generated Verilog</label><label for="__tabbed_1_2">Generated VHDL</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Generated Verilog</label><label for="__tabbed_2_2">Generated VHDL</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p><div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>

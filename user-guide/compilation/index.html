@@ -1611,6 +1611,34 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#generated-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Generated Files
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Generated Files">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#global-defs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The global definitions file
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -1647,6 +1675,144 @@
 <p><strong>Synthesis/simulation-time</strong>: DFHDL <code>Int</code> parameters that are set externally or computed in complex generation loops may not be known until synthesis or simulation. Assertions must be added to verify these values at the target platform level. This is a planned future feature (TODO).</p>
 </li>
 </ol>
+<hr />
+<h2 id="generated-files">Generated Files<a class="headerlink" href="#generated-files" title="Permanent link"></a></h2>
+<p>Compiling a design emits one file per design, plus up to two shared files.</p>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:2"><input checked="checked" id="__tabbed_1_1" name="__tabbed_1" type="radio" /><input id="__tabbed_1_2" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="__tabbed_1_1">Verilog</label><label for="__tabbed_1_2">VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;Design&gt;.sv</code></td>
+<td>One file per design in the hierarchy</td>
+</tr>
+<tr>
+<td><code>dfhdl_defs.svh</code></td>
+<td>DFHDL's own macros and helper definitions. Always emitted, and <code>`include</code>d by every design. Public domain, so it can be redistributed with generated output</td>
+</tr>
+<tr>
+<td><code>&lt;Top&gt;_defs.svh</code></td>
+<td><strong>Your design's</strong> global declarations, named after the top design. Emitted only when something needs to be shared across designs</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="tabbed-block">
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt;Design&gt;.vhd</code></td>
+<td>One file per design in the hierarchy</td>
+</tr>
+<tr>
+<td><code>dfhdl_pkg.vhd</code></td>
+<td>DFHDL's own helper package. Always emitted</td>
+</tr>
+<tr>
+<td><code>&lt;Top&gt;_pkg.vhd</code></td>
+<td><strong>Your design's</strong> global package, named after the top design. Emitted only when something needs to be shared across designs</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<h3 id="global-defs">The global definitions file<a class="headerlink" href="#global-defs" title="Permanent link"></a></h3>
+<p>A declaration goes into <code>&lt;Top&gt;_defs.svh</code> / <code>&lt;Top&gt;_pkg.vhd</code> when more than one design must name it. The common case is an <a class="autorefs autorefs-internal" title="Enumeration" href="../type-system/#DFEnum">enum</a> appearing in a port type, since the two modules on either side of the connection have to agree on the type:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">:</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">IDLE</span><span class="p">,</span><span class="w"> </span><span class="nc">RUN</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">lane</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="c1">// ...</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Foo</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">EDDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">State</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">u</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">lane</span>
+<span class="w">  </span><span class="n">u</span><span class="p">.</span><span class="n">s</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="n">s</span>
+</code></pre></div></td></tr></table></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="2:2"><input checked="checked" id="__tabbed_2_1" name="__tabbed_2" type="radio" /><input id="__tabbed_2_2" name="__tabbed_2" type="radio" /><div class="tabbed-labels"><label for="__tabbed_2_1">Generated Verilog</label><label for="__tabbed_2_2">Generated VHDL</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Foo_defs.svh</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`ifndef</span><span class="w"> </span><span class="n">FOO_DEFS</span>
+<span class="cp">`define FOO_DEFS</span>
+<span class="k">typedef</span><span class="w"> </span><span class="k">enum</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">0</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">State_IDLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span>
+<span class="w">  </span><span class="n">State_RUN</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span>
+<span class="p">}</span><span class="w"> </span><span class="n">t_enum_State</span><span class="p">;</span>
+<span class="no">`endif</span>
+</code></pre></div></td></tr></table></div>
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Foo.sv</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`include</span><span class="w"> </span><span class="s">&quot;Foo_defs.svh&quot;</span>
+
+<span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="n">t_enum_State</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w">             </span><span class="n">o</span>
+<span class="p">);</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="c1">// ...</span>
+</code></pre></div></td></tr></table></div>
+The file is include-guarded, so every design that needs it can include it unconditionally.</p>
+</div>
+<div class="tabbed-block">
+<p><div class="highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Foo_pkg.vhd</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">package</span><span class="w"> </span><span class="n">Foo_pkg</span><span class="w"> </span><span class="k">is</span>
+<span class="k">type</span><span class="w"> </span><span class="n">t_enum_State</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">State_IDLE</span><span class="p">,</span><span class="w"> </span><span class="n">State_RUN</span>
+<span class="p">);</span>
+<span class="k">function</span><span class="w"> </span><span class="n">bitWidth</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_State</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">integer</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_slv</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="n">t_enum_State</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">;</span>
+<span class="k">function</span><span class="w"> </span><span class="n">to_t_enum_State</span><span class="p">(</span><span class="n">A</span><span class="o">:</span><span class="w"> </span><span class="kt">std_logic_vector</span><span class="p">)</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="n">t_enum_State</span><span class="p">;</span>
+<span class="c1">-- ...</span>
+<span class="k">end</span><span class="w"> </span><span class="k">package</span><span class="w"> </span><span class="nc">Foo_pkg</span><span class="p">;</span>
+</code></pre></div></td></tr></table></div>
+The VHDL package carries the conversion and helper functions for the type alongside its declaration.</p>
+</div>
+</div>
+</div>
+<p>Had <code>State</code> been used only inside a single design, no <code>&lt;Top&gt;_defs</code> file would be emitted at all and the typedef would sit inside that one module. The placement follows the usage, not the Scala declaration site.</p>
 
 
 
