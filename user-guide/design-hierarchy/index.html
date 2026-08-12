@@ -2915,11 +2915,15 @@ class Foo(
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/* A generic register */</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="cm">/* A generic register */</span>
 <span class="no">`default_nettype</span><span class="w"> </span><span class="n">none</span>
 <span class="no">`timescale</span><span class="w"> </span><span class="mh">1</span><span class="n">ns</span><span class="o">/</span><span class="mh">1</span><span class="n">ps</span>
 
-<span class="k">module</span><span class="w"> </span><span class="n">InitReg</span><span class="p">#(</span><span class="k">parameter</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">INIT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h00</span><span class="p">)(</span>
+<span class="k">module</span><span class="w"> </span><span class="n">InitReg</span><span class="p">#(</span>
+<span class="w">    </span><span class="k">parameter</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">INIT</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h00</span><span class="p">,</span>
+<span class="w">    </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">$bits</span><span class="p">(</span><span class="n">INIT</span><span class="p">)</span>
+<span class="p">)(</span>
 <span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w">             </span><span class="n">clk</span><span class="p">,</span>
 <span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w">             </span><span class="n">rst</span><span class="p">,</span>
 <span class="w">  </span><span class="cm">/* data input */</span>
@@ -2928,8 +2932,6 @@ class Foo(
 <span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="n">LEN</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">dout</span>
 <span class="p">);</span>
 <span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
-<span class="w">  </span><span class="cm">/* the register length, derived from the initialization parameter */</span>
-<span class="w">  </span><span class="k">localparam</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">LEN</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">$bits</span><span class="p">(</span><span class="n">INIT</span><span class="p">);</span>
 <span class="w">  </span><span class="k">always_ff</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span>
 <span class="w">  </span><span class="k">begin</span>
 <span class="w">    </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">rst</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mh">1</span><span class="mb">&#39;b1</span><span class="p">)</span><span class="w"> </span><span class="n">dout</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">INIT</span><span class="p">;</span>
@@ -3010,7 +3012,7 @@ class Foo(
 <ul>
 <li>Declaring <code>LEN</code> as a separate design parameter next to <code>INIT</code> is not possible in DFHDL, and it is also not needed: the width of a <code>Bits[Int] &lt;&gt; CONST</code> parameter travels with the applied argument itself, so <code>LEN</code> always agrees with <code>INIT</code> by construction. Two separate parameters would have to be kept consistent manually at every instantiation, a mismatch the derived form rules out entirely.</li>
 <li>The width of <code>INIT</code> is set by the APPLIED argument (here the default <code>h"00"</code>, so 8). In the generated code that width is fixed in the module/entity declaration, while the VALUE of <code>INIT</code> remains overridable at that width. Applying an argument of a different width elaborates a design with the corresponding widths.</li>
-<li><code>val LEN = INIT.length</code> is a named constant, so the generated code declares it by name (a Verilog <code>localparam</code>, a VHDL <code>generic</code>) and references it wherever it is used. The query itself is spelled natively, <code>$bits(INIT)</code> in SystemVerilog and <code>INIT'length</code> in VHDL, so the generated code keeps the <code>INIT</code>-to-<code>LEN</code> relation instead of a baked number (dialects without a width query, such as Verilog-2001, inline the width value instead).</li>
+<li><code>val LEN = INIT.length</code> is a named constant, so the generated code declares it by name and references it wherever it is used. Because the ports name it, it is declared alongside the parameters (a SystemVerilog <code>localparam</code> in the parameter port list, a VHDL <code>generic</code>) rather than in the module body or architecture, which the port declarations precede. The query itself is spelled natively, <code>$bits(INIT)</code> in SystemVerilog and <code>INIT'length</code> in VHDL, so the generated code keeps the <code>INIT</code>-to-<code>LEN</code> relation instead of a baked number (dialects without a width query, such as Verilog-2001, inline the width value instead).</li>
 <li>The same recipe serves any derived parameter, for example a <code>clog2</code>-computed address width: declare the primary parameters, and compute the derived constants in the body. See also the <a class="autorefs autorefs-internal" title="Width and Length Queries (" href="../type-system/#width-length-ops">width derivation idiom</a> (<code>UInt.until(DEPTH).width</code>).</li>
 </ul>
 <h4 id="design-parameter-access-rules">Design Parameter Access Rules<a class="headerlink" href="#design-parameter-access-rules" title="Permanent link"></a></h4>

@@ -2677,11 +2677,20 @@ You can name a DFHDL type and reuse it across multiple declarations. You can als
 </code></pre></div></td></tr></table></div>
 <p>To recover signed semantics on a slice, chain <code>.bits.sint</code> (re-interpret the bits as signed, same width). Do <strong>not</strong> use <code>.signed</code> for this: <code>.signed</code> is a numeric conversion that widens by one zero-extension bit, which is not what slice migration wants.</p>
 </div>
+<div class="admonition tip">
+<p class="admonition-title">Rule of thumb: transcribe, then follow the diagnostics</p>
+<p>You do not have to apply the width and sign rules by hand while translating. Write each arithmetic or logic expression exactly as the Verilog has it, in DFHDL syntax, and let the compiler review it:</p>
+<ul>
+<li>Where DFHDL can reproduce Verilog's context-dependent width propagation, it does so silently. An anonymous <code>+</code>, <code>-</code>, <code>*</code>, unary <code>-</code>, <code>.sel</code>, <code>if</code>/<code>match</code> expression or shift feeding a wider target re-evaluates at that target's width, which is what the Verilog line does, so the transcription stands as written.</li>
+<li>Where the two would disagree, DFHDL declines to guess. It reports a <strong>compile-time or elaboration error</strong> for a width or sign relation it cannot express (a narrower <abbr title="Left-hand Side">LHS</abbr> under <code>-</code>, <code>/</code>, <code>%</code>, or a comparison between operands of different widths), and an <strong>elaboration warning</strong> where an implicit <code>Int</code> would have evaluated 32-bit in Verilog but is bit-accurate here.</li>
+</ul>
+<p>So the loop is: transcribe, compile, apply whatever the diagnostic names (a carry operation, an explicit <code>d"W'V"</code> literal, or a width adjustment), and repeat until it is quiet. An expression that compiles and elaborates without warnings carries the original's semantics.</p>
+</div>
 <div class="admonition verilog">
 <p class="admonition-title">Arithmetic with Signed Values and Constants</p>
 <p><strong>Arithmetic operand compatibility:</strong>
 DFHDL enforces sign and width constraints at compile time. <strong>Commutative operations</strong> (<code>+</code>, <code>*</code>, <code>max</code>, <code>min</code>) produce the widest, most signed result, and operand order does not matter. <strong>Non-commutative operations</strong> (<code>-</code>, <code>/</code>, <code>%</code>) require the <abbr title="Left-hand Side">LHS</abbr> to be at least as wide and signed as the <abbr title="Right-hand Side">RHS</abbr>. When mixing signed and unsigned, the unsigned operand is implicitly sign-extended by 1 bit.</p>
-<p>Both Scala <code>Int</code> values and DFHDL <code>Int</code> parameters act as <a class="autorefs autorefs-internal" title="Wildcard " href="../../user-guide/type-system/#wildcard-ops">wildcards</a>: the wildcard <code>Int</code> value adapts to the bit-accurate value's sign and width. If the wildcard <code>Int</code> value does not fit, an error is generated.</p>
+<p>Both Scala <code>Int</code> values and DFHDL <code>Int</code> parameters act as <a class="autorefs autorefs-internal" title="Wildcard " href="../../user-guide/type-system/#wildcard-ops">wildcards</a>: the wildcard <code>Int</code> value adapts to the bit-accurate value's sign and width, and an error is generated if it does not fit. In <code>+</code>, <code>-</code> and <code>*</code> a Scala <code>Int</code> <strong>literal</strong> is instead taken at its own minimum width whenever the other operand's width is known at compile time as well, so the result is simply the wider of the two.</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
 <span class="normal"> 2</span>
 <span class="normal"> 3</span>
@@ -2702,7 +2711,8 @@ DFHDL enforces sign and width constraints at compile time. <strong>Commutative o
 <span class="normal">18</span>
 <span class="normal">19</span>
 <span class="normal">20</span>
-<span class="normal">21</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Commutative: result is widest, most signed</span>
+<span class="normal">21</span>
+<span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Commutative: result is widest, most signed</span>
 <span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8] (max(8,4) = 8)</span>
 <span class="n">d</span><span class="s">&quot;4&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;8&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8] (commutative, same result)</span>
 <span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">   </span><span class="c1">// SInt[8] (max(8, 4+1) = 8, signed)</span>
@@ -2715,14 +2725,15 @@ DFHDL enforces sign and width constraints at compile time. <strong>Commutative o
 <span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">10</span>
 <span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">     </span><span class="c1">// UInt[8] (param adapts to UInt[8])</span>
 <span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">param</span><span class="w">    </span><span class="c1">// SInt[8] (param adapts to SInt[8])</span>
-<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000</span><span class="w">      </span><span class="c1">// ERROR: 1000 exceeds UInt[8] range</span>
-<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span><span class="w">      </span><span class="c1">// ERROR: -1 is negative for UInt bit-accurate value</span>
+<span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1000</span><span class="w">      </span><span class="c1">// UInt[10] (1000&#39;s minimum width of 10 is the wider one)</span>
 
 <span class="c1">// Non-commutative: LHS-dominant, LHS must be &gt;= RHS</span>
 <span class="n">d</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">    </span><span class="c1">// UInt[8]</span>
 <span class="n">sd</span><span class="s">&quot;8&#39;5&quot;</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="n">d</span><span class="s">&quot;4&#39;3&quot;</span><span class="w">   </span><span class="c1">// SInt[8] (RHS widened to 5 bits, 8 &gt;= 5)</span>
 <span class="c1">// d&quot;4&#39;5&quot; - d&quot;8&#39;3&quot; // ERROR: RHS width &gt; LHS width</span>
 <span class="c1">// d&quot;8&#39;5&quot; - sd&quot;4&#39;3&quot; // ERROR: unsigned LHS, signed RHS</span>
+<span class="c1">// (-1) - d&quot;8&#39;5&quot;   // ERROR: a negative literal cannot adapt to an unsigned operand,</span>
+<span class="c1">//                 //        and LHS-dominance leaves no room to widen it</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Comparison operand compatibility:</strong>
 Comparisons (<code>==</code>, <code>!=</code>, <code>&lt;</code>, <code>&gt;</code>, <code>&lt;=</code>, <code>&gt;=</code>) require both operands to have the <strong>same signedness and width</strong>. <code>Int</code> values act as wildcards, adapting to the DFHDL value's type.</p>
@@ -2809,9 +2820,39 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 
 <span class="c1">// Use carry ops to match Verilog&#39;s</span>
 <span class="c1">// overflow-free semantics</span>
-<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">resize</span>
+<span class="n">result</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="p">((</span><span class="n">a</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">+^</span><span class="w"> </span><span class="n">d</span><span class="p">)</span><span class="w"> </span><span class="o">/</span><span class="w"> </span><span class="mi">4</span><span class="p">).</span><span class="n">truncate</span>
 </code></pre></div>
 </div>
+</div>
+<div class="admonition verilog">
+<p class="admonition-title">Comparison Operand Widths</p>
+<p>Verilog extends every relational operand to the width of the widest one, so comparing signals of
+different widths needs nothing from you. DFHDL requires the two operands to have the SAME width,
+and the difference is closed in the source by widening the narrower one:</p>
+<div class="grid">
+<div class="highlight"><span class="filename">Verilog</span><pre><span></span><code><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">7</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mi">3</span><span class="o">:</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w">       </span><span class="n">lt</span><span class="p">;</span>
+
+<span class="c1">// b is zero-extended to 8 bits</span>
+<span class="k">assign</span><span class="w"> </span><span class="n">lt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+</code></pre></div>
+<div class="highlight"><span class="filename">DFHDL</span><pre><span></span><code><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">lt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w">     </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
+
+<span class="c1">// widen b explicitly, by 4 bits</span>
+<span class="n">lt</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">b</span><span class="p">.</span><span class="n">eby</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="n">a</span>
+</code></pre></div>
+</div>
+<p>The extension Verilog performs is not confined to the operand. Relational operand widths there are
+<em>context-determined</em>, so a narrower operand that is an EXPRESSION is evaluated at the wider
+operand's width: with a 4-bit <code>x</code>, <code>(x + x) &lt; a</code> computes the sum at 8 bits and never wraps, while
+the DFHDL transcription <code>(x + x).eby(4) &lt; a</code> wraps at 4 bits and then widens. This is the
+<em>Integer Literal Width and Silent Overflow</em> trap above, one step removed, and the remedies are the
+same: carry operations (<code>+^</code>) to keep the extra bit, or an explicit widening of the operands before
+the arithmetic.</p>
+<p>See <a class="autorefs autorefs-internal" title="Comparison Operations (" href="../../user-guide/type-system/#comparison-ops">Comparison Operations</a> for the full rules.</p>
 </div>
 <h2 id="parametric-constants">Parametric Constants<a class="headerlink" href="#parametric-constants" title="Permanent link"></a></h2>
 <div class="admonition verilog">
@@ -2917,7 +2958,7 @@ Use <code>.resize(W)</code> to widen a narrower operand before arithmetic.</li>
 <span class="k">end</span><span class="w"> </span><span class="nn">gate</span>
 </code></pre></div>
 </div>
-<p><strong>Difference from Verilog, and its limit:</strong> Scala type-checks <strong>both</strong> branches, since both are ordinary Scala code. That only constrains you where the Scala type level actually tracks widths, which is when widths are <strong>literal</strong> (bounded): then both branches must be valid for every parameter value. When widths derive from <code>Int &lt;&gt; CONST</code> parameters the types are unbounded (<code>Bits[Int]</code>), Scala checks nothing about them, and the <strong>elaboration-time</strong> width check runs on the taken branch only. So a parameterized <code>generate if</code> whose branches are each valid only for their own parameter value translates directly, with no <code>.toScalaInt</code> and no <code>.resize</code> guard:</p>
+<p><strong>Difference from Verilog, and its limit:</strong> Scala type-checks <strong>both</strong> branches, since both are ordinary Scala code. That only constrains you where the Scala type level actually tracks widths, which is when widths are <strong>literal</strong> (bounded): then both branches must be valid for every parameter value. When widths derive from <code>Int &lt;&gt; CONST</code> parameters the types are unbounded (<code>Bits[Int]</code>), Scala checks nothing about them, and the <strong>elaboration-time</strong> width check runs on the taken branch only. So a parameterized <code>generate if</code> whose branches are each valid only for their own parameter value translates directly, with no <code>.toScalaInt</code> and no width-adjustment guard:</p>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
 <span class="normal">2</span>
 <span class="normal">3</span>
