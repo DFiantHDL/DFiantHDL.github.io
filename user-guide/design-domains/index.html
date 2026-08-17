@@ -1453,6 +1453,45 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#derived-clocks-gated-clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derived Clocks (Gated Clocks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-domain-shorthands-and-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Domain Shorthands and Regions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related Domain Shorthands and Regions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-domain-and-regions-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Domain-and-Regions Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2135,6 +2174,45 @@
   
 </li>
         
+          <li class="md-nav__item">
+  <a href="#derived-clocks-gated-clocks" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Derived Clocks (Gated Clocks)
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#related-domain-shorthands-and-regions" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Related Domain Shorthands and Regions
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Related Domain Shorthands and Regions">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#the-domain-and-regions-pattern" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        The Domain-and-Regions Pattern
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+        
       </ul>
     </nav>
   
@@ -2518,6 +2596,178 @@ from a reset-initialization block and instead rely on their initial values (<cod
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">relatedDomain</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">:</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">related_reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="c1">// relies on its init value, no reset</span>
 </code></pre></div></td></tr></table></div>
+<h4 id="derived-clocks-gated-clocks">Derived Clocks (Gated Clocks)<a class="headerlink" href="#derived-clocks-gated-clocks" title="Permanent link"></a></h4>
+<p>A related domain may declare its own clock port, either an input (<code>Clk &lt;&gt; IN</code>, consuming
+the derived clock) or an output (<code>Clk &lt;&gt; OUT</code>, sourcing it):</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">GatedDomainDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="nd">@timing</span><span class="p">.</span><span class="n">related</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDomain</span><span class="p">:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Clk</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">r</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">r</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
+</code></pre></div></td></tr></table></div>
+<p>This declares a <em>derived clock</em>: a clock that is fully synchronous with the clock of the
+related target (same source, same edges, phase-aligned), while the reset (subject to
+<code>includeReset</code>) is still shared through the relation. The typical use is a gated clock:
+an input port receives a gated version of the origin clock from outside, and an output
+port exports one that the design gates internally (the design scope drives it, e.g.
+<code>active.clk &lt;&gt; gatedClk.as(active.Clk)</code>). Because the domains are related, no
+clock-domain-crossing discipline applies between them, and sharing an asynchronous reset
+across the gated clocks is safe (a flop whose clock is gated off still sees the reset
+assertion).</p>
+<p>The identity of a derived clock is its design-relative name: domain <code>active</code> with port
+<code>clk</code> identifies as <code>active_clk</code>, which is also its flattened port name. The connection
+rule is deliberately narrow and predictable: <strong>same-named derived clocks within the same
+clock group form one clock</strong>, automatically threaded across the hierarchy (through
+automatically added pass-through ports, also named <code>active_clk</code>), with an output port or
+an explicitly connected port as the source. A derived clock is <em>never</em> implicitly merged
+onto its origin clock:</p>
+<ul>
+<li><strong>Sourced somewhere</strong>: a <code>Clk &lt;&gt; OUT</code> port (the internal gating site), or any port a
+  parent explicitly connects (e.g. <code>child.active.clk &lt;&gt; gatedClk.as(child.active.Clk)</code>),
+  sources every same-named port in scope.</li>
+<li><strong>Sourced nowhere</strong>: the derived clock surfaces as a top-level input port instead of
+  silently taking the origin clock, so a forgotten gated-clock connection is visible in
+  the port list rather than a silently dead or wrongly merged clock.</li>
+<li><strong>The ungated form is an explicit choice</strong>: to run a derived clock from the origin clock
+  (as in an FPGA build of an ASIC design that removes clock gating), connect the two
+  explicitly, e.g. at a wrapper that declares its own root clock port:
+  <code>core.active.clk &lt;&gt; clk.as(core.active.Clk)</code>.</li>
+</ul>
+<p>Derived clocks nest: a related domain with its own clock port may itself be the target of
+another related domain, whose clock port then derives from the outer derived clock (gating
+a gated clock). A related domain without its own clock port that targets a clocked related
+domain uses that domain's derived clock, while its reset still resolves through the full
+relation chain to the origin.</p>
+<h4 id="related-domain-shorthands-and-regions">Related Domain Shorthands and Regions<a class="headerlink" href="#related-domain-shorthands-and-regions" title="Permanent link"></a></h4>
+<p>The most common related target is the enclosing design or domain itself, so every <abbr title="Register-Transfer">RT</abbr>
+container provides two shorthand domain classes and one scoping construct. Each is exactly
+equivalent to a plain <code>RTDomain</code> with the corresponding annotations, and manifests as such
+(printing, compilation, and naming see no difference):</p>
+<table>
+<thead>
+<tr>
+<th>Construct</th>
+<th>Equivalent to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RTRelatedDomain</code></td>
+<td><code>@timing.related(this)</code> <code>new RTDomain</code></td>
+</tr>
+<tr>
+<td><code>RTDerivedClkDomain</code></td>
+<td><code>RTRelatedDomain</code> with a <code>val clk = Clk &lt;&gt; IN</code> declaration</td>
+</tr>
+<tr>
+<td><code>RTDerivedClkDomainSrc</code></td>
+<td><code>RTRelatedDomain</code> with a <code>val clk = Clk &lt;&gt; OUT</code> declaration</td>
+</tr>
+<tr>
+<td><code>RTRegion</code></td>
+<td><code>RTRelatedDomain</code> with <code>@flattenMode.transparent</code></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span>
+<span class="normal">8</span>
+<span class="normal">9</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Shorthands</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">related</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTRelatedDomain</span><span class="p">:</span><span class="w">      </span><span class="c1">// shares this design&#39;s clock and reset</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">gated</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDerivedClkDomain</span><span class="p">:</span><span class="w">     </span><span class="c1">// derived clock port `clk`, shared reset</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">region</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTRegion</span><span class="p">:</span><span class="w">              </span><span class="c1">// shared clock/reset, no naming footprint</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="c1">// flattens as `c`, not `region_c`</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sub</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">gated</span><span class="p">.</span><span class="nc">RTRelatedDomain</span><span class="p">:</span><span class="w">    </span><span class="c1">// path-prefixed: related to `gated`, not to the design</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">d</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span><span class="w">     </span><span class="c1">// clocked by gated&#39;s derived clock</span>
+</code></pre></div></td></tr></table></div>
+<p>All three are members of every <abbr title="Register-Transfer">RT</abbr> container, so the related target is selected by the
+instantiation path: a bare <code>new RTRelatedDomain</code> relates to the enclosing container, while
+<code>new gated.RTRelatedDomain</code> (or <code>new gated.RTRegion</code>, etc.) relates to the <code>gated</code> domain
+instead, equivalent to <code>@timing.related(gated)</code>.</p>
+<p>The two domain shorthands create a grouping with a footprint of its own:</p>
+<ul>
+<li><strong><code>RTRelatedDomain</code></strong> is the general grouping tool: it scopes a piece of logic under the
+  same clock and reset without minting a new clock group, and its members flatten with the
+  domain-name prefix. Use the annotation form
+  (<code>@timing.related(this, includeReset = false)</code>) when the domain must opt out of the reset.</li>
+<li><strong><code>RTDerivedClkDomain</code></strong> declares a derived (typically gated) clock as described in the
+  previous section; its <code>clk</code> port identifies by the domain's name (domain <code>active</code> yields
+  the <code>active_clk</code> identity and flattened port name). <strong><code>RTDerivedClkDomainSrc</code></strong> is its
+  sourcing variant (<code>Clk &lt;&gt; OUT</code>): the internal gating site, whose design scope drives the
+  derived clock (e.g. <code>active.clk &lt;&gt; icgOut.as(active.Clk)</code>) and exports it to every
+  same-named derived clock in scope.</li>
+</ul>
+<p>An <strong><code>RTRegion</code></strong> is deliberately the opposite: a scoping construct with no observable
+footprint of its own, neither a clock identity nor a naming one. It places logic under a
+timing context while leaving every member's own name (and therefore the generated <abbr title="Hardware Description Language">HDL</abbr>)
+untouched, which is what makes it useful where a design declares its domain configuration
+once, around its ports, and internal logic is later regrouped without renaming anything.
+(The variant that also opts out of the reset, e.g. to keep a memory outside the reset
+scope, still uses the annotation form: <code>@timing.related(this, includeReset = false)</code>
+together with <code>@flattenMode.transparent</code>.)</p>
+<h5 id="the-domain-and-regions-pattern">The Domain-and-Regions Pattern<a class="headerlink" href="#the-domain-and-regions-pattern" title="Permanent link"></a></h5>
+<p>Regions unfold their full value path-prefixed. The common pattern declares a timing context
+exactly once as a named domain, and then opens sparse regions of it wherever pieces of
+logic naturally live in the code, with none of them paying a naming cost:</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
+<span class="normal"> 2</span>
+<span class="normal"> 3</span>
+<span class="normal"> 4</span>
+<span class="normal"> 5</span>
+<span class="normal"> 6</span>
+<span class="normal"> 7</span>
+<span class="normal"> 8</span>
+<span class="normal"> 9</span>
+<span class="normal">10</span>
+<span class="normal">11</span>
+<span class="normal">12</span>
+<span class="normal">13</span>
+<span class="normal">14</span>
+<span class="normal">15</span>
+<span class="normal">16</span>
+<span class="normal">17</span>
+<span class="normal">18</span>
+<span class="normal">19</span>
+<span class="normal">20</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">class</span><span class="w"> </span><span class="nc">Core</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span><span class="p">:</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">IN</span>
+<span class="w">  </span><span class="c1">// the gated clock context, declared once</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">active</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">RTDerivedClkDomain</span><span class="w"> </span><span class="p">{}</span>
+
+<span class="w">  </span><span class="c1">// ... free-running logic ...</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">busy</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bit</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="n">busy</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">start</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="n">busy</span>
+
+<span class="w">  </span><span class="c1">// a piece of logic in the gated context, at its natural code location</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ctrl</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="nc">RTRegion</span><span class="p">:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">state</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+
+<span class="w">  </span><span class="c1">// ... more free-running logic ...</span>
+
+<span class="w">  </span><span class="c1">// another sparse region of the same context</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">datapath</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">active</span><span class="p">.</span><span class="nc">RTRegion</span><span class="p">:</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">VAR</span><span class="p">.</span><span class="nc">REG</span><span class="w"> </span><span class="n">init</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">    </span><span class="n">acc</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">acc</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">ctrl</span><span class="p">.</span><span class="n">state</span>
+</code></pre></div></td></tr></table></div>
+<p>Every region's registers are clocked by <code>active</code>'s derived clock and reset by the design's
+shared reset, yet <code>state</code> and <code>acc</code> flatten under their own names, exactly as if the design
+had a single domain. The regions can be scattered freely between free-running logic, so the
+code order follows the design's dataflow rather than its clock grouping.</p>
 <h3 id="register-types-and-initialization">Register Types and Initialization<a class="headerlink" href="#register-types-and-initialization" title="Permanent link"></a></h3>
 <h4 id="register-declarations-vs-aliases">Register Declarations vs Aliases<a class="headerlink" href="#register-declarations-vs-aliases" title="Permanent link"></a></h4>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"> 1</span>
