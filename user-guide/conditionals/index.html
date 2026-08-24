@@ -2354,7 +2354,7 @@
 <span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">x</span><span class="p">,</span>
 <span class="w">  </span><span class="k">output</span><span class="w">      </span><span class="kt">logic</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w"> </span><span class="n">y</span>
 <span class="p">);</span>
-<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">"dfhdl_defs.svh"</span>
 <span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="p">;</span>
 <span class="k">endmodule</span>
 </code></pre></div></td></tr></table></div>
@@ -2457,8 +2457,8 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">bits</span><span class="w"> </span><span class="k">match</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;1??0&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0??1&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">b</span><span class="s">"1??0"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">b</span><span class="s">"0??1"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">       </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">x</span>
 </code></pre></div></td></tr></table></div></p>
 </li>
@@ -2487,25 +2487,25 @@
 <span class="normal">21</span>
 <span class="normal">22</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="c1">// Match and extract a 32-bit section between DEAD and BEEF</span>
 <span class="n">y</span><span class="w"> </span><span class="k">match</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DEAD${secret: B[32]}BEEF&quot;</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">"DEAD${secret: B[32]}BEEF"</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span>
 <span class="w">    </span><span class="c1">// Use extracted secret bits</span>
 
 <span class="c1">// Extract multiple sections</span>
 <span class="n">y</span><span class="w"> </span><span class="k">match</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DE${part1: B[16]}AD${part2: B[16]}BEEF&quot;</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">"DE${part1: B[16]}AD${part2: B[16]}BEEF"</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="w">    </span><span class="c1">// Use part1 and part2 bits</span>
 
 <span class="c1">// Store extracted bits in variables</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DEAD${extracted: B[32]}BEEF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">"DEAD${extracted: B[32]}BEEF"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
 
 <span class="c1">// Extract multiple sections into variables</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DE${first: B[16]}ADBE${second: B[16]}EF&quot;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">h</span><span class="s">"DE${first: B[16]}ADBE${second: B[16]}EF"</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">input</span><span class="p">.</span><span class="n">runtimeChecked</span>
 
 <span class="c1">// Using guards with extracted bit fields</span>
 <span class="n">y</span><span class="w"> </span><span class="k">match</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DEAD${secret: B[32]}BEEF&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;20000000&quot;</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">"DEAD${secret: B[32]}BEEF"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">secret</span><span class="w"> </span><span class="o">&gt;</span><span class="w"> </span><span class="n">h</span><span class="s">"20000000"</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="w">    </span><span class="c1">// Match when the secret section is greater than 0x20000000</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;DE${part1: B[16]}AD${part2: B[16]}BEEF&quot;</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">part1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">h</span><span class="s">&quot;FFFF&quot;</span><span class="w"> </span><span class="o">=&gt;</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">h</span><span class="s">"DE${part1: B[16]}AD${part2: B[16]}BEEF"</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="n">part1</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">h</span><span class="s">"FFFF"</span><span class="w"> </span><span class="o">=&gt;</span>
 <span class="w">    </span><span class="c1">// Match when part1 is all ones</span>
 </code></pre></div></td></tr></table></div></p>
 </li>
@@ -2542,14 +2542,14 @@
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">            </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">3</span>
 
 <span class="c1">// Converts to</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;22&quot;</span><span class="p">)</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;0&quot;</span>
-<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;11&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;33&quot;</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;44&quot;</span><span class="p">))</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;1&quot;</span>
-<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;55&quot;</span><span class="p">)</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;2&quot;</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'22"</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'0"</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">((</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'11"</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'33"</span><span class="p">)</span><span class="w"> </span><span class="o">||</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'44"</span><span class="p">))</span><span class="w"> </span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'1"</span>
+<span class="k">else</span><span class="w"> </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">x</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'55"</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'2"</span>
 <span class="k">else</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;3&quot;</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'3"</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="complex-selectors">Complex Selectors<a class="headerlink" href="#complex-selectors" title="Permanent link"></a></h3>
 <p>When using expressions as match selectors, a temporary variable is created:</p>
@@ -2569,11 +2569,11 @@
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span>
 
 <span class="c1">// Converts to</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">match_sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;1&quot;</span>
-<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">match_sel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;22&quot;</span><span class="p">)</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;0&quot;</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">match_sel</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'1"</span>
+<span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="n">match_sel</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'22"</span><span class="p">)</span><span class="w"> </span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'0"</span>
 <span class="k">else</span><span class="w"> </span>
-<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">&quot;16&#39;1&quot;</span>
+<span class="w">  </span><span class="n">y</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">sd</span><span class="s">"16'1"</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="rules_1">Rules<a class="headerlink" href="#rules_1" title="Permanent link"></a></h3>
 <ol>
@@ -2609,9 +2609,9 @@
 <span class="normal">2</span>
 <span class="normal">3</span>
 <span class="normal">4</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="k">enum</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="p">:</span><span class="w"> </span><span class="nc">UInt</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">CONST</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Encoded</span><span class="p">.</span><span class="nc">Manual</span><span class="p">(</span><span class="mi">3</span><span class="p">):</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Idle</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;0&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Start</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;3&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Data</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">&quot;3&#39;5&quot;</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Idle</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">"3'0"</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Start</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">"3'3"</span><span class="p">)</span>
+<span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">Data</span><span class="w">  </span><span class="k">extends</span><span class="w"> </span><span class="nc">State</span><span class="p">(</span><span class="n">d</span><span class="s">"3'5"</span><span class="p">)</span>
 </code></pre></div></td></tr></table></div></p>
 </div>
 <h3 id="enum-match-wildcard">Enum Matches and the Wildcard <code>case _</code><a class="headerlink" href="#enum-match-wildcard" title="Permanent link"></a></h3>
@@ -2628,9 +2628,9 @@
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Idle</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// idle logic</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Start</span><span class="w"> </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// start logic</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Data</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="c1">// data logic</span>
-<span class="w">  </span><span class="c1">// wildcard branch, reached only on the unlisted b&quot;11&quot; encoding;</span>
+<span class="w">  </span><span class="c1">// wildcard branch, reached only on the unlisted b"11" encoding;</span>
 <span class="w">  </span><span class="c1">// optional in a fresh design, mandatory in a translation </span>
-<span class="w">  </span><span class="c1">// from Verilog&#39;s `default:` or VHDL&#39;s `when others =&gt;` </span>
+<span class="w">  </span><span class="c1">// from Verilog's `default:` or VHDL's `when others =&gt;` </span>
 <span class="w">  </span><span class="c1">// (see rules below)</span>
 <span class="w">  </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">           </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">state</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">State</span><span class="p">.</span><span class="nc">Idle</span>
 </code></pre></div></td></tr></table></div>
@@ -2686,10 +2686,10 @@
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">output</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="nc">OUT</span>
 
 <span class="w">  </span><span class="n">output</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">input</span><span class="w"> </span><span class="k">match</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0001&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0010&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0100&quot;</span>
-<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">&quot;0000&quot;</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">0</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">"0001"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">1</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">"0010"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="mi">2</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">"0100"</span>
+<span class="w">    </span><span class="k">case</span><span class="w"> </span><span class="n">_</span><span class="w">  </span><span class="o">=&gt;</span><span class="w"> </span><span class="n">b</span><span class="s">"0000"</span>
 </code></pre></div></td></tr></table></div>
 <h3 id="complex-pattern-matching">Complex Pattern Matching<a class="headerlink" href="#complex-pattern-matching" title="Permanent link"></a></h3>
 <div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>

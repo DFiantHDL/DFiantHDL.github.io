@@ -2254,7 +2254,7 @@ becomes a <code>'converse</code> alias:</p>
 <span class="w">  </span><span class="n">AWADDR</span><span class="p">,</span><span class="w"> </span><span class="n">AWPROT</span><span class="p">,</span><span class="w"> </span><span class="n">AWVALID</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="k">out</span><span class="p">;</span>
 <span class="w">  </span><span class="n">AWREADY</span><span class="w">                 </span><span class="o">:</span><span class="w"> </span><span class="k">in</span><span class="p">;</span>
 <span class="k">end</span><span class="w"> </span><span class="nc">view</span><span class="p">;</span>
-<span class="k">alias</span><span class="w"> </span><span class="n">axi4lite_aw_subordinate</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">axi4lite_aw_manager</span><span class="na">&#39;converse</span><span class="p">;</span>
+<span class="k">alias</span><span class="w"> </span><span class="n">axi4lite_aw_subordinate</span><span class="w"> </span><span class="k">is</span><span class="w"> </span><span class="n">axi4lite_aw_manager</span><span class="na">'converse</span><span class="p">;</span>
 </code></pre></div>
 <blockquote>
 <p>VHDL-2019 mode views are currently supported mainly by NVC. The portable default

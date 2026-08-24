@@ -1790,10 +1790,10 @@ move cs-x86_64-pc-win32.exe cs.exe
 </div>
 <div class="tabbed-block">
 <p>Run the following in Windows Powershell:</p>
-<div class="copy highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">&quot;https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-win32.zip&quot;</span> <span class="n">-OutFile</span> <span class="s2">&quot;cs-x86_64-pc-win32.zip&quot;</span>
-<span class="nb">Expand-Archive</span> <span class="n">-Path</span> <span class="s2">&quot;cs-x86_64-pc-win32.zip&quot;</span>
-<span class="nb">Rename-Item</span> <span class="n">-Path</span> <span class="s2">&quot;cs-x86_64-pc-win32.exe&quot;</span> <span class="n">-NewName</span> <span class="s2">&quot;cs.exe&quot;</span>
-<span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">&quot;cs-x86_64-pc-win32.zip&quot;</span>
+<div class="copy highlight"><pre><span></span><code><span class="nb">Invoke-WebRequest</span> <span class="n">-Uri</span> <span class="s2">"https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-win32.zip"</span> <span class="n">-OutFile</span> <span class="s2">"cs-x86_64-pc-win32.zip"</span>
+<span class="nb">Expand-Archive</span> <span class="n">-Path</span> <span class="s2">"cs-x86_64-pc-win32.zip"</span>
+<span class="nb">Rename-Item</span> <span class="n">-Path</span> <span class="s2">"cs-x86_64-pc-win32.exe"</span> <span class="n">-NewName</span> <span class="s2">"cs.exe"</span>
+<span class="nb">Remove-Item</span> <span class="n">-Path</span> <span class="s2">"cs-x86_64-pc-win32.zip"</span>
 <span class="p">.\</span><span class="n">cs</span> <span class="n">setup</span>
 </code></pre></div>
 </div>
@@ -1807,14 +1807,14 @@ move cs-x86_64-pc-win32.exe cs.exe
 <div class="tabbed-content">
 <div class="tabbed-block">
 <p>Run the following in your shell:</p>
-<div class="copy highlight"><pre><span></span><code>curl -fL &quot;https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz&quot; | gzip -d &gt; cs
+<div class="copy highlight"><pre><span></span><code>curl -fL "https://github.com/coursier/launchers/raw/master/cs-x86_64-pc-linux.gz" | gzip -d &gt; cs
 chmod +x cs
 ./cs setup
 </code></pre></div>
 </div>
 <div class="tabbed-block">
 <p>Run the following in your shell:</p>
-<div class="copy highlight"><pre><span></span><code>curl -fL &quot;https://github.com/VirtusLab/coursier-m1/releases/latest/download/cs-aarch64-pc-linux.gz&quot; | gzip -d &gt; cs
+<div class="copy highlight"><pre><span></span><code>curl -fL "https://github.com/VirtusLab/coursier-m1/releases/latest/download/cs-aarch64-pc-linux.gz" | gzip -d &gt; cs
 chmod +x cs
 ./cs setup
 </code></pre></div>

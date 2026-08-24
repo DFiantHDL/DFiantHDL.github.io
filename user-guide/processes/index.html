@@ -2476,11 +2476,11 @@ Control flow on its own never consumes cycles. Between one time-consuming constr
 <span class="normal"> 9</span>
 <span class="normal">10</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
 <span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">S1</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
 <span class="w">    </span><span class="k">def</span><span class="w"> </span><span class="nf">S2</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
-<span class="w">      </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;dear&quot;</span><span class="p">)</span>
+<span class="w">      </span><span class="n">println</span><span class="p">(</span><span class="s">"dear"</span><span class="p">)</span>
 <span class="w">      </span><span class="k">def</span><span class="w"> </span><span class="nf">S3</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
-<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;friend&quot;</span><span class="p">)</span>
+<span class="w">        </span><span class="n">println</span><span class="p">(</span><span class="s">"friend"</span><span class="p">)</span>
 <span class="w">        </span><span class="nc">NextStep</span>
 <span class="w">      </span><span class="nc">NextStep</span>
 <span class="w">    </span><span class="nc">NextStep</span>
@@ -2493,9 +2493,9 @@ Control flow on its own never consumes cycles. Between one time-consuming constr
 <span class="normal">5</span>
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
 <span class="w">  </span><span class="k">def</span><span class="w"> </span><span class="nf">S1</span><span class="p">:</span><span class="w"> </span><span class="nc">Step</span><span class="w"> </span><span class="o">=</span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;hello&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;dear&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">&quot;friend&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"hello"</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"dear"</span><span class="p">)</span>
+<span class="w">    </span><span class="n">println</span><span class="p">(</span><span class="s">"friend"</span><span class="p">)</span>
 <span class="w">    </span><span class="nc">NextStep</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Guard sampling.</strong> Because the loop-back edge adds no extra cycle, a loop guard is evaluated combinationally in the transition cycle, using the values that registers will hold in the <em>next</em> cycle. For example, when an iteration ends with the implicit increment <code>i.din := i + 1</code>, the guard <code>i &lt; 100</code> is evaluated in that same cycle as <code>(i + 1) &lt; 100</code>. External signals (ports) read by a guard are sampled in the transition cycle. This matches how a hand-written FSM decides its next state.</p>
@@ -2505,11 +2505,11 @@ Control flow on its own never consumes cycles. Between one time-consuming constr
 <span class="normal">4</span>
 <span class="normal">5</span>
 <span class="normal">6</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="n">process</span><span class="p">:</span>
-<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w">     </span><span class="c1">// guard evaluated as (i + 1) &lt; 100 in each iteration&#39;s last cycle</span>
+<span class="w">  </span><span class="k">for</span><span class="w"> </span><span class="p">(</span><span class="n">i</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="n">until</span><span class="w"> </span><span class="mi">100</span><span class="p">)</span><span class="w">     </span><span class="c1">// guard evaluated as (i + 1) &lt; 100 in each iteration's last cycle</span>
 <span class="w">    </span><span class="n">dataOut</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">mem</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
 <span class="w">    </span><span class="mi">1</span><span class="p">.</span><span class="n">cy</span><span class="p">.</span><span class="n">wait</span>
 <span class="w">  </span><span class="n">done</span><span class="p">.</span><span class="n">din</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">1</span><span class="w">              </span><span class="c1">// iteration 99 exits the loop within its own cycle, so this</span>
-<span class="w">                             </span><span class="c1">// executes in the loop&#39;s 100th and final cycle</span>
+<span class="w">                             </span><span class="c1">// executes in the loop's 100th and final cycle</span>
 </code></pre></div></td></tr></table></div>
 <p><strong>Process prologue.</strong> Statements written <em>before</em> the first step, together with the first step's <code>onEntry</code> block, form the process <strong>prologue</strong>. The prologue runs in exactly two situations:</p>
 <ol>

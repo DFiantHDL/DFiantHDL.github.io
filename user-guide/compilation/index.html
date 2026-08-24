@@ -1778,13 +1778,13 @@
 <span class="normal">5</span>
 <span class="normal">6</span>
 <span class="normal">7</span>
-<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`include</span><span class="w"> </span><span class="s">&quot;Foo_defs.svh&quot;</span>
+<span class="normal">8</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="no">`include</span><span class="w"> </span><span class="s">"Foo_defs.svh"</span>
 
 <span class="k">module</span><span class="w"> </span><span class="n">Foo</span><span class="p">(</span>
 <span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="n">t_enum_State</span><span class="w"> </span><span class="n">s</span><span class="p">,</span>
 <span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">logic</span><span class="w">             </span><span class="n">o</span>
 <span class="p">);</span>
-<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">&quot;dfhdl_defs.svh&quot;</span>
+<span class="w">  </span><span class="no">`include</span><span class="w"> </span><span class="s">"dfhdl_defs.svh"</span>
 <span class="w">  </span><span class="c1">// ...</span>
 </code></pre></div></td></tr></table></div>
 The file is include-guarded, so every design that needs it can include it unconditionally.</p>
