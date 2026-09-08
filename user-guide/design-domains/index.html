@@ -2509,6 +2509,25 @@ filled in from the global <code>ElaborationOptions</code> defaults at compile ti
 and inherits the rest from the elaboration defaults. The empty form <code>@timing.clock()</code> /
 <code>@timing.reset()</code> forces the slot to appear (e.g. on a combinational or blackbox owner) while
 still deriving every field from the defaults.</p>
+<p>Annotations are also inherited along the class hierarchy: a design generated from a class
+carries the annotations of its base classes and mixed-in traits, so a shared clocking policy
+can live on a base design that several designs extend. Where the same annotation appears more
+than once, it merges field by field with the most derived class winning, exactly as a partial
+annotation merges over the elaboration defaults.</p>
+<div class="highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal">1</span>
+<span class="normal">2</span>
+<span class="normal">3</span>
+<span class="normal">4</span>
+<span class="normal">5</span>
+<span class="normal">6</span>
+<span class="normal">7</span></pre></div></td><td class="code"><div><pre><span></span><code><span class="nd">@timing</span><span class="p">.</span><span class="n">clock</span><span class="p">(</span><span class="n">rate</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">100</span><span class="p">.</span><span class="nc">MHz</span><span class="p">)</span>
+<span class="k">trait</span><span class="w"> </span><span class="nc">Board100MHz</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">RTDesign</span>
+
+<span class="c1">// clocked at 100.MHz on the falling edge</span>
+<span class="nd">@timing</span><span class="p">.</span><span class="n">clock</span><span class="p">(</span><span class="n">edge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">_</span><span class="p">.</span><span class="n">falling</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MyDesign</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Board100MHz</span><span class="p">:</span>
+<span class="w">  </span><span class="p">...</span>
+</code></pre></div></td></tr></table></div>
 <h4 id="inclusion-policies">Inclusion Policies<a class="headerlink" href="#inclusion-policies" title="Permanent link"></a></h4>
 <ul>
 <li><code>AsNeeded</code>: Only emits clock/reset ports when actually used.</li>
